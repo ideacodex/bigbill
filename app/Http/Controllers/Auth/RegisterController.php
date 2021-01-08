@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Score;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\User;
+use DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
+
 
 class RegisterController extends Controller
 {
@@ -64,10 +70,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+       DB::beginTransaction();
+       try{
+          if (!Role::find(1)){
+              $roleSuper = Role::create(['name' => 'root']);
+              $roleAdmin = Role::create(['name' => 'Super']);
+              $roleSeller = Role::create(['name' => 'Admin']);
+              $roleFinal = Role::create(['name' => 'User']);
+          }
+          $request = new Request($data);
+       }catch(\Illuminate\Database\QueryException $e){
+           DB::rollback();
+           abort(500, $e->errorInfo[2]);
+           return response()->json($response, 500);
+       }
+       DB::commit();
+
+       $user = new User();
+       $user->name = $data['name'];
+       $user->lastname = $data['lastname'];
+       $user->email = $data['email'];
+       $user->password = Hash::make($data['password']);
+       $user->phone = $data['phone'];
+       $user->role_id = 4;
+       $user->save();
+
+       return $user;
     }
 }

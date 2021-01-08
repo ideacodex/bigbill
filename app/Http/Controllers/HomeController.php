@@ -2,7 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use DB;
+use App\Post;
+use App\Reaction;
+use App\Question;
+use App\Category;
+use App\Award;
+use App\User;
+use App\Score;
 
 class HomeController extends Controller
 {
@@ -23,7 +33,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        if (!$user->hasAnyRole(Role::all())){
+            auth()->user()->syncRoles('User');
+        }
         return view('home');
-        
     }
 }
