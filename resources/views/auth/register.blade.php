@@ -1,11 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+
+ <!--Validación de errores-->
+ @if ($errors->any())
+ <div class="alert alert-danger">
+     <ul>
+         @foreach ($errors->all() as $error)
+             <li>{{ $error }}</li>
+         @endforeach
+     </ul>
+ </div>
+@endif
+<!--Validación de errores-->
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registrar') }}</div>
+                <div class="card-header">{{ __('Registro') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -14,7 +27,7 @@
                         {{--Name--}}
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-
+                            <i class="fas fa-user"></i>
                             <div class="col-md-6">
                                 <input placeholder="Nombre" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -29,7 +42,7 @@
                         {{--Lastname--}}
                         <div class="form-group row">
                             <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-
+                            <i class="fas fa-signature"></i>
                             <div class="col-md-6">
                                 <input placeholder="Apellido" id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
 
@@ -44,6 +57,7 @@
                          {{--Phone--}}
                          <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                            <i class="fas fa-mobile-alt"></i>
 
                             <div class="col-md-6">
                                 <input placeholder="No. Celular" id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
@@ -59,6 +73,7 @@
                         {{--Email--}}
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                            <i class="fas fa-at"></i>
 
                             <div class="col-md-6">
                                 <input placeholder="Correo electrónico" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -74,6 +89,7 @@
                         {{--Password--}}
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                            <i class="fas fa-key"></i>
 
                             <div class="col-md-6">
                                 <input placeholder="Contraseña" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -89,6 +105,7 @@
                         {{--Password confirm--}}
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                            <i class="fas fa-key"></i>
 
                             <div class="col-md-6">
                                 <input placeholder="Confirmar contraseña" id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">

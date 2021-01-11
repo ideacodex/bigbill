@@ -49886,8 +49886,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /app/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/msarazua/Documentos/laravel/controlPctec/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/msarazua/Documentos/laravel/controlPctec/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
