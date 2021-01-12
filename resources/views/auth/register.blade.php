@@ -70,6 +70,39 @@
                             </div>
                         </div>
 
+                          {{--Nit--}}
+                          <div class="form-group row">
+                            <label for="nit" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                            <i class="fas fa-sort-numeric-up-alt"></i>
+
+                            <div class="col-md-6">
+                                <input placeholder="Nit" id="nit" type="text" class="form-control @error('nit') is-invalid @enderror" name="nit" value="{{ old('nit') }}" required autocomplete="nit">
+
+                                @error('nit')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{--Address--}}
+                        <div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
+                            <i class="fas fa-home"></i>
+
+                            <div class="col-md-6">
+                                <input placeholder="Dirección" id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
+
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
                         {{--Email--}}
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>

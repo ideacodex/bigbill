@@ -22,15 +22,15 @@ class Products extends Migration
             $table->foreign('company_id')
                 ->references('id')->on('companies');
             $table->string('quantity_values');
-            $table->string('date_values')->unique();
+            $table->string('date_values');
             /**Cantidad de ingreso */
-            $table->integer('income_amount')->unique();
+            $table->integer('income_amount');
             /**Fecha de ingreso */
             $table->date('date_admission');
             /**Cantidad de egresos */
-            $table->integer('amount_expenses');
+            $table->integer('amount_expenses')->nullable();
             /**Fecha de egresos */
-            $table->date('date_discharge');
+            $table->date('date_discharge')->nullable();
             $table->timestamps();           
         });
     }
