@@ -1,4 +1,4 @@
-@extends('layouts.diseñousuario')
+@extends('layouts.Admin')
 @section('content')
     <!--Validación de errores-->
     @if ($errors->any())
@@ -27,7 +27,7 @@
         </div>
         <div class="card-header">
         </div>
-        <form action="{{ route('update', $companies->id) }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ url('empresas/' .$companies->id) }}" method="POST" enctype="multipart/form-data"
             onsubmit="return checkSubmit();">
             @csrf @method('PATCH')
             <div class="card-body card-block">

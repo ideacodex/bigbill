@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Customer;
+use App\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class CustomersController extends Controller
 {
@@ -13,7 +17,8 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+        return view("customers.index", ["customers" => $customers]);
     }
 
     /**
@@ -23,7 +28,8 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        return view("customers.create", ['customers' => $customers]);
     }
 
     /**
@@ -34,7 +40,36 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required', 
+            'phone' => 'required',
+            'email' => 'required',
+            'nit' => 'required',
+            'dpi' => 'required'
+        ]);
+        DB::beginTransaction();
+        try{
+            $customers = new Customer;
+            $customers->name = $request->name;
+            $customers->lastname = $request->lastname;
+            $customers->phone = $request->phone;
+            $customers->email = $request->email;
+            $customers->nit = $request->nit;
+            $customers->dpi = $request->dpi;
+            
+            $customers->save();
+
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            dd('No tiene que llegar aqui', $e);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('CustomersController@index')
+        ->with('datosAgregados', 'Registro exitoso');
     }
 
     /**
@@ -56,7 +91,8 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customers = Customer::findOrFail($id);
+        return view('customers.edit', compact('customers'));
     }
 
     /**
@@ -68,7 +104,11 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customers = request()->except((['_token', '_method']));
+        Customer::where('id', '=', $id)->update($customers);
+
+        return redirect()->action('CustomersController@index')
+        ->with('datosModificados', 'Regitro Modificado');
     }
 
     /**
@@ -79,6 +119,7 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $record = Customer::destroy($id);
+        return back()->with('datosEliminados', 'Cliente Eliminado');
     }
 }

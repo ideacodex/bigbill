@@ -24,10 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 /**Companies Route */
-Route::get('company', 'CompaniesController@index');
-Route::get('companies', 'CompaniesController@create');
-Route::post('store', 'CompaniesController@store')->name('store')->middleware('auth'); 
-Route::delete('delete/{id}', 'CompaniesController@destroy');
-Route::get('edit/{id}', 'CompaniesController@edit');
-Route::patch('update/{id}', 'CompaniesController@update')->name('update');
+Route::resource('empresas', 'CompaniesController')->middleware('auth');
 /**Companies Route */
+
+/**Clients Route */
+Route::resource('clientes', 'CustomersController')->middleware('auth');
+/**Clients Route */

@@ -1,4 +1,4 @@
-@extends('layouts.diseñousuario')
+@extends('layouts.Admin')
 @section('content')
     <!--Validación de errores-->
     @if ($errors->any())
@@ -42,7 +42,7 @@
                                 <option value="-1">Todo</option>
                             </select> entries</label>
                         <div>
-                            <a href="{{ url('companies') }}" class="btn btn-success btn-sm">&nbsp;
+                            <a href="{{ route('empresas.create') }}" class="btn btn-success btn-sm">&nbsp;
                                 Agregar
                                 <i class="fas fa-plus-square"></i>
                             </a>
@@ -76,9 +76,11 @@
                                 <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1"
                                     colspan="1" style="width: 249px;"
                                     aria-label="Office: activate to sort column ascending">Teléfono</th>
+
                                 <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1"
                                     colspan="1" style="width: 197px;"
                                     aria-label="Salary: activate to sort column ascending">Dirección</th>
+
                                 <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1"
                                     colspan="1" style="width: 197px;"
                                     aria-label="Salary: activate to sort column ascending">Acciones</th>
@@ -97,16 +99,16 @@
                                             <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
                                                 <span><i class="fas fa-eye"></i></span>
                                             </a>
-                                            <a class="btn btn-sm btn-primary" href="{{ url('edit', $item->id) }}"
+                                            <a class="btn btn-sm btn-primary" href="{{ url('empresas/' . $item->id . '/edit') }}"
                                                 title="Editar">
                                                 <span><i class="fas fa-edit"></i></span>
                                             </a>
                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                 onclick="event.preventDefault();
-                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                 <span class="text-light"><i class="fas fa-trash-alt"></i></span>
                                             </a>
-                                            <form id="formDel{{ $item->id }}" action="{{ url('delete/' . $item->id) }}"
+                                            <form id="formDel{{ $item->id }}" action="{{ url('empresas/' . $item->id) }}"
                                                 method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
@@ -121,8 +123,9 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-5">
-                    <div class="dataTables_info" id="bootstrap-data-table_info" role="status" aria-live="polite">Showing
-                        1 to 10 of 57 entries</div>
+                    <div class="dataTables_info" id="bootstrap-data-table_info" role="status" aria-live="polite">Tabla de
+                        elementos
+                    </div>
                 </div>
                 <div class="col-sm-12 col-md-7">
                     <div class="dataTables_paginate paging_simple_numbers" id="bootstrap-data-table_paginate">

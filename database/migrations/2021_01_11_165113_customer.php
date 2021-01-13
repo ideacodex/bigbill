@@ -16,11 +16,11 @@ class Customer extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('lastname')->unique();
+            $table->string('lastname');
             $table->integer('phone');
             $table->string('email');
-            $table->integer('nit')->unique();
-            $table->integer('dpi')->unique();
+            $table->integer('nit');
+            $table->integer('dpi');
             $table->timestamps();           
         });
     }

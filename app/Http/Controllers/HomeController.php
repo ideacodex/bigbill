@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if (!$user->hasAnyRole(Role::all())){
-            auth()->user()->syncRoles('User');
+            auth()->user()->syncRoles('Usuario');
         }
         return view('home');
     }

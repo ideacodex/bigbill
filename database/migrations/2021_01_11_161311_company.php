@@ -17,8 +17,8 @@ class Company extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('nit')->unique();
-            $table->integer('phone');
-            $table->string('address');
+            $table->integer('phone')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();           
         });
     }
