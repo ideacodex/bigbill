@@ -73,10 +73,13 @@ class RegisterController extends Controller
        DB::beginTransaction();
        try{
           if (!Role::find(1)){
+            
               $roleSuper = Role::create(['name' => 'Usuario']);
               $roleAdmin = Role::create(['name' => 'Vendedor']);
               $roleSeller = Role::create(['name' => 'Contador']);
               $roleFinal = Role::create(['name' => 'Gerente']);
+             
+              
           }
           $request = new Request($data);
        }catch(\Illuminate\Database\QueryException $e){
@@ -94,7 +97,7 @@ class RegisterController extends Controller
        $user->phone = $data['phone'];
        $user->nit = $data['nit'];
        $user->address = $data['address'];
-       $user->role_id = 4;
+       $user->role_id = 1;
        $user->save();
 
        return $user;

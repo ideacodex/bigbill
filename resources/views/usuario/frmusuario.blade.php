@@ -1,4 +1,4 @@
-@extends('layouts.diseñousuario')
+@extends('layouts.Admin')
 @section('content')
     <div class="row">
         <div class="col-md-12">

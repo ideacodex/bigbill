@@ -24,75 +24,120 @@
         <div class="card-header">
             <strong>Agregar Companía</strong> <small></small>
         </div>
-        <div class="card-header">
-        </div>
-        <form action="{{ route('empresas.store') }}" method="POST" enctype="multipart/form-data"
-            onsubmit="return checkSubmit();">
-            @csrf
-            <div class="card-body card-block">
-                <!--Nombre-->
-                <div class="form-group">
-                    <label class=" form-control-label">Nombre</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <input id="name" name="name" type="text" class="form-control">
-                    </div>
-                    <small class="form-text text-muted">ex. Peter</small>
-                </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-body card-block">
+                    <form method="POST" action="{{ route('empresas.store') }}" onsubmit="return checkSubmit();">
+                        @csrf
+                        {{--Nombre de la companía--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Nombre de la companía" class="text-dark fas fa-building"></i>
+                                </span>
+                            </div>
+                            <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
+                                name="name" value="{{ old('name') }}" placeholder="Nombre de la companía" required
+                                autocomplete="name" autofocus>
 
-                <!--Nit-->
-                <div class="form-group">
-                    <label class=" form-control-label">Nit</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-list-ol"></i>
-                        </div>
-                        <input id="nit" name="nit" type="number" class="form-control">
-                    </div>
-                    <small class="form-text text-muted">ex. 5515152-0</small>
-                </div>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
-                <!--No. Celular-->
-                <div class="form-group">
-                    <label class=" form-control-label">No. Celular</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-mobile-alt"></i>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        <input type="number" id="phone" name="phone" class="form-control">
-                    </div>
-                    <small class="form-text text-muted">ex. 5100-1510</small>
-                </div>
 
-                <!--Dirección-->
-                <div class="form-group">
-                    <label class=" form-control-label">Dirección</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-map-marker"></i>
-                        </div>
-                        <input type="text" id="address" name="address" class="form-control">
-                    </div>
-                    <small class="form-text text-muted">ex. Calle los altos 9-01</small>
-                </div>
+                        {{--Nit--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Nit" class="text-dark fas fa-sort-amount-down"></i>
+                                </span>
+                            </div>
+                            <input id="nit" placeholder="Nit" type="number"
+                                class="text-dark form-control @error('nit') is-invalid @enderror" name="nit"
+                                value="{{ old('nit') }}" required autocomplete="nit" autofocus>
 
-                <!--Button-->
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-lg btn-primary">
-                                <i class="far fa-save"></i>
-                                {{ __('Guardar') }}
-                            </button>
+                            @error('nit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('nit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                    </div>
+
+                        {{--Dirección--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Dirección" class="text-dark fas fa-map-marker-alt"></i>
+                                </span>
+                            </div>
+                            <input id="address" placeholder="Dirección" type="text"
+                                class="text-dark form-control @error('address') is-invalid @enderror" name="address"
+                                value="{{ old('address') }}" required autocomplete="address" autofocus>
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        {{--Teléfono--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
+                                </span>
+                            </div>
+                            <input id="phone" placeholder="Número de teléfono" type="number"
+                                class="text-dark form-control @error('phone') is-invalid @enderror"
+                                name="phone" value="{{ old('phone') }}" required
+                                autocomplete="phone" autofocus>
+
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="container mt-4">
+                            <div class="col-12">
+                                <div class="col text-center">
+                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                        <i class="far fa-save"></i>
+                                        {{ __('Guardar') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-
-        </form>
+        </div>
     </div>
-
 @endsection

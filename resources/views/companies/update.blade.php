@@ -18,75 +18,126 @@
         </div>
     @endif
     <!--Mensaje flash-->
-
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <div class="card">
-        <div class="alert alert-info text-center" role="alert">
-            Editar Companía
-        </div>
         <div class="card-header">
+            <strong>Editar Companía</strong> <small></small>
         </div>
-        <form action="{{ url('empresas/' .$companies->id) }}" method="POST" enctype="multipart/form-data"
-            onsubmit="return checkSubmit();">
-            @csrf @method('PATCH')
-            <div class="card-body card-block">
-                <!--Nombre-->
-                <div class="form-group">
-                    <label class=" form-control-label"></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <input value="{{ $companies->name}}" id="name" name="name" type="text" placeholder="Nombre" class="form-control">
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-body card-block">
+                    <form action="{{ url('empresas/' . $companies->id) }}" method="POST" enctype="multipart/form-data"
+                        onsubmit="return checkSubmit();">
+                        @csrf @method('PATCH')
+                        {{--Nombre de la companía--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Nombre de la companía" class="text-dark fas fa-building"></i>
+                                </span>
+                            </div>
+                            <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
+                                name="name" value="{{ $companies->name}}" placeholder="Nombre de la companía" required
+                                autocomplete="name" autofocus>
 
-                <!--Nit-->
-                <div class="form-group">
-                    <label class=" form-control-label"></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-list-ol"></i>
-                        </div>
-                        <input value="{{ $companies->nit}}" id="nit" name="nit" type="number" placeholder="Nit" class="form-control">
-                    </div>
-                </div>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
-                <!--No. Celular-->
-                <div class="form-group">
-                    <label class=" form-control-label"></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-mobile-alt"></i>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        <input value="{{ $companies->phone }}" type="number" id="phone" name="phone" placeholder="No. Celular" class="form-control">
-                    </div>
-                </div>
 
-                <!--Dirección-->
-                <div class="form-group">
-                    <label class=" form-control-label"></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fas fa-map-marker"></i>
-                        </div>
-                        <input value="{{ $companies->address}}" type="text" id="address" name="address" placeholder="Dirección" class="form-control">
-                    </div>
-                </div>
+                        {{--Nit--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Nit" class="text-dark fas fa-sort-amount-down"></i>
+                                </span>
+                            </div>
+                            <input id="nit" placeholder="Nit" type="number"
+                                class="text-dark form-control @error('nit') is-invalid @enderror" name="nit"
+                                value="{{ $companies->nit}}" required autocomplete="nit" autofocus>
 
-                <!--Button-->
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-lg btn-primary">
-                                <i class="far fa-save"></i>
-                                {{ __('Guardar') }}
-                            </button>
+                            @error('nit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('nit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                    </div>
+
+                        {{--Dirección--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Dirección" class="text-dark fas fa-map-marker-alt"></i>
+                                </span>
+                            </div>
+                            <input id="address" placeholder="Dirección" type="text"
+                                class="text-dark form-control @error('address') is-invalid @enderror" name="address"
+                                value="{{ $companies->address}}" required autocomplete="address" autofocus>
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        {{--Teléfono--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
+                                </span>
+                            </div>
+                            <input id="phone" placeholder="Número de teléfono" type="number"
+                                class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
+                                value="{{ $companies->phone}}" required autocomplete="phone" autofocus>
+
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="container mt-4">
+                            <div class="col-12">
+                                <div class="col text-center">
+                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                        <i class="far fa-save"></i>
+                                        {{ __('Guardar') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 @endsection

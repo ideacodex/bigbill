@@ -20,8 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/admin', 'AdminController@index')->name('admin')->middleware('auth');
 
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
@@ -30,3 +30,7 @@ Route::resource('empresas', 'CompaniesController')->middleware('auth');
 /**Clients Route */
 Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Clients Route */
+
+/**Bill Route */
+Route::resource('facturas', 'BillsController')->middleware('auth');
+/**Bill Route */
