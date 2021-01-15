@@ -19,6 +19,7 @@
     @endif
     <!--Mensaje flash-->
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">
 
     <div class="well well-sm">
@@ -144,7 +145,6 @@
 
     </script>
     <!--Input dinámico-->
-
 
 @endsection
 @section('bottom')
