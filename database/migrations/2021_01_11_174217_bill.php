@@ -13,21 +13,18 @@ class Bill extends Migration
      */
     public function up()
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('invoice_bills', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->integer('invoice_series');
-            $table->integer('number_bill');
-            $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')
-                ->references('id')->on('companies');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')->on('users');
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')
-                ->references('id')->on('customers');
-            $table->integer('total');
-            $table->timestamps();           
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')
+                ->references('id')->on('companies');
+            $table->decimal('iva');
+            $table->decimal('subtotal');
+            $table->decimal('total');
+            $table->timestamps();
         });
     }
 
@@ -38,6 +35,6 @@ class Bill extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('invoice_bills');
     }
 }

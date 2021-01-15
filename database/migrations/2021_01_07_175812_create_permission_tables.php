@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -86,6 +87,7 @@ class CreatePermissionTables extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
     }
 
     /**
@@ -107,4 +109,6 @@ class CreatePermissionTables extends Migration
         Schema::drop($tableNames['roles']);
         Schema::drop($tableNames['permissions']);
     }
+
+    
 }

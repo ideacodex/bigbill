@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('inicio');
+    return view('PruebaDiseño/tables');
 });
 
 Auth::routes();
@@ -32,5 +32,5 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Clients Route */
 
 /**Bill Route */
-Route::resource('facturas', 'BillsController')->middleware('auth');
+Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 /**Bill Route */

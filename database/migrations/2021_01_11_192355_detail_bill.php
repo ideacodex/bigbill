@@ -13,24 +13,23 @@ class DetailBill extends Migration
      */
     public function up()
     {
+        
         Schema::create('detail_bill', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->unsignedBigInteger('number_bill');
-            $table->foreign('number_bill')
-            ->references('id')->on('bills');
-
+            $table->unsignedBigInteger('invoice_id');
+            $table->foreign('invoice_id')
+            ->references('id')->on('invoice_bills');
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')
             ->references('id')->on('products');
-
             $table->integer('quantity');
-            
             $table->float('unit_price');
-            $table->float('subtotal');
+            $table->decimal('total');
             $table->timestamps();           
         });
-    }
+
+        
+    }   
 
     /**
      * Reverse the migrations.

@@ -2,161 +2,153 @@
 
 @section('content')
 
- <!--Validación de errores-->
- @if ($errors->any())
- <div class="alert alert-danger">
-     <ul>
-         @foreach ($errors->all() as $error)
-             <li>{{ $error }}</li>
-         @endforeach
-     </ul>
- </div>
-@endif
-<!--Validación de errores-->
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Registro') }}</div>
-
-                <div class="card-body">
+    <!--Validación de errores-->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <!--Validación de errores-->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="register">
+                        <label class="align-content" style="color: white; font-size:30px; font-family: georgia;">Registro</label>
+                    </a>
+                </div>
+                <div class="login-form">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
                         {{--Name--}}
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-user"></i>
-                            <div class="col-md-6">
-                                <input placeholder="Nombre" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input id="name" type="text" placeholder="Nombre" class="form-control" @error('name') is-invalid
+                                @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         {{--Lastname--}}
-                        <div class="form-group row">
-                            <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-signature"></i>
-                            <div class="col-md-6">
-                                <input placeholder="Apellido" id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
-
-                                @error('lastname')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input id="lastname" type="text" placeholder="Apellido"
+                                class="form-control @error('lastname') is-invalid @enderror" name="lastname"
+                                value="{{ old('lastname') }}" required autocomplete="lastname">
+                            @error('lastname')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                         {{--Phone--}}
-                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-mobile-alt"></i>
 
-                            <div class="col-md-6">
-                                <input placeholder="No. Celular" id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
 
-                                @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        {{--Phone--}}
+                        <div class="form-group">
+                            <label>No. Celular</label>
+                            <input id="phone" type="text" placeholder="No. Celular"
+                                class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                value="{{ old('phone') }}" required autocomplete="phone">
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                          {{--Nit--}}
-                          <div class="form-group row">
-                            <label for="nit" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-sort-numeric-up-alt"></i>
-
-                            <div class="col-md-6">
-                                <input placeholder="Nit" id="nit" type="text" class="form-control @error('nit') is-invalid @enderror" name="nit" value="{{ old('nit') }}" required autocomplete="nit">
-
-                                @error('nit')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        {{--Nit--}}
+                        <div class="form-group">
+                            <label>Nit</label>
+                            <input placeholder="Nit" id="nit" type="text"
+                                class="form-control @error('nit') is-invalid @enderror" name="nit" value="{{ old('nit') }}"
+                                required autocomplete="nit">
+                            @error('nit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-
                         {{--Address--}}
-                        <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-home"></i>
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input placeholder="Dirección" id="address" type="text"
+                                class="form-control @error('address') is-invalid @enderror" name="address"
+                                value="{{ old('address') }}" required autocomplete="address">
 
-                            <div class="col-md-6">
-                                <input placeholder="Dirección" id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
-
-                                @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-
-
                         {{--Email--}}
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-at"></i>
+                        <div class="form-group">
+                            <label>Correo electrónico</label>
+                            <input placeholder="Correo electrónico" id="email" type="email"
+                                class="form-control @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" required autocomplete="email">
 
-                            <div class="col-md-6">
-                                <input placeholder="Correo electrónico" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-
                         {{--Password--}}
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-key"></i>
-
-                            <div class="col-md-6">
-                                <input placeholder="Contraseña" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input placeholder="Contraseña" id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password" required
+                                autocomplete="new-password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-
                         {{--Password confirm--}}
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
-                            <i class="fas fa-key"></i>
-
-                            <div class="col-md-6">
-                                <input placeholder="Confirmar contraseña" id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                        <div class="form-group">
+                            <label>Confirmar Contraseña</label>
+                            <input placeholder="Confirmar contraseña" id="password-confirm" type="password"
+                                class="form-control" name="password_confirmation" required autocomplete="new-password">
                         </div>
+                        {{-- terminos y condiciones --}}
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Acepto los terminos y politicas de uso
+                            </label>
+                        </div>
+                        {{-- boton de registrar --}}
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i>
-                                    {{ __('Guardar') }}
-                                </button>
-                            </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>  {{ __('Guardar') }}</button>
+                           {{-- comentarios extras --}}
+                           <div class="register-link m-t-15 text-center">
+                            <p>¿Ya tienes cuenta? <a href="login"> Inicia sesion</a></p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+
+
+
+
+
+
+
+
+
 @endsection
