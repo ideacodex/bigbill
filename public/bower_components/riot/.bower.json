@@ -1,0 +1,15 @@
+{
+  "name": "riot",
+  "homepage": "https://github.com/muut/riotjs",
+  "version": "5.1.2",
+  "_release": "5.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.1.2",
+    "commit": "d073078d1cf4215eda734d1da48b055591d91fad"
+  },
+  "_source": "https://github.com/muut/riotjs.git",
+  "_target": "^5.1.2",
+  "_originalSource": "riot",
+  "_direct": true
+}

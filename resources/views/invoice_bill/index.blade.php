@@ -42,9 +42,10 @@
                                 <option value="-1">Todo</option>
                             </select> entries</label>
                             <div>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalBill">
-                                    Crear factura
-                                </button>
+                                <a href="{{ route('facturas.create') }}" class="btn btn-success btn-sm">&nbsp;
+                                    Crear Factura
+                                    <i class=" fas fa-plus-square"></i>
+                                </a>
                             </div>
                     </div>
                 </div>
@@ -68,18 +69,15 @@
                         <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 322px;" aria-sort="ascending"
                             aria-label="Name: activate to sort column descending">Id</th>
-                        <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 322px;" aria-sort="ascending"
-                            aria-label="Name: activate to sort column descending">Número de serie</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 509px;" aria-label="Position: activate to sort column ascending">Número de factura
+                            style="width: 509px;" aria-label="Position: activate to sort column ascending">Facturador
                         </th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 249px;" aria-label="Office: activate to sort column ascending">Companía</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Facturador</th>
+                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Iva</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Cliente</th>
+                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Subtotal</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Total</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
@@ -87,14 +85,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($bills as $item)
+                    @foreach ($invoice_bill as $item)
                         <tr>
                             <th scope="row"> {{ $item->id }}</th>
-                            <td>{{ $item->invoice_series }}</td>
-                            <td>{{ $item->number_bill }}</td>
-                            <td>{{ $item->company_id }}</td>
                             <td>{{ $item->user_id }}</td>
-                            <td>{{ $item->customer_id }}</td>
+                            <td>{{ $item->company_id }}</td>
+                            <td>{{ $item->iva }}</td>
+                            <td>{{ $item->subtotal }}</td>
                             <td>{{ $item->total }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">

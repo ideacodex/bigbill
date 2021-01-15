@@ -240,13 +240,14 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Vista de registros</h1>
+                        <h1>Facturador</h1>
                     </div>
                 </div>
 
             </div>
         </div>
         <!-- Page Content -->
+        {{--
         <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-theme-1 border-bottom">
@@ -275,33 +276,32 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('adminPost') }}"> <span><i
-                                            class="fas fa-newspaper"></i></span> Publicaciones</a>
-                                <a class="dropdown-item" href="{{ url('users') }}"> <span><i
-                                            class="fas fa-users"></i></span> Usuarios</a>
-                                <a class="dropdown-item" href="{{ url('home') }}"> <span><i
-                                            class="fas fa-newspaper"></i></span> Vista Usuario</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
-                                    <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
-                                    <span class="" style="margin-top: -5px;"> Salir </span></a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                --}}
-            </nav>
-
-            <main class="mb-5">
-                @yield('content')
-            </main>
+                        class="fas fa-newspaper"></i></span> Publicaciones</a>
+                <a class="dropdown-item" href="{{ url('users') }}"> <span><i class="fas fa-users"></i></span>
+                    Usuarios</a>
+                <a class="dropdown-item" href="{{ url('home') }}"> <span><i class="fas fa-newspaper"></i></span> Vista
+                    Usuario</a>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();  document.getElementById('logout-form').submit();">
+                    <span class="nav-app-icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span class="" style="margin-top: -5px;"> Salir </span></a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
         </div>
-        <!-- /#page-content-wrapper -->
+        </li>
+        </ul>
+    </div>
+    --}}
+    </nav>
+
+    <main class="mb-5">
+        @yield('content')
+    </main>
+    </div>
+    <!-- /#page-content-wrapper -->
 </body>
 
 </html>
@@ -334,6 +334,7 @@
 <script src="{{ asset('sufee/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
 <script src="{{ asset('sufee/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
 <script src="{{ asset('sufee/assets/js/lib/data-table/datatables-init.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="{{ asset('sufee/vendors/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('sufee/vendors/jquery/dist/jquery.js') }}"></script>
@@ -372,3 +373,10 @@
     })(jQuery);
 
 </script>
+
+<!--Bower-->
+<script src="{{ url('bower_components/riot/riot.min.js') }}"></script>
+<script src="{{ url('bower_components/riot/riot+compiler.min.js') }}"></script>
+
+@yield('bottom')
+<!--Bower-->

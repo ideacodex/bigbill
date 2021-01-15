@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
-use App\Bill;
-use App\Status;
+use App\InvoiceBill;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB as FacadesDB;
 
-class BillsController extends Controller
+class InvoiceBillsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,8 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills = Bill::all();
-        return view("bills.index", ["bills" => $bills]);
+        $invoice_bill = InvoiceBill::all();
+        return view("invoice_bill.index", ["invoice_bill" => $invoice_bill]);
     }
 
     /**
@@ -28,9 +25,8 @@ class BillsController extends Controller
      */
     public function create()
     {
-        $bills = Bill::all();
-        return view("bills.create", ['bills' => $bills]);
-    }
+        $invoice_bill = InvoiceBill::all();
+        return view("invoice_bill.create", ["invoice_bill" => $invoice_bill]);    }
 
     /**
      * Store a newly created resource in storage.
