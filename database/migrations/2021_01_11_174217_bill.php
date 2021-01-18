@@ -13,7 +13,7 @@ class Bill extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_bills', function(Blueprint $table){
+        Schema::create('invoice_bill', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
