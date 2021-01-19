@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DetailBill;
+use App\Company;
 use Illuminate\Support\Facades\DB;
 use App\InvoiceBill;
 use App\Product;
+use DetailBill as GlobalDetailBill;
 use Illuminate\Http\Request;
 use Dotenv\Validator;
 
@@ -29,7 +32,8 @@ class InvoiceBillsController extends Controller
     public function create()
     {
         $product = Product::all();
-        return view("invoice_bill.create", ["product" => $product]);    }
+        $company = Company::all();
+        return view("invoice_bill.create", ["product" => $product, "company" => $company]);    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,38 +43,49 @@ class InvoiceBillsController extends Controller
      */
     public function store(Request $request)
     {
+               /**Factura */
         request()->validate([
-            'product_id' => 'required',
-            'quantity' => 'required', 
-            'unit_price' => 'required',
-            'total' => 'required',
+            'user_id',
+            'company_id' => 'required', 
+            'iva',
+            'subtotal',
+            'total'
         ]);
+        
         DB::beginTransaction();
+        
+        try{
+            //dd($request);
+            $bill = new InvoiceBill();
+            $bill->user_id = $request->user_id;
+            $bill->company_id = $request->company_id;
+            $bill->iva = $request->iva;
+            $bill->subtotal = $request->subtotal;
+            $bill->total = $request->grandTotal;
+            $bill->save();
 
-            try{
-                for ($i = 0; $i <= sizeof($request->relation_type); $i++) {
-
-                    $invoice_bill = new Family_persons;
-                    $invoice_bill->product_id = $request->product_id[$i];
-                    $invoice_bill->quantity = $request->quantity[$i];
-                    $invoice_bill->unit_price = $request->unit_price[$i];
-                    $invoice_bill->total = $request->total[$i];
-                    /*
-                    $invoice_bill->user_id = $id;*/
-                    $invoice_bill->save();
-
-                }catch(\Illuminate\Database\QueryException $e){
-                DB::rollback();
-                abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
-                return response()->json($response, 500);
-                }
-
+            /* Detalle */
+            for ($i = 0; $i <= sizeof($request->product_id); $i++) {
+                $detail_bill = new DetailBill();
+                $detail_bill->product_id = $request->product_id[$i];
+                $detail_bill->quantity = $request->quantity[$i];
+                $detail_bill->unit_price = $request->unit_price[$i];
+                $detail_bill->total = $request->total[$i];
+                $detail_bill->invoice_id = $bill->id;
+                $detail_bill->save();
                 DB::commit();
-                return redirect()->action('InvoiceBillsController@index')
-                    ->with(['message' => 'Factura registrada', 'alert' => 'success']);
-
-
-        /* Insertar usando ajax
+            }
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            dd($e);
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return back()->with('usuarioGuardado', 'Detalle Guardado');
+        
+        
+        /*
         if($request->ajax())
         {
             $rules = array(
@@ -105,8 +120,8 @@ class InvoiceBillsController extends Controller
                 'success' => 'Datos ingresados correctamente.'
             ]);
         }
-        */
-        }
+        */         
+        
     }
 
     /**

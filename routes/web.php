@@ -34,3 +34,4 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 /**Bill Route */
+

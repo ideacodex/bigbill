@@ -61,7 +61,7 @@
                         <a href="{{ route('clientes.index') }}"> <i class="menu-icon fas fa-users"></i>Clientes</a>
                     </li>
                     <li class="active">
-                        <a href="productos/"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
+                        <a href=""> <i class="menu-icon fas fa-box-open"></i>Productos</a>
                     </li>
 
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
