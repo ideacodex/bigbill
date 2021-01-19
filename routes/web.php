@@ -21,8 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/admin', 'AdminController@index')->name('admin')->middleware('auth');
-
+/**Start Productos Route */
+Route::resource('productos','ProductController')->middleware('auth');
+/**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
 /**Companies Route */

@@ -206,7 +206,7 @@
                                              <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                  <div class="input-group-prepend">
                                              </div>
-                                                 <input style="color: white" id="quantity[]" placeholder="Cantidad" type="text"
+                                                 <input style="color: white" id="quantity[]" name="quantity[]" placeholder="Cantidad" type="text"
                                                      class="text-dark form-control @error('quantity') is-invalid @enderror" required quantity="quantity[]"
                                                      value="{{ old('quantity') }}" autocomplete="quantity" autofocus>
                                                  @error('quantity')

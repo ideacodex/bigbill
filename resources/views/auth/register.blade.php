@@ -25,7 +25,8 @@
                 <div class="login-form">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        {{--Name--}}
+           
+                        <!--Name -->
                         <div class="form-group">
                             <label>Nombre</label>
                             <input id="name" type="text" placeholder="Nombre" class="form-control" @error('name') is-invalid
@@ -36,8 +37,7 @@
                                 </span>
                             @enderror
                         </div>
-
-                        {{--Lastname--}}
+                        <!--Lastname -->
                         <div class="form-group">
                             <label>Apellido</label>
                             <input id="lastname" type="text" placeholder="Apellido"
@@ -50,9 +50,7 @@
                             @enderror
                         </div>
 
-
-
-                        {{--Phone--}}
+                        <!--Phone -->
                         <div class="form-group">
                             <label>No. Celular</label>
                             <input id="phone" type="text" placeholder="No. Celular"
@@ -63,9 +61,8 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-
-                        {{--Nit--}}
+                        </div> 
+                        <!--Nit -->
                         <div class="form-group">
                             <label>Nit</label>
                             <input placeholder="Nit" id="nit" type="text"
@@ -76,8 +73,8 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-                        {{--Address--}}
+                        </div> 
+                        <!--Address -->
                         <div class="form-group">
                             <label>Dirección</label>
                             <input placeholder="Dirección" id="address" type="text"
@@ -89,8 +86,8 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-                        {{--Email--}}
+                        </div> 
+                        <!--Email -->
                         <div class="form-group">
                             <label>Correo electrónico</label>
                             <input placeholder="Correo electrónico" id="email" type="email"
@@ -102,8 +99,8 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-                        {{--Password--}}
+                        </div> 
+                        <!--Password -->
                         <div class="form-group">
                             <label>Contraseña</label>
                             <input placeholder="Contraseña" id="password" type="password"
@@ -114,25 +111,24 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-                        {{--Password confirm--}}
+                        </div> 
+                        <!--Password confirm -->
                         <div class="form-group">
                             <label>Confirmar Contraseña</label>
                             <input placeholder="Confirmar contraseña" id="password-confirm" type="password"
                                 class="form-control" name="password_confirmation" required autocomplete="new-password">
-                        </div>
-                        {{-- terminos y condiciones --}}
+                        </div> 
+                        <!--terminos y condiciones -->
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Acepto los terminos y politicas de uso
                             </label>
-                        </div>
-                        {{-- boton de registrar --}}
-
-
+                        </div> 
+                        <!--boton de registrar -->
 
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>  {{ __('Guardar') }}</button>
-                           {{-- comentarios extras --}}
+  
+                           <!--Ncomentarios extrasame -->
                            <div class="register-link m-t-15 text-center">
                             <p>¿Ya tienes cuenta? <a href="login"> Inicia sesion</a></p>
                         </div>

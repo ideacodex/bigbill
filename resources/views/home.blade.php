@@ -1,6 +1,21 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+<!-- boton para cerrar sesion-->
+
+    <a class="dropdown-item" href="{{ route('logout') }}"
+    onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+     {{ __('Logout') }}
+ </a>
+
+ <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+     @csrf
+ </form>
+
+<!-- boton para cerrar sesion-->
+
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

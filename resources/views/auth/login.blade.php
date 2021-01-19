@@ -27,7 +27,7 @@
                 <div class="login-form">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        {{-- correo Electronico --}}
+                        <!-- correo Electronico -->
                         <div class="form-group">
                             <label>Correo Electronico</label>
                             <input id="email" name="email" type="email" class="form-control"
@@ -39,7 +39,7 @@
                                 </span>
                             @enderror
                         </div>
-                        {{--Contraseña--}}
+                        <!--Contraseña-->
                         <div class="form-group">
                             <label>Contraseña</label>
                             <input id="password" name="password" type="password" placeholder="Contraseña"
@@ -55,7 +55,7 @@
                             <label class="form-check-label" for="remember">
                                 {{ __('Recordarme') }}
                             </label>
-                            {{-- restaura contraseña --}}
+                            <!-- restaura contraseña -->
                             @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}">
                                     {{ __('¿Olvidó su contraseña?') }}
