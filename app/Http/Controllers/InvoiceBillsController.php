@@ -72,6 +72,7 @@ class InvoiceBillsController extends Controller
                 $detail_bill->unit_price = $request->unit_price[$i];
                 $detail_bill->total = $request->total[$i];
                 $detail_bill->invoice_id = $bill->id;
+                dd($detail_bill);
                 $detail_bill->save();
                 DB::commit();
             }
