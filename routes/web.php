@@ -15,15 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('PruebaDiseño/tables');
+    return view('inicio');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/admin', 'AdminController@index')->name('admin')->middleware('auth');
 /**Start Productos Route */
-Route::resource('productos','ProductController');
+Route::resource('productos','ProductController')->middleware('auth');
 /**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');

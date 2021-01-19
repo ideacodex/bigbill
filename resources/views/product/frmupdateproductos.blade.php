@@ -1,5 +1,12 @@
 @extends('layouts.Admin')
 @section('content')
+    <!--Mensaje flash-->
+    @if (session('datosAgregados'))
+        <div class="alert alert-success">
+            {{ session('datosAgregados') }}
+        </div>
+    @endif
+    <!--Mensaje flash-->
     <!--Validación de errores-->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -11,130 +18,220 @@
         </div>
     @endif
     <!--Validación de errores-->
-    <!--Mensaje flash-->
-    @if (session('datosModificados'))
-        <div class="alert alert-success">
-            {{ session('datosModificados') }}
-        </div>
-    @endif
-    <!--Mensaje flash-->
-
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <div class="card">
-        <div class="alert alert-info text-center" role="alert">
-            Editar Productos
-        </div>
         <div class="card-header">
+            <strong> Editar Productos </strong>
         </div>
-        <form action="{{ url('productos/' . $products->id) }}" method="POST" enctype="multipart/form-data"
-            onsubmit="return checkSubmit();">
-            @csrf @method('PATCH')
-            <div class="card-body card-block">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-body card-block">
 
-                <!--Nombre-->
-                <div class="form-group">
-                    <label class=" form-control-label">Producto</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="{{ $products->name }}" id="name" name="name" type="text"
-                            placeholder="Nombre del Producto: ej. computadora" class="form-control">
-                    </div>
-                </div>
-                <!-- descripcion -->
-                <div class="form-group">
-                    <label class=" form-control-label">Descripcion</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="{{ $products->description }}" id="description" name="description" type="text"
-                            placeholder="Descripcion del Producto: ej. especificaciones" class="form-control">
-                    </div>
-                </div>
-                <!-- precio -->
-                <div class="form-group">
-                    <label class=" form-control-label">Precio</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="{{ $products->price }}" id="price" name="price" type="text"
-                            placeholder="Precio del Producto: ej. 100" class="form-control">
-                    </div>
-                </div>
-                <!-- company_id -->
-                <div class="form-group">
-                    <label class=" form-control-label">Company_id</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input style="color:white" value="{{ $products->company_id }}" id="company_id" name="company_id" type="text"
-                            readonly="readonly" class="form-control">
-                    </div>
-                </div>
-                <!-- cantidad stock -->
-                <div class="form-group">
-                    <label class=" form-control-label">Cantidad Stock </label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="{{ $products->quantity_values }}" id="quantity_values" name="quantity_values"
-                            type="text" placeholder="Cantidad Stock " class="form-control">
-                    </div>
-                </div>
-                <!-- fecha de stock  -->
-                <div class="form-group">
-                    <label class=" form-control-label">Fecha de Stock </label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="<?php echo date('y/m/d'); ?>" id="date_values"
-                            name="date_values" type="datetime" class="form-control" readonly="readonly">
-                    </div>
-                </div>
-                <!-- cantidad de ingreso -->
-                <div class="form-group">
-                    <label class=" form-control-label">Cantidad de ingreso</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="{{ $products->income_amount }}" id="income_amount" name="income_amount" type="text"
-                            placeholder="Cantidad de ingreso" class="form-control">
-                    </div>
-                </div>
-                <!-- fecha de ingreso  -->
-                <div class="form-group">
-                    <label class=" form-control-label">Fecha de ingreso</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="<?php echo date('y/m/d'); ?>" id="date_admission"
-                            name="date_admission" type="datetime" class="form-control" readonly="readonly">
-                    </div>
-                </div>
-                <!-- cantidad egresos -->
-                <div class="form-group">
-                    <label class=" form-control-label">Cantidad Egresos</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="{{ $products->amount_expenses }}" id="amount_expenses" name="amount_expenses"
-                            type="text" class="form-control" readonly="readonly"> >
-                    </div>
-                </div>
-                <!-- fecha de egresos  -->
-                <div class="form-group">
-                    <label class=" form-control-label">Fecha de Egresos</label>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fas fa-building"></i></div>
-                        <input value="<?php echo date('y/m/d'); ?>" id="date_discharge"
-                            name="date_discharge" type="datetime" class="form-control" readonly="readonly">
-                    </div>
-                </div>
 
-                <!--Button-->
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-lg btn-primary">
-                                <i class="far fa-save"></i>
-                                {{ __('Guardar') }}
-                            </button>
+
+
+
+                    <form action="{{ url('productos/' . $products->id) }}" method="POST" enctype="multipart/form-data"
+                        onsubmit="return checkSubmit();">
+                        @csrf @method('PATCH')
+                        <!--Nombre-->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Nombre" class="fas fa-people-carry"></i>
+                                </span>
+                            </div>
+                            <input id="name" name="name" type="text"
+                                class="text-dark form-control @error('name') is-invalid @enderror"
+                                value="{{ $products->name }}" placeholder="Nombre del Producto: ej. computadora" required
+                                autocomplete="name" autofocus>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                    </div>
+
+                        <!-- descripcion -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="descripcion" class="fas fa-book"></i>
+                                </span>
+                            </div>
+                            <input id="description" name="description" type="text"
+                                class="text-dark form-control @error('name') is-invalid @enderror"
+                                value="{{ $products->description }}"
+                                placeholder="Descripcion del Producto: ej. especificaciones" required
+                                autocomplete="description" autofocus>
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <!-- precio -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Precio" class="fas fa-hand-holding-usd"></i>
+                                </span>
+                            </div>
+                            <input id="price" name="price" type="text"
+                                class="text-dark form-control @error('price') is-invalid @enderror"
+                                value="{{ $products->price }}" placeholder="Precio del Producto: ej. computadora" required
+                                autocomplete="price" autofocus>
+                            @error('price')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+                        <!--  compani_id -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="company_id" class="fas fa-building"></i>
+                                </span>
+                            </div>
+                            <input id="company_id" name="company_id" type="text"
+                                class="text-dark form-control @error('company_id') is-invalid @enderror" style="color:white"
+                                value="{{ $products->company_id }}" placeholder="Id de la Compañia: ej. 1 = pc tecnologi"
+                                required autocomplete="company_id" autofocus>
+                            @error('company_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <!-- cantidad stock -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title=" cantidad_stock " class="fas fa-cart-arrow-down"></i>
+                                </span>
+                            </div>
+                            <input id="quantity_values" name="quantity_values" type="number"
+                                class="text-dark form-control @error('quantity_values') is-invalid @enderror"
+                                value="{{ $products->quantity_values }}" placeholder="000" required
+                                autocomplete="quantity_values" autofocus>
+                            @error('quantity_values')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+                        <!-- fecha de stock  -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title=" fecha_stock " class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input id="date_values" name="date_values" type="datetime"
+                                class="text-dark form-control @error('date_values') is-invalid @enderror"
+                                value="<?php echo date('y/m/d'); ?>" required
+                                autocomplete="date_values" autofocus readonly="readonly">
+                            @error('date_values')
+                                <span class="date_values-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <!-- cantidad ingreso -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title=" cantidad_ingreso " class="fas fa-cart-arrow-down"></i>
+                                </span>
+                            </div>
+                            <input id="income_amount" name="income_amount" type="number"
+                                class="text-dark form-control @error('income_amount') is-invalid @enderror"
+                                value="{{ $products->income_amount }}" placeholder="000" required
+                                autocomplete="income_amount" autofocus>
+                            @error('income_amount')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+
+                        <!-- fecha de ingreso  -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title=" fecha_ingreso " class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input id="date_admission" name="date_admission" type="datetime"
+                                class="text-dark form-control @error('date_admission') is-invalid @enderror"
+                                value="<?php echo date('y/m/d'); ?>" required
+                                autocomplete="date_admission" autofocus readonly="readonly ">
+                            @error('date_admission')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <!--  cantidad egresos -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title=" cantidad_egresos " class="fas fa-cart-arrow-down"></i>
+                                </span>
+                            </div>
+                            <input id="amount_expenses" name="amount_expenses" type="number"
+                                class="text-dark form-control @error('amount_expenses') is-invalid @enderror"
+                                value="{{ $products->amount_expenses }}" placeholder="000" required
+                                autocomplete="amount_expenses" autofocus readonly="readonly">
+                            @error('amount_expenses')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <!-- fecha de egresos  -->
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title=" fecha_egresos " class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input id="date_discharge" name="date_discharge" type="date_discharge"
+                                class="text-dark form-control @error('date_discharge') is-invalid @enderror"
+                                value="<?php echo date('y/m/d'); ?>" required
+                                autocomplete="date_discharge" autofocus readonly="readonly ">
+                            @error('date_discharge')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <!--Button-->
+                        <div class="container mt-4">
+                            <div class="col-12">
+                                <div class="col text-center">
+                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3"
+                                        name="enviar">
+                                        <i class="far fa-save"></i>
+                                        {{ __('Actualizar') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 @endsection

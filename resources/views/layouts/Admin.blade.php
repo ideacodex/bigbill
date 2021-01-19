@@ -10,8 +10,8 @@
     <title>{{ config('Admin.name', 'Inicio') }}</title>
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
-    <script src="jquery-1.3.2.min.js" type="text/javascript"></script> 
-    <script src="jquery-2.1.4.min.js" type="text/javascript"></script> 
+    <script src="jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="jquery-2.1.4.min.js" type="text/javascript"></script>
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
@@ -30,6 +30,22 @@
     <link rel="stylesheet" href="{{ asset('sufee/assets/assets/css/lib/datatable/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('sufee/assets/css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('sufee/assets/css/jqvmap.min.css') }}">
+    <!-- importacion de librertias temple -->
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     <style>
     </style>
 </head>
@@ -49,7 +65,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/admin"> <i class="menu-icon fas fa-toolbox"></i>Administrador</a>
+                        <a href="/home"> <i class="menu-icon fas fa-toolbox"></i>Administrador</a>
                     </li>
                     <h3 class="menu-title">Interacciones</h3><!-- /.menu-title -->
 
@@ -61,7 +77,7 @@
                         <a href="{{ route('clientes.index') }}"> <i class="menu-icon fas fa-users"></i>Clientes</a>
                     </li>
                     <li class="active">
-                        <a href="productos/"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
+                        <a href="/productos"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
                     </li>
 
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
@@ -196,6 +212,7 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
+                            {{ Auth::user()->name }}
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                         </a>
 
@@ -206,8 +223,16 @@
                                     class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+                            <!-- boton para cerrar sesion-->
+                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                            <!-- boton para cerrar sesion-->
                         </div>
                     </div>
 
