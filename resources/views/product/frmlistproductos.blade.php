@@ -1,52 +1,25 @@
+
+
 @extends('layouts.Admin')
 @section('content')
-    <!--Validación de errores-->
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <!--Validación de errores-->
-    <!--Mensaje flash-->
-    @if (session('datosEliminados'))
-        <div class="alert alert-danger">
-            {{ session('datosEliminados') }}
-        </div>
-    @endif
-    <!--Mensaje flash-->
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
-        <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <strong class="card-title">Productos Registrados</strong>
-                                            </div>
-                                            <div>
-                                                <a href="{{ url('productos/create') }}"
-                                                    class="btn btn-success btn-sm">&nbsp;
-                                                    Agregar
-                                                    <i class="fas fa-plus-square"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <table id="bootstrap-data-table"
-                                    class="table table-striped table-bordered dataTable no-footer" role="grid"
-                                    aria-describedby="bootstrap-data-table_info">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                
+                <div class="card-header">
+                    <strong class="card-title">Productos Registrados</strong>
+                </div>
+                <div>
+                    <a href="{{ url('productos/create') }}"
+                        class="btn btn-success btn-sm">&nbsp;
+                        Agregar
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </div>
+                       
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table"
@@ -128,13 +101,17 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                </table>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-    </div><!-- /#right-panel -->
+                        
+                    
+            
+            </div>
+        </div>
+    </div>
+
+
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
     
@@ -151,4 +128,3 @@
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 @endsection
-
