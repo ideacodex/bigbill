@@ -41,7 +41,7 @@
                             </div>
                             <select style="width: 25em" name="company_id" id="company_id"
                                 class="form-control @error('company_id') is-invalid @enderror" required>
-                                <option selected disabled>Companía</option>
+                                <option selected disabled>Companías</option>
                                 @foreach ($company as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -131,7 +131,7 @@
                         </div>
                         <!--Button-->
                         <button class="ml-4 mb-4 btn btn-success add_form_field" style="border-radius: 95px;">
-                            Agregar productos <i class="fas fa-plus-circle"></i>
+                            Agregar productos <i class="fas fa-plus"></i>
                         </button>
                         <!--Button-->
 

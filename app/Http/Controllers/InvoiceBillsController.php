@@ -31,7 +31,8 @@ class InvoiceBillsController extends Controller
      */
     public function create()
     {
-        $product = Product::all();
+        $product = Product::get();
+        
         $company = Company::all();
         return view("invoice_bill.create", ["product" => $product, "company" => $company]);    }
 
@@ -65,16 +66,15 @@ class InvoiceBillsController extends Controller
             $bill->save();
 
             /* Detalle */
-            for ($i = 0; $i <= sizeof($request->product_id); $i++) {
+            
+            for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();
                 $detail_bill->product_id = $request->product_id[$i];
                 $detail_bill->quantity = $request->quantity[$i];
                 $detail_bill->unit_price = $request->unit_price[$i];
                 $detail_bill->total = $request->total[$i];
                 $detail_bill->invoice_id = $bill->id;
-                dd($detail_bill);
                 $detail_bill->save();
-                DB::commit();
             }
         }catch(\Illuminate\Database\QueryException $e){
             DB::rollback();
