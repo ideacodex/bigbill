@@ -14,7 +14,7 @@ class DetailBill extends Migration
     public function up()
     {
         
-        Schema::create('detail_bill', function (Blueprint $table) {
+        Schema::create('detail_bills', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('invoice_id');
             $table->foreign('invoice_id')

@@ -43,6 +43,12 @@
             </main>
         </div>
 
+        <script>
+            function baseUrl(url){
+                return'{{url(' ')}}/' + url;
+            }
+        </script>
+
 </body>
 </html>
 

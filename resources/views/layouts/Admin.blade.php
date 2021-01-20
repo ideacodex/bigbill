@@ -328,6 +328,14 @@
 
 </script>
 
+<script>
+    function baseUrl(url) {
+        return '{{ url('
+        ') }}/' + url;
+    }
+
+</script>
+
 <!--Bower-->
 <script src="{{ url('bower_components/riot/riot.min.js') }}"></script>
 <script src="{{ url('bower_components/riot/riot+compiler.min.js') }}"></script>
