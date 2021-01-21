@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="favicon.ico">
     <script src="jquery-1.3.2.min.js" type="text/javascript"></script>
     <script src="jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
@@ -297,6 +299,7 @@
 <script src="{{ asset('sufee/vendors/popper.js/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('sufee/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
     integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
 </script>

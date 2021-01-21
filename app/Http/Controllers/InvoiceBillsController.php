@@ -62,7 +62,7 @@ class InvoiceBillsController extends Controller
             $bill->company_id = $request->company_id;
             $bill->iva = $request->iva;
             $bill->subtotal = $request->subtotal;
-            $bill->total = $request->grandTotal;
+            $bill->total = $request->spTotal;
             $bill->save();
 
             /* Detalle */
