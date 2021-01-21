@@ -1,6 +1,7 @@
 @extends('layouts.Admin')
 @section('content')
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--Mensajes-->
     <div>
         <!--Validación de errores-->
@@ -23,7 +24,6 @@
         <!--Mensaje flash-->
     </div>
     <!--Mensajes-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!--Factura-->
     <div class="row">
@@ -105,8 +105,8 @@
                             @enderror
                         </div>
 
-                        {{--Total--}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                          {{--Total--}}
+                          <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                     <label>Total</label>
@@ -131,13 +131,13 @@
 
                         <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
                         <!--Button-->
-                        <button class="btn btn-success add_form_field" style="border-radius: 95px;">
-                            Agregar producto <i class="fas fa-plus-circle"></i>
+                        <button class="ml-4 mb-4 btn btn-success add_form_field" style="border-radius: 95px;">
+                            Agregar productos <i class="fas fa-plus"></i>
                         </button>
                         <!--Button-->
 
                         <!--Aquí van agregandose los input-->
-                        <div class="container1"></div>
+                        <div class="ml-5 container1"></div>
                         <!--Aquí van agregandose los input-->
                         <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
 
@@ -162,15 +162,16 @@
     <!--Script-->
     <script>
         $(document).ready(function() {
-        var max_fields = 10;
-        var wrapper = $(".container1");
-        var add_button = $(".add_form_field");
-        var x = 1;
+            var max_fields = 10;
+            var wrapper = $(".container1");
+            var add_button = $(".add_form_field");
+            var x = 1;
             $(add_button).click(function(e) {
-            e.preventDefault();
-            if (x < max_fields) {
-            x++;
-            $(wrapper).append(
+                e.preventDefault();
+                if (x < max_fields) {
+                    x++;
+                    $(wrapper).append(
+
                         /**Detalle_factura*/
                         `<div class="col-xs-12">
                                 <div class="col-md-12 well text-center" style="background: transparent; border:none;">
@@ -266,9 +267,10 @@
                                                     Eliminar <i class="fas fa-times-circle"></i>
                                                 </button>
                                             </div>
-                                            `); //add input box
+                            `
+                    ); //add input box
                 } else {
-                    alert('Limite de productos agregados')
+                    alert('Límite de productos agregados completo.')
                 }
             });
 
@@ -277,27 +279,25 @@
                 $(this).parent('div').remove();
                 x--;
             })
-        });
-
-        //Resultado dinámico en los inputs
-        function sumar(valor) {
-            var total = 0;
+        });    
+        /* Sumar dos números. */
+            function sumar (valor) {
+            var total = 0;	
             valor = parseInt(valor); // Convertir el valor a un entero (número).
-            total = document.getElementById('spTotal').innerHTML;
+	        total = document.getElementById('spTotal').innerHTML;   
             // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
-            total = (total == null || total == undefined || total == "") ? 0 : total;
+             total = (total == null || total == undefined || total == "") ? 0 : total;
             /* Esta es la suma. */
             total = (parseInt(total) + parseInt(valor));
             // Colocar el resultado de la suma en el control "span".
             document.getElementById('spTotal').innerHTML = total;
-            //Se agregan los valores al input del total.
             var t = document.getElementById('spTotal');
             t.value = total;
             console.log(t);
-        }
-    });
-  
+}
+
     </script>
+    
     <!--Script-->
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
