@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('PruebaDiseño/tables');
+    return view('product/archivo');
 });
 
 Auth::routes();
@@ -36,3 +36,7 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 /**Bill Route */
 
+
+/** Descargar PDF */
+Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
+/** Descargar PDF */

@@ -15,12 +15,14 @@
                         Agregar
                         <i class="fas fa-plus-square"></i>
                     </a>
+                    <button onclick="exportTableToExcel('bootstrap-data-table-export', 'members-data')">Export Table Data To Excel File</button>
+                    <script src="js/tableToExcel.js"></script>
                 </div>
                        
                         <div class="row">
                             <div class="col-sm-12">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                    <thead>
+                                    
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table"
                                                 rowspan="1" colspan="1" style="width: 322px;" aria-sort="ascending"
@@ -59,8 +61,7 @@
                                                 rowspan="1" colspan="1" style="width: 197px;"
                                                 aria-label="Salary: activate to sort column ascending">Acciones</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                   
                                         @foreach ($products as $item)
                                             <tr>
                                                 <th scope="row"> {{ $item->id }}</th>
@@ -99,8 +100,8 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    </tbody>
-                                </table>
+                                   
+                          
                                 </table>
                             </div>
                         </div>
