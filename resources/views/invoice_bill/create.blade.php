@@ -155,7 +155,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Producto</label>
-                                            <select class="selectpicker form-control" id="product_id[]" name="product_id[]"
+                                            <select class="selectpicker form-control" id="product_id" name="product_id[]"
                                                 data-width='100%'>Producto</option>
                                                 @foreach ($product as $item)>
                                                     <option value="{{ $item->id }}">{{ $item->name }}
