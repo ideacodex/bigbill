@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::all();
-        return view("product.frmlistproductos" , ["products" => $product]);
+        return view("product.index" , ["products" => $product]);
 
     }
 
@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("product.frmproductos");
+        return view("product.create");
     }
 
     /**
@@ -86,8 +86,8 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('ProductController@create')
-            ->with('ProductosAgregados', 'Registro exitoso');
+        return redirect()->action('ProductController@index')
+            ->with('datosEliminados', 'Registro exitoso');
     }
 
     /**
@@ -110,7 +110,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $products = Product::findOrFail($id);
-        return view('product.frmupdateproductos', compact('products'));
+        return view('product.edit', compact('products'));
     }
 
       /**
@@ -123,7 +123,9 @@ class ProductController extends Controller
     public  function update(Request $request,$id)
     {
         $product = request()->except((['_token', '_method']));
+        
         Product::where('id', '=', $id)->update($product);
+        
 
         return redirect()->action('ProductController@index')
         ->with('datosEliminados', 'Registro Modificado');

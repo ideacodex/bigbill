@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('product/archivo');
+    return view('inicio');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+
 /**Start Productos Route */
 Route::resource('productos','ProductController')->middleware('auth');
 /**Start Productos Route */
