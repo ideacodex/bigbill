@@ -22,7 +22,7 @@ class Bill extends Migration
             $table->foreign('company_id')
                 ->references('id')->on('companies');
             $table->decimal('iva');
-            $table->integer('ListaPro')->nullable();
+            $table->string('ListaPro')->nullable();
             $table->decimal('total');
             $table->timestamps();
         });

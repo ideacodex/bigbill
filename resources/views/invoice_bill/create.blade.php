@@ -104,7 +104,6 @@
                                 </span>
                             @enderror
                         </div>
-
                         <!-- Trigger the modal with a button -->
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar
                             Producto </button>
@@ -156,7 +155,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Producto</label>
-                                            <select class="selectpicker form-control" id="product_id" name="product_id"
+                                            <select class="selectpicker form-control" id="product_id[]" name="product_id[]"
                                                 data-width='100%'>Producto</option>
                                                 @foreach ($product as $item)>
                                                     <option value="{{ $item->id }}">{{ $item->name }}
@@ -164,12 +163,12 @@
                                                 @endforeach
                                             </select>
 
-                                            @error('product_id')
+                                            @error('product_id[]')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            @error('product_id')
+                                            @error('product_id[]')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

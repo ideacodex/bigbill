@@ -65,7 +65,6 @@ class InvoiceBillsController extends Controller
             $bill->save();
 
             /* Detalle */
-            dd($request);
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();
                 $detail_bill->product_id = $request->product_id[$i];
@@ -73,8 +72,8 @@ class InvoiceBillsController extends Controller
                 $detail_bill->unit_price = $request->unit_price[$i];
                 $detail_bill->subtotal = $request->subtotal[$i];
                 $detail_bill->invoice_id = $bill->id;
+                dd($request);
                 $detail_bill->save();
-                dd('No llega un dato');
             }
         }catch(\Illuminate\Database\QueryException $e){
             DB::rollback();
