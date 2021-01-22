@@ -30,6 +30,9 @@
                                 Agregar
                                 <i class="fas fa-plus-square"></i>
                             </a>
+                            <a href="{{ url('/doc') }}" class="btn btn-success btn-sm">&nbsp;
+                                Excel
+                            </a>
                                 <p>Descargar <a href="{{route('products.pdf')}}">PDF</a></p>                            
                         </div>
                         <div class="card-body">
