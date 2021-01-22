@@ -93,10 +93,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
-    
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">crear
-                                    Factura</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#"> Ingresar</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver Facturas</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear Facturas</a></li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>
