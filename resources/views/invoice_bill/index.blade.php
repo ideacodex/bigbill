@@ -1,4 +1,4 @@
-@extends('layouts.Admin')
+@extends('layouts.editar')
 @section('content')
     <!--Validación de errores-->
     @if ($errors->any())
@@ -34,13 +34,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="bootstrap-data-table_length">
-                        <label>Mostrar <select name="bootstrap-data-table_length" aria-controls="bootstrap-data-table"
-                                class="form-control form-control-sm">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="-1">Todo</option>
-                            </select> entries</label>
+                        
                             <div>
                                 <a href="{{ route('facturas.create') }}" class="btn btn-success btn-sm">&nbsp;
                                     Crear Factura
@@ -49,13 +43,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
-                    <div id="bootstrap-data-table_filter" class="dataTables_filter">
-                        <label>Buscar:
-                            <input type="search" class="form-control form-control-sm" placeholder=""
-                                aria-controls="bootstrap-data-table"></label>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>

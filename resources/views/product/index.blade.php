@@ -1,6 +1,5 @@
 @extends('layouts.editar')
 @section('content')
-    <!--Validación de errores-->
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,12 +12,10 @@
     <!--Validación de errores-->
     <!--Mensaje flash-->
     @if (session('datosEliminados'))
-        <div class="alert alert-danger">
+        <div class="alert alert-success">
             {{ session('datosEliminados') }}
         </div>
     @endif
-    <!--Mensaje flash-->
-
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
@@ -26,39 +23,43 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Clientes Registrados</strong>
+                            <strong class="card-title">Productos Registrados</strong>
                         </div>
-
-                        <!-- boton agregar -->
                         <div>
-                            <a href="{{ route('clientes.create') }}" class="btn btn-success btn-sm">&nbsp;
+                            <a href="{{ url('productos/create') }}" class="btn btn-success btn-sm">&nbsp;
                                 Agregar
                                 <i class="fas fa-plus-square"></i>
                             </a>
+                                <p>Descargar <a href="{{route('products.pdf')}}">PDF</a></p>                            
                         </div>
-                        <!-- boton agregar -->
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <table id="bootstrap-data-table-export" id="tblData" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Nombre</th>
-                                                <th>Apellido</th>
-                                                <th>Teléfono</th>
-                                                <th>Nit</th>
+                                                <th>Codigo</th>
+                                                <th>Productos</th>
+                                                <th>Descrpcion</th>
+                                                <th>Precio </th>
+                                                <th>Cant. Stock</th>
+                                                <th>Cant. Ingreso </th>
+                                                <th>Cant. Egreso</th>
+                                                <th>Fecha Transaccion</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($customers as $item)
+                                            @foreach ($products as $item)
                                                 <tr>
                                                     <th>{{ $item->id }}</th>
                                                     <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->lastname }}</td>
-                                                    <td>{{ $item->phone }}</td>
-                                                    <td>{{ $item->nit }}</td>
+                                                    <td>{{ $item->description }}</td>
+                                                    <td>{{ $item->price }}</td>
+                                                    <td>{{ $item->quantity_values }}</td>
+                                                    <td>{{ $item->income_amount }}</td>
+                                                    <td>{{ $item->amount_expenses }}</td>
+                                                    <td>{{ $item->date_discharge }}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a class="btn btn-sm btn-secondary" href=""
@@ -66,18 +67,18 @@
                                                                 <span><i class="fas fa-eye"></i></span>
                                                             </a>
                                                             <a class="btn btn-sm btn-primary"
-                                                                href="{{ url('clientes/' . $item->id . '/edit') }}"
+                                                                href="{{ url('productos/' . $item->id . '/edit') }}"
                                                                 title="Editar">
                                                                 <span><i class="fas fa-edit"></i></span>
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
                                                             <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('clientes/' . $item->id) }}" method="POST"
+                                                                action="{{ url('productos/' . $item->id) }}" method="POST"
                                                                 style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -97,5 +98,6 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
-
+  
 @endsection
+

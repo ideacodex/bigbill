@@ -1,4 +1,4 @@
-@extends('layouts.Admin')
+@extends('layouts.editar')
 @section('content')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -66,7 +66,7 @@
                                 </span>
                             </div>
                             <input id="iva" type="number" class="text-dark form-control @error('iva') is-invalid @enderror"
-                                name="iva" value="{{ old('iva') }}" required autocomplete="iva" autofocus>
+                                name="iva" value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
 
                             @error('iva')
                                 <span class="invalid-feedback" role="alert">
@@ -90,7 +90,7 @@
                             </div>
 
                             <input id="spTotal" class="text-dark form-control @error('spTotal') is-invalid @enderror"
-                                name="spTotal" autofocus>
+                                name="spTotal" autofocus readonly>
 
                             @error('spTotal')
                                 <span class="invalid-feedback" role="alert">
@@ -105,9 +105,10 @@
                             @enderror
                         </div>
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar
-                            Producto </button>
-                            
+                        <button type="button" style="border-radius: 95px;" class="btn btn-success" data-toggle="modal"
+                            data-target="#myModal"> Agregar Producto <i class="fas fa-plus-circle"></i>
+                        </button>
+
                         <input type="hidden" id="ListaPro" name="ListaPro" value="" />
                         <table id="TablaPro" class="table">
                             <thead>
@@ -135,11 +136,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        <!--Agregue un boton en caso de desear enviar los productos para ser procesados-->
-                        <div class="form-group">
-                            <button type="submit" id="guardar" name="guardar"
-                                class="btn btn-lg btn-default pull-right">Guardar</button>
-                        </div>
 
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
@@ -149,7 +145,8 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <button type="button" data-dismiss="modal"><i
+                                                class="fas fa-times-circle text-danger"></i></button>
                                         <h4 class="modal-title">Agregar producto a la lista</h4>
                                     </div>
                                     <div class="modal-body">
@@ -177,8 +174,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <!--Uso la funcion onclick para llamar a la funcion en javascript-->
-                                        <button type="button" onclick="agregarProducto()" class="btn btn-default"
-                                            data-dismiss="modal">Agregar</button>
+                                        <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
+                                            class="btn btn-warning text-dark" data-dismiss="modal">Agregar <i
+                                                class="fas fa-cart-plus text-dark"></i></button>
                                     </div>
                                 </div>
 
@@ -192,8 +190,8 @@
                     <!--Button-->
 
                     <!--Aquí van agregandose los input
-                                                                    <div class="ml-5 container1"></div>
-                                                                    Aquí van agregandose los input-->
+                                                                                            <div class="ml-5 container1"></div>
+                                                                                            Aquí van agregandose los input-->
                     <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
 
                     <!--Button-->
@@ -229,7 +227,13 @@
                         pro_id: $(this).val()
                     });
                 });
-                
+                // Si la lista de Productos no es vacia Habilito el Boton Guardar
+                if (i > 0) {
+                    $('#guardar').removeAttr('disabled', 'disabled');
+                }
+                var ipt = JSON.stringify(ip); //Convierto la Lista de Productos a un JSON para procesarlo en tu controlador
+                $('#ListaPro').val(encodeURIComponent(ipt));
+
             }
 
             function agregarProducto() {
@@ -241,9 +245,9 @@
                 var newtr = '<tr class="item"  data-id="' + sel + '">';
                 newtr = newtr + '<td class="iProduct" >' + sel + '</td>';
                 newtr = newtr +
-                    '<td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" /></td>';
+                    '<td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
                 newtr = newtr +
-                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
+                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
                 $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
                 RefrescaProducto(); //Refresco Productos
@@ -268,10 +272,16 @@
                 var cantidad = 0,
                     precunit = 0,
                     totalitem = 0;
-                    spTotal = 0;
+                spTotal = 0;
                 var tr = ele.parentNode.parentNode;
                 var nodes = tr.childNodes;
-
+                var tasa = 12;
+                var monto = $("#spTotal").val();
+                
+                var iva = (monto * tasa) / 100;
+                //se carga el iva en el campo correspondiente
+                $("#iva").val(iva);
+                
                 for (var x = 0; x < nodes.length; x++) {
                     if (nodes[x].firstChild.id == 'cantidad[]') {
                         cantidad = parseFloat(nodes[x].firstChild.value, 10);
@@ -312,6 +322,7 @@
                     console.log(t);*/
 
             }
+
         </script>
 
         <!--Script-->
