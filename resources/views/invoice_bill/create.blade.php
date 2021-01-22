@@ -81,32 +81,8 @@
                             @enderror
                         </div>
 
-                        {{--Subtotal--}}
+                        {{--Total--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <label>Subtotal</label>
-                                </span>
-                            </div>
-                            <input id="subtotal" type="number"
-                                class="text-dark form-control @error('subtotal') is-invalid @enderror" name="subtotal"
-                                value="{{ old('subtotal') }}" required autocomplete="subtotal" autofocus>
-
-                            @error('subtotal')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            @error('subtotal')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                          {{--Total--}}
-                          <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                     <label>Total</label>
@@ -129,180 +105,221 @@
                             @enderror
                         </div>
 
-                        <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
-                        <!--Button-->
-                        <button class="ml-4 mb-4 btn btn-success add_form_field" style="border-radius: 95px;">
-                            Agregar productos <i class="fas fa-plus"></i>
-                        </button>
-                        <!--Button-->
+                        <!-- Trigger the modal with a button -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar
+                            Producto </button>
+                            
+                        <input type="hidden" id="ListaPro" name="ListaPro" value="" />
+                        <table id="TablaPro" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ProSelected">
+                                <!--Ingreso un id al tbody-->
+                                <tr>
 
-                        <!--Aquí van agregandose los input-->
-                        <div class="ml-5 container1"></div>
-                        <!--Aquí van agregandose los input-->
-                        <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><span id="total">0</span>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <!--Agregue un boton en caso de desear enviar los productos para ser procesados-->
+                        <div class="form-group">
+                            <button type="submit" id="guardar" name="guardar"
+                                class="btn btn-lg btn-default pull-right">Guardar</button>
+                        </div>
 
-                        <!--Button-->
-                        <div class="container">
-                            <div class="col-12">
-                                <div class="col text-center">
-                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                        <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
-                                    </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Agregar producto a la lista</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Producto</label>
+                                            <select class="selectpicker form-control" id="product_id" name="product_id"
+                                                data-width='100%'>Producto</option>
+                                                @foreach ($product as $item)>
+                                                    <option value="{{ $item->id }}">{{ $item->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('product_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            @error('product_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!--Uso la funcion onclick para llamar a la funcion en javascript-->
+                                        <button type="button" onclick="agregarProducto()" class="btn btn-default"
+                                            data-dismiss="modal">Agregar</button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
-                        <!--Button-->
+                    </div>
+
+                    <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
+                    <!--Button-->
+
+                    <!--Button-->
+
+                    <!--Aquí van agregandose los input
+                                                                    <div class="ml-5 container1"></div>
+                                                                    Aquí van agregandose los input-->
+                    <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
+
+                    <!--Button-->
+                    <div class="container">
+                        <div class="col-12">
+                            <div class="col text-center">
+                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                    <i class="far fa-save"></i>
+                                    {{ __('Guardar') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Button-->
                 </form>
             </div>
         </div>
     </div>
     <!--Factura-->
+    <form>
 
-    <!--Script-->
-    <script>
-        $(document).ready(function() {
-            var max_fields = 10;
-            var wrapper = $(".container1");
-            var add_button = $(".add_form_field");
-            var x = 1;
-            $(add_button).click(function(e) {
-                e.preventDefault();
-                if (x < max_fields) {
-                    x++;
-                    $(wrapper).append(
 
-                        /**Detalle_factura*/
-                        `<div class="col-xs-12">
-                                <div class="col-md-12 well text-center" style="background: transparent; border:none;">
-                                    <div class="form-row">
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                </div>
-                                                <select name="product_id[]" id="product_id[]"
-                                                    class="form-control @error('product_id') is-invalid @enderror" required>   
-                                                    <option selected disabled>Producto</option>
-                                                    @foreach ($product as $item) 
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                    @endforeach                                 
-                                                </select>
-                                                    @error('product_id')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                    @enderror                                                                             
-                                                    @error('product_id')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                    @enderror
-                                            </div>
-                                                                                                        
-                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                        <label>Cantidad</label>
-                                                    </span>
-                                                </div>
-                                                    <input style="color: white" id="quantity[]" name="quantity[]" placeholder="Cantidad" type="text"
-                                                    class="text-dark form-control @error('quantity') is-invalid @enderror" required quantity="quantity[]"
-                                                    value="{{ old('quantity') }}" autocomplete="quantity" onchange="sumar(this.value);" autofocus> 
-                                                        @error('quantity')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                        @enderror
-                                                        @error('quantity')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                        @enderror
-                                            </div>
+        <!--Script-->
+        <script>
+            /*Tabla factura*/
+            function RefrescaProducto() {
+                var ip = [];
+                var i = 0;
+                $('#guardar').attr('disabled', 'disabled'); //Deshabilito el Boton Guardar
+                $('.iProduct').each(function(index, element) {
+                    i++;
+                    ip.push({
+                        pro_id: $(this).val()
+                    });
+                });
+                
+            }
 
-                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                        <label>P.U</label>
-                                                    </span>
-                                                </div>
-                                                    <input style="color: white" id="unit_price[]" placeholder="P.U" type="text"
-                                                    class="text-primary form-control @error('unit_price') is-invalid @enderror" required name="unit_price[]"
-                                                    value="{{ old('unit_price') }}" onchange="sumar(this.value);" autocomplete="unit_price" autofocus>
-                                                        @error('unit_price')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                        @enderror
-                                                        @error('unit_price')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                        @enderror
-                                            </div>
+            function agregarProducto() {
+                var sel = $('#product_id').find(':selected').val(); //Capturo el Value del Producto
+                var text = $('#product_id').find(':selected')
+                    .text(); //Capturo el Nombre del Producto- Texto dentro del Select
 
-                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                        <label>Total</label>
-                                                    </span>
-                                                </div>
-                                                    <input style="color: white" id="total[]" placeholder="Total" type="text"
-                                                    class="text-primary form-control @error('total') is-invalid @enderror" required name="total[]"
-                                                    value="{{ old('total') }}" autocomplete="total" autofocus>
-                                                        @error('total')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                        @enderror
-                                                        @error('total')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                        @enderror
-                                                     </div>
-                                            </div>
+                var sptext = text.split();
+                var newtr = '<tr class="item"  data-id="' + sel + '">';
+                newtr = newtr + '<td class="iProduct" >' + sel + '</td>';
+                newtr = newtr +
+                    '<td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" /></td>';
+                newtr = newtr +
+                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
 
-                                            </div>
-                                                 <button class="ml-4 btn btn-danger mb-3 delete">
-                                                    Eliminar <i class="fas fa-times-circle"></i>
-                                                </button>
-                                            </div>
-                            `
-                    ); //add input box
-                } else {
-                    alert('Límite de productos agregados completo.')
+                $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
+                RefrescaProducto(); //Refresco Productos
+                $('.remove-item').off().click(function(e) {
+                    var total = document.getElementById("total");
+                    total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode
+                        .childNodes[3].childNodes[0].value);
+                    $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
+                    if ($('#ProSelected tr.item').length == 0)
+                        $('#ProSelected .no-item').slideDown(300);
+                    RefrescaProducto();
+
+                    Calcular(e.target);
+                });
+                $('.iProduct').off().change(function(e) {
+                    RefrescaProducto();
+
+                });
+            }
+
+            function Calcular(ele) {
+                var cantidad = 0,
+                    precunit = 0,
+                    totalitem = 0;
+                    spTotal = 0;
+                var tr = ele.parentNode.parentNode;
+                var nodes = tr.childNodes;
+
+                for (var x = 0; x < nodes.length; x++) {
+                    if (nodes[x].firstChild.id == 'cantidad[]') {
+                        cantidad = parseFloat(nodes[x].firstChild.value, 10);
+                    }
+                    if (nodes[x].firstChild.id == 'precunit[]') {
+                        precunit = parseFloat(nodes[x].firstChild.value, 10);
+                    }
+                    if (nodes[x].firstChild.id == 'totalitem[]') {
+                        anterior = nodes[x].firstChild.value;
+                        totalitem = parseFloat((precunit * cantidad), 10);
+                        nodes[x].firstChild.value = totalitem;
+                    }
                 }
-            });
+                // Resultado final de cada fila ERROR, al editar o eliminar una fila
+                var total = document.getElementById("total");
+                if (total.innerHTML == 'NaN') {
+                    total.innerHTML = 0;
+                }
+                //Imprimo el valor del total en mi input SpTotal
+                total.innerHTML = parseFloat(total.innerHTML) + totalitem - anterior;
+                var t = document.getElementById('spTotal');
+                t.value = total.innerText;
+                console.log(total);
 
-            $(wrapper).on("click", ".delete", function(e) {
-                e.preventDefault();
-                $(this).parent('div').remove();
-                x--;
-            })
-        });    
-        /* Sumar dos números. */
-            function sumar (valor) {
-            var total = 0;	
-            valor = parseInt(valor); // Convertir el valor a un entero (número).
-	        total = document.getElementById('spTotal').innerHTML;   
-            // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
-             total = (total == null || total == undefined || total == "") ? 0 : total;
-            /* Esta es la suma. */
-            total = (parseInt(total) + parseInt(valor));
-            // Colocar el resultado de la suma en el control "span".
-            document.getElementById('spTotal').innerHTML = total;
-            var t = document.getElementById('spTotal');
-            t.value = total;
-            console.log(t);
-}
+                /* Sumar dos números. 
+                function sumar(valor) {
+                    var total = 0;
+                    valor = parseInt(valor); // Convertir el valor a un entero (número).
+                    total = document.getElementById('spTotal').innerHTML;
+                    // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+                    total = (total == null || total == undefined || total == "") ? 0 : total;
+                    /* Esta es la suma. 
+                    total = (parseInt(total) + parseInt(valor));
+                    // Colocar el resultado de la suma en el control "span".
+                    document.getElementById('spTotal').innerHTML = total;
+                    var t = document.getElementById('spTotal');
+                    t.value = total;
+                    console.log(t);*/
 
-    </script>
-    
-    <!--Script-->
+            }
+        </script>
 
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">
-    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
-    <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-@endsection
+        <!--Script-->
+
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">
+        <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+        <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    @endsection

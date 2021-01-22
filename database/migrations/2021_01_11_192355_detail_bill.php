@@ -24,7 +24,7 @@ class DetailBill extends Migration
             ->references('id')->on('products');
             $table->integer('quantity');
             $table->float('unit_price');
-            $table->decimal('total');
+            $table->decimal('subtotal');
             $table->timestamps();           
         });
 

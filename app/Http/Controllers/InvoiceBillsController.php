@@ -48,9 +48,9 @@ class InvoiceBillsController extends Controller
         request()->validate([
             'user_id',
             'company_id' => 'required', 
-            'iva',
-            'subtotal',
-            'total'
+            'iva',  
+            'ListaPro', 
+            'total'            
         ]);
         
         DB::beginTransaction();
@@ -61,20 +61,20 @@ class InvoiceBillsController extends Controller
             $bill->user_id = $request->user_id;
             $bill->company_id = $request->company_id;
             $bill->iva = $request->iva;
-            $bill->subtotal = $request->subtotal;
             $bill->total = $request->spTotal;
             $bill->save();
 
             /* Detalle */
-            
+            dd($request);
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();
                 $detail_bill->product_id = $request->product_id[$i];
                 $detail_bill->quantity = $request->quantity[$i];
                 $detail_bill->unit_price = $request->unit_price[$i];
-                $detail_bill->total = $request->total[$i];
+                $detail_bill->subtotal = $request->subtotal[$i];
                 $detail_bill->invoice_id = $bill->id;
                 $detail_bill->save();
+                dd('No llega un dato');
             }
         }catch(\Illuminate\Database\QueryException $e){
             DB::rollback();
