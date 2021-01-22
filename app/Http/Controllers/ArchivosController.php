@@ -11,7 +11,7 @@ class ArchivosController extends Controller
         $products = Product::get();
         $pdf = PDF::loadView('PDF.productospdf', compact('products'));
 
-        return $pdf->download('ReporteProductos.pdf');
+        return $pdf->download('products.pdf');
     }
 
 }

@@ -77,44 +77,6 @@
             </div>
         </div>
 
-
-        <table id="tblData">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Country</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Country</th>
-            </tr>
-            <tr>
-                <td>John Doe</td>
-                <td>john@gmail.com</td>
-                <td>USA</td>
-                <td>John Doe</td>
-                <td>john@gmail.com</td>
-                <td>USA</td>
-            </tr>
-            <tr>
-                
-                <td>Michael Addison</td>
-                <td>michael@gmail.com</td>
-                <td>UK</td>
-                <td>Michael Addison</td>
-                <td>michael@gmail.com</td>
-                <td>UK</td>
-            </tr>
-            <tr>
-                <td>Sam Farmer</td>
-                <td>sam@gmail.com</td>
-                <td>France</td>
-                <td>Sam Farmer</td>
-                <td>sam@gmail.com</td>
-                <td>France</td>
-            </tr>
-        </table>
-        <button onclick="exportTableToExcel('tblData', 'members-data')">Export Table Data To Excel File</button>
-        <script src="js/tableToExcel.js"></script>
     </body>
 </html>
 

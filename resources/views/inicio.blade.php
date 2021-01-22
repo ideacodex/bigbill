@@ -1,5 +1,5 @@
 
-@extends('layouts.diseñologin')
+@extends('layouts.sesion')
    
   </head>
   <body>
