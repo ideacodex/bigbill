@@ -1,7 +1,10 @@
 <?php
 
+use App\Exports\DocsExport;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('inicio');
 });
+
+
+
 
 Auth::routes();
 
@@ -41,3 +47,10 @@ Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 /** Descargar PDF */
 Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
 /** Descargar PDF */
+
+
+/** Descargar Excel */
+Route::get('/doc', function () {
+    return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
+});
+/** Descargar Excel */
