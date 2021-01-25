@@ -150,27 +150,7 @@
                                         <h4 class="modal-title">Agregar producto a la lista</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label>Producto</label>
-                                            <select class="selectpicker form-control" id="product_id" name="product_id[]"
-                                                data-width='100%'>Producto</option>
-                                                @foreach ($product as $item)>
-                                                    <option value="{{ $item->id }}">{{ $item->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-
-                                            @error('product_id[]')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            @error('product_id[]')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                       
                                     </div>
                                     <div class="modal-footer">
                                         <!--Uso la funcion onclick para llamar a la funcion en javascript-->
@@ -200,7 +180,7 @@
                             <div class="col text-center">
                                 <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
                                     <i class="far fa-save"></i>
-                                    {{ __('Guardar') }}
+                                    {{ __('Guarda') }}
                                 </button>
                             </div>
                         </div>
@@ -237,17 +217,18 @@
             }
 
             function agregarProducto() {
-                var sel = $('#product_id').find(':selected').val(); //Capturo el Value del Producto
-                var text = $('#product_id').find(':selected')
+                var sel = $('').find(':selected').val(); //Capturo el Value del Producto
+                var text = $('').find(':selected')
                     .text(); //Capturo el Nombre del Producto- Texto dentro del Select
 
                 var sptext = text.split();
                 var newtr = '<tr class="item"  data-id="' + sel + '">';
                 newtr = newtr + '<td class="iProduct" >' + sel + '</td>';
                 newtr = newtr +
-                    '<td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
+                    '<td><select class="selectpicker form-control" id="product_id[]" name="product_id[]"></option>@foreach ($product as $item)><option value="{{ $item->id }}">{{ $item->name }}</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
                 newtr = newtr +
                     '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+
 
                 $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
                 RefrescaProducto(); //Refresco Productos
