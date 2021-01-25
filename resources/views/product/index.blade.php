@@ -1,4 +1,4 @@
-@extends('layouts.editar')
+@extends('layouts.Administrador')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
