@@ -160,7 +160,6 @@
                                                 class="fas fa-cart-plus text-dark"></i></button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
