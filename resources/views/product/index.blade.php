@@ -12,7 +12,7 @@
     <!--Validación de errores-->
     <!--Mensaje flash-->
     @if (session('datosEliminados'))
-        <div class="alert alert-danger">
+        <div class="alert alert-success">
             {{ session('datosEliminados') }}
         </div>
     @endif
@@ -37,7 +37,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row table-responsive">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <table id="bootstrap-data-table-export" id="tblData" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>

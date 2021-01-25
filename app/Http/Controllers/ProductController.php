@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Product;
 use App\Status;
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
@@ -29,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("product.create");
+        $companies = Company::all();
+        return view("product.create", ["companies" => $companies]);
     }
 
     /**
