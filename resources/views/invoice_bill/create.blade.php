@@ -113,6 +113,7 @@
                         <table id="TablaPro" class="table">
                             <thead>
                                 <tr>
+                                    <th>Código de producto</th>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
@@ -159,7 +160,6 @@
                                                 class="fas fa-cart-plus text-dark"></i></button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
