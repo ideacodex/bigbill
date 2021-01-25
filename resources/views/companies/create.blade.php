@@ -1,4 +1,4 @@
-@extends('layouts.editar')
+@extends('layouts.Administrador')
 @section('content')
 
     <!--Validación de errores-->
