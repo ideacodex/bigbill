@@ -53,3 +53,9 @@ Route::get('/doc', function () {
     return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
 });
 /** Descargar Excel */
+
+
+/**Bill Route */
+Route::resource('select', 'usuarioscontroller');
+/**Bill Route */
+

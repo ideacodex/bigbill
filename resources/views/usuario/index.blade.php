@@ -47,13 +47,13 @@
 
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <a href="#"> <i class="fas fa-phone-alt"></i>{{ Auth::user()->phone }}</a>
+                        <a href="#"> <i class="fas fa-mobile-alt"></i> Tel: {{ Auth::user()->phone }}</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="#"> <i class="fa fa-tasks"></i> {{ Auth::user()->address }}</a>
+                        <a href="#"> <i class="fa fa-tasks"></i> Direccion: {{ Auth::user()->address }}</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="#"> <i class="fa fa-bell-o"></i> {{ Auth::user()->nit }}</a>
+                        <a href="#"><i class="fas fa-code-branch"></i> NIT: {{ Auth::user()->nit }}</a>
                     </li>
                 
                     <a class="btn btn-sm btn-primary" href="{{ url('home/' . Auth::user()->id . '/edit') }}" title="Editar">
