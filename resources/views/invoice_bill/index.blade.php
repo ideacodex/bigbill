@@ -78,7 +78,7 @@
                         <tr>
                             <th scope="row"> {{ $item->id }}</th>
                             <td>{{ $item->user_id }}</td>
-                            <td>{{ $item->companies->name }}</td>
+                            <td>{{ $item->company_id }}</td>
                             <td>{{ $item->iva }}</td>
                             <td>{{ $item->subtotal }}</td>
                             <td>{{ $item->total }}</td>
