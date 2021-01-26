@@ -20,8 +20,9 @@
             <div class="login-content">
                 <div class="login-logo">
                     <a href="login">
-                        
-                        <label class="align-content" style="color: white; font-size:30px; font-family: georgia;">Sesion</label>
+
+                        <label class="align-content"
+                            style="color: white; font-size:30px; font-family: georgia;">Sesion</label>
                     </a>
                 </div>
                 <div class="login-form">
@@ -31,8 +32,8 @@
                         <div class="form-group">
                             <label>Correo Electronico</label>
                             <input id="email" name="email" type="email" class="form-control"
-                                placeholder="Correo electrónico" class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}" required>
+                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                                required>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -42,8 +43,8 @@
                         <!--Contraseña-->
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input id="password" name="password" type="password" placeholder="Contraseña"
-                                class="form-control" @error('password') is-invalid @enderror" required>
+                            <input id="password" name="password" type="password" class="form-control" @error('password')
+                                is-invalid @enderror" required>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -57,7 +57,7 @@
                     </li>
                 
                     <a class="btn btn-sm btn-primary" href="{{ url('home/' . Auth::user()->id . '/edit') }}" title="Editar">
-                        <span><i class="fas fa-edit"></i></span>
+                        <span><i class="fas fa-edit"></i>Actualizar Informacion</span>
                     </a>
 
                 </ul>

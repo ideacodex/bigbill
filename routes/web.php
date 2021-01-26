@@ -42,7 +42,6 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 /**Bill Route */
 
-
 /** Descargar PDF */
 Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
 /** Descargar PDF */

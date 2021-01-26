@@ -1,4 +1,4 @@
-@extends('layouts.Administrador')
+@extends('layouts.Vendedor')
 @section('content')
     <!--Validación de errores-->
     @if ($errors->any())
@@ -34,16 +34,17 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="bootstrap-data-table_length">
-                        
-                            <div>
-                                <a href="{{ route('facturas.create') }}" class="btn btn-success btn-sm">&nbsp;
-                                    Crear Factura
-                                    <i class=" fas fa-plus-square"></i>
-                                </a>
-                            </div>
+
+                        <div>
+                            <a href="{{ route('facturas.create') }}" style="border-radius: 95px;"
+                                class="btn btn-success btn-sm">&nbsp;
+                                Crear Factura
+                                <i class=" fas fa-plus-square"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -92,7 +93,7 @@
                                     </a>
                                     <a class="btn btn-sm btn-danger" title="Eliminar"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
                                         <span class="text-light"><i class="fas fa-trash-alt"></i></span>
                                     </a>
                                     <form id="formDel{{ $item->id }}" action="{{ url('empresas/' . $item->id) }}"

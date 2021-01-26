@@ -37,6 +37,9 @@
                         {{--Company_id--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i class="fas fa-building"></i>
+                                </span>
                             </div>
                             <select style="width: 25em" name="company_id" id="company_id"
                                 class="form-control @error('company_id') is-invalid @enderror" required>
@@ -105,9 +108,9 @@
                             @enderror
                         </div>
                         <!-- Trigger the modal with a button -->
-                        <button type="button" style="border-radius: 95px;" class="btn btn-success" data-toggle="modal"
-                            data-target="#myModal"> Agregar Producto <i class="fas fa-plus-circle"></i>
-                        </button>
+                        <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
+                            class="btn btn-success text-light" data-dismiss="modal">Agregar Producto <i
+                                class="fas fa-cart-plus text-light"></i></button>
 
                         <input type="hidden" id="ListaPro" name="ListaPro" value="" />
                         <table id="TablaPro" class="table">
@@ -151,7 +154,7 @@
                                         <h4 class="modal-title">Agregar producto a la lista</h4>
                                     </div>
                                     <div class="modal-body">
-                                       
+
                                     </div>
                                     <div class="modal-footer">
                                         <!--Uso la funcion onclick para llamar a la funcion en javascript-->
@@ -163,24 +166,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
-                    <!--Button-->
-
-                    <!--Button-->
-
-                    <!--Aquí van agregandose los input
-                                                                                            <div class="ml-5 container1"></div>
-                                                                                            Aquí van agregandose los input-->
-                    <!--Desde aquí empieza a agregar en la tabla Detalle Factura-->
-
                     <!--Button-->
                     <div class="container">
                         <div class="col-12">
                             <div class="col text-center">
                                 <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
                                     <i class="far fa-save"></i>
-                                    {{ __('Guarda') }}
+                                    {{ __('Guardar') }}
                                 </button>
                             </div>
                         </div>
@@ -217,8 +209,8 @@
             }
 
             function agregarProducto() {
-                var sel = $('').find(':selected').val(); //Capturo el Value del Producto
-                var text = $('').find(':selected')
+                var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
+                var text = $('#producto_id').find(':selected')
                     .text(); //Capturo el Nombre del Producto- Texto dentro del Select
 
                 var sptext = text.split();
@@ -303,6 +295,7 @@
                     console.log(t);*/
 
             }
+
 
         </script>
 

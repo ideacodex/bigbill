@@ -27,11 +27,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Companías Registrados</strong>
+                            <strong class="card-title">Companías Registradas</strong>
                         </div>
                         <div>
-                            <a href="{{ route('empresas.create') }}" class="btn btn-success btn-sm">&nbsp;
-                                Agregar
+                            <a href="{{ route('empresas.create') }}" style="border-radius: 95px;"
+                                class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
+                                Agregar Companía
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
@@ -70,7 +71,7 @@
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
