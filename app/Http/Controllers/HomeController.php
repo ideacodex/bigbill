@@ -13,7 +13,6 @@ use App\Category;
 use App\Award;
 use App\User;
 use App\Score;
-
 class HomeController extends Controller
 {
     /**
@@ -41,4 +40,20 @@ class HomeController extends Controller
         return view('usuario.index');
         
     }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('usuario.edit', compact('user'));
+    }
+    
+    public  function update(Request $request,$id)
+    {
+        $user = request()->except((['_token', '_method']));
+        User::where('id', '=', $id)->update($user);
+
+        return redirect()->action('HomeController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
+    }
+
+
 }

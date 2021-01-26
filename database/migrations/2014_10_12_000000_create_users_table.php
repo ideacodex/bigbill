@@ -23,12 +23,14 @@ class CreateUsersTable extends Migration
             $table->integer('phone');         
             $table->integer('nit')->unique();
             $table->string('address');
-            $table->string('company')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();        
+            $table->timestamps();     
+            $table->unsignedBigInteger('company')->nullable();
+            $table->foreign('company')
+                ->references('id')->on('companies');   
         });
     }
 
