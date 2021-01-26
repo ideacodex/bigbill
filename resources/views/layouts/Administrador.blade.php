@@ -65,7 +65,16 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Usuario</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a></li>
+                            
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -75,7 +84,7 @@
                             <li><i class="fa fa-book"></i> <a href="{{ route('clientes.index') }}"> Listado</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('clientes.create') }}"> Ingresar</a>
                             </li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Reportes</a></li>
+                            
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -85,7 +94,7 @@
                             <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar</a>
                             </li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            <!-- <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li> -->
                         </ul>
                     </li>
 
@@ -95,11 +104,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
-                                    Facturas</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
-                                    Facturas</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver Facturas</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear Facturas</a></li>
+                            
                         </ul>
                     </li>
                     <h3 class="menu-title">Inventarios</h3><!-- /.menu-title -->
@@ -121,9 +128,16 @@
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-external-link-alt"></i>Sesión</a>
+                            aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Usuario</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a>
+                            
+                            <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Salir</a></li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+
+
                             </li>
                         </ul>
                     </li>
@@ -234,13 +248,15 @@
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
 
+                            <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
+    
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
                                     class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
-                                {{ __('Logout') }}
+                                {{ __('salir') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -251,22 +267,9 @@
                     <div class="language-select dropdown" id="language-select">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
                             aria-expanded="true">
-                            <i class="flag-icon flag-icon-us"></i>
+                            <i class="flag-icon flag-icon-gt"></i>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="language">
-                            <div class="dropdown-item">
-                                <span class="flag-icon flag-icon-fr"></span>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-es"></i>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-us"></i>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-it"></i>
-                            </div>
-                        </div>
+                        
                     </div>
 
                 </div>
@@ -282,15 +285,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Facturador</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         {{-- ------------------------- --}}
 

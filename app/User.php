@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return User::orWhere('email', $username)->orWhere('phone', $username)->first();
     }
+    public function companies(){
+        return $this->belongsTo("App\Company", 'company_id');
+    }
+
 }

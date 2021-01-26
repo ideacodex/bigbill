@@ -101,7 +101,7 @@
                                     <input id="company_id" name="company_id" type="text"
                                         class="text-dark form-control @error('company_id') is-invalid @enderror" style="color:white"
                                         value="{{ $products->company_id }}" placeholder="Id de la Compañia: ej. 1 = pc tecnologi"
-                                        required autocomplete="company_id" autofocus>
+                                        required autocomplete="company_id" autofocus readonly="readonly ">
                                     @error('company_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

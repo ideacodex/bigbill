@@ -30,12 +30,10 @@
                     <div class="card">
                         <div class="card-header">
                             <strong class="card-title">Agregar Producto</strong>
+                            {{ Auth::user()->company }}
                         </div>
                         <div class="card-body">
-
                             <div>
-
-
                                 <form action="{{ url('productos') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     {{--Nombre--}}
@@ -97,9 +95,9 @@
                                                 <i title="Companía" class="far fa-building"></i>
                                             </span>
                                         </div>
-                                        <select style="width: 25em" name="company_id" id="company_id"
+                                        <select name="company_id" id="company_id"
                                             class="form-control @error('company_id') is-invalid @enderror" required>
-                                            <option selected disabled>Companía</option>
+                                           
                                             @foreach ($companies as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -231,10 +229,8 @@
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
