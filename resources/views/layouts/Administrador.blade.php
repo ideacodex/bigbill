@@ -122,6 +122,8 @@
                             aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Usuario</a>
                         <ul class="sub-menu children dropdown-menu">
                             
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('UsuariosEmpresa.index') }}"> Lista Usuarios</a>
+                            </li>
                             <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">Cerrar sesión</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -236,7 +238,6 @@
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
     
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
                                     class="count">13</span></a>

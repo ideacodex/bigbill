@@ -58,3 +58,6 @@ Route::get('/doc', function () {
 Route::resource('select', 'usuarioscontroller');
 /**Bill Route */
 
+/**Companies Route */
+Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
+/**Companies Route */
