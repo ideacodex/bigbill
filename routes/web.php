@@ -26,6 +26,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+/*
+middleware('role:root|Super|Admin');*/
+
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 /**Start Productos Route */
@@ -42,7 +45,6 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 /**Bill Route */
-
 
 /** Descargar PDF */
 Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');

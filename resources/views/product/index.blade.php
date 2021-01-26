@@ -26,19 +26,23 @@
                             <strong class="card-title">Productos Registrados</strong>
                         </div>
                         <div>
-                            <a href="{{ url('productos/create') }}" class="btn btn-success btn-sm">&nbsp;
-                                Agregar
+                            <a href="{{ url('productos/create') }}" style="border-radius: 95px;"
+                                class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
+                                Agregar Producto
                                 <i class="fas fa-plus-square"></i>
                             </a>
-                            <a href="{{ url('/doc') }}" class="btn btn-success btn-sm">&nbsp;
+                            <a href="{{ url('/doc') }}" style="border-radius: 95px;" class="btn btn-info btn-sm mt-3"><i
+                                    class="fas fa-file-excel"></i>&nbsp;
                                 Excel
                             </a>
-                                <p>Descargar <a href="{{route('products.pdf')}}">PDF</a></p>                            
+                            <p class="ml-3 mt-3"></i><a class="btn btn-danger fas fa-file-pdf"
+                                    style="border-radius: 95px;" href="{{ route('products.pdf') }}"> PDF</a></p>
                         </div>
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
-                                    <table id="bootstrap-data-table-export" id="tblData" class="table table-striped table-bordered">
+                                    <table id="bootstrap-data-table-export" id="tblData"
+                                        class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>
@@ -76,7 +80,7 @@
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -101,6 +105,5 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
-  
-@endsection
 
+@endsection

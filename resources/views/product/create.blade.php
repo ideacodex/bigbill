@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-@extends('layouts.editar')
-=======
-
 @extends('layouts.Administrador')
->>>>>>> origin/RamaPrueba
 @section('content')
     <!--Validación de errores-->
     @if ($errors->any())

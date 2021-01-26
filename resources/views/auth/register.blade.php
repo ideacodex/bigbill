@@ -19,18 +19,19 @@
             <div class="login-content">
                 <div class="login-logo">
                     <a href="register">
-                        <label class="align-content" style="color: white; font-size:30px; font-family: georgia;">Registro</label>
+                        <label class="align-content"
+                            style="color: white; font-size:30px; font-family: georgia;">Registro</label>
                     </a>
                 </div>
                 <div class="login-form">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-           
+
                         <!--Name -->
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input id="name" type="text" placeholder="Nombre" class="form-control" @error('name') is-invalid
-                                @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <input id="name" type="text" class="form-control" @error('name') is-invalid @enderror"
+                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -40,9 +41,8 @@
                         <!--Lastname -->
                         <div class="form-group">
                             <label>Apellido</label>
-                            <input id="lastname" type="text" placeholder="Apellido"
-                                class="form-control @error('lastname') is-invalid @enderror" name="lastname"
-                                value="{{ old('lastname') }}" required autocomplete="lastname">
+                            <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror"
+                                name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
                             @error('lastname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -53,19 +53,18 @@
                         <!--Phone -->
                         <div class="form-group">
                             <label>No. Celular</label>
-                            <input id="phone" type="text" placeholder="No. Celular"
-                                class="form-control @error('phone') is-invalid @enderror" name="phone"
-                                value="{{ old('phone') }}" required autocomplete="phone">
+                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
+                                name="phone" value="{{ old('phone') }}" required autocomplete="phone">
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> 
+                        </div>
                         <!--Nit -->
                         <div class="form-group">
                             <label>Nit</label>
-                            <input placeholder="Nit" id="nit" type="text"
+                            <input id="nit" type="text"
                                 class="form-control @error('nit') is-invalid @enderror" name="nit" value="{{ old('nit') }}"
                                 required autocomplete="nit">
                             @error('nit')
@@ -73,11 +72,11 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> 
+                        </div>
                         <!--Address -->
                         <div class="form-group">
                             <label>Dirección</label>
-                            <input placeholder="Dirección" id="address" type="text"
+                            <input id="address" type="text"
                                 class="form-control @error('address') is-invalid @enderror" name="address"
                                 value="{{ old('address') }}" required autocomplete="address">
 
@@ -86,11 +85,11 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> 
+                        </div>
                         <!--Email -->
                         <div class="form-group">
                             <label>Correo electrónico</label>
-                            <input placeholder="Correo electrónico" id="email" type="email"
+                            <input id="email" type="email"
                                 class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email') }}" required autocomplete="email">
 
@@ -99,11 +98,11 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> 
+                        </div>
                         <!--Password -->
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input placeholder="Contraseña" id="password" type="password"
+                            <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror" name="password" required
                                 autocomplete="new-password">
                             @error('password')
@@ -111,25 +110,26 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> 
+                        </div>
                         <!--Password confirm -->
                         <div class="form-group">
                             <label>Confirmar Contraseña</label>
-                            <input placeholder="Confirmar contraseña" id="password-confirm" type="password"
+                            <input id="password-confirm" type="password"
                                 class="form-control" name="password_confirmation" required autocomplete="new-password">
-                        </div> 
+                        </div>
                         <!--terminos y condiciones -->
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox"> Acepto los terminos y politicas de uso
                             </label>
-                        </div> 
+                        </div>
                         <!--boton de registrar -->
 
-                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>  {{ __('Guardar') }}</button>
-  
-                           <!--Ncomentarios extrasame -->
-                           <div class="register-link m-t-15 text-center">
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>
+                            {{ __('Guardar') }}</button>
+
+                        <!--Ncomentarios extrasame -->
+                        <div class="register-link m-t-15 text-center">
                             <p>¿Ya tienes cuenta? <a href="login"> Inicia sesion</a></p>
                         </div>
                     </form>
