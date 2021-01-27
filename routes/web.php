@@ -34,6 +34,7 @@ Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf'
 Auth::routes();
 
 Route::resource('home','HomeController')->middleware('auth');
+
 /**Start Productos Route */
 Route::resource('productos','ProductController')->middleware('auth');
 /**Start Productos Route */
