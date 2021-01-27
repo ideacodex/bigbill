@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
+
 </head>
-<body>
-    <H1>HOLA MUNDOOO</H1>
-    <H2>MARIA</H2>
+
+<body style=" font: Arial;">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" 
+    style="background: #2b204b; 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    padding-bottom: 10px; 
+    padding-left: 10%;"> 
+       <br>
+       <h1 style="color: #ed8405; font: Italic; ">FACTURA</h1>
+       <strong style="color: #ed8405; font: Italic; ">Nombre de la Empresa</strong>
+    </div>
+
+
     <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -38,4 +51,5 @@
         </tbody>
     </table>
 </body>
+
 </html>
