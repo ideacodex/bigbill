@@ -129,7 +129,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Usuario</a>
                         <ul class="sub-menu children dropdown-menu">
-                            {{--
+                            
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('UsuariosEmpresa.index') }}"> Lista Usuarios</a>--}}
                             </li>
                             <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -244,16 +244,9 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-<<<<<<< HEAD
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
-
-                            <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
-    
-=======
                             <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
     
 
->>>>>>> cb1105a703640a9df82da4d063a3288c247fa8c0
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
                                     class="count">13</span></a>
 

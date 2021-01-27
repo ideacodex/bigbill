@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return view('inicio');
+    return view('PDF.archivo');
 });
 
 /** Download Excel */
@@ -33,9 +33,9 @@ Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf'
 
 Auth::routes();
 
-Route::resource('home','HomeController')->middleware('auth');
+Route::resource('home', 'HomeController')->middleware('auth');
 /**Start Productos Route */
-Route::resource('productos','ProductController')->middleware('auth');
+Route::resource('productos', 'ProductController')->middleware('auth');
 /**Start Productos Route */
 
 /**Companies Route */
@@ -54,5 +54,6 @@ Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**Accounts Route */
 
-
-
+/**Companies Route */
+Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
+/**Companies Route */
