@@ -14,11 +14,16 @@
     <!--Validación de errores-->
     <!--Mensaje flash-->
     @if (session('datosEliminados'))
-        <div class="alert alert-danger">
+        <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+            <span class="badge badge-pill badge-danger">Atención</span>
             {{ session('datosEliminados') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
     <!--Mensaje flash-->
+
 
     <div class="content mt-3">
         <div class="animated fadeIn">
@@ -71,7 +76,7 @@
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
