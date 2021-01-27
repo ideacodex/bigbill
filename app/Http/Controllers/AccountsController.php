@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use App\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AccountsController extends Controller
 {
@@ -13,7 +16,8 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        //
+        $accounts = Account::all();
+        return view("accounts.index", ["accounts" => $accounts]);
     }
 
     /**
@@ -23,7 +27,8 @@ class AccountsController extends Controller
      */
     public function create()
     {
-        //
+        $accounts = Account::all();
+        return view("accounts.create", ["accounts" => $accounts]);
     }
 
     /**
@@ -34,7 +39,25 @@ class AccountsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'status'
+        ]);
+        DB::beginTransaction();
+        try{
+            $accounts = new Account;
+            $accounts->name = $request->name;
+            $accounts->status = $request->status;
+            
+            $accounts->save();
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            dd($e);
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return back()->with('usuarioGuardado', 'Registro Guardado');
     }
 
     /**
@@ -56,7 +79,8 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $accounts = Account::findOrFail($id);
+        return view('accounts.edit', compact('accounts'));
     }
 
     /**
@@ -68,7 +92,11 @@ class AccountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $accounts = request()->except((['_token', '_method']));
+        Account::where('id', '=', $id)->update($accounts);
+
+        return redirect()->action('AccountsController@index')
+        ->with('datosModificados', 'Registro Modificado');
     }
 
     /**
@@ -79,6 +107,7 @@ class AccountsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $record = Account::destroy($id);
+        return back()->with('datosEliminados', 'La cuenta ha sido eliminada');
     }
 }
