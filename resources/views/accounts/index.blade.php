@@ -47,7 +47,7 @@
                                             <tr>
                                                 <th>Id</th>
                                                 <th>Nombre de la cuenta</th>
-                                                <th>Tipo de cuenta </th>
+                                                <th>Estado de cuenta </th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -56,7 +56,7 @@
                                                 <tr>
                                                     <th>{{ $item->id }}</th>
                                                     <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->status }}</td>
+                                                    <td>{{ $item->account_types->status}}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a class="btn btn-sm btn-secondary" href=""
@@ -70,7 +70,7 @@
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -133,24 +133,27 @@
                             @enderror
                         </div>
 
-                        {{--Estado--}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        {{--Company_id--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Estado" class="text-dark fas fa-thermometer-empty"></i>
+                                    <i title="Companía" class="far fa-building"></i>
                                 </span>
                             </div>
-                            <input id="status" placeholder="Estado" type="text"
-                                class="text-dark form-control @error('status') is-invalid @enderror" name="status"
-                                value="{{ old('status') }}" required autocomplete="status" autofocus>
+                            <select name="status_id" id="status_id"
+                                class="form-control @error('status_id') is-invalid @enderror" required>
 
-                            @error('status')
+                                @foreach ($account_types as $item)
+                                    <option value="{{ $item->id }}">{{ $item->status }}</option>
+                                @endforeach
+                            </select>
+                            @error('status_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
 
-                            @error('status')
+                            @error('status_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -161,7 +164,7 @@
                                 <div class="col text-center">
                                     <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
                                         <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
+                                        {{ __('Guarda') }}
                                     </button>
                                 </div>
                             </div>

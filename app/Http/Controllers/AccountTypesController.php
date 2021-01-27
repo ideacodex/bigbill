@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use App\Account;
+use App\AccountType;
 use Illuminate\Http\Request;
 
-class AccountTypeController extends Controller
+class AccountTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,8 @@ class AccountTypeController extends Controller
      */
     public function index()
     {
-        //
+        $account_types = AccountType::all();
+        return view("account_types.index", ['account_types' => $account_types]);
     }
 
     /**
@@ -34,7 +38,23 @@ class AccountTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'status' => 'required'
+        ]);
+        DB::beginTransaction();
+        try{
+            $account_types = new AccountType();
+            $account_types->status = $request->status;
+            
+            $account_types->save();
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            dd($e);
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return back()->with('usuarioGuardado', 'Tipo de cuenta registrado');
     }
 
     /**

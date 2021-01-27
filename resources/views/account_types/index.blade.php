@@ -35,7 +35,7 @@
                         <div>
                             <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
                                 data-toggle="modal" data-target="#largeModal">
-                                Agregar Tipo de cuenta
+                                Agregar tipo de cuenta
                                 <i class="fas fa-plus-square"></i>
                             </button>
                         </div>
@@ -46,12 +46,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Tipo de cuenta</th>
+                                                <th>Estado de cuenta</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($accounts as $item)
+                                            @foreach ($account_types as $item)
                                                 <tr>
                                                     <th>{{ $item->id }}</th>
                                                     <td>{{ $item->status }}</td>
@@ -105,7 +105,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('cuentas.store') }}" onsubmit="return checkSubmit();">
+                    <form method="POST" action="{{ route('TipodeCuenta.store') }}" onsubmit="return checkSubmit();">
                         @csrf
                         {{--Tipo de cuenta--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">

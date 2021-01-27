@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AccountType;
 use DB;
 use App\Account;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class AccountsController extends Controller
     public function index()
     {
         $accounts = Account::all();
-        return view("accounts.index", ["accounts" => $accounts]);
+        $account_types = Account::with('account_types')->get();
+        return view("accounts.index",['accounts' => $accounts, 'account_types' => $account_types]);
     }
 
     /**
@@ -41,13 +43,13 @@ class AccountsController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'status'
+            'status_id' => 'required'
         ]);
         DB::beginTransaction();
         try{
             $accounts = new Account;
             $accounts->name = $request->name;
-            $accounts->status = $request->status;
+            $accounts->status_id = $request->status_id;
             
             $accounts->save();
         }catch(\Illuminate\Database\QueryException $e){

@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return view('inicio');
+    return view('PDF.archivo');
 });
 
 /** Download Excel */
@@ -28,15 +28,14 @@ Route::get('/doc', function () {
 /** Download Excel */
 
 /** Descargar PDF */
-Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
+Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf')->middleware('auth');
 /** Descargar PDF */
 
 Auth::routes();
 
-Route::resource('home','HomeController')->middleware('auth');
-
+Route::resource('home', 'HomeController')->middleware('auth');
 /**Start Productos Route */
-Route::resource('productos','ProductController')->middleware('auth');
+Route::resource('productos', 'ProductController')->middleware('auth');
 /**Start Productos Route */
 
 /**Companies Route */
@@ -55,5 +54,10 @@ Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**Accounts Route */
 
+/**userInfo Route */
+Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
+/**userInfo Route */
 
-
+/**Account_type Route */
+Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
+/**Account_type Route */
