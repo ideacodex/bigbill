@@ -28,23 +28,23 @@
                                     @csrf @method('PATCH')
                                     <!--Role Id-->
                                     <!--
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="Nombre" class="fas fa-people-carry"></i>
-                                                </span>
+                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                        <i title="Nombre" class="fas fa-people-carry"></i>
+                                                    </span>
+                                                </div>
+                                                <input readonly="readonly "id="role_id" name="role_id" type="text"
+                                                    class="text-dark form-control @error('role_id') is-invalid @enderror"
+                                                    value="{{ $user->role_id }}" placeholder="Id" required
+                                                    autocomplete="role_id" autofocus>
+                                                @error('role_id')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                @enderror
                                             </div>
-                                            <input readonly="readonly "id="role_id" name="role_id" type="text"
-                                                class="text-dark form-control @error('role_id') is-invalid @enderror"
-                                                value="{{ $user->role_id }}" placeholder="Id" required
-                                                autocomplete="role_id" autofocus>
-                                            @error('role_id')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                            @enderror
-                                        </div>
-                                        -->
+                                            -->
 
                                     <!--Nombre-->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -150,6 +150,7 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    
                                     <!--Button-->
                                     <div class="container mt-4">
                                         <div class="col-12">

@@ -64,8 +64,16 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a></li>
-                            
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar Companía</a></li>
+                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Cuentas Contables</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Listado</a></li>
+                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -73,7 +81,7 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-users"></i>Clientes</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i> <a href="{{ route('clientes.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('clientes.create') }}"> Ingresar</a>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('clientes.create') }}"> Ingresar Cliente</a>
                             </li>
                             
                         </ul>
@@ -83,7 +91,7 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar</a>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar Producto</a>
                             </li>
                             <!-- <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li> -->
                         </ul>
@@ -129,6 +137,12 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+<<<<<<< HEAD
+
+
+                            </li>
+=======
+>>>>>>> cb1105a703640a9df82da4d063a3288c247fa8c0
                         </ul>
                     </li>
                 </ul>
@@ -236,9 +250,16 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
+<<<<<<< HEAD
+                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+
+                            <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
+    
+=======
                             <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
     
 
+>>>>>>> cb1105a703640a9df82da4d063a3288c247fa8c0
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
                                     class="count">13</span></a>
 

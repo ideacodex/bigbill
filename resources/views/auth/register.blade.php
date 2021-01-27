@@ -20,7 +20,7 @@
                 <div class="login-logo">
                     <a href="register">
                         <label class="align-content"
-                            style="color: white; font-size:30px; font-family: georgia;">Registro</label>
+                            style="color: white; font-size:30px; font-family: georgia;">Registrar Usuario</label>
                     </a>
                 </div>
                 <div class="login-form">

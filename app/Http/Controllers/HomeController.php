@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use DB;
+use App\Company;
 use App\Post;
 use App\Reaction;
 use App\Question;
@@ -32,19 +33,22 @@ class HomeController extends Controller
      */
     public function index()
     {
+            $companies = Company::all();
+            
+
         $user = Auth::user();
         if (!$user->hasAnyRole(Role::all())){
             auth()->user()->syncRoles('Usuario');
         }
         // return view('usuario.frmusuario');
-        return view('usuario.index');
+        return view('userInfo.index', ['companies' => $companies, ]);
         
     }
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('usuario.edit', compact('user'));
+        return view('userInfo.edit', compact('user'));
     }
     
     public  function update(Request $request,$id)
@@ -54,6 +58,4 @@ class HomeController extends Controller
 
         return redirect()->action('HomeController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
-
-
 }

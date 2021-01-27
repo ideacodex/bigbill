@@ -8,6 +8,7 @@ use App\Score;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
+use App\Company;
 use DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;

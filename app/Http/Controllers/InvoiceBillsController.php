@@ -6,10 +6,12 @@ use App\DetailBill;
 use App\Company;
 use Illuminate\Support\Facades\DB;
 use App\InvoiceBill;
+use App\Mail\MessageReceived;
 use App\Product;
 use DetailBill as GlobalDetailBill;
 use Illuminate\Http\Request;
 use Dotenv\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceBillsController extends Controller
 {
@@ -81,8 +83,8 @@ class InvoiceBillsController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return back()->with('usuarioGuardado', 'Detalle Guardado');
-        
+        return redirect()->action('InvoiceBillsController@index')
+        ->with('usuarioGuardado', 'Factura Registrada');      
         
         /*
         if($request->ajax())
