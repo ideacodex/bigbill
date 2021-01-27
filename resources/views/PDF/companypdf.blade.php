@@ -10,7 +10,7 @@
 </head>
 
 <body style=" font: Georgia">
-    <div name="productos">
+    <div name="company">
         <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                 style="background: #2b204b;border: 1px solid #000;padding: 10px;">
