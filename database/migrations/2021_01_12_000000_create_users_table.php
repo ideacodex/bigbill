@@ -26,11 +26,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+            ->references('id')->on('companies');
             $table->rememberToken();
-            $table->timestamps();     
-            $table->unsignedBigInteger('company')->nullable();
-            $table->foreign('company')
-                ->references('id')->on('companies');   
+            $table->timestamps();       
         });
     }
 

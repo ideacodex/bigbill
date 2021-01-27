@@ -15,8 +15,10 @@ class Accounts extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('status');      
+            $table->string('name');  
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->foreign('status_id')
+                ->references('id')->on('account_types');      
             $table->timestamps();       
         });
     }

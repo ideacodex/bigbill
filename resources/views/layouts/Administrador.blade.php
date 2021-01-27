@@ -61,10 +61,9 @@
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
+                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Tipos de cuentas</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar Companía</a></li>
+                            <li><i class="fa fa-book"></i><a href="{{ route('TipodeCuenta.index') }}"> Listado</a></li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>
@@ -73,6 +72,15 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Cuentas Contables</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Listado</a></li>
+                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar Companía</a></li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>

@@ -30,12 +30,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Cuentas Registradas</strong>
+                            <strong class="card-title">Tipos de cuentas</strong>
                         </div>
                         <div>
                             <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
                                 data-toggle="modal" data-target="#largeModal">
-                                Agregar Cuenta
+                                Agregar tipo de cuenta
                                 <i class="fas fa-plus-square"></i>
                             </button>
                         </div>
@@ -46,17 +46,15 @@
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Nombre de la cuenta</th>
-                                                <th>Estado de cuenta </th>
+                                                <th>Estado de cuenta</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($accounts as $item)
+                                            @foreach ($account_types as $item)
                                                 <tr>
                                                     <th>{{ $item->id }}</th>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->account_types->status}}</td>
+                                                    <td>{{ $item->status }}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a class="btn btn-sm btn-secondary" href=""
@@ -70,7 +68,7 @@
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -101,59 +99,32 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="largeModalLabel">Agregar Cuenta</h5>
+                    <h5 class="modal-title" id="largeModalLabel">Agregar Tipo de cuenta</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('cuentas.store') }}" onsubmit="return checkSubmit();">
+                    <form method="POST" action="{{ route('TipodeCuenta.store') }}" onsubmit="return checkSubmit();">
                         @csrf
-                        {{--Nombre de la cuenta--}}
+                        {{--Tipo de cuenta--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nombre de la cuenta" class="text-dark fas fa-lira-sign"></i>
+                                    <i title="Tipo de cuenta" class="text-dark fas fa-lira-sign"></i>
                                 </span>
                             </div>
-                            <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
-                                name="name" value="{{ old('name') }}" placeholder="Nombre de la cuenta" required
-                                autocomplete="name" autofocus>
+                            <input id="status" type="text" class="text-dark form-control @error('status') is-invalid @enderror"
+                                name="status" value="{{ old('status') }}" placeholder="Tipo de cuenta" required
+                                autocomplete="status" autofocus>
 
-                            @error('name')
+                            @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
 
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        {{--Company_id--}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Companía" class="far fa-building"></i>
-                                </span>
-                            </div>
-                            <select name="status_id" id="status_id"
-                                class="form-control @error('status_id') is-invalid @enderror" required>
-
-                                @foreach ($account_types as $item)
-                                    <option value="{{ $item->id }}">{{ $item->status }}</option>
-                                @endforeach
-                            </select>
-                            @error('status_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            @error('status_id')
+                            @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -164,7 +135,7 @@
                                 <div class="col text-center">
                                     <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
                                         <i class="far fa-save"></i>
-                                        {{ __('Guarda') }}
+                                        {{ __('Guardar') }}
                                     </button>
                                 </div>
                             </div>

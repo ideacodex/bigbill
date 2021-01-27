@@ -28,7 +28,7 @@ Route::get('/doc', function () {
 /** Download Excel */
 
 /** Descargar PDF */
-Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
+Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf')->middleware('auth');
 /** Descargar PDF */
 
 Auth::routes();
@@ -54,6 +54,10 @@ Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**Accounts Route */
 
-/**Companies Route */
+/**userInfo Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
-/**Companies Route */
+/**userInfo Route */
+
+/**Account_type Route */
+Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
+/**Account_type Route */
