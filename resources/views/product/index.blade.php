@@ -52,7 +52,7 @@
                                                 <th>Cant. Stock</th>
                                                 <th>Cant. Ingreso </th>
                                                 <th>Cant. Egreso</th>
-                                                <th>Fecha Transaccion</th>
+                                                <th>Fecha Transacción</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
