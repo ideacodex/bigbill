@@ -137,13 +137,13 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Companía" class="far fa-building"></i>
+                                    <i title="Companía" class="fas fa-calculator"></i>
                                 </span>
                             </div>
                             <select name="status_id" id="status_id"
                                 class="form-control @error('status_id') is-invalid @enderror" required>
 
-                                @foreach ($account_types as $item)
+                                @foreach ($account_type as $item)
                                     <option value="{{ $item->id }}">{{ $item->status }}</option>
                                 @endforeach
                             </select>
@@ -164,7 +164,7 @@
                                 <div class="col text-center">
                                     <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
                                         <i class="far fa-save"></i>
-                                        {{ __('Guarda') }}
+                                        {{ __('Guardar') }}
                                     </button>
                                 </div>
                             </div>
