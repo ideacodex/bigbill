@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Company extends Migration
+class Accounts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class Company extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('nit')->unique();
-            $table->integer('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->timestamps();           
+            $table->string('name');  
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->foreign('status_id')
+                ->references('id')->on('account_types');      
+            $table->timestamps();       
         });
     }
 
@@ -30,6 +30,6 @@ class Company extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('accounts');
     }
 }

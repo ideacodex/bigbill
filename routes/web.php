@@ -18,17 +18,23 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return view('inicio');
+    return view('PDF.archivo');
 });
-
-
-
-
 Auth::routes();
 
-Route::resource('home','HomeController')->middleware('auth');
+
+/** Descargar  PDF */
+Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
+Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
+Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
+Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
+Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
+Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
+/**FIn de Descargar PDF */
+
+Route::resource('home', 'HomeController')->middleware('auth');
 /**Start Productos Route */
-Route::resource('productos','ProductController')->middleware('auth');
+Route::resource('productos', 'ProductController')->middleware('auth');
 /**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
@@ -54,10 +60,11 @@ Route::get('/doc', function () {
 /** Descargar Excel */
 
 
-/**Bill Route */
-Route::resource('select', 'usuarioscontroller');
-/**Bill Route */
-
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
+
+
+/**Account_type Route */
+Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
+/**Account_type Route */

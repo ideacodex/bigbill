@@ -25,14 +25,14 @@ class UsuarioEmpresaController extends Controller
     public function index()
     {
         $user = User::all();
-        return view("usuario.UsuarioEmpresa.usuarios", ["user" => $user]);
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
         
     }
 
     public function edit($id)
     {
         $user = User::findOrFail($id) and $companies = Company::all();
-        return view('usuario.UsuarioEmpresa.update', compact('user'),["companies" => $companies]);
+        return view('userInfo.UsuarioEmpresa.update', compact('user'),["companies" => $companies]);
     }
     
     public  function update(Request $request,$id)
