@@ -60,10 +60,16 @@ Route::get('/doc', function () {
 /** Descargar Excel */
 
 
+/**Bill Route */
+Route::resource('select', 'usuarioscontroller');
+/**Bill Route */
+
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
-
+/**userInfo Route */
+Route::resource('cuentas', 'AccountsController')->middleware('auth');
+/**userInfo Route */
 
 /**Account_type Route */
 Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
