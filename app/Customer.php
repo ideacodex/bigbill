@@ -12,4 +12,9 @@ class Customer extends Model
         return $this->model->where('lastname', 'like', "%$q%")
             ->get(); 
     }
+ 
+    public function company(){
+        return $this->hasOne("App\Company", 'id', 'company_id');
+    }
+
 }

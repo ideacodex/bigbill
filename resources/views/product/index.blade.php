@@ -31,12 +31,6 @@
                                 Agregar Producto
                                 <i class="fas fa-plus-square"></i>
                             </a>
-                            <a href="{{ url('/doc') }}" style="border-radius: 95px;" class="btn btn-info btn-sm mt-3"><i
-                                    class="fas fa-file-excel"></i>&nbsp;
-                                Excel
-                            </a>
-                            <p class="ml-3 mt-3"></i><a class="btn btn-danger fas fa-file-pdf"
-                                    style="border-radius: 95px;" href="{{ route('products.pdf') }}"> PDF</a></p>
                         </div>
                         <div class="card-body">
                             <div class="row table-responsive">

@@ -24,7 +24,6 @@
                         </td>
                         <td>
                             <h1 style="color: #ed8405; font: Italic;text ;text-align: right">FACTURA</h1>
-
                         </td>
                     </tr>
                 </table>
@@ -34,7 +33,6 @@
             <div class="row">
                 <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                     style="background: #2b204b;border: 1px solid #000;padding: 10px;">
-
                     <table>
                         <tr>
                             <td rowspan="2">
@@ -90,7 +88,6 @@
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> No. </div>
                     </th>
-
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Cant </div>
                     </th>
@@ -100,7 +97,6 @@
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Precio Unit</div>
                     </th>
-
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Sub-Total</div>
                     </th>
@@ -109,7 +105,6 @@
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> No. </div>
                     </th>
-
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Cant </div>
                     </th>
@@ -119,7 +114,6 @@
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Precio Unit</div>
                     </th>
-
                     <th>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Sub-Total</div>
                     </th>
@@ -139,36 +133,7 @@
             </table>
         </div>
     </div>
-
-
-    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Codigo</th>
-                <th>Productos</th>
-                <th>Descrpcion</th>
-                <th>Precio </th>
-                <th>Cant. Stock</th>
-                <th>Cant. Ingreso </th>
-                <th>Cant. Egreso</th>
-                <th>Fecha Transaccion</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($products as $item)
-                <tr>
-                    <th>{{ $item->id }}</th>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->description }}</td>
-                    <td>{{ $item->price }}</td>
-                    <td>{{ $item->quantity_values }}</td>
-                    <td>{{ $item->income_amount }}</td>
-                    <td>{{ $item->amount_expenses }}</td>
-                    <td>{{ $item->date_discharge }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+   
 </body>
 
 </html>
