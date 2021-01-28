@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
-    
+
 </head>
 
 <body style=" font: Georgia">
@@ -30,16 +30,16 @@
                 <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                     style="background: #2b204b;border: 1px solid #000;padding: 10px;">
                     <input type="text" value="<?php echo date('d/m/y'); ?>"
-                    style="border: none; background: none; float: right;color: #ffffff">
+                        style="border: none; background: none; float: right;color: #ffffff">
                     <table>
                         <tr>
                             <td rowspan="2">
-                                <Strong style="color: #ffffff">Nombre: 
+                                <Strong style="color: #ffffff">Nombre:
                                     <!-- nombre-->
                                 </Strong>
                             </td>
                             <td style="color: #ffffff">
-                                {{ Auth::user()->name }} 
+                                {{ Auth::user()->name }}
                                 <!-- name-->
                             </td>
                         </tr>
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
     <table class="table table-dark">
         <thead style="background: #2b204b ; color:white">
@@ -96,12 +96,18 @@
                     <td>{{ $item->nit }}</td>
                     <td>{{ $item->address }}</td>
                     <td>{{ $item->email }}</td>
-                    <td>{{ $item->companies->name }}</td>
+                    @if ($item->company)
+                        <td>{{ $item->company->name }}</td>
+                    @else
+                        {
+                        <td>Sin companía</td>
+                        }
+                    @endif
                 </tr>
             @endforeach
         </tbody>
     </table>
-    
+
 </body>
 
 </html>
