@@ -22,14 +22,7 @@
                         <div class="card-header">
                             <strong class="card-title">Usuarios Registrados</strong>
                         </div>
-                        <div>
-                            <a href="{{ url('/doc') }}" style="border-radius: 90px;" class="btn btn-info btn-sm mt-3"><i
-                                    class="fas fa-file-excel"></i>&nbsp;
-                                Excel
-                            </a>
-                            <p class="ml-3 mt-3"></i><a class="btn btn-danger fas fa-file-pdf"
-                                    style="border-radius: 90px;" href="{{ route('products.pdf') }}"> PDF</a></p>
-                        </div>
+                       
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
@@ -38,14 +31,14 @@
                                         <thead>
                                             <tr>
                                                 <th>id</th>
-                                                <th>role_id</th>
+                                                <th>Role</th>
                                                 <th>Nombre</th>
-                                                <th>telefono</th>
-                                                <th>nit</th>
-                                                <th>direccion</th>
-                                                <th>correo</th>
-                                                <th>compañia</th>
-                                                <th>Acciones</th>
+                                                <th>Teléfono</th>
+                                                <th>Nit</th>
+                                                <th>Dirección</th>
+                                                <th>Correo</th>
+                                                <th>Companía</th>
+                                                <th>Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,7 +51,7 @@
                                                     <td>{{ $item->nit }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->company }}</td>
+                                                    <td>{{ $item->company->name}}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a class="btn btn-sm btn-secondary" href=""

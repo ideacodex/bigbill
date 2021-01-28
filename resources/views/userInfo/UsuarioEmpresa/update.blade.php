@@ -162,20 +162,20 @@
                                             <i title="company" class="far fa-building"></i>
                                         </span>
                                     </div>
-                                    <select name="company" id="company"
-                                        class="form-control @error('company') is-invalid @enderror" required>
+                                    <select name="company_id" id="company_id"
+                                        class="form-control @error('company_id') is-invalid @enderror" required>
                                        
                                         @foreach ($companies as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('company')
+                                    @error('company_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
 
-                                    @error('company')
+                                    @error('company_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

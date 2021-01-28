@@ -38,7 +38,7 @@ class HomeController extends Controller
 
         $user = Auth::user();
         if (!$user->hasAnyRole(Role::all())){
-            auth()->user()->syncRoles('Usuario');
+            auth()->user()->syncRoles('Vendedor');
         }
         // return view('usuario.frmusuario');
         return view('userInfo.index', ['companies' => $companies, ]);
