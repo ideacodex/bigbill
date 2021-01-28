@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use AccountType;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade  as PDF;
 use App\Product;
@@ -11,14 +12,17 @@ use App\Account;
 use App\DetailBill;
 use App\InvoiceBill;
 use App\User;
+use Illuminate\Database\Console\Migrations\StatusCommand;
+
 class ArchivosController extends Controller
 {
     //Productos
     public function exportProductPDF(){
-        $Products = Product::get();
+        $Products = Product::all();
+        $companies = Product::with('companies')->get();
         $pdf = PDF::loadView('PDF.Productpdf', compact('Products'));
 
-        return $pdf->download('Product.pdf');
+        return $pdf->download('Product.pdf' , ["companies" => $companies]);
     }
     //Company
     public function exportCompanyPDF(){
@@ -36,25 +40,33 @@ class ArchivosController extends Controller
     }
     //Account
     public function exportAccountPDF(){
-        $Account = Account::get();
-        $pdf = PDF::loadView('PDF.Accountpdf', compact('Account'));
+        $Account = Account::all();
+        $account_types = Account::with('account_types')->get();
+        $pdf = PDF::loadView('PDF.Accountpdf', compact('Account') );
+        return $pdf->download('Account.pdf' , ["account_types" => $account_types]);
 
-        return $pdf->download('Account.pdf');
+
+
     }
     //factura
     public function exportfacturatPDF(){
-        $DetailBill = DetailBill::get();
-        $InvoiceBill = InvoiceBill::get();
 
-        $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill'));
+        $InvoiceBill = InvoiceBill::all();
+        $company = InvoiceBill::with('company')->get();
+        $user = InvoiceBill::with('user')->get();
 
-        return $pdf->download('Factura.pdf');
+        $DetailBill = DetailBill::all();
+        $product = DetailBill::with('product')->get();
+
+        $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill') );
+        return $pdf->download('Factura.pdf' , ["product" => $product , "company" => $company , "user" => $user]);
     }
     //User
     public function exportUserPDF(){
-        $User = User::get();
+        $User = User::all();
+        $companies =  User::with('companies')->get();
         $pdf = PDF::loadView('PDF.Userpdf', compact('User'));
 
-        return $pdf->download('User.pdf');
+        return $pdf->download('User.pdf', ["companies"=>$companies]);
     }
 }

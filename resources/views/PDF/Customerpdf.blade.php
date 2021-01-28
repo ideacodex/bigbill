@@ -71,6 +71,32 @@
         </div>
        
     </div>
+    <table class="table table-dark">
+        <thead style="background: #2b204b ; color:white">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">telefono </th>
+                <th scope="col">Correo</th>
+                <th scope="col">Nit </th>
+                <th scope="col">DPI</th>
+            </tr>
+        </thead>
+        <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
+            @foreach ($customer as $item)
+                <tr>
+                    <th scope="row">{{ $item->id }}</th>
+                    <td><b> {{ $item->name }}</b></td>
+                    <td>{{ $item->lastname }}</td>
+                    <td>{{ $item->phone }}</td>
+                    <td>{{ $item->email }}</td>
+                    <td>{{ $item->nit }}</td>
+                    <td>{{ $item->dpi }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
     
 </body>
 

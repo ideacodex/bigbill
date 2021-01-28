@@ -72,7 +72,24 @@
         </div>
        
     </div>
-    
+    <table class="table table-dark">
+        <thead style="background: #2b204b ; color:white">
+            <tr>
+                <th scope="col">  No.  </th>
+                <th scope="col">Nombre de la Cuenta</th>
+                <th scope="col">Tipo De Cuenta</th>
+            </tr>
+        </thead>
+        <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
+            @foreach ($Account as $item)
+                <tr>
+                    <th scope="row">{{ $item->id }}</th>
+                    <td><b> {{ $item->name }}</b></td>
+                    <td><b> {{ $item->account_types->status }}</b></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 
 </html>

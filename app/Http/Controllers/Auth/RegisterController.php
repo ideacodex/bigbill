@@ -75,10 +75,10 @@ class RegisterController extends Controller
        try{
           if (!Role::find(1)){
             
-              $roleSuper = Role::create(['name' => 'Usuario']);
-              $roleAdmin = Role::create(['name' => 'Vendedor']);
+              $roleSuper = Role::create(['name' => 'Administrador']);
+              $roleAdmin = Role::create(['name' => 'Gerente']);
               $roleSeller = Role::create(['name' => 'Contador']);
-              $roleFinal = Role::create(['name' => 'Gerente']);
+              $roleFinal = Role::create(['name' => 'Vendedor']);
              
               
           }
@@ -98,7 +98,8 @@ class RegisterController extends Controller
        $user->phone = $data['phone'];
        $user->nit = $data['nit'];
        $user->address = $data['address'];
-       $user->role_id = 1;
+       $user->role_id = 4;
+       $user->company_id = 1;
        $user->save();
 
        return $user;

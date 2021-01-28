@@ -25,7 +25,8 @@ class UsuarioEmpresaController extends Controller
     public function index()
     {
         $user = User::all();
-        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
+        $company = User::with('company')->get();
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company]);
         
     }
 
