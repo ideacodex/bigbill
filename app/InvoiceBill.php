@@ -21,4 +21,8 @@ class InvoiceBill extends Model
     public function user(){
         return $this->hasOne("App\User", 'id', 'user_id');
     }
+
+    public function customer(){
+        return $this->hasOne("App\Customer", 'id', 'customer_id');
+    }
 }

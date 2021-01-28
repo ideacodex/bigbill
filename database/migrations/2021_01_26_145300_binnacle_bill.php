@@ -21,6 +21,7 @@ class BinnacleBill extends Migration
             $table->string('usuario');
             $table->date('fecha');
             $table->string('accion');
+            $table->timestamps();       
         });
     }
 

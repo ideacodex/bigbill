@@ -64,6 +64,8 @@
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 249px;" aria-label="Office: activate to sort column ascending">Companía</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
+                            style="width: 249px;" aria-label="Office: activate to sort column ascending">Cliente</th>
+                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Iva</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Total</th>
@@ -75,8 +77,15 @@
                     @foreach ($invoice_bill as $item)
                         <tr>
                             <th scope="row"> {{ $item->id }}</th>
-                            <td>{{ $item->user->name}} {{ $item->user->lastname}}</td>
+                            <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
                             <td>{{ $item->company->name }}</td>
+                            @if ($item->customer)
+                                <td>{{ $item->customer->name }} {{ $item->customer->lastname}}</td>
+                            @else
+                                {
+                                <td>C/F</td>
+                                }
+                            @endif
                             <td>{{ $item->iva }}</td>
                             <td>{{ $item->total }}</td>
                             <td>
@@ -90,7 +99,7 @@
                                     </a>
                                     <a class="btn btn-sm btn-danger" title="Eliminar"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                         <span class="text-light"><i class="fas fa-trash-alt"></i></span>
                                     </a>
                                     <form id="formDel{{ $item->id }}" action="{{ url('empresas/' . $item->id) }}"
@@ -153,7 +162,7 @@
     </div>
     </div>
     </div>
-    </div>
+    </div>  
     </div>
     </div>
 

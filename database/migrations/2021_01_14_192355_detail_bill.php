@@ -16,7 +16,7 @@ class DetailBill extends Migration
         
         Schema::create('detail_bills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('invoice_id')->nullable();
             $table->foreign('invoice_id')
             ->references('id')->on('invoice_bills');
             $table->bigInteger('product_id')->unsigned();
@@ -26,9 +26,7 @@ class DetailBill extends Migration
             $table->decimal('unit_price');
             $table->decimal('subtotal');
             $table->timestamps();           
-        });
-
-        
+        });        
     }   
 
     /**
@@ -38,6 +36,6 @@ class DetailBill extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_bill');
+        Schema::dropIfExists('detail_bills');
     }
 }

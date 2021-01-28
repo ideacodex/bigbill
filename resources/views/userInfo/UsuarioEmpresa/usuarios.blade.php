@@ -12,7 +12,6 @@
     @endif
     <!--Validación de errores-->
 
-
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
@@ -22,7 +21,7 @@
                         <div class="card-header">
                             <strong class="card-title">Usuarios Registrados</strong>
                         </div>
-                       
+
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
@@ -51,7 +50,13 @@
                                                     <td>{{ $item->nit }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->company->name}}</td>
+                                                    @if ($item->company)
+                                                        <td>{{ $item->company->name }}</td>
+                                                    @else
+                                                        {
+                                                        <td>Sin companía</td>
+                                                        }
+                                                    @endif
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a class="btn btn-sm btn-secondary" href=""
@@ -65,13 +70,13 @@
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
                                                             <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('UsuariosEmpresa/' . $item->id) }}" method="POST"
-                                                                style="display: none;">
+                                                                action="{{ url('UsuariosEmpresa/' . $item->id) }}"
+                                                                method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>
@@ -90,8 +95,4 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
-
-
-
-
 @endsection
