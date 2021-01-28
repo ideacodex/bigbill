@@ -10,7 +10,7 @@
 </head>
 
 <body style=" font: Georgia">
-    <div name="user">
+    <div name="productos">
         <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                 style="background: #2b204b;border: 1px solid #000;padding: 10px;">
@@ -85,7 +85,7 @@
           </tr>
         </thead>
         <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
-            @foreach ($products as $item)
+            @foreach ($Products as $item)
             <tr>
                 <th scope="row">{{ $item->id }}</th>
                 <td ><b> {{ $item->name }}</b></td>
