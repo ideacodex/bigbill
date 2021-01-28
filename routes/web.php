@@ -20,6 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/', function () {
     return view('PDF.archivo');
 });
+Auth::routes();
 
 /** Download Excel */
 Route::get('/doc', function () {
@@ -27,11 +28,14 @@ Route::get('/doc', function () {
 });
 /** Download Excel */
 
-/** Descargar PDF */
-Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf')->middleware('auth');
-/** Descargar PDF */
-
-Auth::routes();
+/** Descargar  PDF */
+Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
+Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
+Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
+Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
+Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
+Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
+/**FIn de Descargar PDF */
 
 Route::resource('home', 'HomeController')->middleware('auth');
 /**Start Productos Route */

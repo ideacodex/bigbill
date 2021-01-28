@@ -29,8 +29,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Agregar Producto</strong>
-                            {{ Auth::user()->company }}
+                            <strong class="card-title">Agregar Producto: </strong>
+                            {{ Auth::user()->name }} {{ Auth::user()->lastname }}
                         </div>
                         <div class="card-body">
                             <div>

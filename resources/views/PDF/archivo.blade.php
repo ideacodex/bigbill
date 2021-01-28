@@ -70,8 +70,29 @@
                     GENERAR REPORTE
                 </div>
 
+                
                 <div class="links">
-                    <p>Descargar <a href="{{route('products.pdf')}}">PDF</a></p>
+                    <p>Descargar Productos<a href="{{route('Product.pdf')}}">PDF</a></p>
+                </div>
+
+                <div class="links">
+                    <p>Descargar Company<a href="{{route('Company.pdf')}}">PDF</a></p>
+                </div>
+
+                <div class="links">
+                    <p>Descargar Customer<a href="{{route('Customer.pdf')}}">PDF</a></p>
+                </div>
+
+                <div class="links">
+                    <p>Descargar Account<a href="{{route('Account.pdf')}}">PDF</a></p>
+                </div>
+
+                <div class="links">
+                    <p>Descargar Factura<a href="{{route('Factura.pdf')}}">PDF</a></p>
+                </div>
+
+                <div class="links">
+                    <p>Descargar User<a href="{{route('User.pdf')}}">PDF</a></p>
                 </div>
 
             </div>

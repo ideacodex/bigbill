@@ -122,16 +122,20 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                    href="">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href=""> Companías</a>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{route('Customer.pdf')}}">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{route('Product.pdf')}}">Productos</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href=""> Productos</a>
+                            <li><i class="fa fa-id-badge"></i><a href="{{route('Account.pdf')}}">Cuentas</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href=""> Facturas</a>
+                            <li><i class="fa fa-id-badge"></i><a href="{{route('Company.pdf')}}">Companias</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{route('Factura.pdf')}}">Facturas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{route('User.pdf')}}">Usuarios</a>
                             </li>
                         </ul>
                     </li>
+                    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
