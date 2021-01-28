@@ -9,21 +9,17 @@
 
 </head>
 
-<body style=" font: Arial;">
-    <div name="factura">
+<body style=" font: Georgia">
+    <div name="Customerpdf">
         <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                 style="background: #2b204b;border: 1px solid #000;padding: 10px;">
                 <table>
-                    <tr>
-                        <td>
-                            <strong style="color: #ed8405; font: Italic; ">Nombre de la Empresa</strong>
-                        </td>
-                        <td>
-                            <strong style="color: #2b204b; ">---------------------------------</strong>
-                        </td>
-                        <td>
-                            <h1 style="color: #ed8405; font: Italic;text ;text-align: right">FACTURA</h1>
+                    <tr style="text-align: right">
+                        <td style="text-align: right">
+                            <strong style="color: #ed8405; font: Italic;  ">Informe de</strong>
+                            <strong style="color: #2b204b; ">--------------</strong>
+                            <h1 style="color: #ed8405; font: Italic;text ;text-align: right">FACTURAS</h1>
                         </td>
                     </tr>
                 </table>
@@ -33,39 +29,39 @@
             <div class="row">
                 <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                     style="background: #2b204b;border: 1px solid #000;padding: 10px;">
+                    <input type="text" value="<?php echo date('d/m/y'); ?>"
+                        style="border: none; background: none; float: right;color: #ffffff">
                     <table>
                         <tr>
                             <td rowspan="2">
-                                <Strong style="color: #ffffff">Direccion:
-                                    <!-- direccion-->
+                                <Strong style="color: #ffffff">Nombre:
+                                    <!-- nombre-->
                                 </Strong>
                             </td>
                             <td style="color: #ffffff">
-                                No. Factura
-                                <!-- factura-->
+                                {{ Auth::user()->name }}
+                                <!-- name-->
                             </td>
                         </tr>
                         <tr>
                             <td style="color: #ffffff">
-                                xxxx-0000
-                                <!-- factura-->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Strong style="color: #ffffff">Telefono:</Strong>
-                            </td>
-                            <td style="color: #ffffff">
-                                Fecha
+                                {{ Auth::user()->lastname }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <Strong style="color: #ffffff">Nit: </Strong>
+                                <Strong style="color: #ffffff">Nit:</Strong>
                             </td>
                             <td style="color: #ffffff">
-                                <input type="text" value="<?php echo date('d/m/y'); ?>"
-                                    style="border: none; background: none">
+                                {{ Auth::user()->nit }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Strong style="color: #ffffff">correo: </Strong>
+                            </td>
+                            <td style="color: #ffffff">
+                                {{ Auth::user()->email }}
                             </td>
                         </tr>
 
@@ -73,66 +69,75 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Factura para: </div>
-        <Strong>----------------------------------------------------------------------------------------------------------------------------------</Strong>
-        <br>
-        <Strong>Nombre Cliente: </Strong>
-        <br>
-        <Strong>Nit: </Strong> <Strong>Tel: </Strong>
-        <br>
-        <Strong>Direccion: </Strong>
-        <div class="row">
-            <table>
-                <tr>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> No. </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Cant </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Description</div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Precio Unit</div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Sub-Total</div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> No. </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Cant </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Description</div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Precio Unit</div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4"> Sub-Total</div>
-                    </th>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-                            style="background: #e3ae6f; text-align: right">
-                            Total</div>
-                    </td>
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-                            style="background: #ffffff; text-align: right">
-                            Total</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+
     </div>
+<table>
+    <tr>
+        <td>
+            <table class="table table-dark">
+                <thead style="background: #2b204b ; color:white">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col">compania</th>
+                        <th scope="col">iva </th>
+                        <th scope="col">Total </th>
+                    </tr>
+        
+                </thead>
+                <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
+                    @foreach ($InvoiceBill as $item)
+                        <tr>
+        
+                            <th scope="row">{{ $item->id }}</th>
+                            <td>{{ $item->user->name }} <br> {{ $item->user->lastname }}</td>
+                            <td>{{ $item->company->name}}</td>
+                            <td>{{ $item->iva }}</td>
+                            <td>{{ $item->total }}</td>
+        
+        
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table class="table table-dark">
+                <thead style="background: #2b204b ; color:white">
+                    <tr>
+                        <th scope="col">Factura</th>
+                        <th scope="col">producto</th>
+                        <th scope="col">cat</th>
+                        <th scope="col">Unitario</th>
+                        <th scope="col">SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
+                    @foreach ($DetailBill as $items)
+                        <tr>
+                            <th scope="row">{{ $items->invoice_id }}</th>
+                            <td>{{ $items->product->name}}</td>
+                            <td>{{ $items->quantity }}</td>
+                            <td>{{ $items->unit_price }}</td>
+                            <td>{{ $items->subtotal }}</td>
+                        </tr>
+                    @endforeach
+        
+        
+                </tbody>
+            </table>
+        
+        </td>
+    </tr>
+</table>
+
+   
+
+    
+
+
+
+
 </body>
 
 </html>
