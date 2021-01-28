@@ -99,7 +99,6 @@ class RegisterController extends Controller
        $user->nit = $data['nit'];
        $user->address = $data['address'];
        $user->role_id = 4;
-       $user->company_id = 1;
        $user->save();
 
        return $user;

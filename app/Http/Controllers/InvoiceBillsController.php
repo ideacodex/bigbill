@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\InvoiceBill;
 use App\Mail\MessageReceived;
 use App\Product;
+use App\Customer;
 use DetailBill as GlobalDetailBill;
 use Illuminate\Http\Request;
 use Dotenv\Validator;
@@ -25,7 +26,8 @@ class InvoiceBillsController extends Controller
         $invoice_bill = InvoiceBill::all();
         $user = InvoiceBill::with('user')->get();
         $company = InvoiceBill::with('company')->get();
-        return view("invoice_bill.index", ["invoice_bill" => $invoice_bill, "company" => $company, "user" => $user]);
+        $customer = InvoiceBill::with('customer')->get();
+        return view("invoice_bill.index", ["invoice_bill" => $invoice_bill, "company" => $company, "user" => $user, "customer" => $customer]);
     }
 
     /**
@@ -37,7 +39,8 @@ class InvoiceBillsController extends Controller
     {
         $product = Product::get();      
         $company = Company::all();
-        return view("invoice_bill.create", ["product" => $product, "company" => $company]);    }
+        $customer = Customer::all();
+        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);    }
 
     /**
      * Store a newly created resource in storage.
@@ -63,6 +66,7 @@ class InvoiceBillsController extends Controller
             $bill = new InvoiceBill();
             $bill->user_id = $request->user_id;
             $bill->company_id = $request->company_id;
+            $bill->customer_id = $request->customer_id;
             $bill->iva = $request->iva;
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;

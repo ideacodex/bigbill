@@ -46,8 +46,7 @@ class CustomersController extends Controller
             'lastname' => 'required', 
             'phone' => 'required',
             'email' => 'required',
-            'nit' => 'required',
-            'dpi' => 'required'
+            'nit' => 'required'
         ]);
         DB::beginTransaction();
         try{
@@ -57,7 +56,6 @@ class CustomersController extends Controller
             $customers->phone = $request->phone;
             $customers->email = $request->email;
             $customers->nit = $request->nit;
-            $customers->dpi = $request->dpi;
             
             $customers->save();
 
@@ -67,8 +65,7 @@ class CustomersController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('CustomersController@index')
-        ->with('datosAgregados', 'Registro exitoso');
+        return back()->with('datosAgregados', 'Registro Guardado');
     }
 
     /**
@@ -120,5 +117,36 @@ class CustomersController extends Controller
     {
         $record = Customer::destroy($id);
         return back()->with('datosEliminados', 'Cliente Eliminado');
+    }
+
+    public function save(Request $request)
+    {
+        
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required', 
+            'phone' => 'required',
+            'email' => 'required',
+            'nit' => 'required'
+        ]);
+        DB::beginTransaction();
+        try{
+            $customers = new Customer;
+            $customers->name = $request->name;
+            $customers->lastname = $request->lastname;
+            $customers->phone = $request->phone;
+            $customers->email = $request->email;
+            $customers->nit = $request->nit;
+            
+            $customers->save();
+
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('InvoiceBillsController@create')
+        ->with('datosAgregados', 'Registro exitoso');
     }
 }

@@ -14,6 +14,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::create('companies', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('nit')->unique();
+            $table->integer('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->timestamps();           
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
@@ -42,5 +51,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('companies');
     }
 }

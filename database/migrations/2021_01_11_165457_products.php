@@ -18,7 +18,7 @@ class Products extends Migration
             $table->string('name');
             $table->string('description');
             $table->float('price');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies');
             $table->string('quantity_values');

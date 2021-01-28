@@ -20,7 +20,6 @@ class Customer extends Migration
             $table->integer('phone');
             $table->string('email');
             $table->integer('nit');
-            $table->integer('dpi');
             $table->timestamps();           
         });
     }
