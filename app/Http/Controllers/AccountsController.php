@@ -18,8 +18,9 @@ class AccountsController extends Controller
     public function index()
     {
         $accounts = Account::all();
+        $account_type = AccountType::all();
         $account_types = Account::with('account_types')->get();
-        return view("accounts.index",['accounts' => $accounts, 'account_types' => $account_types]);
+        return view("accounts.index",['accounts' => $accounts, 'account_types' => $account_types, 'account_type' => $account_type]);
     }
 
     /**

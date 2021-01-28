@@ -116,22 +116,37 @@
                             
                         </ul>
                     </li>
-                    <h3 class="menu-title">Inventarios</h3><!-- /.menu-title -->
+                    <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
 
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Ver reportes</a>
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                    href="{{ route('facturas.index') }}">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Companías</a>
+                                    href="">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href=""> Companías</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Productos</a>
+                            <li><i class="fa fa-id-badge"></i><a href=""> Productos</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Facturas</a>
+                            <li><i class="fa fa-id-badge"></i><a href=""> Facturas</a>
                             </li>
                         </ul>
                     </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Inventarios</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                    href="">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href=""> Companías</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href=""> Productos</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href=""> Facturas</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

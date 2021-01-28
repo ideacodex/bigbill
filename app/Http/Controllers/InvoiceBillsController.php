@@ -23,7 +23,9 @@ class InvoiceBillsController extends Controller
     public function index()
     {
         $invoice_bill = InvoiceBill::all();
-        return view("invoice_bill.index", ["invoice_bill" => $invoice_bill]);
+        $user = InvoiceBill::with('user')->get();
+        $company = InvoiceBill::with('company')->get();
+        return view("invoice_bill.index", ["invoice_bill" => $invoice_bill, "company" => $company, "user" => $user]);
     }
 
     /**

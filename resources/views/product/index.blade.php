@@ -47,7 +47,7 @@
                                             <tr>
                                                 <th>Codigo</th>
                                                 <th>Productos</th>
-                                                <th>Descrpcion</th>
+                                                <th>Descripción</th>
                                                 <th>Precio </th>
                                                 <th>Cant. Stock</th>
                                                 <th>Cant. Ingreso </th>
