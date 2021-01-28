@@ -66,8 +66,6 @@
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Iva</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Subtotal</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Total</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Acciones</th>
@@ -77,10 +75,9 @@
                     @foreach ($invoice_bill as $item)
                         <tr>
                             <th scope="row"> {{ $item->id }}</th>
-                            <td>{{ $item->user_id }}</td>
-                            <td>{{ $item->company_id }}</td>
+                            <td>{{ $item->user->name}} {{ $item->user->lastname}}</td>
+                            <td>{{ $item->company->name }}</td>
                             <td>{{ $item->iva }}</td>
-                            <td>{{ $item->subtotal }}</td>
                             <td>{{ $item->total }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
