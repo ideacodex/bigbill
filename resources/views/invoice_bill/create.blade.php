@@ -145,6 +145,12 @@
                             data-toggle="modal" data-target="#largeModal">Registrar
                             Cliente <i class="fas fa-user text-light"></i>
                         </button>
+                        <a  href="{{route('Product.pdf')}}" >
+                        <button type="button"  style="border-radius: 95px;" class="btn btn-danger mb-1"
+                            data-toggle="modal" data-target="#Email">Generar
+                            Factura <i class="fas fa-cloud-upload-alt"></i>
+                        </button>
+                    </a>
 
                         <input type="hidden" id="ListaPro" name="ListaPro" value="" />
 
@@ -196,12 +202,55 @@
     <!--Factura-->
 
     <!-- Modal para agregar clientes -->
-    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
+    <div class="modal fade" id="Email" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="largeModalLabel">Registrar Cliente</h5>
+                    <h5 class="modal-title" id="largeModalLabel">Correo Electronico </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{--Email--}}
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i title="Correo electrónico" class="text-dark fas fa-at"></i>
+                            </span>
+                        </div>
+                        <input id="email" placeholder="Correo electrónico" type="text"
+                            class="text-dark form-control @error('email') is-invalid @enderror" name="email"
+                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="border-radius: 10px" class="btn btn-primary" data-dismiss="modal"><i
+                            class="fas fa-times-circle"></i> Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para agregar clientes -->
+    <div class="modal fade" id="largeModalEmail" tabindex="-1" role="dialog" aria-labelledby="largeModalEmail"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="largeModalEmailLabel">Registrar Cliente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
