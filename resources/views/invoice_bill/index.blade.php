@@ -66,6 +66,8 @@
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 249px;" aria-label="Office: activate to sort column ascending">Cliente</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
+                            style="width: 249px;" aria-label="Office: activate to sort column ascending">Nit</th>
+                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Iva</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Total</th>
@@ -80,16 +82,28 @@
                             <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
                             <td>{{ $item->company->name }}</td>
                             @if ($item->customer)
-                                <td>{{ $item->customer->name }} {{ $item->customer->lastname}}</td>
+                                <td>{{ $item->customer->name }} {{ $item->customer->lastname }}</td>
                             @else
                                 {
                                 <td>C/F</td>
+                                }
+                            @endif
+
+                            @if ($item->customer)
+                                <td>{{ $item->customer->nit }} </td>
+                            @else
+                                {
+                                <td>XXXX</td>
                                 }
                             @endif
                             <td>{{ $item->iva }}</td>
                             <td>{{ $item->total }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a class="btn btn-sm btn-primary" title="FACTURA" data-toggle="modal"
+                                        data-target="#Email">
+                                        <span><i class="fas fa-print"></i></span>
+                                    </a>
                                     <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
                                         <span><i class="fas fa-eye"></i></span>
                                     </a>
@@ -99,7 +113,7 @@
                                     </a>
                                     <a class="btn btn-sm btn-danger" title="Eliminar"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                         <span class="text-light"><i class="fas fa-trash-alt"></i></span>
                                     </a>
                                     <form id="formDel{{ $item->id }}" action="{{ url('empresas/' . $item->id) }}"
@@ -115,56 +129,65 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-5">
-            <div class="dataTables_info" id="bootstrap-data-table_info" role="status" aria-live="polite">Tabla de
-                elementos
+
+
+
+    <!-- Modal para agregar clientes -->
+    <div class="modal fade" id="Email" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="largeModalLabel">Correo Electronico </h5>
+                    <a href="{{ url('facturas/' . $item->id . '/edit') }}">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    {{--Email--}}
+                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                <i title="Correo electrónico" class="text-dark fas fa-at"></i>
+                            </span>
+                        </div>
+                        <input id="email" placeholder="Correo electrónico" type="text"
+                            class="text-dark form-control @error('email') is-invalid @enderror" name="email"
+                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <a href="{{ url('facturas/' . $item->id . '/edit') }}">
+                 
+                    <div class="container mt-4">
+                        <div class="col-12">
+                            <div class="col text-center">
+                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-danger mt-3">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    {{ __('Guardar') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </a>
             </div>
         </div>
-        <div class="col-sm-12 col-md-7">
-            <div class="dataTables_paginate paging_simple_numbers" id="bootstrap-data-table_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="bootstrap-data-table_previous">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="0" tabindex="0"
-                            class="page-link">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="1" tabindex="0"
-                            class="page-link">1</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="2" tabindex="0"
-                            class="page-link">2</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="3" tabindex="0"
-                            class="page-link">3</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="4" tabindex="0"
-                            class="page-link">4</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="5" tabindex="0"
-                            class="page-link">5</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="6" tabindex="0"
-                            class="page-link">6</a>
-                    </li>
-                    <li class="paginate_button page-item next" id="bootstrap-data-table_next">
-                        <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="7" tabindex="0"
-                            class="page-link">Next</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
-    </div>
-    </div>
-    </div>  
-    </div>
-    </div>
+
+
 
     <script>
         window.dataLayer = window.dataLayer || [];

@@ -70,15 +70,5 @@ class ArchivosController extends Controller
         return $pdf->download('User.pdf', ["companies"=>$companies]);
     }
     //ImprimirFacturaDeVenta
-    public function FACTURA()
-    {
-        $InvoiceBill = InvoiceBill::all();
-        //$company = InvoiceBill::with('company')->get();
-        //$user = InvoiceBill::with('user')->get();
-        $DetailBill = DetailBill::all();
-        //$product = DetailBill::with('product')->get();
 
-        $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill') );
-        return $pdf->download('Factura.pdf' );// , ["product" => $product , "company" => $company , "user" => $user]);
-    }
 }

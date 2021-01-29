@@ -11,6 +11,8 @@ use App\Product;
 use App\Customer;
 use DetailBill as GlobalDetailBill;
 use Illuminate\Http\Request;
+
+use Barryvdh\DomPDF\Facade  as PDF;
 use Dotenv\Validator;
 use Illuminate\Support\Facades\Mail;
 
@@ -148,9 +150,19 @@ class InvoiceBillsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id )
     {
-        //
+        $InvoiceBill = InvoiceBill::findOrFail($id);
+        $user = InvoiceBill::with('user')->get();
+        $company = InvoiceBill::with('company')->get();
+        $customer = InvoiceBill::with('customer')->get();
+        
+
+        $DetailBill = DetailBill::findOrFail($id);
+        $product = DetailBill::with('product')->get();
+        
+        $pdf = PDF::loadView('PDF.Factura', compact('DetailBill') , compact('InvoiceBill') );
+        return $pdf->download('FacturaEnviada.pdf' );
     }
 
     /**
