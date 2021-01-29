@@ -140,13 +140,18 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                    href="">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href=""> Companías</a>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{url('/doc-Customer')}}">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc')}}">Productos</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href=""> Productos</a>
+                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-Account')}}">Cuentas</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href=""> Facturas</a>
+                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-AccountType')}}">Tipo Cuentas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-Companies')}}">Companias</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-bills')}}">Facturas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-User')}}">Usuarios</a>
                             </li>
                         </ul>
                     </li>
