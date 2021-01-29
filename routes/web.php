@@ -11,6 +11,8 @@ use App\Exports\DocsUser;
 
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Mail\ComprobanteMailable;
+use Illuminate\Support\Facades\Mail;
 
 
 /*
@@ -30,18 +32,21 @@ Route::get('/', function () {
 Auth::routes();
 
 
-/** Descargar  PDF */
+/** Download  PDF */
 Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
 Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
 Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
 Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
 Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
 Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
-/**FIn de Descargar PDF */
+/**Download PDF */
 
 Route::resource('home', 'HomeController')->middleware('auth');
-/**Start Productos Route */
+
+/**Product Route */
 Route::resource('productos', 'ProductController')->middleware('auth');
+/**Product Route */
+
 /**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
@@ -53,6 +58,8 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
+Route::get('correo', 'InvoiceBillsController@getMail');
+
 /**Bill Route */
 
 /** Descargar PDF */
