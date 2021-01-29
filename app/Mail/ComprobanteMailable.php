@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageReceived extends Mailable
+class ComprobanteMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class MessageReceived extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $data;
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +29,9 @@ class MessageReceived extends Mailable
      */
     public function build()
     {
-        return $this->view('invoice_bill.create');
+        return $this->view('invoice_bill.email')
+        ->subject('Comprobante de compra')
+        ->with($this->data);
     }
+                    
 }

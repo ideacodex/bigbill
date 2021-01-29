@@ -6,7 +6,7 @@ use App\DetailBill;
 use App\Company;
 use Illuminate\Support\Facades\DB;
 use App\InvoiceBill;
-use App\Mail\MessageReceived;
+use App\Mail\ComprobanteMailable;
 use App\Product;
 use App\Customer;
 use DetailBill as GlobalDetailBill;
@@ -174,5 +174,10 @@ class InvoiceBillsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMail(){
+        $data = ['name' => 'Chino'];
+        Mail::to(['alfrediviris2017@gmail.com'])->send(new ComprobanteMailable($data));  
     }
 }
