@@ -24,11 +24,6 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-/** Download Excel */
-Route::get('/doc', function () {
-    return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
-});
-/** Download Excel */
 
 /** Download  PDF */
 Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
@@ -45,6 +40,7 @@ Route::resource('home', 'HomeController')->middleware('auth');
 Route::resource('productos', 'ProductController')->middleware('auth');
 /**Product Route */
 
+/**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
 /**Companies Route */
@@ -59,12 +55,27 @@ Route::get('correo', 'InvoiceBillsController@getMail');
 
 /**Bill Route */
 
-/**Accounts Route */
-Route::resource('cuentas', 'AccountsController')->middleware('auth');
-/**Accounts Route */
+/** Descargar PDF */
+Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
+/** Descargar PDF */
 
-/**userInfo Route */
+
+/** Descargar Excel */
+Route::get('/doc', function () {
+    return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
+});
+/** Descargar Excel */
+
+
+/**Bill Route */
+Route::resource('select', 'usuarioscontroller');
+/**Bill Route */
+
+/**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
+/**Companies Route */
+/**userInfo Route */
+Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**userInfo Route */
 
 /**Account_type Route */

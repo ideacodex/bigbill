@@ -48,7 +48,7 @@ class ArchivosController extends Controller
 
 
     }
-    //factura
+    //facturas
     public function exportfacturatPDF(){
 
         $InvoiceBill = InvoiceBill::all();
@@ -69,4 +69,6 @@ class ArchivosController extends Controller
 
         return $pdf->download('User.pdf', ["companies"=>$companies]);
     }
+    //ImprimirFacturaDeVenta
+
 }

@@ -21,4 +21,7 @@ class DetailBill extends Model
     public function user(){
         return $this->hasOne("App\User", 'id', 'user_id');
     }
+    public function InvoiceBill(){
+        return $this->hasOne("App\InvoiceBill" ,'id', 'invoice_id');
+    }
 }
