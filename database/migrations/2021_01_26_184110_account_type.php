@@ -16,6 +16,9 @@ class AccountType extends Migration
         Schema::create('account_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('status'); 
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+            ->references('id')->on('companies');
             $table->timestamps();       
         });
     }

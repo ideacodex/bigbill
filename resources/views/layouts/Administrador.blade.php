@@ -60,6 +60,7 @@
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
+                    <!--Tipos de Cuentas -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Tipos de cuentas</a>
@@ -69,6 +70,7 @@
                                 <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                             </ul>
                         </li>
+                        <!-- Cuentas Contables -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-boxes"></i>Cuentas Contables</a>
@@ -78,6 +80,7 @@
                                 <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                             </ul>
                         </li>
+                        <!--Companías -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
@@ -89,6 +92,7 @@
                                 <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                             </ul>
                         </li>
+                        <!-- Clientes -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-users"></i>Clientes</a>
@@ -101,6 +105,7 @@
 
                             </ul>
                         </li>
+                        <!--Productos -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
@@ -113,6 +118,7 @@
                                 <!-- <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li> -->
                             </ul>
                         </li>
+                        <!--Facturar -->
                         <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

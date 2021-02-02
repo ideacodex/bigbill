@@ -20,6 +20,9 @@ class Customer extends Migration
             $table->integer('phone');
             $table->string('email');
             $table->integer('nit');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+            ->references('id')->on('companies');
             $table->timestamps();           
         });
     }

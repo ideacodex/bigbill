@@ -120,7 +120,7 @@
                         <!--terminos y condiciones -->
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Acepto los terminos y politicas de uso
+                                <input type="checkbox" required> Acepto los terminos y politicas de uso
                             </label>
                         </div>
                         <!--boton de registrar -->
