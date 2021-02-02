@@ -6,7 +6,9 @@ use DB;
 use App\Product;
 use App\Status;
 use App\Company;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class ProductController extends Controller
@@ -30,8 +32,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $companies = Company::all();
-        return view("product.create", ["companies" => $companies]);
+
+
+
+        $user = User::all();
+        $companies = User::with('companies')->get();
+        return view("product.create", ["user" => $user,"companies" => $companies]);
     }
 
     /**

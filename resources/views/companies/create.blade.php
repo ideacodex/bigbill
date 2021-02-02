@@ -30,10 +30,11 @@
                             <strong class="card-title">Agregar Companía</strong>
                         </div>
                         <div class="card-body">
-                            <div>
-                                <form method="POST" action="{{ route('empresas.store') }}" onsubmit="return checkSubmit();">
+                            <!-- @if (Auth::user()->company_id)-->
+                                <form method="POST" action="{{ route('empresas.store') }}"
+                                    onsubmit="return checkSubmit();">
                                     @csrf
-                                    {{--Nombre de la companía--}}
+                                    {{-- Nombre de la companía --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -58,7 +59,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Nit--}}
+                                    {{-- Nit --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -82,7 +83,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Dirección--}}
+                                    {{-- Dirección --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -107,7 +108,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Teléfono--}}
+                                    {{-- Teléfono --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -142,7 +143,17 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                                <!--
+                            @else
+                                <div class="alert alert-success" role="alert">
+                                    <h4 class="alert-heading">upss!</h4>
+                                    <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
+                                    <hr>
+                                    <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior
+                                        para poderte asignar una compañia y empezar a trabajar</p>
+                                </div>
+                            @endif
+                            -->
                         </div>
 
                     </div>

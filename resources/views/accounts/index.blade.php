@@ -32,6 +32,7 @@
                         <div class="card-header">
                             <strong class="card-title">Cuentas Registradas</strong>
                         </div>
+                        @if (Auth::user()->company_id)
                         <div>
                             <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
                                 data-toggle="modal" data-target="#largeModal">
@@ -89,6 +90,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        @else
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">upss!</h4>
+                            <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
+                            <hr>
+                            <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior para poderte asignar una compañia y empezar a trabajar</p>
+                          </div>
+                        @endif
                     </div>
                 </div>
             </div>

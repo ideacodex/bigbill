@@ -59,112 +59,139 @@
                         </a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Tipos de cuentas</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i><a href="{{ route('TipodeCuenta.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-boxes"></i>Cuentas Contables</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
-                        </ul>
-                    </li>
+                    @if (Auth::user()->company_id)
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Tipos de cuentas</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-book"></i><a href="{{ route('TipodeCuenta.index') }}">
+                                        Listado</a></li>
+                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-boxes"></i>Cuentas Contables</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Listado</a>
+                                </li>
+                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar
+                                        Companía</a></li>
+                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-users"></i>Clientes</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-book"></i> <a href="{{ route('clientes.index') }}"> Listado</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('clientes.create') }}"> Ingresar
+                                        Cliente</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar
+                                        Producto</a>
+                                </li>
+                                <!-- <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li> -->
+                            </ul>
+                        </li>
+                        <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                        href="{{ route('facturas.index') }}">Ver Facturas</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
+                                        Facturas</a></li>
+
+                            </ul>
+                        </li>
+                        <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                        href="{{ route('Customer.pdf') }}">Clientes</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('Product.pdf') }}">Productos</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('Account.pdf') }}">Cuentas</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('Company.pdf') }}">Companias</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('Factura.pdf') }}">Facturas</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('User.pdf') }}">Usuarios</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                        href="{{ url('/doc-Customer') }}">Clientes</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
+                                        Cuentas</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Companies') }}">Companias</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
+                                </li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                    <script>
+                        alert("Bienvenido,usted aun no cuenta con una compañia");
+                    </script>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar Companía</a></li>
+                            <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar
+                                    Companía</a></li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-users"></i>Clientes</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i> <a href="{{ route('clientes.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('clientes.create') }}"> Ingresar Cliente</a>
-                            </li>
-                            
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar Producto</a>
-                            </li>
-                            <!-- <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li> -->
-                        </ul>
-                    </li>
-
-                    <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver Facturas</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear Facturas</a></li>
-                            
-                        </ul>
-                    </li>
-                    <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{route('Customer.pdf')}}">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{route('Product.pdf')}}">Productos</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{route('Account.pdf')}}">Cuentas</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{route('Company.pdf')}}">Companias</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{route('Factura.pdf')}}">Facturas</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{route('User.pdf')}}">Usuarios</a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{url('/doc-Customer')}}">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc')}}">Productos</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-Account')}}">Cuentas</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-AccountType')}}">Tipo Cuentas</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-Companies')}}">Companias</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-bills')}}">Facturas</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{url('/doc-User')}}">Usuarios</a>
-                            </li>
-                        </ul>
-                    </li>
-
+                    </li> 
+                    @endif
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Usuario</a>
                         <ul class="sub-menu children dropdown-menu">
-                            
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('UsuariosEmpresa.index') }}"> Lista Usuarios</a>--}}
+
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('UsuariosEmpresa.index') }}"> Lista
+                                    Usuarios</a>--}}
                             </li>
-                            <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">Cerrar sesión</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -175,11 +202,8 @@
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
-
     <!-- Left Panel -->
-
     <!-- Right Panel -->
-
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
 
@@ -276,11 +300,11 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> My Profile</a>
-    
+                            <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> Mi Perfil</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
-                                    class="count">13</span></a>
+
+                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
+                                    class="fa fa-user"></i> Usuarios </a>
 
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -298,7 +322,7 @@
                             aria-expanded="true">
                             <i class="flag-icon flag-icon-gt"></i>
                         </a>
-                        
+
                     </div>
 
                 </div>
@@ -314,23 +338,18 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         {{-- ------------------------- --}}
 
         @yield('content')
 
     </div><!-- /#right-panel -->
-
     <!-- Right Panel -->
-
-
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
-
     <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -342,8 +361,6 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
-
-
 </body>
 
 </html>

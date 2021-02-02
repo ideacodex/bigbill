@@ -1,38 +1,25 @@
 <?php
 
+use App\Exports\BillsExport;
 use App\Exports\DocsExport;
 use GuzzleHttp\Middleware;
+use App\Exports\DocsAccount;
+use App\Exports\DocsAccountType;
+use App\Exports\DocsBill;
+use App\Exports\DocsCompany;
+use App\Exports\DocsCustomer;
+use App\Exports\DocsUser;
+
 use Illuminate\Support\Facades\Route;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\ComprobanteMailable;
+use App\User;
 use Illuminate\Support\Facades\Mail;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', function () {
-    return view('PDF.archivo');
+    return view('inicio');
 });
 Auth::routes();
-
-
-/** Download  PDF */
-Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
-Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
-Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
-Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
-Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
-Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
-/**Download PDF */
 
 Route::resource('home', 'HomeController')->middleware('auth');
 
@@ -63,10 +50,6 @@ Route::get('/doc', function () {
 });
 /** Descargar Excel */
 
-/**Bill Route */
-Route::resource('select', 'usuarioscontroller');
-/**Bill Route */
-
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
@@ -78,3 +61,38 @@ Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**Account_type Route */
 Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
 /**Account_type Route */
+
+/** Download  PDF */
+Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
+Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
+Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
+Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
+Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
+Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
+/**Download PDF */
+
+/** Descargar Excel */
+Route::get('/doc', function () {
+    return new DocsExport;
+});
+Route::get('/doc-Account', function () {
+    
+    return new DocsAccount;
+});
+Route::get('/doc-AccountType', function () {
+    return new DocsAccountType;
+});
+Route::get('/doc-bills', function () {
+    return new DocsBill;
+});
+Route::get('/doc-Companies', function () {
+    return new DocsCompany;
+});
+Route::get('/doc-Customer', function () {
+    return new DocsCustomer;
+});
+Route::get('/doc-User', function () {
+    return new DocsUser;
+});
+/** Descargar Excel */
+
