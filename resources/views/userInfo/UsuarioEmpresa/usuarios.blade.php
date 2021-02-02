@@ -53,9 +53,9 @@
                                                     @if ($item->company)
                                                         <td>{{ $item->company->name }}</td>
                                                     @else
-                                                        {
+                                                        
                                                         <td>Sin companía</td>
-                                                        }
+                                                        
                                                     @endif
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">

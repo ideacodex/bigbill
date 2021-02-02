@@ -24,7 +24,7 @@ class Bill extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')
                 ->references('id')->on('customers');
-            $table->decimal('iva');
+            $table->decimal('iva')->nullable();
             $table->string('ListaPro')->nullable();
             $table->decimal('total');
             $table->timestamps();

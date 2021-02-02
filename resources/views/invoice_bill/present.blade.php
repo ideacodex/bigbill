@@ -24,7 +24,8 @@
                         </td>
                         <td>
                             <h1 style="color: #ed8405; font: Italic;text ;text-align: right">
-                                {{ $InvoiceBill->company->name }}</h1>
+                                {{ $records->company->name }}
+                            </h1>
                         </td>
                     </tr>
                 </table>
@@ -38,7 +39,7 @@
                         <tr>
                             <td rowspan="2" style="color: #ffffff">
                                 <Strong style="color: #ffffff">Direccion:</Strong>
-                                <!-- direccion--> {{ $InvoiceBill->company->address }} .
+                                <!-- direccion--> {{ $records->company->address }} .
                             </td>
                             <td>
                                 <Strong style="color: #ffffff"> No. Factura </Strong>
@@ -47,14 +48,14 @@
                         </tr>
                         <tr>
                             <td style="color: #ffffff">
-                                20<?php echo date('y'); ?>- {{ $InvoiceBill->id }}
+                                20<?php echo date('y'); ?>- {{ $records->id }}
                                 <!-- factura-->
                             </td>
                         </tr>
                         <tr style="color: #ffffff">
                             <td>
                                 <Strong style="color: #ffffff">Telefono: </Strong>
-                                {{ $InvoiceBill->company->phone }}
+                                {{ $records->company->phone }}
                             </td>
                             <td>
                                 <Strong style="color: #ffffff">
@@ -65,7 +66,7 @@
                         <tr style="color: #ffffff">
                             <td>
                                 <Strong style="color: #ffffff">Nit:</Strong>
-                                {{ $InvoiceBill->company->nit }}
+                                {{ $records->company->nit }}
                             </td>
                             <td style="color: #ffffff">
                                 <label> <?php echo date('d/m/y'); ?></label>
@@ -76,12 +77,14 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Factura para: </div>
+        <br><br>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+            <h2><b> Factura para: </b></h2>
+        </div>
 
         <Strong>Nombre Cliente: </Strong>
-        @if ($InvoiceBill->customer)
-            {{ $InvoiceBill->customer->name }} {{ $InvoiceBill->customer->lastname }}
+        @if ($records->customer)
+            {{ $records->customer->name }} {{ $records->customer->lastname }}
         @else
 
             C/F
@@ -89,16 +92,16 @@
         @endif
         <br>
         <Strong>Nit: </Strong>
-        @if ($InvoiceBill->customer)
-            {{ $InvoiceBill->customer->nit }}
+        @if ($records->customer)
+            {{ $records->customer->nit }}
         @else
 
             xxxx
 
         @endif
         <Strong>Tel: </Strong>
-        @if ($InvoiceBill->customer)
-            {{ $InvoiceBill->customer->phone }}
+        @if ($records->customer)
+            {{ $records->customer->phone }}
         @else
 
             00000000
@@ -107,58 +110,71 @@
         <br>
         <Strong>Direccion: </Strong>
         Guatemala
+        <br><br>
         <div class="row">
             <table>
                 <tr>
                     <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> No. </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Cant </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Description</div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Precio Unit
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+                            <h3><b> No. </b></h3>
                         </div>
                     </th>
                     <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405"> Sub-Total</div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+                            <h3><b> Cantidad </b></h3>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+                            <h3><b> Producto </b></h3>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+                            <h3><b> Descripción </b></h3>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+                            <h3><b> P/U </b></h3>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ed8405">
+                            <h3><b> Subtotal </b></h3>
+                        </div>
                     </th>
                 </tr>
-                <tr>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
-                            @if ($InvoiceBill->id)
-                                1
-                            @else
-
-                                2
-
-
-                            @endif
-
-                        </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
-                            {{ $DetailBill->quantity }}
-                        </div>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
-                            {{ $DetailBill->product->name }}</td>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
-                            {{ $DetailBill->unit_price }}</td>
-                    </th>
-                    <th>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
-                            {{ $DetailBill->subtotal }}</td>
-                    </th>
-                </tr>
+                @foreach ($records->detail as $item)
+                    <tr>
+                        <th>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
+                                {{ $loop->index + 1 }}
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
+                                {{ $item->quantity }}
+                            </div>
+                        </th>
+                        <th>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
+                                {{ $item->product->name }}</td>
+                        </th>
+                        <th>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
+                                {{ $item->description }}</td>
+                        </th>
+                        <th>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
+                                {{ $item->unit_price }}</td>
+                        </th>
+                        <th>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d0d4d4">
+                                {{ $item->subtotal }}</td>
+                        </th>
+                    </tr>
+                @endforeach
 
                 <tr>
                     <td colspan="4">
@@ -170,7 +186,7 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
                             style="background: #ffffff; text-align: right">
 
-                            {{ $InvoiceBill->iva }}
+                            {{ $records->iva }}
                         </div>
                     </td>
                 </tr>
@@ -184,8 +200,7 @@
                     <td>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
                             style="background: #ffffff; text-align: right">
-
-                            {{ $InvoiceBill->total }}
+                            {{ $records->total }}
                         </div>
                     </td>
                 </tr>
@@ -197,12 +212,6 @@
     <br>
 
     <label style="background: #2b204b ; color:white">Lo Atendio:</label>
-    {{ $InvoiceBill->user->name }} {{ $InvoiceBill->user->lastname }}
-
-
-
-
-
+    {{ $records->user->name }} {{ $records->user->lastname }}
 </body>
-
 </html>

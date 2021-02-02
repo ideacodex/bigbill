@@ -30,7 +30,6 @@
                     <div class="card">
                         <div class="card-header">
                             <strong class="card-title">Agregar Producto: </strong>
-                            {{ Auth::user()->companies->name }}
                         </div>
                         <div class="card-body">
                             <div>

@@ -1,1 +1,0 @@
-Hola {{ $name }}, si lo miras sos gay

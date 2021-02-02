@@ -2,6 +2,7 @@
 
 use App\Exports\BillsExport;
 use App\Exports\DocsExport;
+use GuzzleHttp\Middleware;
 use App\Exports\DocsAccount;
 use App\Exports\DocsAccountType;
 use App\Exports\DocsBill;
@@ -39,10 +40,14 @@ Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::get('correo', 'InvoiceBillsController@getMail');
 /**Bill Route */
 
+/** Descargar PDF */
+Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
+/** Descargar PDF */
 
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
+
 /**userInfo Route */
 Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**userInfo Route */
