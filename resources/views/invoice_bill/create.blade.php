@@ -35,32 +35,9 @@
                     <div class="col-xs-12"><br><br>
 
                         {{--Company_id--}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="fas fa-building"></i>
-                                </span>
-                            </div>
-                            <select name="company_id" id="company_id"
-                                class="form-control @error('company_id') is-invalid @enderror" required>
-                                <option selected disabled>Companía</option>
-                                @foreach ($company as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('company_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
 
-                            @error('company_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
+                      
                         {{--Customer_id--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
@@ -145,14 +122,13 @@
                             data-toggle="modal" data-target="#largeModal">Registrar
                             Cliente <i class="fas fa-user text-light"></i>
                         </button>
-                    </a>
+                        </a>
 
                         <input type="hidden" id="ListaPro" name="ListaPro" value="" />
 
                         <table id="TablaPro" class="table">
                             <thead>
                                 <tr>
-                                    <th>Código de producto</th>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
@@ -176,7 +152,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        
+
                     </div>
                     <!--Button-->
                     <div class="container">
@@ -196,10 +172,8 @@
     </div>
     <!--Factura-->
 
-   
     <!-- Modal para agregar clientes -->
-    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal"
-        aria-hidden="true">
+    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -350,6 +324,7 @@
             </div>
         </div>
     </div>
+    <!-- Modal para agregar clientes -->
 
     <!--Script inputs dinámicos-->
     <script>
@@ -380,7 +355,7 @@
 
             var sptext = text.split();
             var newtr = '<tr class="item"  data-id="' + sel + '">';
-            newtr = newtr + '<td class="iProduct" >' + sel + '</td>';
+            var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
                 '<td><select class="selectpicker form-control" id="product_id[]" name="product_id[]"></option>@foreach ($product as $item)><option value="{{ $item->id }}">{{ $item->name }}</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
             newtr = newtr +
@@ -413,12 +388,15 @@
             spTotal = 0;
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
+
+            /** Saca el iva
             var tasa = 12;
             var monto = $("#spTotal").val();
 
             var iva = (monto * tasa) / 100;
             //se carga el iva en el campo correspondiente
             $("#iva").val(iva);
+            */
 
             for (var x = 0; x < nodes.length; x++) {
                 if (nodes[x].firstChild.id == 'cantidad[]') {
@@ -443,22 +421,6 @@
             var t = document.getElementById('spTotal');
             t.value = total.innerText;
             console.log(total);
-
-            /* Sumar dos números. 
-            function sumar(valor) {
-                var total = 0;
-                valor = parseInt(valor); // Convertir el valor a un entero (número).
-                total = document.getElementById('spTotal').innerHTML;
-                // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
-                total = (total == null || total == undefined || total == "") ? 0 : total;
-                /* Esta es la suma. 
-                total = (parseInt(total) + parseInt(valor));
-                // Colocar el resultado de la suma en el control "span".
-                document.getElementById('spTotal').innerHTML = total;
-                var t = document.getElementById('spTotal');
-                t.value = total;
-                console.log(t);*/
-
         }
 
     </script>

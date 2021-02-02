@@ -11,7 +11,6 @@ use App\Product;
 use App\Customer;
 use DetailBill as GlobalDetailBill;
 use Illuminate\Http\Request;
-
 use Barryvdh\DomPDF\Facade  as PDF;
 use Dotenv\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -25,11 +24,8 @@ class InvoiceBillsController extends Controller
      */
     public function index()
     {
-        $invoice_bill = InvoiceBill::all();
-        $user = InvoiceBill::with('user')->get();
-        $company = InvoiceBill::with('company')->get();
-        $customer = InvoiceBill::with('customer')->get();
-        return view("invoice_bill.index", ["invoice_bill" => $invoice_bill, "company" => $company, "user" => $user, "customer" => $customer]);
+        $records = InvoiceBill::with('user')->with('company')->with('customer')->get();
+        return view("invoice_bill.index", ["records" => $records]);
     }
 
     /**
@@ -39,10 +35,11 @@ class InvoiceBillsController extends Controller
      */
     public function create()
     {
-        $product = Product::get();      
+        $product = Product::get();
         $company = Company::all();
         $customer = Customer::all();
-        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);    }
+        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,18 +49,18 @@ class InvoiceBillsController extends Controller
      */
     public function store(Request $request)
     {
-               /**Factura */
+        /**Factura */
         request()->validate([
             'user_id',
-            'company_id' => 'required', 
-            'iva',  
-            'ListaPro', 
-            'total'            
+            'company_id' => 'required',
+            'iva',
+            'ListaPro',
+            'total'
         ]);
-        
+
         DB::beginTransaction();
-        
-        try{
+
+        try {
             //dd($request);
             $bill = new InvoiceBill();
             $bill->user_id = $request->user_id;
@@ -78,13 +75,14 @@ class InvoiceBillsController extends Controller
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();
                 $detail_bill->product_id = $request->product_id[$i];
+                $detail_bill->description = $request->description[$i];
                 $detail_bill->quantity = $request->quantity[$i];
                 $detail_bill->unit_price = $request->unit_price[$i];
                 $detail_bill->subtotal = $request->subtotal[$i];
                 $detail_bill->invoice_id = $bill->id;
                 $detail_bill->save();
             }
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             dd($e);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
@@ -92,45 +90,7 @@ class InvoiceBillsController extends Controller
         }
         DB::commit();
         return redirect()->action('InvoiceBillsController@index')
-        ->with('usuarioGuardado', 'Factura Registrada');      
-        
-        /*
-        if($request->ajax())
-        {
-            $rules = array(
-                'product_id.*' => 'required',
-                'quantity.*' => 'required', 
-                'unit_price.*' => 'required', 
-                'total.*' => 'required'
-            );
-            $error = Validator::make($request->all(), $rules);
-            if($error->fails()){
-                return response()->json([
-                    'error' => $error->errors()->all()
-                ]);
-            }
-            $product_id =  $request->product_id;
-            $quantity = $request->quantity;
-            $unit_price = $request->unit_price;
-            $total = $request->total;
-            for($count = 0; $count < count($product_id); $count++)
-            {
-                $data = array(
-                    'product_id' => $product_id[$count], 
-                    'quantity' => $quantity[$count],
-                    'unit_price' => $unit_price[$count],
-                    'total' => $total[$count]
-                );
-                $insert_data[] = $data;
-                dd($insert_data);
-            }
-            InvoiceBill::insert($insert_data);
-            return response()->json([
-                'success' => 'Datos ingresados correctamente.'
-            ]);
-        }
-        */         
-        
+            ->with('usuarioGuardado', 'Factura Registrada');
     }
 
     /**
@@ -141,7 +101,9 @@ class InvoiceBillsController extends Controller
      */
     public function show($id)
     {
-        //
+        $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
+        return view('invoice_bill.present', ['records' => $records]);
+        Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable('Facturador'));
     }
 
     /**
@@ -150,19 +112,10 @@ class InvoiceBillsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id )
+    public function edit($id)
     {
-        $InvoiceBill = InvoiceBill::findOrFail($id);
-        $user = InvoiceBill::with('user')->get();
-        $company = InvoiceBill::with('company')->get();
-        $customer = InvoiceBill::with('customer')->get();
-        
-
-        $DetailBill = DetailBill::findOrFail($id);
-        $product = DetailBill::with('product')->get();
-        
-        $pdf = PDF::loadView('PDF.Factura', compact('DetailBill') , compact('InvoiceBill') );
-        return $pdf->download('FacturaEnviada.pdf' );
+        $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
+        return view('invoice_bill.present', ['records' => $records]);
     }
 
     /**
@@ -174,7 +127,6 @@ class InvoiceBillsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -188,8 +140,12 @@ class InvoiceBillsController extends Controller
         //
     }
 
-    public function getMail(){
-        $data = ['name' => 'Chino'];
-        Mail::to(['alfrediviris2017@gmail.com'])->send(new ComprobanteMailable($data));  
+    public function getMail()
+    {
+        //Envío de comprobante al usuario por medio del correo.
+        $data = ['name => Facturador'];
+        Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable($data));
+        return redirect()->action('InvoiceBillsController@index');
+        //Envío de comprobante al usuario por medio del correo.
     }
 }

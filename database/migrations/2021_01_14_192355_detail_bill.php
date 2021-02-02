@@ -22,6 +22,7 @@ class DetailBill extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')
             ->references('id')->on('products');
+            $table->string('description')->nullable();
             $table->decimal('quantity');
             $table->decimal('unit_price');
             $table->decimal('subtotal');

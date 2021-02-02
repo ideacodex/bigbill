@@ -1,14 +1,7 @@
 <?php
 
 use App\Exports\DocsExport;
-use App\Exports\DocsAccount;
-use App\Exports\DocsAccountType;
-use App\Exports\DocsBill;
-use App\Exports\DocsCompany;
-use App\Exports\DocsCustomer;
-use App\Exports\DocsUser;
-
-
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\ComprobanteMailable;
@@ -47,7 +40,6 @@ Route::resource('home', 'HomeController')->middleware('auth');
 Route::resource('productos', 'ProductController')->middleware('auth');
 /**Product Route */
 
-/**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
 /**Companies Route */
@@ -59,20 +51,17 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::get('correo', 'InvoiceBillsController@getMail');
-
 /**Bill Route */
 
 /** Descargar PDF */
 Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
 /** Descargar PDF */
 
-
 /** Descargar Excel */
 Route::get('/doc', function () {
     return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
 });
 /** Descargar Excel */
-
 
 /**Bill Route */
 Route::resource('select', 'usuarioscontroller');
@@ -81,6 +70,7 @@ Route::resource('select', 'usuarioscontroller');
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
+
 /**userInfo Route */
 Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**userInfo Route */
@@ -88,24 +78,3 @@ Route::resource('cuentas', 'AccountsController')->middleware('auth');
 /**Account_type Route */
 Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
 /**Account_type Route */
-
-/** Descargar Excel */
-Route::get('/doc-Account', function () {
-    return Excel::download(new DocsAccount, 'ListadoCuentas.xlsx');
-});
-Route::get('/doc-AccountType', function () {
-    return Excel::download(new DocsAccountType, 'ListadoTipoCuentas.xlsx');
-});
-Route::get('/doc-bills', function () {
-    return Excel::download(new DocsBill, 'ListadoFacturas.xlsx');
-});
-Route::get('/doc-Companies', function () {
-    return Excel::download(new DocsCompany, 'ListadoCompañias.xlsx');
-});
-Route::get('/doc-Customer', function () {
-    return Excel::download(new DocsCustomer, 'ListadoClientes.xlsx');
-});
-Route::get('/doc-User', function () {
-    return Excel::download(new DocsUser, 'ListadoUsuarios.xlsx');
-});
-/** Descargar Excel */
