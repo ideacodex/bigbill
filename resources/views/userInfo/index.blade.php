@@ -40,7 +40,8 @@
                                     src="images/admin.jpg">
 
                                 <div class="media-body">
-                                    <h2 class="text-light display-6"> {{ Auth::user()->name }} {{ Auth::user()->lastname }}
+                                    <h2 class="text-light display-6"> {{ Auth::user()->name }}
+                                        {{ Auth::user()->lastname }}
                                     </h2>
                                     <p>{{ Auth::user()->email }}</p>
                                 </div>
@@ -51,34 +52,39 @@
                         <ul class="list-group list-group-flush">
 
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->name }} <span
+                                <a href="#"> <i class="fas fa-user"></i> {{ Auth::user()->name }} <span
                                         class="badge badge-primary pull-right">10</span></a>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->lastname }} <span
+                                <a href="#"> <i class="fas fa-user"></i> {{ Auth::user()->lastname }} <span
                                         class="badge badge-primary pull-right">10</span></a>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->phone }} <span
+                                <a href="#"> <i class="fas fa-phone"></i> {{ Auth::user()->phone }} <span
                                         class="badge badge-primary pull-right">10</span></a>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->nit }} <span
+                                <a href="#"> <i class="fas fa-tag"></i> {{ Auth::user()->nit }} <span
                                         class="badge badge-primary pull-right">10</span></a>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->address }} <span
+                                <a href="#"><i class="fas fa-user-shield"></i> {{ Auth::user()->address }} <span
                                         class="badge badge-primary pull-right">10</span></a>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->email }} <span
+                                <a href="#"><i class="fas fa-envelope"></i> {{ Auth::user()->email }} <span
                                         class="badge badge-primary pull-right">10</span></a>
                             </li>
                             <li class="list-group-item">
-                                <a href="#"> <i class="fa fa-envelope-o"></i> {{ Auth::user()->company_id }} <span
-                                        class="badge badge-primary pull-right">10</span></a>
+                                <a href="#"><i class="fas fa-building"></i>
+                                    @if (Auth::user()->company_id)
+                                        {{ Auth::user()->companies->name }}
+                                    @else
+                                        Sin Compañia
+                                    @endif
+                                    <span class="badge badge-primary pull-right">10</span>
+                                </a>
                             </li>
-
                             <li class="list-group-item">
                                 <a class="btn btn-sm btn-primary" href="{{ url('home/' . Auth::user()->id . '/edit') }}"
                                     title="Editar">
