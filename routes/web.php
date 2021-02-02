@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\BillsExport;
 use App\Exports\DocsExport;
 use App\Exports\DocsAccount;
 use App\Exports\DocsAccountType;
@@ -8,38 +9,16 @@ use App\Exports\DocsCompany;
 use App\Exports\DocsCustomer;
 use App\Exports\DocsUser;
 
-
 use Illuminate\Support\Facades\Route;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\ComprobanteMailable;
+use App\User;
 use Illuminate\Support\Facades\Mail;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', function () {
-    return view('PDF.archivo');
+    return view('inicio');
 });
 Auth::routes();
-
-
-/** Download  PDF */
-Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
-Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
-Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
-Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
-Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
-Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
-/**Download PDF */
 
 Route::resource('home', 'HomeController')->middleware('auth');
 
@@ -47,7 +26,6 @@ Route::resource('home', 'HomeController')->middleware('auth');
 Route::resource('productos', 'ProductController')->middleware('auth');
 /**Product Route */
 
-/**Start Productos Route */
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
 /**Companies Route */
@@ -59,19 +37,7 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::get('correo', 'InvoiceBillsController@getMail');
-
 /**Bill Route */
-
-/** Descargar PDF */
-Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
-/** Descargar PDF */
-
-
-/** Descargar Excel */
-Route::get('/doc', function () {
-    return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
-});
-/** Descargar Excel */
 
 
 /**Bill Route */
@@ -89,23 +55,37 @@ Route::resource('cuentas', 'AccountsController')->middleware('auth');
 Route::resource('TipodeCuenta', 'AccountTypesController')->middleware('auth');
 /**Account_type Route */
 
+/** Download  PDF */
+Route::get('Product-list-pdf', 'ArchivosController@exportProductPDF')->name('Product.pdf')->middleware('auth');
+Route::get('Company-list-pdf', 'ArchivosController@exportCompanyPDF')->name('Company.pdf')->middleware('auth');
+Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('Customer.pdf')->middleware('auth');
+Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
+Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
+Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
+/**Download PDF */
+
 /** Descargar Excel */
+Route::get('/doc', function () {
+    return new DocsExport;
+});
 Route::get('/doc-Account', function () {
-    return Excel::download(new DocsAccount, 'ListadoCuentas.xlsx');
+    
+    return new DocsAccount;
 });
 Route::get('/doc-AccountType', function () {
-    return Excel::download(new DocsAccountType, 'ListadoTipoCuentas.xlsx');
+    return new DocsAccountType;
 });
 Route::get('/doc-bills', function () {
-    return Excel::download(new DocsBill, 'ListadoFacturas.xlsx');
+    return new DocsBill;
 });
 Route::get('/doc-Companies', function () {
-    return Excel::download(new DocsCompany, 'ListadoCompañias.xlsx');
+    return new DocsCompany;
 });
 Route::get('/doc-Customer', function () {
-    return Excel::download(new DocsCustomer, 'ListadoClientes.xlsx');
+    return new DocsCustomer;
 });
 Route::get('/doc-User', function () {
-    return Excel::download(new DocsUser, 'ListadoUsuarios.xlsx');
+    return new DocsUser;
 });
 /** Descargar Excel */
+

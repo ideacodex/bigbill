@@ -189,7 +189,7 @@ class InvoiceBillsController extends Controller
     }
 
     public function getMail(){
-        $data = ['name' => 'Chino'];
+        $data = ['name' => 'Facturador'];
         Mail::to(['alfrediviris2017@gmail.com'])->send(new ComprobanteMailable($data));  
     }
 }

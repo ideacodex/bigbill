@@ -31,7 +31,6 @@
                         </div>
                         <div class="card-body">
 
-                            <div>
 
                                 <form action="{{ url('cuentas/' . $accounts->id) }}" method="POST"
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
@@ -97,7 +96,6 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
                         </div>
 
                     </div>
