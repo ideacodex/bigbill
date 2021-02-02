@@ -30,11 +30,24 @@
                     <div class="card">
                         <div class="card-header">
                             <strong class="card-title">Agregar Producto: </strong>
-                            {{ Auth::user()->name }} {{ Auth::user()->lastname }}
+                            {{ Auth::user()->companies->name }}
                         </div>
                         <div class="card-body">
                             <div>
                                 @if (Auth::user()->company_id)
+                                    <script>
+                                        function sumar() {
+                                            const $total = document.getElementById('income_amount');
+                                            let subtotal = 0;
+                                            [...document.getElementsByClassName("quantity_values")].forEach(function(element) {
+                                                if (element.value !== '') {
+                                                    subtotal += parseFloat(element.value);
+                                                }
+                                            });
+                                            $total.value = subtotal;
+                                        }
+
+                                    </script>
                                     <form action="{{ url('productos') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         {{-- Nombre --}}
@@ -46,9 +59,8 @@
                                             </div>
                                             <input id="name" name="name" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('name') }}"
-                                                placeholder="Nombre del Producto: ej. computadora" required
-                                                autocomplete="name" autofocus>
+                                                value="{{ old('name') }}" placeholder="Nombre del Producto o servcio"
+                                                required autocomplete="name" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -65,7 +77,7 @@
                                             <input id="description" name="description" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
                                                 value="{{ old('description') }}"
-                                                placeholder="Descripcion del Producto: ej. especificaciones" required
+                                                placeholder="Descripcion del Producto o servicio" required
                                                 autocomplete="description" autofocus>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
@@ -82,28 +94,9 @@
                                             </div>
                                             <input id="price" name="price" type="text"
                                                 class="text-dark form-control @error('price') is-invalid @enderror"
-                                                value="{{ old('price') }}"
-                                                placeholder="Precio del Producto: ej. computadora" required
+                                                value="{{ old('price') }}" placeholder="Precio " required
                                                 autocomplete="price" autofocus>
                                             @error('price')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        {{-- Company_id --}}
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="Companía" class="far fa-building"></i>
-                                                </span>
-                                            </div>
-
-                                            <input type="text" value="{{ Auth::user()->companies->name }} "
-                                                name="company_id" readonly="readonly" id="company_id"
-                                                class="form-control @error('company_id') is-invalid @enderror" required>
-
-                                            @error('company_id')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -117,9 +110,9 @@
                                                 </span>
                                             </div>
                                             <input id="quantity_values" name="quantity_values" type="number"
-                                                class="text-dark form-control @error('quantity_values') is-invalid @enderror"
-                                                value="000" placeholder="000" required autocomplete="quantity_values"
-                                                autofocus>
+                                                class="text-dark form-control quantity_values  @error('quantity_values') is-invalid @enderror"
+                                                onchange="sumar();" value="000" placeholder="cantidad de ingreso" required
+                                                autocomplete="quantity_values" autofocus>
                                             @error('quantity_values')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -152,8 +145,8 @@
                                             </div>
                                             <input id="income_amount" name="income_amount" type="number"
                                                 class="text-dark form-control @error('income_amount') is-invalid @enderror"
-                                                value="000" placeholder="000" required autocomplete="income_amount"
-                                                autofocus>
+                                                placeholder="cantidad stock" required autocomplete="income_amount" autofocus
+                                                readonly>
                                             @error('income_amount')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -162,12 +155,7 @@
                                         </div>
                                         <!-- fecha de ingreso  -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title=" fecha_ingreso " class="fas fa-calendar-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input id="date_admission" name="date_admission" type="datetime"
+                                            <input id="date_admission" name="date_admission" type="hidden"
                                                 class="text-dark form-control @error('date_admission') is-invalid @enderror"
                                                 value="<?php echo date('y/m/d'); ?>" required
                                                 autocomplete="date_admission" autofocus readonly="readonly ">
@@ -177,16 +165,23 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        <!-- Company_id -->
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                            <input type="hidden" value="{{ Auth::user()->company_id }} "
+                                                name="company_id" readonly="readonly" id="company_id"
+                                                class="form-control @error('company_id') is-invalid @enderror" required>
+
+                                            @error('company_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                         <!--  cantidad egresos -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title=" cantidad_egresos " class="fas fa-cart-arrow-down"></i>
-                                                </span>
-                                            </div>
-                                            <input id="amount_expenses" name="amount_expenses" type="number"
+                                            <input id="amount_expenses" name="amount_expenses" type="hidden"
                                                 class="text-dark form-control @error('amount_expenses') is-invalid @enderror"
-                                                value="000" placeholder="000" required autocomplete="amount_expenses"
+                                                value="0" placeholder="000" required autocomplete="amount_expenses"
                                                 autofocus readonly="readonly">
                                             @error('amount_expenses')
                                                 <span class="invalid-feedback" role="alert">
@@ -196,12 +191,7 @@
                                         </div>
                                         <!-- fecha de egresos  -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title=" fecha_egresos " class="fas fa-calendar-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input id="date_discharge" name="date_discharge" type="date_discharge"
+                                            <input id="date_discharge" name="date_discharge" type="hidden"
                                                 class="text-dark form-control @error('date_discharge') is-invalid @enderror"
                                                 value="<?php echo date('y/m/d'); ?>" required
                                                 autocomplete="date_discharge" autofocus readonly="readonly ">
@@ -224,52 +214,16 @@
                                             </div>
                                         </div>
                                     </form>
-                                    @else
+                                @else
                                     <div class="alert alert-success" role="alert">
                                         <h4 class="alert-heading">upss!</h4>
                                         <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
                                         <hr>
-                                        <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior para poderte asignar una compañia y empezar a trabajar</p>
-                                      </div>
-                                    @endif
+                                        <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu
+                                            superior para poderte asignar una compañia y empezar a trabajar</p>
+                                    </div>
+                                @endif
 
-                                <script type="text/javascript">
-                                    function creaRenglon() {
-                                        var cont = $(".material").length;
-                                        var html = "<tr id = 'material" + (cont + 1) + "' class = 'material'>" +
-                                            "<td><input type = 'text' class = 'cantidad_req' onkeyup='obtTotalMat(" + (
-                                                cont + 1) +
-                                            ")'></td>" +
-                                            "<td><input type = 'hidden' value='1'  readonly='readonly' class = 'valor_unitreq' onkeyup='obtTotalMat(" +
-                                            (cont + 1) + ")'></td>" +
-                                            "<td><input type = 'text' class = 'valor_totreq' readonly='readonly'  onchange='calcTotal()'></td>" +
-                                            "</tr>";
-                                        $("#tablaReq tbody").append(html);
-                                    }
-
-                                    function obtTotalMat(index) {
-                                        var tot = $("#material" + index + " .cantidad_req").val() * $("#material" + index +
-                                            " .valor_unitreq").val();
-                                        $("#material" + index + " .valor_totreq").val(tot);
-
-                                        calcTotal();
-                                    }
-
-                                </script>
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                                <table id="tablaReq">
-                                    <thead>
-                                        <tr>
-                                            <th>Cantidad</th>
-                                            <th>Precio unitario</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-
-                                </table>
-                                <a class="btn btn-lg btn-success mt-3" href="#" onclick="creaRenglon()">Agregar material</a>
                             </div>
                         </div>
 
