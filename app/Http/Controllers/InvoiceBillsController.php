@@ -102,14 +102,7 @@ class InvoiceBillsController extends Controller
     public function show($id)
     {
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
-
-        $data = json_decode($records);
-
-        if(isset($data)){
-            Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable($data));
-        }
-
-        return view('invoice_bill.present', ['data' => $data]);
+        return view('invoice_bill.show', ['records' => $records]);
     }
 
     /**
@@ -121,7 +114,13 @@ class InvoiceBillsController extends Controller
     public function edit($id)
     {
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
-        return view('invoice_bill.present', ['records' => $records]);
+        $data = json_decode($records);
+
+        if(isset($data)){
+            Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable($data));
+        }
+
+        return redirect()->action('InvoiceBillsController@index');
     }
 
     /**

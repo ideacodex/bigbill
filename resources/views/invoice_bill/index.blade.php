@@ -98,14 +98,14 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
 
-                                    <a class="btn btn-sm btn-secondary" href="{{ url('facturas/' . $item->id) }}"
-                                        title="Verificar">
+                                    <a class="btn btn-sm btn-primary" href="{{ url('facturas/' . $item->id . '/edit') }}"
+                                        title="Enviar correo">
                                         <span><i class="text-light fas fa-paper-plane"></i></span>
                                     </a>
 
-                                    <a class="btn btn-sm btn-primary" href="{{ url('empresas/' . $item->id) }}"
-                                        title="Editar">
-                                        <span><i class="fas fa-edit"></i></span>
+                                    <a class="btn btn-sm btn-secondary" href="{{ url('facturas/' . $item->id) }}"
+                                        title="Ver factura">
+                                        <span><i class="text-light fas fa-eye"></i></span>
                                     </a>
 
                                     <a class="btn btn-sm btn-danger" title="Eliminar"
