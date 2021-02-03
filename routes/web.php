@@ -44,12 +44,6 @@ Route::get('correo', 'InvoiceBillsController@getMail');
 Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
 /** Descargar PDF */
 
-/** Descargar Excel */
-Route::get('/doc', function () {
-    return Excel::download(new DocsExport, 'ListadoProductos.xlsx');
-});
-/** Descargar Excel */
-
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
@@ -96,3 +90,11 @@ Route::get('/doc-User', function () {
 });
 /** Descargar Excel */
 
+/** Resportes Individual x Compañias */
+Route::get('ReportProducts', 'FilesController@ExportReportProducts')->name('Company-Products.pdf')->middleware('auth');
+Route::get('ReportCostumer', 'FilesController@ExportReportCostumer')->name('Company-Costumer.pdf')->middleware('auth');
+Route::get('ReportTypes', 'FilesController@ExportReportTypes')->name('Company-Types.pdf')->middleware('auth');
+Route::get('ReportAcuonts', 'FilesController@ExportReportAcuonts')->name('Company-Acuonts.pdf')->middleware('auth');
+Route::get('ReportUsers', 'FilesController@ExportReportUsers')->name('Company-Users.pdf')->middleware('auth');
+Route::get('ReportBills', 'FilesController@ExportReportBills')->name('Company-Bills.pdf')->middleware('auth');
+/** Resportes Individual x Compañias */

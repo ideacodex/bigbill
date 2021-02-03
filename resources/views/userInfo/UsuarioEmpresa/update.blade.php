@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Actualizar Usuario</strong>
+                        <strong class="card-title">Actualizar Usuario : #Rol: {{ $user->role_id }}</strong>
                     </div>
                     <div class="card-body">
                         
@@ -30,23 +30,32 @@
                                 onsubmit="return checkSubmit();">
                                 @csrf @method('PATCH')
                                 <!--Role Id-->
-                                
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i title="Nombre" class="fas fa-people-carry"></i>
                                             </span>
                                         </div>
-                                        <input readonly="readonly "id="role_id" name="role_id" type="text"
-                                            class="text-dark form-control @error('role_id') is-invalid @enderror"
-                                            value="{{ $user->role_id }}" placeholder="Id" required
-                                            autocomplete="role_id" autofocus>
+                                            <select name="role_id" id="role_id" 
+                                            class="form-control @error('role_id') is-invalid @enderror" >
+                                            <option value="{{ $user->role_id }}" selected disabled><p>Seleccione Su cargo</p></option>
+                                            <option value="1">1. Administrador</option>
+                                            <option value="2">2. Gerente</option>
+                                            <option value="3">3. Contador</option>
+                                            <option value="4">4. Vendedor</option>
+                                        </select>
+                                        @error('role_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         @error('role_id')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                         @enderror
                                     </div>
+
 
                                 <!--Nombre-->
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -163,8 +172,14 @@
                                         </span>
                                     </div>
                                     <select name="company_id" id="company_id"
-                                        class="form-control @error('company_id') is-invalid @enderror" required>
-                                       
+                                        class="form-control @error('company_id') is-invalid @enderror" >
+                                        @if ( $user->company_id )
+                                        <option value="{{ $user->company_id}}" selected disabled><p>{{ $user->companies->name }}</p></option>    
+                                        <option value="">Quitar Compañia</option>
+                                        @else
+                                        <option value="" selected disabled><p>Sin Compañia</p></option>
+                                        @endif
+                                        
                                         @foreach ($companies as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach

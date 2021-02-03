@@ -37,10 +37,10 @@
 
 <body>
     <!-- Left Panel -->
-    
+
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-    
+
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@
                 <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
                 <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
             </div>
-    
+
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
@@ -62,7 +62,8 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Usuarios</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a>
+                            </li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>
@@ -71,7 +72,8 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a>
+                            </li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>
@@ -90,33 +92,57 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar</a>
-                            </li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('productos.create') }}"> Ingresar Producto</a></li>
+                            
                         </ul>
                     </li>
-    
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-    
+
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver Facturas</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear Facturas</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
+                                    Facturas</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
+                                    Facturas</a></li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                         </ul>
                     </li>
-                    <h3 class="menu-title">Inventarios</h3><!-- /.menu-title -->
-    
+                    <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Ver reportes</a>
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Companías</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Productos</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Facturas</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                    href="{{ route('Customer.pdf') }}">Clientes</a></li>
+                            {{-- <li><i class="fa fa-id-badge"></i><a
+                                    href="{{ url('empresas/' . $item->id . '/edit') }}">Productos</a>
+                            </li> --}}
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('Account.pdf') }}">Cuentas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('Factura.pdf') }}">Facturas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('User.pdf') }}">Usuarios</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                    href="{{ url('/doc-Customer') }}">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo Cuentas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
+                            </li>
                         </ul>
                     </li>
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
@@ -124,7 +150,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-external-link-alt"></i>Sesión</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a></li>
+                            <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -141,9 +168,9 @@
 
         <!-- Header-->
         <header id="header" class="header">
-    
+
             <div class="header-menu">
-    
+
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
@@ -155,7 +182,7 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-    
+
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,7 +205,7 @@
                                 </a>
                             </div>
                         </div>
-    
+
                         <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="message"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -223,20 +250,20 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                         </a>
-    
+
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
-    
+
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
                                     class="count">13</span></a>
-    
+
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
@@ -247,7 +274,7 @@
                             </form>
                         </div>
                     </div>
-    
+
                     <div class="language-select dropdown" id="language-select">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
                             aria-expanded="true">
@@ -268,10 +295,10 @@
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
         </header><!-- /header -->
         <!-- Header-->
         <div class="breadcrumbs">
@@ -292,21 +319,17 @@
                 </div>
             </div>
         </div>
-        {{-- ------------------------- --}}       
-       
+        {{-- ------------------------- --}}
+
         @yield('content')
 
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
-
-
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
-
     <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -318,8 +341,6 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
-
-
 </body>
 
 </html>
