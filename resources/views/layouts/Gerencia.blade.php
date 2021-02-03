@@ -5,7 +5,6 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,6 +56,7 @@
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
+                    @if (Auth::user()->company_id)
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Usuarios</a>
@@ -114,16 +114,27 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                    href="{{ route('Customer.pdf') }}">Clientes</a></li>
-                            {{-- <li><i class="fa fa-id-badge"></i><a
-                                    href="{{ url('empresas/' . $item->id . '/edit') }}">Productos</a>
-                            </li> --}}
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('Account.pdf') }}">Cuentas</a>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('productos/' .  Auth::user()->company_id ) }}">Productos</a></li>
+                            <li>
+                                <i class="fa fa-id-badge"></i>
+                                <a href="{{ url('clientes/' .  Auth::user()->company_id ) }}">Clientes</a>
+                            </li> 
+                            <li>
+                                <i class="fa fa-id-badge"></i>
+                                <a href="{{ url('TipodeCuenta/' .  Auth::user()->company_id  ) }}">Tipos de Cuentas</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('Factura.pdf') }}">Facturas</a>
+                            <li>
+                                <i class="fa fa-id-badge"></i>
+                                <a href="{{ url('cuentas/' .  Auth::user()->company_id  ) }}">Cuentas</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('User.pdf') }}">Usuarios</a>
+                            <li>
+                                <i class="fa fa-id-badge"></i>
+                                <a href="{{ url('UsuariosEmpresa/' .  Auth::user()->company_id  ) }}">Usuarios</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-id-badge"></i>
+                                <a href="{{ url('facturas/' .  Auth::user()->company_id  ) }}">Facturas</a>
                             </li>
                         </ul>
                     </li>
@@ -146,6 +157,14 @@
                         </ul>
                     </li>
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+
+                    @else
+                    <script>
+                        alert("Bienvenido\n Usted aun no cuenta con una compañia");
+                    </script>
+                    @endif
+
+
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-external-link-alt"></i>Sesión</a>

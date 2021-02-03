@@ -37,10 +37,10 @@
 
 <body>
     <!-- Left Panel -->
-    
+
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-    
+
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@
                 <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
                 <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
             </div>
-    
+
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
@@ -57,6 +57,7 @@
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
+                    @if (Auth::user()->company_id)
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
@@ -66,36 +67,48 @@
                             </li>
                         </ul>
                     </li>
-    
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver Facturas</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
+                                    Facturas</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear Facturas</a></li>
                         </ul>
                     </li>
-
                     <h3 class="menu-title">Reportes e inventarios</h3><!-- /.menu-title -->
-    
+
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Ver reportes</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Clientes</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Companías</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Productos</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Facturas</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                    href="{{ route('facturas.index') }}">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Companías</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Productos</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Facturas</a>
+                            </li>
                         </ul>
                     </li>
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+
+    
+@else
+<script>
+    alert("Bienvenido\n Usted aun no cuenta con una compañia");
+</script>
+@endif
+
+
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-external-link-alt"></i>Sesión</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a></li>
+                            <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -112,9 +125,9 @@
 
         <!-- Header-->
         <header id="header" class="header">
-    
+
             <div class="header-menu">
-    
+
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
@@ -126,7 +139,7 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-    
+
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -149,7 +162,7 @@
                                 </a>
                             </div>
                         </div>
-    
+
                         <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="message"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,20 +207,20 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                         </a>
-    
+
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
-    
+
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span
                                     class="count">13</span></a>
-    
+
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
@@ -218,7 +231,7 @@
                             </form>
                         </div>
                     </div>
-    
+
                     <div class="language-select dropdown" id="language-select">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
                             aria-expanded="true">
@@ -239,10 +252,10 @@
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
         </header><!-- /header -->
         <!-- Header-->
         <div class="breadcrumbs">
@@ -263,8 +276,8 @@
                 </div>
             </div>
         </div>
-        {{-- ------------------------- --}}       
-       
+        {{-- ------------------------- --}}
+
         @yield('content')
 
     </div><!-- /#right-panel -->

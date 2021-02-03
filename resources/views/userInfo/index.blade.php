@@ -23,11 +23,13 @@
         </div>
     @endif
 
-
-
-
-
-
+    {{-- @if (Auth::user()->company_id)
+        
+    @else
+    <script>
+        alert("cargando informacion... \n No tiene compañia");
+    </script>
+    @endif --}}
     <div class="content mt-3">
         <div class="row">
             <div class="col-md-9 ml-2">

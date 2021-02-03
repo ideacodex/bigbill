@@ -65,7 +65,9 @@ class AccountTypesController extends Controller
      */
     public function show($id)
     {
-        //
+        $records = AccountType::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
+        return view('invoice_bill.present', ['records' => $records]);
+        return 'Tipos de cuentas compania .pdf';
     }
 
     /**

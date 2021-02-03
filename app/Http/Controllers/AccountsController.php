@@ -71,7 +71,9 @@ class AccountsController extends Controller
      */
     public function show($id)
     {
-        //
+        $records = Account::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
+        return view('invoice_bill.present', ['records' => $records]);
+        return 'Cuentas compania .pdf';
     }
 
     /**

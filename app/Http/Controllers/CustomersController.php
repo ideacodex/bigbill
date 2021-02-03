@@ -76,7 +76,9 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        $records = Customer::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
+        return view('invoice_bill.present', ['records' => $records]);
+        return 'clientes compania .pdf';
     }
 
     /**

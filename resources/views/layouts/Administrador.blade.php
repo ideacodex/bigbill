@@ -171,10 +171,7 @@
                                 </li>
                             </ul>
                         </li>
-                    @else
-                    <script>
-                        alert("Bienvenido,usted aun no cuenta con una compañia");
-                    </script>
+                    @else                    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>

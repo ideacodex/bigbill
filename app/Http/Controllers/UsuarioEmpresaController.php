@@ -43,6 +43,12 @@ class UsuarioEmpresaController extends Controller
 
         return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
+    public function show($id)
+    {
+        $records = User::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
+        return view('invoice_bill.present', ['records' => $records]);
+        return 'usuarios compania .pdf';
+    }
 
 
 }

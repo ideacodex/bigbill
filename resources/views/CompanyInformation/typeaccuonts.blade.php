@@ -1,0 +1,1 @@
+<strong>TIPOS DE CUENTAS</strong>
