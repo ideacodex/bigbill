@@ -30,8 +30,7 @@ class ComprobanteMailable extends Mailable
     public function build()
     {
         return $this->view('invoice_bill.present')
-        ->subject('Comprobante de compra')
-        ->with($this->data);
+        ->subject('Comprobante de compra');
     }
                     
 }

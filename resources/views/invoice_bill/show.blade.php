@@ -1,4 +1,3 @@
-<h3 style="color: black">Estimado usuario, a comtinuación te presentamos el comprobante de compra: </h3>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +18,7 @@
                     <tr>
                         <td>
                             <h2 style="color: rgb(91, 155, 238); font: Arial; ">Factura</h2>
-                            <h2 style="color: rgb(91, 155, 238);">{{ $data->company->name }}</h2>
+                            <h2 style="color: rgb(91, 155, 238);">{{ $records->company->name }}</h2>
                         </td>
                         <td>
                             <strong style="color: #092863; ">---------------------------------</strong>
@@ -33,13 +32,13 @@
                 <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                     style="background: #092863; border:1px solid #000; padding:10px;">
                     <strong style="color: #ffffff">No. Factura: 20<?php echo date('y'); ?>-
-                        {{ $data->id }}</strong>
+                        {{ $records->id }}</strong>
                     <br>
-                    <strong style="color: #ffffff">Dirección: {{ $data->company->address }}</strong>
+                    <strong style="color: #ffffff">Dirección: {{ $records->company->address }}</strong>
                     <br>
-                    <strong style="color: #ffffff">Teléfono: {{ $data->company->phone }}</strong>
+                    <strong style="color: #ffffff">Teléfono: {{ $records->company->phone }}</strong>
                     <br>
-                    <strong style="color: #ffffff">Nit: {{ $data->company->nit }}</strong>
+                    <strong style="color: #ffffff">Nit: {{ $records->company->nit }}</strong>
                     <br>
                     <strong style="color: #ffffff">Fecha: <?php echo date('d/m/y'); ?></strong>
                 </div>
@@ -50,8 +49,8 @@
         </div>
 
         <Strong style="color: black">Nombre: </Strong>
-        @if ($data->customer)
-            <strong style="color: black">{{ $data->customer->name }} {{ $data->customer->lastname }}</strong>
+        @if ($records->customer)
+            <strong style="color: black">{{ $records->customer->name }} {{ $records->customer->lastname }}</strong>
         @else
 
             <strong style="color: black">C/F</strong>
@@ -59,8 +58,8 @@
         @endif
         <br>
         <Strong style="color: black">Nit: </Strong>
-        @if ($data->customer)
-            <strong style="color: black">{{ $data->customer->nit }}</strong>
+        @if ($records->customer)
+            <strong style="color: black">{{ $records->customer->nit }}</strong>
         @else
 
             <strong style="color: black">xxxx</strong>
@@ -68,8 +67,8 @@
         @endif
         <br>
         <Strong style="color: black">Tel: </Strong>
-        @if ($data->customer)
-            <strong style="color: black">{{ $data->customer->phone }}</strong>
+        @if ($records->customer)
+            <strong style="color: black">{{ $records->customer->phone }}</strong>
         @else
 
             <strong style="color: black"> 00000000 </strong>
@@ -107,7 +106,7 @@
                             Subtotal</div>
                     </th>
                 </tr>
-                @foreach ($data->detail as $item)
+                @foreach ($records->detail as $item)
                     <tr>
                         <th>
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
@@ -145,7 +144,7 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
                             style="background: #ffffff; text-align: right">
 
-                            {{ $data->iva }}
+                            {{ $records->iva }}
                         </div>
                     </td>
                 </tr>
@@ -160,7 +159,7 @@
                     <td>
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
                             style="background: #ffffff; color: black; text-align: right">
-                            {{ $data->total }}
+                            {{ $records->total }}
                         </div>
                     </td>
                 </tr>
@@ -172,7 +171,7 @@
     <br>
 
     <label style="background: #9dc2ec; color:black"><b>Atendido por:</b></label>
-    <strong style="color: black"> {{ $data->user->name }} {{ $data->user->lastname }}</strong>
+    <strong style="color: black"> {{ $records->user->name }} {{ $records->user->lastname }}</strong>
 </body>
 
 </html>
