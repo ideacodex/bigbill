@@ -5,17 +5,12 @@ namespace App\Http\Controllers;
 use App\AccountType;
 use DB;
 use App\Account;
-use App\Company;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AccountsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $accounts = Account::all();
@@ -23,24 +18,11 @@ class AccountsController extends Controller
         $account_types = Account::with('account_types')->get();
         return view("accounts.index", ['accounts' => $accounts, 'account_types' => $account_types, 'account_type' => $account_type]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $accounts = Account::all();
         return view("accounts.create", ["accounts" => $accounts]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         request()->validate([
@@ -65,34 +47,20 @@ class AccountsController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Registro Guardado');
     }
-
     public function show(Request $request)
     {
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $Accounts = Account::where('company_id', $request->company_id)->with('types')->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.accuonts', compact('Accounts'));//genera el PDF la vista
+            return $pdf->download('Cuentas-Compañia.pdf');// descarga el pdf
         }
-        return view('CompanyInformation.accuonts')->with(compact('Accounts'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $accounts = request()->except((['_token', '_method']));
@@ -102,12 +70,6 @@ class AccountsController extends Controller
             ->with('datosModificados', 'Registro Modificado');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $record = Account::destroy($id);

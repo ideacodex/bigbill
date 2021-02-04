@@ -53,9 +53,9 @@
                                                     @if ($item->company)
                                                         <td>{{ $item->company->name }}</td>
                                                     @else
-                                                        
+
                                                         <td>Sin companía</td>
-                                                        
+
                                                     @endif
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
@@ -68,18 +68,22 @@
                                                                 title="Editar">
                                                                 <span><i class="fas fa-edit"></i></span>
                                                             </a>
+                                                            @if ((Auth::user()->id)!=($item->id ))
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
-                                                                onclick="event.preventDefault();
-                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                <span class="text-light"><i
-                                                                        class="fas fa-trash-alt"></i></span>
-                                                            </a>
-                                                            <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('UsuariosEmpresa/' . $item->id) }}"
-                                                                method="POST" style="display: none;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
+                                                                    onclick="event.preventDefault();
+                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                    <span class="text-light"><i
+                                                                            class="fas fa-trash-alt"></i></span>
+                                                                </a>
+                                                                <form id="formDel{{ $item->id }}"
+                                                                    action="{{ url('UsuariosEmpresa/' . $item->id) }}"
+                                                                    method="POST" style="display: none;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                </form>
+
+                                                            @else
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>

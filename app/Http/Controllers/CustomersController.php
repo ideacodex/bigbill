@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
 use DB;
 use App\Customer;
-use App\Status;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class CustomersController extends Controller
@@ -74,10 +73,12 @@ class CustomersController extends Controller
 
     public function show(Request $request)
     {
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $customers = Customer::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.customer', compact('customers')); //genera el PDF la vista
+            return $pdf->download('Clientes-Compañia.pdf'); // descarga el pdf
         }
-        return view('CompanyInformation.customer')->with(compact('customers'));
     }
 
     /**

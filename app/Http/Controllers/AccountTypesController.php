@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Account;
 use App\AccountType;
 use App\Company;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class AccountTypesController extends Controller
@@ -44,10 +45,12 @@ class AccountTypesController extends Controller
 
     public function show(Request $request)
     {
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $AccountTypes = AccountType::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.types', compact('AccountTypes')); //genera el PDF la vista
+            return $pdf->download('TiposCuentas-Compañia.pdf'); // descarga el pdf
         }
-        return view('CompanyInformation.types')->with(compact('AccountTypes'));
     }
 
     public function edit($id)
