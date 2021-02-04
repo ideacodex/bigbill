@@ -6,15 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    public function findByName($q){
-        return $this->model->where('name', 'like', "%$q%")
-            ->get(); 
-        return $this->model->where('lastname', 'like', "%$q%")
-            ->get(); 
-    }
- 
-    public function company(){
+    protected $fillable = [
+        'user_id', 'company_id'
+    ];
+
+    public function company()
+    {
         return $this->hasOne("App\Company", 'id', 'company_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne("App\User", 'id', 'user_id');
+    }
+
+    public function detail()
+    {
+        return $this->hasMany("App\DetailBill", 'invoice_id');
     }
 
 }

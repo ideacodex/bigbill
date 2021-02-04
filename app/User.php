@@ -59,4 +59,14 @@ class User extends Authenticatable
     public function company(){
         return $this->hasOne("App\Company", 'id', 'company_id');
     }
+
+    public function customer()
+    {
+        return $this->hasOne("App\Customer", 'id', 'customer_id');
+    }
+
+    public function detail()
+    {
+        return $this->hasMany("App\DetailBill", 'invoice_id');
+    }
 }

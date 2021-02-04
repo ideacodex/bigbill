@@ -1,20 +1,13 @@
 <?php
 
-use App\Exports\BillsExport;
 use App\Exports\DocsExport;
-use GuzzleHttp\Middleware;
 use App\Exports\DocsAccount;
 use App\Exports\DocsAccountType;
 use App\Exports\DocsBill;
 use App\Exports\DocsCompany;
 use App\Exports\DocsCustomer;
 use App\Exports\DocsUser;
-
 use Illuminate\Support\Facades\Route;
-use App\Mail\ComprobanteMailable;
-use App\User;
-use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', function () {
     return view('inicio');
@@ -40,10 +33,6 @@ Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::get('correo', 'InvoiceBillsController@getMail');
 /**Bill Route */
 
-/** Descargar PDF */
-Route::get('user-list-pdf', 'ArchivosController@exportPDF')->name('products.pdf');
-/** Descargar PDF */
-
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
@@ -66,27 +55,11 @@ Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf'
 /**Download PDF */
 
 /** Descargar Excel */
-Route::get('/doc', function () {
-    return new DocsExport;
-});
-Route::get('/doc-Account', function () {
-    
-    return new DocsAccount;
-});
-Route::get('/doc-AccountType', function () {
-    return new DocsAccountType;
-});
-Route::get('/doc-bills', function () {
-    return new DocsBill;
-});
-Route::get('/doc-Companies', function () {
-    return new DocsCompany;
-});
-Route::get('/doc-Customer', function () {
-    return new DocsCustomer;
-});
-Route::get('/doc-User', function () {
-    return new DocsUser;
-});
+Route::get('/doc', function () {return new DocsExport;});
+Route::get('/doc-Account', function () {return new DocsAccount;});
+Route::get('/doc-AccountType', function () {return new DocsAccountType;});
+Route::get('/doc-bills', function () {return new DocsBill;});
+Route::get('/doc-Companies', function () {return new DocsCompany;});
+Route::get('/doc-Customer', function () {return new DocsCustomer;});
+Route::get('/doc-User', function () {return new DocsUser;});
 /** Descargar Excel */
-

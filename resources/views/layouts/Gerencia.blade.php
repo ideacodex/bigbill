@@ -115,26 +115,26 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li> <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ url('productos/' .  Auth::user()->company_id ) }}">Productos</a></li>
+                                <a href="{{ url('productos/' .  Auth::user()->company_id.'?company_id=' .  Auth::user()->company_id  .'_132542#?4950_ABCDSXD' ) }}">Productos</a></li>
                             <li>
                                 <i class="fa fa-id-badge"></i>
-                                <a href="{{ url('clientes/' .  Auth::user()->company_id ) }}">Clientes</a>
+                                <a href="{{ url('clientes/' .  Auth::user()->company_id .'?company_id=' .  Auth::user()->company_id  .'-_32542#?4950_ABSKIBRTE') }}">Clientes</a>
                             </li> 
                             <li>
                                 <i class="fa fa-id-badge"></i>
-                                <a href="{{ url('TipodeCuenta/' .  Auth::user()->company_id  ) }}">Tipos de Cuentas</a>
+                                <a href="{{ url('TipodeCuenta/' .  Auth::user()->company_id .'?company_id=' .  Auth::user()->company_id  .'_2542#?4950_ABDSKIEWR' ) }}">Tipos de Cuentas</a>
                             </li>
                             <li>
                                 <i class="fa fa-id-badge"></i>
-                                <a href="{{ url('cuentas/' .  Auth::user()->company_id  ) }}">Cuentas</a>
+                                <a href="{{ url('cuentas/' .  Auth::user()->company_id .'?company_id=' .  Auth::user()->company_id  .'_01542#?4950_JBCSIIAS' ) }}">Cuentas</a>
                             </li>
                             <li>
                                 <i class="fa fa-id-badge"></i>
-                                <a href="{{ url('UsuariosEmpresa/' .  Auth::user()->company_id  ) }}">Usuarios</a>
+                                <a href="{{ url('UsuariosEmpresa/'. Auth::user()->company_id .'?company_id=' .  Auth::user()->company_id  .'_881242#?4950_CDSKIRI') }}">Usuarios</a>
                             </li>
                             <li>
                                 <i class="fa fa-id-badge"></i>
-                                <a href="{{ url('facturas/' .  Auth::user()->company_id  ) }}">Facturas</a>
+                                <a href="{{ url('facturas/' .  Auth::user()->company_id.'?company_id=' .  Auth::user()->company_id  .'_6732642#?4950_ABGMFXSKIRI'  ) }}">Facturas</a>
                             </li>
                         </ul>
                     </li>
@@ -157,7 +157,6 @@
                         </ul>
                     </li>
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-
                     @else
                     <script>
                         alert("Bienvenido\n Usted aun no cuenta con una compañia");

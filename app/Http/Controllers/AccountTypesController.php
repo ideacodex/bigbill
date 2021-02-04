@@ -5,49 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Account;
 use App\AccountType;
+use App\Company;
 use Illuminate\Http\Request;
 
 class AccountTypesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $account_types = AccountType::all();
         return view("account_types.index", ['account_types' => $account_types]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         request()->validate([
-            'status' => 'required'
+            'status' => 'required',
+            'company_id' => 'required'
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $account_types = new AccountType();
             $account_types->status = $request->status;
-            
+            $account_types->company_id = $request->company_id;
+
             $account_types->save();
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             dd($e);
             abort(500, $e->errorInfo[2]);
@@ -57,48 +42,24 @@ class AccountTypesController extends Controller
         return back()->with('usuarioGuardado', 'Tipo de cuenta registrado');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request)
     {
-        $records = AccountType::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
-        return view('invoice_bill.present', ['records' => $records]);
-        return 'Tipos de cuentas compania .pdf';
+        if (!empty($request->company_id)) {
+            $AccountTypes = AccountType::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
+        }
+        return view('CompanyInformation.types')->with(compact('AccountTypes'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
