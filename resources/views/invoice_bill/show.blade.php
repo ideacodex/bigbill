@@ -41,6 +41,17 @@
                     <strong style="color: #ffffff">Nit: {{ $records->company->nit }}</strong>
                     <br>
                     <strong style="color: #ffffff">Fecha: <?php echo date('d/m/y'); ?></strong>
+                    <br>
+                    <strong style="color: #ffffff">Adquisición de: </strong>
+
+                    @if ($records->acquisition == 1)
+                        <strong style="color: #ffffff">Bienes</strong>
+                    @elseif($records->acquisition == 2)
+                        <strong style="color: #ffffff">Servicios</strong>
+                    @elseif($records->acquisition == 3)
+                        <strong style="color: #ffffff">Bienes y Servicios</strong>
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -70,61 +70,103 @@
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Total</th>
                         <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
+                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Adquisición</th>
+                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
                             style="width: 197px;" aria-label="Salary: activate to sort column ascending">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($records as $item)
-                        <tr>
-                            <th scope="row"> {{ $item->id }}</th>
-                            <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
-                            <td>{{ $item->company->name }}</td>
-                            @if ($item->customer)
-                                <td>{{ $item->customer->name }} {{ $item->customer->lastname }}</td>
-                            @else
+                    @if ($records)
+                        @foreach ($records as $item)
+                            <tr>
+                                <th scope="row"> {{ $item->id }}</th>
+                                <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
+                                <td>{{ $item->company->name }}</td>
 
-                                <td>C/F</td>
+                                @if ($item->customer)
+                                    <td>{{ $item->customer->name }} {{ $item->customer->lastname }}</td>
+                                @else
+                                    <td>C/F</td>
+                                @endif
+                                @if ($item->customer)
+                                    <td>{{ $item->customer->nit }} </td>
+                                @else
+                                    <td>XXXX</td>
+                                @endif
 
-                            @endif
+                                <td>{{ $item->total }}</td>
+                                @if ($item->acquisition == 1)
+                                    <td>Bienes</td>
+                                @elseif($item->acquisition == 2)
+                                    <td>Servicios</td>
+                                @elseif($item->acquisition == 3)
+                                    <td>Bienes y Servicios</td>
+                                @endif
 
-                            @if ($item->customer)
-                                <td>{{ $item->customer->nit }} </td>
-                            @else
+                                @if ($item->active == 1)
+                                    <td>Factura emitida</td>
+                                @endif
 
-                                <td>XXXX</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a class="btn btn-sm btn-warning"
+                                            href="{{ url('facturas/' . $item->id . '/edit') }}" title="Enviar correo">
+                                            <span><i class="text-light fas fa-paper-plane"></i></span>
+                                        </a>
 
-                            @endif
-                            <td>{{ $item->total }}</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a class="btn btn-sm btn-secondary" href="{{ url('facturas/' . $item->id) }}"
+                                            title="Ver factura">
+                                            <span><i class="text-light fas fa-eye"></i></span>
+                                        </a>
 
-                                    <a class="btn btn-sm btn-primary" href="{{ url('facturas/' . $item->id . '/edit') }}"
-                                        title="Enviar correo">
-                                        <span><i class="text-light fas fa-paper-plane"></i></span>
-                                    </a>
-
-                                    <a class="btn btn-sm btn-secondary" href="{{ url('facturas/' . $item->id) }}"
-                                        title="Ver factura">
-                                        <span><i class="text-light fas fa-eye"></i></span>
-                                    </a>
-
-                                    <a class="btn btn-sm btn-danger" title="Eliminar"
-                                        onclick="event.preventDefault();                                                                                                                                                                                                                                 document.getElementById('formDel{{ $item->id }}').submit();">
-                                        <span class="text-light"><i class="fas fa-trash-alt"></i></span>
-                                    </a>
-                                    <form id="formDel{{ $item->id }}" action="{{ url('empresas/' . $item->id) }}"
-                                        method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+                                        <a class="btn btn-sm btn-danger" title="Eliminar" data-toggle="modal"
+                                            data-target="#largeModal"
+                                            onclick="event.preventDefault();                                                                                                                                                                                                                                 document.getElementById('formDel{{ $item->id }}').submit();">
+                                            <span class="text-light"><i class="fas fa-trash-alt"></i></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--Modal-->
+                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
+                                aria-labelledby="largeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="largeModalLabel">Atención</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-danger">
+                                                ¿Desea eliminar la factura?
+                                            </div>
+                                            <form id="formDel" action="{{ url('facturas/' . $item->id) }}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button id="{{ $item->id }}" type="submit" class="btn btn-danger">Confirmar</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancelar</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                            </div>
+                            <!--Modal-->
+                        @endforeach
+                    @endif
+
                 </tbody>
             </table>
         </div>
     </div>
+
+
+
 
 
 
