@@ -95,7 +95,7 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)//edit
+    public function update(Request $request, $id)
     {
         $companies = request()->except((['_token', '_method']));
         Company::where('id', '=', $id)->update($companies);

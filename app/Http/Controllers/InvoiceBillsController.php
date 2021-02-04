@@ -24,7 +24,7 @@ class InvoiceBillsController extends Controller
      */
     public function index()
     {
-        $records = InvoiceBill::with('user')->with('company')->with('customer')->get();
+        $records = InvoiceBill::where('active', 1)->with('user')->with('company')->with('customer')->get();
         return view("invoice_bill.index", ["records" => $records]);
     }
 
@@ -69,6 +69,8 @@ class InvoiceBillsController extends Controller
             $bill->iva = $request->iva;
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;
+            $bill->acquisition = $request->acquisition;
+            $bill->active = 1;
             $bill->save();
 
             /* Detalle */
@@ -114,9 +116,9 @@ class InvoiceBillsController extends Controller
     public function edit($id)
     {
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
-        $data = json_decode($records);
 
-        if(isset($data)){
+        $data = json_decode($records);
+        if (isset($data)) {
             Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable($data));
         }
 
@@ -132,6 +134,7 @@ class InvoiceBillsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
     }
 
     /**
@@ -142,15 +145,21 @@ class InvoiceBillsController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        DB::beginTransaction();
+        try {
 
-    public function getMail()
-    {
-        //Envío de comprobante al usuario por medio del correo.
-        $data = ['name => Facturador'];
-        Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable($data));
+            $bill = InvoiceBill::find($id);
+
+            if ($bill->active == 1) {
+                $bill->where('id', $id)->update(['active' => 0]);
+            }
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback(); 
+            abort(500, $e->errorInfo[2]); 
+            return response()->json($response, 500);
+        }
+        DB::commit();
         return redirect()->action('InvoiceBillsController@index');
-        //Envío de comprobante al usuario por medio del correo.
     }
 }

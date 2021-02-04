@@ -6,15 +6,18 @@
     <div>
         <!--Validación de errores-->
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
+            <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                <span class="badge badge-pill badge-danger">Atención</span>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        {{ $error }}
                     @endforeach
-                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
         @endif
         <!--Validación de errores-->
+        
         <!--Mensaje flash-->
         @if (session('usuarioGuardado'))
             <div class="alert alert-success">
@@ -37,7 +40,33 @@
                         {{--Company_id--}}
                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
 
-                      
+                        {{--Adquisición--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+                            <select name="acquisition" id="acquisition"
+                                class="form-control @error('acquisition') is-invalid @enderror" required>
+                                <option selected disabled>Adquisición</option>
+                                <option value="1">Bienes</option>
+                                <option value="2">Servicios</option>
+                                <option value="3">Bienes y servicios</option>
+                            </select>
+                            @error('acquisition')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('acquisition')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                         {{--Customer_id--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">

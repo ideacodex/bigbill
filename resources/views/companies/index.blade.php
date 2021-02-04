@@ -99,8 +99,8 @@
                                     <h4 class="alert-heading">upss!</h4>
                                     <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
                                     <hr>
-                                    <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior
-                                        para poderte asignar una compañia y empezar a trabajar</p>
+                                    <p class="mb-0">Al parecer aún no cuentas con una companía, comunícate con tu superior
+                                        para poderte asignar una companía y empezar a trabajar.</p>
                                 </div>
                             @endif
                                 </div>
