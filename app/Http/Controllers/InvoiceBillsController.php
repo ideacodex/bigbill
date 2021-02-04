@@ -147,7 +147,6 @@ class InvoiceBillsController extends Controller
     {
         DB::beginTransaction();
         try {
-
             $bill = InvoiceBill::find($id);
 
             if ($bill->active == 1) {
