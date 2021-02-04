@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use DB;
 use App\Customer;
 use App\Status;
@@ -46,7 +47,8 @@ class CustomersController extends Controller
             'lastname' => 'required', 
             'phone' => 'required',
             'email' => 'required',
-            'nit' => 'required'
+            'nit' => 'required',
+            'company_id'=>'required'
         ]);
         DB::beginTransaction();
         try{
@@ -56,6 +58,8 @@ class CustomersController extends Controller
             $customers->phone = $request->phone;
             $customers->email = $request->email;
             $customers->nit = $request->nit;
+            $customers->company_id = $request->company_id;
+            
             
             $customers->save();
 
@@ -68,15 +72,12 @@ class CustomersController extends Controller
         return back()->with('datosAgregados', 'Registro Guardado');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        if (!empty($request->company_id)) {
+            $customers = Customer::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
+        }
+        return view('CompanyInformation.customer')->with(compact('customers'));
     }
 
     /**

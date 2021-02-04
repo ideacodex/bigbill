@@ -1,4 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+
+</head>
 
 <body style=" font: Georgia">
     <div name="user">
@@ -77,7 +86,7 @@
             </tr>
         </thead>
         <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
-            @foreach ($User as $item)
+            @foreach ($usuarios as $item)
                 <tr>
                     <th scope="row">{{ $item->id }}</th>
                     <td><b> {{ $item->role_id }}</b></td>

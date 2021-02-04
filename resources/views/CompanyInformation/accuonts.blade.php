@@ -1,7 +1,6 @@
-
-
 <body style=" font: Georgia">
-    <div name="user">
+    <!--cuentas-->
+    <div name="Acuonts">
         <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
                 style="background: #2b204b;border: 1px solid #000;padding: 10px;">
@@ -10,7 +9,7 @@
                         <td style="text-align: right">
                             <strong style="color: #ed8405; font: Italic;  ">Informe de</strong>
                             <strong style="color: #2b204b; ">--------------</strong>
-                            <h1 style="color: #ed8405; font: Italic;text ;text-align: right">USUARIOS</h1>
+                            <h1 style="color: #ed8405; font: Italic;text ;text-align: right">CUENTAS</h1>
                         </td>
                     </tr>
                 </table>
@@ -62,41 +61,23 @@
         </div>
 
     </div>
-    <table class="table table-dark">
-        <thead style="background: #2b204b ; color:white">
+    <hr>
+    <hr>
+    <table style="color: #2b204b">
+        <tr>
+            <th scope="col"> No. </th>
+            <th scope="col">Nombre de la Cuenta</th>
+            <th scope="col">Tipo De Cuenta</th>
+            <th scope="col">Compania</th>
+        </tr>
+        @foreach ($Accounts as $item)
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">telefono </th>
-                <th scope="col">Nit</th>
-                <th scope="col">Direccion </th>
-                <th scope="col">Correo</th>
-                <th scope="col">Compañia</th>
+                <th scope="row">{{ $item->id }}</th>
+                <td>{{ $item->name }}</td>
+                <td><b> {{ $item->types->status }}</b></td>
+                <td>{{ $item->company->name }}</td>
             </tr>
-        </thead>
-        <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
-            @foreach ($User as $item)
-                <tr>
-                    <th scope="row">{{ $item->id }}</th>
-                    <td><b> {{ $item->role_id }}</b></td>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->lastname }}</td>
-                    <td>{{ $item->phone }}</td>
-                    <td>{{ $item->nit }}</td>
-                    <td>{{ $item->address }}</td>
-                    <td>{{ $item->email }}</td>
-                    @if ($item->company)
-                        <td>{{ $item->company->name }}</td>
-                    @else
-                        {
-                        <td>Sin companía</td>
-                        }
-                    @endif
-                </tr>
-            @endforeach
-        </tbody>
+        @endforeach
     </table>
 
 </body>

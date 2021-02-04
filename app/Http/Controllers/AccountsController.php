@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AccountType;
 use DB;
 use App\Account;
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
@@ -20,7 +21,7 @@ class AccountsController extends Controller
         $accounts = Account::all();
         $account_type = AccountType::all();
         $account_types = Account::with('account_types')->get();
-        return view("accounts.index",['accounts' => $accounts, 'account_types' => $account_types, 'account_type' => $account_type]);
+        return view("accounts.index", ['accounts' => $accounts, 'account_types' => $account_types, 'account_type' => $account_type]);
     }
 
     /**
@@ -44,16 +45,18 @@ class AccountsController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'status_id' => 'required'
+            'status_id' => 'required',
+            'company_id' => 'required'
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $accounts = new Account;
             $accounts->name = $request->name;
             $accounts->status_id = $request->status_id;
-            
+            $accounts->company_id = $request->company_id;
+
             $accounts->save();
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             dd($e);
             abort(500, $e->errorInfo[2]);
@@ -63,15 +66,12 @@ class AccountsController extends Controller
         return back()->with('usuarioGuardado', 'Registro Guardado');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        if (!empty($request->company_id)) {
+            $Accounts = Account::where('company_id', $request->company_id)->with('types')->with('company')->get(); //Obtener los valores de tu request:
+        }
+        return view('CompanyInformation.accuonts')->with(compact('Accounts'));
     }
 
     /**
@@ -99,7 +99,7 @@ class AccountsController extends Controller
         Account::where('id', '=', $id)->update($accounts);
 
         return redirect()->action('AccountsController@index')
-        ->with('datosModificados', 'Registro Modificado');
+            ->with('datosModificados', 'Registro Modificado');
     }
 
     /**

@@ -143,11 +143,11 @@
                             @enderror
                         </div>
 
-                        {{--Company_id--}}
+                        {{--Tipos de Cuentas--}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Companía" class="fas fa-calculator"></i>
+                                    <i title="accounttype" class="fas fa-calculator"></i>
                                 </span>
                             </div>
                             <select name="status_id" id="status_id"
@@ -169,6 +169,28 @@
                                 </span>
                             @enderror
                         </div>
+
+                        {{--company_id--}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i class="fas fa-building"></i>
+                                </span>
+                            </div>
+                            <input id="company_id" placeholder="company_id" type="number"
+                                class="text-dark form-control @error('company_id') is-invalid @enderror" name="company_id"
+                                value="{{Auth::user()->company_id}}" required autocomplete="company_id" autofocus>
+
+                            @error('company_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>        
+                        
+                        
+
+
                         <div class="container mt-4">
                             <div class="col-12">
                                 <div class="col text-center">

@@ -71,72 +71,65 @@
         </div>
 
     </div>
-<table>
-    <tr>
-        <td>
-            <table class="table table-dark">
-                <thead style="background: #2b204b ; color:white">
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Responsable</th>
-                        <th scope="col">compania</th>
-                        <th scope="col">iva </th>
-                        <th scope="col">Total </th>
-                    </tr>
-        
-                </thead>
-                <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
-                    @foreach ($InvoiceBill as $item)
+    <table>
+        <tr>
+            <td>
+                <table class="table table-dark">
+                    <thead style="background: #2b204b ; color:white">
                         <tr>
-        
-                            <th scope="row">{{ $item->id }}</th>
-                            <td>{{ $item->user->name }} <br> {{ $item->user->lastname }}</td>
-                            <td>{{ $item->company->name}}</td>
-                            <td>{{ $item->iva }}</td>
-                            <td>{{ $item->total }}</td>
-        
-        
+                            <th scope="col">Id</th>
+                            <th scope="col">Responsable</th>
+                            <th scope="col">compania</th>
+                            <th scope="col">iva </th>
+                            <th scope="col">Total </th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </td>
-        <td>
-            <table class="table table-dark">
-                <thead style="background: #2b204b ; color:white">
-                    <tr>
-                        <th scope="col">Factura</th>
-                        <th scope="col">producto</th>
-                        <th scope="col">cat</th>
-                        <th scope="col">Unitario</th>
-                        <th scope="col">SubTotal</th>
-                    </tr>
-                </thead>
-                <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
-                    @foreach ($DetailBill as $items)
+
+                    </thead>
+                    <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
+                        @foreach ($InvoiceBill as $item)
+                            <tr>
+
+                                <th scope="row">{{ $item->id }}</th>
+                                <td>{{ $item->user->name }} <br> {{ $item->user->lastname }}</td>
+                                <td>{{ $item->company->name }}</td>
+                                <td>{{ $item->iva }}</td>
+                                <td>{{ $item->total }}</td>
+
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table class="table table-dark">
+                    <thead style="background: #2b204b ; color:white">
                         <tr>
-                            <th scope="row">{{ $items->invoice_id }}</th>
-                            <td>{{ $items->product->name}}</td>
-                            <td>{{ $items->quantity }}</td>
-                            <td>{{ $items->unit_price }}</td>
-                            <td>{{ $items->subtotal }}</td>
+                            <th scope="col">Factura</th>
+                            <th scope="col">producto</th>
+                            <th scope="col">cat</th>
+                            <th scope="col">Unitario</th>
+                            <th scope="col">SubTotal</th>
                         </tr>
-                    @endforeach
-        
-        
-                </tbody>
-            </table>
-        
-        </td>
-    </tr>
-</table>
-
-   
-
-    
+                    </thead>
+                    <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
+                        @foreach ($DetailBill as $items)
+                            <tr>
+                                <th scope="row">{{ $items->invoice_id }}</th>
+                                <td>{{ $items->product->name }}</td>
+                                <td>{{ $items->quantity }}</td>
+                                <td>{{ $items->unit_price }}</td>
+                                <td>{{ $items->subtotal }}</td>
+                            </tr>
+                        @endforeach
 
 
+                    </tbody>
+                </table>
 
+            </td>
+        </tr>
+    </table>
 
 </body>
 
