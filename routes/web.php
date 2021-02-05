@@ -8,10 +8,12 @@ use App\Exports\DocsCompany;
 use App\Exports\DocsCustomer;
 use App\Exports\DocsUser;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('inicio');
 });
+
 Auth::routes();
 
 Route::resource('home', 'HomeController')->middleware('auth');
@@ -67,3 +69,4 @@ Route::get('/doc-User', function () {return new DocsUser;});
 /** perfil */
 Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
 /** perfil */
+

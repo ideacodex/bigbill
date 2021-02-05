@@ -23,6 +23,7 @@ class Products extends Migration
                 ->references('id')->on('companies');
             $table->string('quantity_values');
             $table->string('date_values');
+            $table->boolean('active');
             /**Cantidad de ingreso */
             $table->integer('income_amount');
             /**Fecha de ingreso */

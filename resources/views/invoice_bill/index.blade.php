@@ -54,27 +54,19 @@
                 aria-describedby="bootstrap-data-table_info">
 
                 <thead>
-                    <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 322px;" aria-sort="ascending"
-                            aria-label="Name: activate to sort column descending">Id</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 509px;" aria-label="Position: activate to sort column ascending">Facturador
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 249px;" aria-label="Office: activate to sort column ascending">Companía</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 249px;" aria-label="Office: activate to sort column ascending">Cliente</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 249px;" aria-label="Office: activate to sort column ascending">Nit</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Total</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Adquisición</th>
-                        <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                            style="width: 197px;" aria-label="Salary: activate to sort column ascending">Acciones</th>
+                    <tr>
+                        <th>Id</th>
+                        <th>Facturador</th>
+                        <th>Companía</th>
+                        <th>Cliente</th>
+                        <th>Nit</th>
+                        <th>Total</th>
+                        <th>Adquisición</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @if ($records)
                         @foreach ($records as $item)
@@ -95,6 +87,7 @@
                                 @endif
 
                                 <td>{{ $item->total }}</td>
+
                                 @if ($item->acquisition == 1)
                                     <td>Bienes</td>
                                 @elseif($item->acquisition == 2)
@@ -121,12 +114,13 @@
 
                                         <a class="btn btn-sm btn-danger" title="Eliminar" data-toggle="modal"
                                             data-target="#largeModal"
-                                            onclick="event.preventDefault();                                                                                                                                                                                                                                 document.getElementById('formDel{{ $item->id }}').submit();">
+                                            onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
                                             <span class="text-light"><i class="fas fa-trash-alt"></i></span>
                                         </a>
                                     </div>
                                 </td>
                             </tr>
+
                             <!--Modal-->
                             <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
                                 aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -142,33 +136,29 @@
                                             <div class="alert alert-danger">
                                                 ¿Desea eliminar la factura?
                                             </div>
-                                            <form id="formDel" action="{{ url('facturas/' . $item->id) }}"
-                                                method="POST" style="display: none;">
+                                            <form id="formDel" action="{{ url('facturas/' . $item->id) }}" method="POST"
+                                                style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button id="{{ $item->id }}" type="submit" class="btn btn-danger">Confirmar</button>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cancelar</button>
+                                                    <button id="{{ $item->id }}" type="submit"
+                                                        class="btn btn-danger">Confirmar</button>
+                                                </div>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cancelar</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--Modal-->
+                                </td>
+                                </tr>
+                                <!--Modal-->
                         @endforeach
                     @endif
-
                 </tbody>
             </table>
         </div>
     </div>
-
-
-
-
-
 
     <script>
         window.dataLayer = window.dataLayer || [];

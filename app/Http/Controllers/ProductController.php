@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Product;
-use App\Status;
-use App\Company;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -20,9 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
-        return view("product.index" , ["products" => $product]);
-
+        $product = Product::get();
+        return view("product.index", ["products" => $product]);
     }
 
     /**
@@ -32,12 +27,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-
-
-
         $user = User::all();
         $companies = User::with('companies')->get();
-        return view("product.create", ["user" => $user,"companies" => $companies]);
+        return view("product.create", ["user" => $user, "companies" => $companies]);
     }
 
     /**
@@ -48,32 +40,22 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         request()->validate([
-            //nombre
             'name' => 'required',
-            //descripcion
             'description' => 'required',
-            //precio
             'price' => 'required',
-            //company_id
             'company_id' => 'required',
-            //cantidad stock
             'quantity_values',
-            //fecha de stock 
             'date_values' => 'required',
-            //cantidad ingreso 
             'income_amount',
-            //fecha de ingreso 
             'date_admission' => 'required',
-            //cantidad egresos
             'amount_expenses',
-            //fecha de egresos 
             'date_discharge' => 'required'
         ]);
         DB::beginTransaction();
         try {
-            
+
             $product = new Product;
             $product->name = $request->name;
             $product->description = $request->description;
@@ -84,10 +66,15 @@ class ProductController extends Controller
             $product->income_amount = $request->income_amount;
             $product->date_admission = $request->date_admission;
             $product->amount_expenses = $request->amount_expenses;
-            $product->date_discharge = $request->date_discharge;        
+            $product->date_discharge = $request->date_discharge;
+            if($product->quantity_values >= 1){
+                $product->active = 1;
+            }else{
+                $product->active = 0;
+            }
             $product->save();
         } catch (\Illuminate\Database\QueryException $e) {
-            
+
             DB::rollback();
             // dd($e);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
@@ -118,25 +105,57 @@ class ProductController extends Controller
     public function edit($id)
     {
         $products = Product::findOrFail($id);
-        return view('product.edit', compact('products'));
+        return view('product.edit', ['products' => $products]);
     }
 
-      /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public  function update(Request $request,$id)
+    public  function update(Request $request, $id)
     {
-        $product = request()->except((['_token', '_method']));
-        
-        Product::where('id', '=', $id)->update($product);
-        
+        request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'company_id' => 'required',
+            'quantity_values',
+            'date_values' => 'required',
+            'income_amount',
+            'date_admission' => 'required',
+            'amount_expenses',
+            'date_discharge' => 'required'
+        ]);
 
-        return redirect()->action('ProductController@index')
-        ->with('datosEliminados', 'Registro Modificado');
+        DB::beginTransaction();
+        try {
+            $products = Product::findOrFail($id);
+            $products->name = $request->name;
+            $products->description = $request->description;
+            $products->price = $request->price;
+            $products->company_id = $request->company_id;
+            $products->quantity_values = $request->quantity_values;
+            $products->date_values = $request->date_values;
+            $products->income_amount = $request->income_amount;
+            $products->date_admission = $request->date_admission;
+            $products->amount_expenses = $request->amount_expenses;
+            $products->date_discharge = $request->date_discharge;
+            if($products->quantity_values >= 1){
+                $products->active = 1;
+            }else{
+                $products->active = 0;
+            }
+            $products->save();
+        }catch(\Illuminate\Database\QueryException $e){
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+
+        }DB::commit();
+        return redirect()->action('ProductController@index')->with(['message' => 'Registro Modificado', 'alert' => 'success']);
     }
 
     /**
@@ -145,9 +164,23 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
-        $record=Product::destroy( $id );
-        return back()->with('datosEliminados', 'Registro Eliminado');
+        DB::beginTransaction();
+        try {
+            $product = Product::find($id);
+
+            if ($product->active == 1) {
+                $product->where('id', $id)->update(['active' => 0]);
+            }else{
+                $product->where('id', $id)->update(['active' => 1]);
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('ProductController@index');
     }
 }
