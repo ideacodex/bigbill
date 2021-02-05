@@ -8,10 +8,12 @@ use App\Exports\DocsCompany;
 use App\Exports\DocsCustomer;
 use App\Exports\DocsUser;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('inicio');
 });
+
 Auth::routes();
 
 Route::resource('home', 'HomeController')->middleware('auth');
@@ -63,3 +65,5 @@ Route::get('/doc-Companies', function () {return new DocsCompany;});
 Route::get('/doc-Customer', function () {return new DocsCustomer;});
 Route::get('/doc-User', function () {return new DocsUser;});
 /** Descargar Excel */
+
+/**Route::resource('adminPodcast', 'PodcastController')->middleware('role:root|Super|Admin');*/

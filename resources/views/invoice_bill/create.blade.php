@@ -8,16 +8,16 @@
         @if ($errors->any())
             <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
                 <span class="badge badge-pill badge-danger">Atención</span>
-                    @foreach ($errors->all() as $error)
-                        {{ $error }}
-                    @endforeach
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
         @endif
         <!--Validación de errores-->
-        
+
         <!--Mensaje flash-->
         @if (session('usuarioGuardado'))
             <div class="alert alert-success">
@@ -37,10 +37,10 @@
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <div class="col-xs-12"><br><br>
 
-                        {{--Company_id--}}
+                        {{-- Company_id --}}
                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
 
-                        {{--Adquisición--}}
+                        {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -67,7 +67,7 @@
                             @enderror
                         </div>
 
-                        {{--Customer_id--}}
+                        {{-- Customer_id --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -94,7 +94,7 @@
                             @enderror
                         </div>
 
-                        {{--Iva--}}
+                        {{-- Iva --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -117,7 +117,7 @@
                             @enderror
                         </div>
 
-                        {{--Total--}}
+                        {{-- Total --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -214,7 +214,7 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ route('clientes.store') }}" onsubmit="return checkSubmit();">
                         @csrf
-                        {{--Nombre--}}
+                        {{-- Nombre --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -238,7 +238,7 @@
                             @enderror
                         </div>
 
-                        {{--Apellido--}}
+                        {{-- Apellido --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -262,7 +262,7 @@
                             @enderror
                         </div>
 
-                        {{--Teléfono--}}
+                        {{-- Teléfono --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -286,7 +286,7 @@
                             @enderror
                         </div>
 
-                        {{--Email--}}
+                        {{-- Email --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -310,7 +310,7 @@
                             @enderror
                         </div>
 
-                        {{--Nit--}}
+                        {{-- Nit --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">

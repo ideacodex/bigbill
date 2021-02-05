@@ -9,10 +9,7 @@ use App\InvoiceBill;
 use App\Mail\ComprobanteMailable;
 use App\Product;
 use App\Customer;
-use DetailBill as GlobalDetailBill;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade  as PDF;
-use Dotenv\Validator;
 use Illuminate\Support\Facades\Mail;
 
 class InvoiceBillsController extends Controller
@@ -35,7 +32,7 @@ class InvoiceBillsController extends Controller
      */
     public function create()
     {
-        $product = Product::get();
+        $product = Product::where('active', 1)->get();
         $company = Company::all();
         $customer = Customer::all();
         return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
@@ -83,6 +80,22 @@ class InvoiceBillsController extends Controller
                 $detail_bill->subtotal = $request->subtotal[$i];
                 $detail_bill->invoice_id = $bill->id;
                 $detail_bill->save();
+
+                /**Trae el product_id que tengo en la request*/
+                $product = Product::find($request->product_id[$i]);
+                /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                $temp = $product->quantity_values;
+                $tempo = $product->amount_expenses;
+                /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                $product->quantity_values = $temp - $request->quantity[$i];
+                $product->amount_expenses = $tempo + $request->quantity[$i];
+
+                if($product->quantity_values == 0){
+                    $product->active = 0;
+                }else{
+                    $product->active = 1;
+                }
+                $product->save();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
@@ -134,7 +147,6 @@ class InvoiceBillsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
     }
 
     /**
@@ -152,10 +164,9 @@ class InvoiceBillsController extends Controller
             if ($bill->active == 1) {
                 $bill->where('id', $id)->update(['active' => 0]);
             }
-
         } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback(); 
-            abort(500, $e->errorInfo[2]); 
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
             return response()->json($response, 500);
         }
         DB::commit();

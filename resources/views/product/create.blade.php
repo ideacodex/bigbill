@@ -12,7 +12,6 @@
     @endif
     <!--Validación de errores-->
 
-
     <!--Mensaje flash-->
     @if (session('datosEliminados'))
         <div class="alert alert-success">
@@ -101,6 +100,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <!--cantidad stock -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -118,6 +118,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        
                                         <!-- fecha de stock  -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
