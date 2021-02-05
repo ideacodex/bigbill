@@ -13,25 +13,33 @@
         </div>
     @endif
     <!--Validación de errores-->
+    <style>
+        input:invalid {
+            border: 1px solid rgb(0, 60, 255);
+        }
+        input:invalid:focus {
+            background-image: linear-gradient(rgb(192, 198, 255), rgb(255, 255, 255));
+        }
+    </style>
+
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
                     <a href="register">
-                        <label class="align-content"
-                            style="color: white; font-size:30px; font-family: georgia;">Registrar Usuario</label>
+                        <label class="align-content" style="color: white; font-size:30px; font-family: georgia;">Registrar
+                            Usuario</label>
                     </a>
                 </div>
                 <div class="login-form">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
                         <!--Name -->
                         <div class="form-group">
                             <label>Nombre</label>
                             <input id="name" type="text" class="form-control" @error('name') is-invalid @enderror"
-                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus >
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -42,7 +50,7 @@
                         <div class="form-group">
                             <label>Apellido</label>
                             <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror"
-                                name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
+                                name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" >
                             @error('lastname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -54,7 +62,7 @@
                         <div class="form-group">
                             <label>No. Celular</label>
                             <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
-                                name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7" pattern="[0-9]{7,15}">
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -64,9 +72,8 @@
                         <!--Nit -->
                         <div class="form-group">
                             <label>Nit</label>
-                            <input id="nit" type="text"
-                                class="form-control @error('nit') is-invalid @enderror" name="nit" value="{{ old('nit') }}"
-                                required autocomplete="nit">
+                            <input id="nit" type="text" class="form-control @error('nit') is-invalid @enderror" name="nit"
+                                minlength="5" value="{{ old('nit') }}"   minlength="8" pattern="[0-9]{7,15}" required autocomplete="nit">
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -76,9 +83,8 @@
                         <!--Address -->
                         <div class="form-group">
                             <label>Dirección</label>
-                            <input id="address" type="text"
-                                class="form-control @error('address') is-invalid @enderror" name="address"
-                                value="{{ old('address') }}" required autocomplete="address">
+                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
+                                name="address" value="{{ old('address') }}" required autocomplete="address">
 
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -89,9 +95,8 @@
                         <!--Email -->
                         <div class="form-group">
                             <label>Correo electrónico</label>
-                            <input id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" required autocomplete="email">
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}" required autocomplete="email">
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -104,7 +109,7 @@
                             <label>Contraseña</label>
                             <input id="password" type="password"
                                 class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="new-password">
+                                autocomplete="new-password" minlength="8">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -114,8 +119,8 @@
                         <!--Password confirm -->
                         <div class="form-group">
                             <label>Confirmar Contraseña</label>
-                            <input id="password-confirm" type="password"
-                                class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                                required autocomplete="new-password" minlength="8">
                         </div>
                         <!--terminos y condiciones -->
                         <div class="checkbox">

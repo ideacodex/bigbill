@@ -17,7 +17,7 @@ Auth::routes();
 Route::resource('home', 'HomeController')->middleware('auth');
 
 /**Product Route */
-Route::resource('productos', 'ProductController')->middleware('auth');
+Route::resource('productos', 'ProductController')->middleware('auth' );
 /**Product Route */
 
 /**Companies Route */
@@ -63,3 +63,7 @@ Route::get('/doc-Companies', function () {return new DocsCompany;});
 Route::get('/doc-Customer', function () {return new DocsCustomer;});
 Route::get('/doc-User', function () {return new DocsUser;});
 /** Descargar Excel */
+
+/** perfil */
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
+/** perfil */

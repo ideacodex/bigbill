@@ -60,8 +60,14 @@ class ArchivosController extends Controller
         $User = User::all();
         $companies =  User::with('companies')->get();
         $pdf = PDF::loadView('PDF.Userpdf', compact('User'));
-
         return $pdf->download('User.pdf', ["companies"=>$companies]);
     }
-    //ImprimirFacturaDeVenta
+    //home 2.0 PERFIL
+    public function Perfil(Request $request)
+    {
+        $request->user()->authorizeRoles(['Administrador','Gerente','Contador','Vendedor']);//autentificacion y permisos
+        $companies = Company::all();
+        return view('userInfo.index', ['companies' => $companies,]);
+    }
+   
 }

@@ -14,8 +14,10 @@ use App\Category;
 use App\Award;
 use App\User;
 use App\Score;
+
 class HomeController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -23,7 +25,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth'); //autentificacion del usuario
     }
 
     /**
@@ -31,31 +33,30 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-            $companies = Company::all();
-            
-
         $user = Auth::user();
-        if (!$user->hasAnyRole(Role::all())){
+        if (!$user->hasAnyRole(Role::all())) {
             auth()->user()->syncRoles('Vendedor');
+
+            $request->user()->authorizeRoles(['Vendedor',]); //autentificacion y permisos
         }
-        // return view('usuario.frmusuario');
-        return view('userInfo.index', ['companies' => $companies, ]);
-        
+        return view('PrimerIngreso.PrimerIngreso');
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::findOrFail($id);
         return view('userInfo.edit', compact('user'));
     }
-    
-    public  function update(Request $request,$id)
+
+    public  function update(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $user = request()->except((['_token', '_method']));
         User::where('id', '=', $id)->update($user);
 
-        return redirect()->action('HomeController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
+        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
 }

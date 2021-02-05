@@ -52,7 +52,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/home"> <i class="menu-icon fas fa-toolbox"></i>Gerencia:
+                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Gerencia:
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
@@ -158,7 +158,7 @@
                     </li>
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                     @else
-                    <script>
+                    <script style="background: black; color white">
                         alert("Bienvenido\n Usted aun no cuenta con una compañia");
                     </script>
                     @endif

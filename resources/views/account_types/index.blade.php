@@ -1,4 +1,7 @@
-@extends('layouts.Administrador')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
+
+
+
 @section('content')
 
     <!--Validación de errores-->
@@ -33,71 +36,72 @@
                             <strong class="card-title">Estados financieros</strong>
                         </div>
                         @if (Auth::user()->company_id)
-                        <div>
-                            <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
-                                data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-                                Agregar estado financiero
-                                <i class="fas fa-plus-square"></i>
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div class="row table-responsive">
-                                <div class="col-12">
+                            <div>
+                                <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
+                                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+                                    Agregar estado financiero
+                                    <i class="fas fa-plus-square"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row table-responsive">
+                                    <div class="col-12">
 
-                                    
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Estado de cuenta</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($account_types as $item)
+
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <thead>
                                                 <tr>
-                                                    <th>{{ $item->id }}</th>
-                                                    <td>{{ $item->status }}</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a class="btn btn-sm btn-secondary" href=""
-                                                                title="Ver Detalles">
-                                                                <span><i class="fas fa-eye"></i></span>
-                                                            </a>
-                                                            <a class="btn btn-sm btn-primary"
-                                                                href="{{ url('cuentas/' . $item->id . '/edit') }}"
-                                                                title="Editar">
-                                                                <span><i class="fas fa-edit"></i></span>
-                                                            </a>
-                                                            <a class="btn btn-sm btn-danger" title="Eliminar"
-                                                                onclick="event.preventDefault();
-                                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                <span class="text-light"><i
-                                                                        class="fas fa-trash-alt"></i></span>
-                                                            </a>
-                                                            <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('cuentas/' . $item->id) }}" method="POST"
-                                                                style="display: none;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                    <th>Id</th>
+                                                    <th>Estado de cuenta</th>
+                                                    <th>Acciones</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                   
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($account_types as $item)
+                                                    <tr>
+                                                        <th>{{ $item->id }}</th>
+                                                        <td>{{ $item->status }}</td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                                <a class="btn btn-sm btn-secondary" href=""
+                                                                    title="Ver Detalles">
+                                                                    <span><i class="fas fa-eye"></i></span>
+                                                                </a>
+                                                                <a class="btn btn-sm btn-primary"
+                                                                    href="{{ url('cuentas/' . $item->id . '/edit') }}"
+                                                                    title="Editar">
+                                                                    <span><i class="fas fa-edit"></i></span>
+                                                                </a>
+                                                                <a class="btn btn-sm btn-danger" title="Eliminar"
+                                                                    onclick="event.preventDefault();
+                                                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                    <span class="text-light"><i
+                                                                            class="fas fa-trash-alt"></i></span>
+                                                                </a>
+                                                                <form id="formDel{{ $item->id }}"
+                                                                    action="{{ url('cuentas/' . $item->id) }}"
+                                                                    method="POST" style="display: none;">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @else
-                        <div class="alert alert-success" role="alert">
-                            <h4 class="alert-heading">upss!</h4>
-                            <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
-                            <hr>
-                            <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior para poderte asignar una compañia y empezar a trabajar</p>
-                          </div>
+                            <div class="alert alert-success" role="alert">
+                                <h4 class="alert-heading">upss!</h4>
+                                <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
+                                <hr>
+                                <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior para
+                                    poderte asignar una compañia y empezar a trabajar</p>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -125,25 +129,25 @@
                                 value="{{ old('status') }}" placeholder="Estado financiero" required autocomplete="status"
                                 autofocus>
                         </div>
-                        {{--company_id--}}
+                        {{-- company_id --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                     <i class="fas fa-building"></i>
                                 </span>
                             </div>
-                            <input id="company_id" placeholder="company_id" type="number"
+                            <input id="company_id" placeholder="company_id" type="hidden"
                                 class="text-dark form-control @error('company_id') is-invalid @enderror" name="company_id"
-                                value="{{Auth::user()->company_id}}" required autocomplete="company_id" autofocus>
+                                value="{{ Auth::user()->company_id }}" required autocomplete="company_id" autofocus>
 
                             @error('company_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>        
-                        
-                        
+                        </div>
+
+
                         <div class="container mt-4">
                             <div class="col-12">
                                 <div class="col text-center">

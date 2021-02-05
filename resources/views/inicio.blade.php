@@ -17,11 +17,11 @@
           <ul class="navbar-nav ml-auto">
           @auth
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('/home') }}">Casa</a>
+              <a class="nav-link" href="{{ url('/perfil') }}">Casa</a>
             </li>
             @else
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('login') }}">Login</a>
+              <a class="nav-link" href="{{ route('login') }}">Incio de sesion</a>
             </li>
             @if (Route::has('register'))
             <li class="nav-item">

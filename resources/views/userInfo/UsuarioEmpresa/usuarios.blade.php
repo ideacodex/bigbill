@@ -1,4 +1,4 @@
-@extends('layouts.Administrador')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
 @section('content')
 
     @if ($errors->any())
@@ -68,10 +68,10 @@
                                                                 title="Editar">
                                                                 <span><i class="fas fa-edit"></i></span>
                                                             </a>
-                                                            @if ((Auth::user()->id)!=($item->id ))
-                                                            <a class="btn btn-sm btn-danger" title="Eliminar"
+                                                            @if (Auth::user()->id != $item->id)
+                                                                <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>
@@ -81,7 +81,6 @@
                                                                     @csrf
                                                                     @method('DELETE')
                                                                 </form>
-
                                                             @else
                                                             @endif
                                                         </div>
