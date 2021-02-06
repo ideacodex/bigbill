@@ -11,12 +11,30 @@
         </div>
     @endif
     <!--Validación de errores-->
+
+    <script>
+        function Suma() {
+            var stock = document.calculadora.stock.value;
+            var nombre2 = document.calculadora.nombre2.value;
+            try {
+                //Calculamos el número escrito:
+                stock = (isNaN(parseInt(stock))) ? 0 : parseInt(stock);
+                nombre2 = (isNaN(parseInt(nombre2))) ? 0 : parseInt(nombre2);
+                document.calculadora.resultado.value = stock + nombre2;
+            }
+            //Si se produce un error no hacemos nada
+            catch (e) {}
+        }
+
+    </script>
+
     <!--Mensaje flash-->
     @if (session('datosEliminados'))
         <div class="alert alert-danger">
             {{ session('datosEliminados') }}
         </div>
     @endif
+
     <!--Mensaje flash-->
     <div class="content mt-3">
         <div class="animated fadeIn">
@@ -30,7 +48,7 @@
                         <div class="card-body">
 
                             <div>
-                                <form action="{{ url('productos/' . $products->id) }}" method="POST"
+                                <form name="calculadora" action="{{ url('productos/' . $products->id) }}" method="POST"
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                     @csrf @method('PATCH')
 
@@ -57,7 +75,7 @@
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="descripcion" class="fas fa-book"></i>
+                                                <i title="Descripción" class="fas fa-book"></i>
                                             </span>
                                         </div>
                                         <input id="description" name="description" type="text"
@@ -98,7 +116,7 @@
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title=" fecha_stock " class="fas fa-calendar-alt"></i>
+                                                <i title="Fecha de stock" class="fas fa-calendar-alt"></i>
                                             </span>
                                         </div>
                                         <input id="date_values" name="date_values" type="datetime"
@@ -116,13 +134,11 @@
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title=" cantidad_stock " class="fas fa-cart-arrow-down"></i>
+                                                <i title=" Stock " class="fas fa-box-open"></i>
                                             </span>
                                         </div>
-                                        <input id="quantity_values" name="quantity_values" type="number"
-                                            class="text-dark form-control @error('quantity_values') is-invalid @enderror"
-                                            value="{{ $products->quantity_values }}" placeholder="000" required
-                                            autocomplete="quantity_values" autofocus>
+                                        <input class="form-control" type="number" id="grandTotal"
+                                            value="{{ $products->quantity_values }}" readonly name="quantity_values" />
                                         @error('quantity_values')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -130,18 +146,17 @@
                                         @enderror
                                     </div>
 
-                                    <!-- cantidad ingreso -->
+                                    <!--Nuevos ingresos-->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title=" cantidad_ingreso " class="fas fa-cart-arrow-down"></i>
+                                                <i title=" Nuevos ingresos" class="fas fa-plus-square"></i>
                                             </span>
                                         </div>
-                                        <input id="income_amount" name="income_amount" type="number"
-                                            class="text-dark form-control @error('income_amount') is-invalid @enderror"
-                                            value="{{ $products->income_amount }}" placeholder="000" required
-                                            autocomplete="income_amount" autofocus>
-                                        @error('income_amount')
+                                        <input type="number" id="txt_campo_2" name="new_income" class="monto"
+                                            onchange="sumar();" placeholder="Nuevos ingresos" required />
+
+                                        @error('quantity_values')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -160,6 +175,7 @@
                                             </span>
                                         @enderror
                                     </div>
+
                                     <!--  cantidad egresos -->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <input id="amount_expenses" name="amount_expenses" type="hidden"
@@ -172,6 +188,7 @@
                                             </span>
                                         @enderror
                                     </div>
+
                                     <!-- fecha de egresos  -->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <input id="date_discharge" name="date_discharge" type="hidden"
@@ -179,6 +196,22 @@
                                             value="<?php echo date('y/m/d'); ?>" required
                                             autocomplete="date_discharge" autofocus readonly="readonly ">
                                         @error('date_discharge')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <!--En este input se va a cargar el total de ingresos del producto-->
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i title=" Ingresos totales " class="fas fa-shipping-fast"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" type="number" id="total" name="total_revenue" value="0"
+                                            readonly />
+                                        @error('quantity_values')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -197,15 +230,38 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Ingresos registrados -->
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <input value="{{ $products->total_revenue }}" type="hidden" id="txt_campo_1"
+                                            class="monto" onchange="sumar();" name="income_amount" readonly />
+                                    </div>
+
+                                    
+
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
+
+    <script>
+        function sumar() {
+            const $total = document.getElementById('total');
+            let subtotal = 0;
+            [...document.getElementsByClassName("monto")].forEach(function(element) {
+                if (element.value !== '') {
+                    subtotal += parseFloat(element.value);
+                    
+                }
+            });
+            $total.value = subtotal;
+        }
+
+    </script>
+
 
 @endsection

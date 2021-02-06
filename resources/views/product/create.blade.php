@@ -69,7 +69,7 @@
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="descripcion" class="fas fa-book"></i>
+                                                    <i title="Descripción" class="fas fa-book"></i>
                                                 </span>
                                             </div>
                                             <input id="description" name="description" type="text"
@@ -105,7 +105,7 @@
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title=" cantidad_stock " class="fas fa-cart-arrow-down"></i>
+                                                    <i title="Stock" class="fas fa-box-open"></i>
                                                 </span>
                                             </div>
                                             <input id="quantity_values" name="quantity_values" type="number"
@@ -123,7 +123,7 @@
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title=" fecha_stock " class="fas fa-calendar-alt"></i>
+                                                    <i title="Fecha de stock" class="fas fa-calendar-alt"></i>
                                                 </span>
                                             </div>
                                             <input id="date_values" name="date_values" type="datetime"
@@ -140,7 +140,7 @@
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title=" cantidad_ingreso " class="fas fa-cart-arrow-down"></i>
+                                                    <i title="Ingresos" class="fas fa-cart-arrow-down"></i>
                                                 </span>
                                             </div>
                                             <input id="income_amount" name="income_amount" type="number"
