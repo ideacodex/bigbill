@@ -84,13 +84,13 @@ class InvoiceBillsController extends Controller
                 /**Trae el product_id que tengo en la request*/
                 $product = Product::find($request->product_id[$i]);
                 /**Declaro una variable temporal que sea igual a mi cantidad en stock */
-                $temp = $product->quantity_values;
+                $temp = $product->stock;
                 $tempo = $product->amount_expenses;
                 /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
-                $product->quantity_values = $temp - $request->quantity[$i];
+                $product->stock = $temp - $request->quantity[$i];
                 $product->amount_expenses = $tempo + $request->quantity[$i];
 
-                if($product->quantity_values == 0){
+                if($product->stock == 0){
                     $product->active = 0;
                 }else{
                     $product->active = 1;

@@ -59,16 +59,17 @@
                             <th>Productos</th>
                             <th>Descripción</th>
                             <th>Precio </th>
-                            <th>Cant. Ingreso </th>
-                            <th>Cant. Stock</th>
-                            <th>Cant. Egreso</th>
-                            <th>Fecha Transacción</th>
+                            <th>Ingresos anteriores </th>
+                            <th>Stock</th>
+                            <th>Nuevos ingresos</th>
+                            <th>Ingresos totales </th>
+                            <th>Egreso</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
 
+                    <tbody>
                         @foreach ($products as $item)
                             <tr>
                                 <th>{{ $item->id }}</th>
@@ -76,19 +77,23 @@
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->price }}</td>
                                 <td>{{ $item->income_amount }}</td>
-                                @if ($item->quantity_values == 0)
+
+                                @if ($item->stock == 0)
                                     <td><i class="text-danger fas fa-times-circle"></i></td>
                                 @else
-                                    <td>{{ $item->quantity_values }}</td>
+                                    <td>{{ $item->stock }}</td>
                                 @endif
-                                
+
+                                <td>{{ $item->new_income }}</td>
+                                <td>{{ $item->total_revenue }}</td>
                                 <td>{{ $item->amount_expenses }}</td>
-                                <td>{{ $item->date_discharge }}</td>
+
                                 @if ($item->active == 1)
                                     <td>Disponible <i class="text-success fas fa-check-circle"></i></td>
                                 @elseif ($item->active == 0)
                                     <td>Agotado <i class="text-danger fas fa-times-circle"></i></td>
                                 @endif
+
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
@@ -103,6 +108,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+
                 </table>
             @else
                 <div class="alert alert-success" role="alert">

@@ -47,11 +47,9 @@ class ProductController extends Controller
             'price' => 'required',
             'company_id' => 'required',
             'quantity_values',
-            'date_values' => 'required',
             'income_amount',
             'date_admission' => 'required',
             'amount_expenses',
-            'date_discharge' => 'required'
         ]);
         DB::beginTransaction();
         try {
@@ -62,14 +60,15 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->company_id = $request->company_id;
             $product->quantity_values = $request->quantity_values;
-            $product->date_values = $request->date_values;
+            $product->stock = $request->quantity_values;
             $product->income_amount = $request->income_amount;
+            $product->new_income = 0;
+            $product->total_revenue = $request->income_amount;
             $product->date_admission = $request->date_admission;
             $product->amount_expenses = $request->amount_expenses;
-            $product->date_discharge = $request->date_discharge;
-            if($product->quantity_values >= 1){
+            if ($product->quantity_values >= 1) {
                 $product->active = 1;
-            }else{
+            } else {
                 $product->active = 0;
             }
             $product->save();
@@ -121,13 +120,12 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'kind_product' => 'required',
             'company_id' => 'required',
             'quantity_values',
-            'date_values' => 'required',
             'income_amount',
             'date_admission' => 'required',
             'amount_expenses',
-            'date_discharge' => 'required'
         ]);
 
         DB::beginTransaction();
@@ -136,25 +134,28 @@ class ProductController extends Controller
             $products->name = $request->name;
             $products->description = $request->description;
             $products->price = $request->price;
+            $products->kind_product = $request->kind_product;
             $products->company_id = $request->company_id;
-            $products->quantity_values = $request->quantity_values;
-            $products->date_values = $request->date_values;
             $products->income_amount = $request->income_amount;
+            $products->new_income = $request->new_income;
+            $products->total_revenue = $request->total_revenue;
             $products->date_admission = $request->date_admission;
             $products->amount_expenses = $request->amount_expenses;
-            $products->date_discharge = $request->date_discharge;
-            if($products->quantity_values >= 1){
+            if ($products->quantity_values >= 1) {
                 $products->active = 1;
-            }else{
+            } else {
                 $products->active = 0;
             }
+            $temporal = $products->quantity_values;
+            $products->stock = $temporal + $request->new_income;
+            $products->quantity_values = $products->stock;
             $products->save();
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]);
             return response()->json($response, 500);
-
-        }DB::commit();
+        }
+        DB::commit();
         return redirect()->action('ProductController@index')->with(['message' => 'Registro Modificado', 'alert' => 'success']);
     }
 
@@ -172,7 +173,7 @@ class ProductController extends Controller
 
             if ($product->active == 1) {
                 $product->where('id', $id)->update(['active' => 0]);
-            }else{
+            } else {
                 $product->where('id', $id)->update(['active' => 1]);
             }
         } catch (\Illuminate\Database\QueryException $e) {
