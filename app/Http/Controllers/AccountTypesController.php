@@ -15,6 +15,12 @@ class AccountTypesController extends Controller
     {
         $this->middleware('auth'); //autentificacion del usuario
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
@@ -23,10 +29,25 @@ class AccountTypesController extends Controller
             $account_types = AccountType::where('company_id', $request->company_id)->get(); //Obtener los valores 
             return view("account_types.index", ['account_types' => $account_types]);//generala vista   
         }
+        
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
+        //
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         request()->validate([
@@ -49,9 +70,16 @@ class AccountTypesController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Tipo de cuenta registrado');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $AccountTypes = AccountType::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
@@ -59,15 +87,36 @@ class AccountTypesController extends Controller
             return $pdf->download('TiposCuentas-Compañia.pdf'); // descarga el pdf
         }
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
+        //
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         //
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         //

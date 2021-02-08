@@ -44,6 +44,12 @@ class HomeController extends Controller
         return view('PrimerIngreso.PrimerIngreso');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
@@ -51,6 +57,13 @@ class HomeController extends Controller
         return view('userInfo.edit', compact('user'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public  function update(Request $request, $id)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos

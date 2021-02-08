@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BranchOffice;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -16,26 +17,63 @@ class UsuarioEmpresaController extends Controller
     {
         $this->middleware('auth'); //autentificacion del usuario
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
         $user = User::all();
         $company = User::with('company')->get();
-        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company]);
+        $branch_office = BranchOffice::all();
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company, "branch_office" => $branch_office]);
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
     public function edit($id, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
         $user = User::findOrFail($id) and $companies = Company::all();
-        return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies]);
+        $branch_office = BranchOffice::all();
+        return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public  function update(Request $request, $id)
     {
         $user = request()->except((['_token', '_method']));
         $request->user()->authorizeRoles(['Administrador']);
         User::where('id', '=', $id)->update($user);
+<<<<<<< HEAD
+=======
+
+>>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
         return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //permisos y autentificacion
@@ -46,6 +84,16 @@ class UsuarioEmpresaController extends Controller
             return $pdf->download('Usuarios-Compañia.pdf'); // descarga el pdf
         }
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
     public function destroy($id)
     {
         $record = User::destroy($id);

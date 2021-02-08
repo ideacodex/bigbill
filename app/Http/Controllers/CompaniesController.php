@@ -14,18 +14,37 @@ class CompaniesController extends Controller
     {
         $this->middleware('auth'); //autentificacion del usuario
     }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::all();
         return view("companies.index", ["companies" => $companies]);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::all();
         return view("companies.create", ['companies' => $companies]);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         request()->validate([
@@ -52,12 +71,27 @@ class CompaniesController extends Controller
         return redirect()->action('CompaniesController@index')
         ->with('datosAgregados', 'Registro exitoso');
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id,Request $request)//editform
     {
         $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::findOrFail($id);
         return view('companies.update', compact('companies'));
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $companies = request()->except((['_token', '_method']));
@@ -66,6 +100,13 @@ class CompaniesController extends Controller
         return redirect()->action('CompaniesController@index')
         ->with('datosModificados', 'Registro Modificado');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         $record=Company::destroy($id);

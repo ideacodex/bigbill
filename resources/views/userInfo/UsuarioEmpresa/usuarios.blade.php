@@ -37,6 +37,7 @@
                                                 <th>Dirección</th>
                                                 <th>Correo</th>
                                                 <th>Companía</th>
+                                                <th>Sucursal</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -53,9 +54,13 @@
                                                     @if ($item->company)
                                                         <td>{{ $item->company->name }}</td>
                                                     @else
-
                                                         <td>Sin companía</td>
+                                                    @endif
 
+                                                    @if ($item->branch_office)
+                                                        <td>{{$item->branch_office->name}}</td>
+                                                    @else
+                                                        <td>Oficina central</td>
                                                     @endif
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">

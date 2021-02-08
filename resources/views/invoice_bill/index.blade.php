@@ -58,6 +58,7 @@
                         <th>Id</th>
                         <th>Facturador</th>
                         <th>Companía</th>
+                        <th>Sucursal</th>
                         <th>Cliente</th>
                         <th>Nit</th>
                         <th>Total</th>
@@ -74,6 +75,13 @@
                                 <th scope="row"> {{ $item->id }}</th>
                                 <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
                                 <td>{{ $item->company->name }}</td>
+
+
+                                @if ($item->branch_office)
+                                    <td>{{ $item->branch_office->name }}</td>
+                                @else
+                                    <td>Central</td>
+                                @endif
 
                                 @if ($item->customer)
                                     <td>{{ $item->customer->name }} {{ $item->customer->lastname }}</td>

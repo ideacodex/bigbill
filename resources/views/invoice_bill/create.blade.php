@@ -37,8 +37,10 @@
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <div class="col-xs-12"><br><br>
 
-                        {{-- Company_id --}}
+                        {{--Company_id --}}
                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                        {{--Sucursal--}}
+                        <input type="hidden" name="company_id" value="{{ auth()->user()->branch_id }}">
 
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
@@ -148,7 +150,7 @@
                         </button>
 
                         <button type="button" style="border-radius: 95px;" class="btn btn-secondary mb-1"
-                            data-toggle="modal" data-target="#largeModal">Registrar
+                            data-toggle="modal" data-target="#largeModal">Nuevo
                             Cliente <i class="fas fa-user text-light"></i>
                         </button>
                         </a>
@@ -386,7 +388,7 @@
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
-                '<td><select class="selectpicker form-control" id="product_id[]" name="product_id[]"></option>@foreach ($product as $item)><option value="{{ $item->id }}">{{ $item->name }}</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
+                '<td><select class="selectpicker form-control" id="product_id[]" name="product_id[]"></option>@foreach ($product as $item)><option value="{{ $item->id }}">{{ $item->name }}@if ($item->stock < 5)  alert("Estimado usuario, quedan {{ $item->stock}} unidades") @endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 

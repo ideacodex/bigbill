@@ -14,12 +14,24 @@ class CustomersController extends Controller
     {
         $this->middleware('auth'); //autentificacion del usuario
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
         $customers = Customer::all();
         return view("customers.index", ["customers" => $customers]);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
@@ -64,6 +76,13 @@ class CustomersController extends Controller
         DB::commit();
         return back()->with('datosAgregados', 'Registro Guardado');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']);
@@ -74,12 +93,27 @@ class CustomersController extends Controller
             return $pdf->download('Clientes-Compañia.pdf'); // descarga el pdf
         }
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id,Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
         $customers = Customer::findOrFail($id);
         return view('customers.edit', compact('customers'));
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $customers = request()->except((['_token', '_method']));
@@ -88,11 +122,19 @@ class CustomersController extends Controller
         return redirect()->action('CustomersController@index')
             ->with('datosModificados', 'Regitro Modificado');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         $record = Customer::destroy($id);
         return back()->with('datosEliminados', 'Cliente Eliminado');
     }
+    
     public function save(Request $request)
     {
 

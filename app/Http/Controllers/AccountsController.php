@@ -15,6 +15,12 @@ class AccountsController extends Controller
     {
         $this->middleware('auth'); //autentificacion del usuario
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
@@ -24,12 +30,25 @@ class AccountsController extends Controller
             return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //generala vista   
         }
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::all();
         return view("accounts.create", ["accounts" => $accounts]);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         request()->validate([
@@ -54,6 +73,13 @@ class AccountsController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Registro Guardado');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
@@ -64,12 +90,30 @@ class AccountsController extends Controller
             return $pdf->download('Cuentas-Compañia.pdf'); // descarga el pdf
         }
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
     public function edit($id, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $accounts = request()->except((['_token', '_method']));
@@ -78,6 +122,13 @@ class AccountsController extends Controller
         return redirect()->action('AccountsController@index')
             ->with('datosModificados', 'Registro Modificado');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         $record = Account::destroy($id);

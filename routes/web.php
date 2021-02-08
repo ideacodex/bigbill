@@ -24,6 +24,7 @@ Route::resource('productos', 'ProductController')->middleware('auth' );
 
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
+Route::resource('sucursales', 'BranchOfficesController')->middleware('auth');
 /**Companies Route */
 
 /**Clients Route */
