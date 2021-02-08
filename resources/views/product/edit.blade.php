@@ -109,6 +109,33 @@
                                         @enderror
                                     </div>
 
+                                    {{-- Tipo de producto --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <select name="kind_product" id="kind_product"
+                                            class="form-control @error('kind_product') is-invalid @enderror" required>
+                                            <option selected disabled>Tipo de producto</option>
+                                            <option value="1">Artículo de inventario</option>
+                                            <option value="2">Artículo de venta</option>
+                                            <option value="3">Artículo de compra</option>
+                                        </select>
+                                        @error('kind_product')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('kind_product')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     {{-- Company_id --}}
                                     <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
 
@@ -135,7 +162,7 @@
                                                 <i title=" Nuevos ingresos" class="fas fa-plus-square"></i>
                                             </span>
                                         </div>
-                                        <input type="number" id="txt_campo_2" name="new_income" class="monto"
+                                        <input type="number" id="txt_campo_2" name="new_income" class="monto form-control"
                                             onchange="sumar();" placeholder="Nuevos ingresos" required />
 
                                         @error('quantity_values')

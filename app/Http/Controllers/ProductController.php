@@ -45,6 +45,7 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'kind_product' => 'required',
             'company_id' => 'required',
             'quantity_values',
             'income_amount',
@@ -58,6 +59,7 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->description = $request->description;
             $product->price = $request->price;
+            $product->kind_product = $request->kind_product;
             $product->company_id = $request->company_id;
             $product->quantity_values = $request->quantity_values;
             $product->stock = $request->quantity_values;
