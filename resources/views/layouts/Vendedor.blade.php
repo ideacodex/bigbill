@@ -53,7 +53,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/home"> <i class="menu-icon fas fa-toolbox"></i>Vendedor:
+                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Vendedor:
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->

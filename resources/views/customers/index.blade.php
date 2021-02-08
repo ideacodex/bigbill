@@ -1,4 +1,4 @@
-@extends('layouts.Administrador')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
 @section('content')
     <!--Validación de errores-->
     @if ($errors->any())
@@ -74,7 +74,7 @@
                                                                 </a>
                                                                 <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>

@@ -53,14 +53,14 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/home"> <i class="menu-icon fas fa-toolbox"></i>
+                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>
                             <h6>Administrador:</h6>
                             <p class="ml-5 text-secondary">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</p>
                         </a>
                     </li>
-                    <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
-                    <!--Tipos de Cuentas -->
+                        <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
+                        <!--Tipos de Cuentas -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Tipos de cuentas</a>
@@ -89,6 +89,7 @@
                                 </li>
                                 <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar
                                         Companía</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('sucursales.index') }}">Sucursales</a></li>
                                 <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                             </ul>
                         </li>
@@ -171,36 +172,31 @@
                                 </li>
                             </ul>
                         </li>
-                    @else                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a>
-                            </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar
-                                    Companía</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
-                        </ul>
-                    </li> 
-                    @endif
-                    <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Usuario</a>
-                        <ul class="sub-menu children dropdown-menu">
+                        <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Usuario</a>
+                            <ul class="sub-menu children dropdown-menu">
 
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('UsuariosEmpresa.index') }}"> Lista
-                                    Usuarios</a>--}}
-                            </li>
-                            <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                <li><i class="fa fa-id-badge"></i><a href="{{ route('UsuariosEmpresa.index') }}">
+                                        Lista
+                                        Usuarios</a>--}}
+                                </li>
+                                <li><i class="fas fa-power-off"></i> <a class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">Cerrar sesión</a></li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </ul>
-                    </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </li>
+                    @else
+                        <script style="background: black; color white">
+                            alert("Bienvenido\n Usted aun no cuenta con una compañia");
+
+                        </script>
+                    @endif
+
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -303,12 +299,12 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-user"></i> Mi Perfil</a>
+                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
 
-
-                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
-                                    class="fa fa-user"></i> Usuarios </a>
-
+                            @if (Auth::user()->company_id)
+                                <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
+                                        class="fa fa-user"></i> Usuarios </a>
+                            @endif
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>

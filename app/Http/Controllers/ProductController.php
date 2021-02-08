@@ -146,16 +146,16 @@ class ProductController extends Controller
             $products->total_revenue = $request->total_revenue;
             $products->date_admission = $request->date_admission;
             $products->amount_expenses = $request->amount_expenses;
-            if ($products->stock >= 1) {
-                $products->active = 1;
-            } else {
-                $products->active = 0;
-            }
             /**Stock anterior */
             $temporal = $products->new_income;
             /**Stock actualizado */
             $products->stock = $temporal + $request->quantity_values;
             $products->quantity_values = $products->stock;
+            if ($products->stock >= 1) {
+                $products->active = 1;
+            } else {
+                $products->active = 0;
+            }
             $products->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();

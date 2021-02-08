@@ -19,11 +19,12 @@ Auth::routes();
 Route::resource('home', 'HomeController')->middleware('auth');
 
 /**Product Route */
-Route::resource('productos', 'ProductController')->middleware('auth');
+Route::resource('productos', 'ProductController')->middleware('auth' );
 /**Product Route */
 
 /**Companies Route */
 Route::resource('empresas', 'CompaniesController')->middleware('auth');
+Route::resource('sucursales', 'BranchOfficesController')->middleware('auth');
 /**Companies Route */
 
 /**Clients Route */
@@ -66,4 +67,7 @@ Route::get('/doc-Customer', function () {return new DocsCustomer;});
 Route::get('/doc-User', function () {return new DocsUser;});
 /** Descargar Excel */
 
-/**Route::resource('adminPodcast', 'PodcastController')->middleware('role:root|Super|Admin');*/
+/** perfil */
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
+/** perfil */
+

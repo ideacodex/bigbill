@@ -32,12 +32,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Companías Registradas</strong>
+                            <strong class="card-title">Sucursales Registradas</strong>
                         </div>
                         <div>
-                            <a href="{{ route('empresas.create') }}" style="border-radius: 95px;"
+                            <a href="{{ route('sucursales.create') }}" style="border-radius: 95px;"
                                 class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
-                                Agregar Companía
+                                Agregar sucursal
                                 <i class="fas fa-plus-square"></i>
                             </a>
                         </div>
@@ -51,20 +51,22 @@
                                             <tr>
                                                 <th>Id</th>
                                                 <th>Nombre</th>
-                                                <th>Nit</th>
                                                 <th>Teléfono</th>
+                                                <th>PBX</th>
                                                 <th>Dirección</th>
+                                                <th>Empresa</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($companies as $item)
+                                            @foreach ($branch_office as $item)
                                                 <tr>
                                                     <th>{{ $item->id }}</th>
                                                     <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->nit }}</td>
                                                     <td>{{ $item->phone }}</td>
+                                                    <td>{{ $item->pbx }}</td>
                                                     <td>{{ $item->address }}</td>
+                                                    <td>{{ $item->company->name }}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a class="btn btn-sm btn-secondary" href=""
@@ -72,18 +74,18 @@
                                                                 <span><i class="fas fa-eye"></i></span>
                                                             </a>
                                                             <a class="btn btn-sm btn-primary"
-                                                                href="{{ url('empresas/' . $item->id . '/edit') }}"
+                                                                href="{{ url('sucursales/' . $item->id . '/edit') }}"
                                                                 title="Editar">
                                                                 <span><i class="fas fa-edit"></i></span>
                                                             </a>
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
                                                             <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('empresas/' . $item->id) }}" method="POST"
+                                                                action="{{ url('sucursales/' . $item->id) }}" method="POST"
                                                                 style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')

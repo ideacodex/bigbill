@@ -10,13 +10,19 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 
 class CompaniesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::all();
         return view("companies.index", ["companies" => $companies]);
     }
@@ -26,8 +32,9 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::all();
         return view("companies.create", ['companies' => $companies]);
     }
@@ -66,24 +73,14 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)//editform
+    public function edit($id,Request $request)//editform
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::findOrFail($id);
         return view('companies.update', compact('companies'));
     }

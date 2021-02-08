@@ -17,8 +17,7 @@ class usuarioscontroller extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
-        return view("select", ["companies" => $companies]);
+        
     }
     public function create()
     {

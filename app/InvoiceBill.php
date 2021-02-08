@@ -15,6 +15,11 @@ class InvoiceBill extends Model
         return $this->hasOne("App\Company", 'id', 'company_id');
     }
 
+    public function branch_office()
+    {
+        return $this->hasOne("App\BranchOffice", 'id', 'branch_id');
+    }
+
     public function user()
     {
         return $this->hasOne("App\User", 'id', 'user_id');

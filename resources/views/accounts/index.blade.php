@@ -1,6 +1,7 @@
-@extends('layouts.Administrador')
-@section('content')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
 
+
+@section('content')
     <!--Validación de errores-->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -23,7 +24,6 @@
         </div>
     @endif
     <!--Mensaje flash-->
-
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
@@ -162,12 +162,6 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-
-                            @error('status_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
 
                         {{--company_id--}}
@@ -177,7 +171,7 @@
                                     <i class="fas fa-building"></i>
                                 </span>
                             </div>
-                            <input id="company_id" placeholder="company_id" type="number"
+                            <input id="company_id" placeholder="company_id" type="hidden"
                                 class="text-dark form-control @error('company_id') is-invalid @enderror" name="company_id"
                                 value="{{Auth::user()->company_id}}" required autocomplete="company_id" autofocus>
 
