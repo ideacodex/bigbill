@@ -232,9 +232,6 @@
                                         <input value="{{ $products->total_revenue }}" type="hidden" id="txt_campo_1"
                                             class="monto" onchange="sumar();" name="income_amount" readonly />
                                     </div>
-
-                                    
-
                                 </form>
                             </div>
                         </div>
