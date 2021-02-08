@@ -37,7 +37,8 @@
                                         function sumar() {
                                             const $total = document.getElementById('income_amount');
                                             let subtotal = 0;
-                                            [...document.getElementsByClassName("quantity_values")].forEach(function(element) {
+                                            [...document.getElementsByClassName("quantity_values")].forEach(function(
+                                                element) {
                                                 if (element.value !== '') {
                                                     subtotal += parseFloat(element.value);
                                                 }
@@ -65,6 +66,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <!--descripcion-->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -83,6 +85,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <!--precio-->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -95,6 +98,33 @@
                                                 value="{{ old('price') }}" placeholder="Precio " required
                                                 autocomplete="price" autofocus>
                                             @error('price')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Tipo de producto --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                    <i class="fas fa-user"></i>
+                                                </span>
+                                            </div>
+                                            <select name="kind_product" id="kind_product"
+                                                class="form-control @error('kind_product') is-invalid @enderror" required>
+                                                <option selected disabled>Tipo de producto</option>
+                                                <option value="1">Artículo de inventario</option>
+                                                <option value="2">Artículo de venta</option>
+                                                <option value="3">Artículo de compra</option>
+                                            </select>
+                                            @error('kind_product')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            @error('kind_product')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -118,24 +148,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        
-                                        <!-- fecha de stock  -->
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="Fecha de stock" class="fas fa-calendar-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input id="date_values" name="date_values" type="datetime"
-                                                class="text-dark form-control @error('date_values') is-invalid @enderror"
-                                                value="<?php echo date('y/m/d'); ?>" required
-                                                autocomplete="date_values" autofocus readonly="readonly">
-                                            @error('date_values')
-                                                <span class="date_values-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+
                                         <!-- cantidad ingreso -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -153,6 +166,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <!-- fecha de ingreso  -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <input id="date_admission" name="date_admission" type="hidden"
@@ -165,6 +179,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <!-- Company_id -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                             <input type="hidden" value="{{ Auth::user()->company_id }} "
@@ -177,6 +192,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                         <!--  cantidad egresos -->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <input id="amount_expenses" name="amount_expenses" type="hidden"
@@ -189,18 +205,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <!-- fecha de egresos  -->
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <input id="date_discharge" name="date_discharge" type="hidden"
-                                                class="text-dark form-control @error('date_discharge') is-invalid @enderror"
-                                                value="<?php echo date('y/m/d'); ?>" required
-                                                autocomplete="date_discharge" autofocus readonly="readonly ">
-                                            @error('date_discharge')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+
                                         <!--Button-->
                                         <div class="container mt-4">
                                             <div class="col-12">

@@ -112,24 +112,6 @@
                                     {{-- Company_id --}}
                                     <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
 
-                                    <!-- fecha de stock  -->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Fecha de stock" class="fas fa-calendar-alt"></i>
-                                            </span>
-                                        </div>
-                                        <input id="date_values" name="date_values" type="datetime"
-                                            class="text-dark form-control @error('date_values') is-invalid @enderror"
-                                            value="<?php echo date('y/m/d'); ?>" required
-                                            autocomplete="date_values" autofocus readonly="readonly">
-                                        @error('date_values')
-                                            <span class="date_values-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
                                     <!-- cantidad stock -->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -183,19 +165,6 @@
                                             value="{{ $products->amount_expenses }}" placeholder="000" required
                                             autocomplete="amount_expenses" autofocus readonly="readonly">
                                         @error('amount_expenses')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <!-- fecha de egresos  -->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <input id="date_discharge" name="date_discharge" type="hidden"
-                                            class="text-dark form-control @error('date_discharge') is-invalid @enderror"
-                                            value="<?php echo date('y/m/d'); ?>" required
-                                            autocomplete="date_discharge" autofocus readonly="readonly ">
-                                        @error('date_discharge')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
