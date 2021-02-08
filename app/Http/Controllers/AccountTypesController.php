@@ -18,8 +18,11 @@ class AccountTypesController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
-        $account_types = AccountType::all();
-        return view("account_types.index", ['account_types' => $account_types]);
+
+        if (!empty($request->company_id)) {
+            $account_types = AccountType::where('company_id', $request->company_id)->get(); //Obtener los valores 
+            return view("account_types.index", ['account_types' => $account_types]);//generala vista   
+        }
     }
     public function create()
     {

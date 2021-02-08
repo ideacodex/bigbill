@@ -17,15 +17,16 @@ class AccountsController extends Controller
     }
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
-        $accounts = Account::all();
-        $account_type = AccountType::all();
-        $account_types = Account::with('account_types')->get();
-        return view("accounts.index", ['accounts' => $accounts, 'account_types' => $account_types, 'account_type' => $account_type]);
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        if (!empty($request->company_id)) {
+            $account_type = AccountType::get();
+            $account = Account::where('company_id', $request->company_id)->get(); //Obtener los valores de tu request:
+            return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //generala vista   
+        }
     }
     public function create(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::all();
         return view("accounts.create", ["accounts" => $accounts]);
     }
@@ -55,7 +56,7 @@ class AccountsController extends Controller
     }
     public function show(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $Accounts = Account::where('company_id', $request->company_id)->with('types')->with('company')->get(); //Obtener los valores de tu request:
@@ -63,9 +64,9 @@ class AccountsController extends Controller
             return $pdf->download('Cuentas-Compañia.pdf'); // descarga el pdf
         }
     }
-    public function edit($id,Request $request)
+    public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }

@@ -62,6 +62,7 @@
                             aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Usuarios</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Listado</a></li>
+                            
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar</a>
                             </li>
                             <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
