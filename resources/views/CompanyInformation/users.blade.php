@@ -74,7 +74,7 @@
     <table class="table table-dark">
         <thead style="background: #2b204b ; color:white">
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">No</th>
                 <th scope="col">Rol</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
@@ -88,7 +88,7 @@
         <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
             @foreach ($usuarios as $item)
                 <tr>
-                    <th scope="row">{{ $item->id }}</th>
+                    <th>{{ $loop->index + 1 }}</th>
                     <td><b> {{ $item->role_id }}</b></td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->lastname }}</td>

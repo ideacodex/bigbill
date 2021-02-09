@@ -72,7 +72,7 @@
         <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
             @foreach ($AccountTypes as $item)
                 <tr>
-                    <th scope="row">{{ $item->id }}</th>
+                    <th>{{ $loop->index + 1 }}</th>
                     <td><b> {{ $item->status }}</b></td>
                     <td><b> {{ $item->company->name }}</b></td>
                 </tr>

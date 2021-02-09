@@ -72,7 +72,7 @@
         </tr>
         @foreach ($Accounts as $item)
             <tr>
-                <th scope="row">{{ $item->id }}</th>
+                <th>{{ $loop->index + 1 }}</th>
                 <td>{{ $item->name }}</td>
                 <td><b> {{ $item->types->status }}</b></td>
                 <td>{{ $item->company->name }}</td>

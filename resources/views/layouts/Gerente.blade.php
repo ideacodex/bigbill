@@ -122,7 +122,7 @@
                                 </li>
                                 <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
                                         Facturas</a></li>
-                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+                                
                             </ul>
                         </li>
                         <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
@@ -162,25 +162,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
-                            <ul class="sub-menu children dropdown-menu">
-                                <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                        href="{{ url('/doc-Customer') }}">Clientes</a></li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
-                                        Cuentas</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
-                                </li>
-                            </ul>
-                        </li>
+
                         <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                     @else
                         <script style="background: black; color white">
@@ -353,15 +335,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Facturador</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         {{-- ------------------------- --}}
 
