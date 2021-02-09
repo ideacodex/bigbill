@@ -3,33 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
+
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::get();
-        return view("product.index", ["products" => $product]);
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+        $product = Product::where('company_id', $company)->get(); //Obtener los valores de tu request:
+        return view("product.index", ['products' => $product]); //generala vista   
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $user = User::all();
-        $companies = User::with('companies')->get();
-        return view("product.create", ["user" => $user, "companies" => $companies]);
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $product = Product::all();
+        return view("product.create", ['product' => $product]);
     }
 
     /**
@@ -40,7 +48,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         request()->validate([
             'name' => 'required',
             'description' => 'required',
@@ -82,7 +89,7 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('ProductController@index')
+        return redirect()->action('ProductController@create')
             ->with('datosEliminados', 'Registro exitoso');
     }
 
@@ -92,11 +99,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //permisos y autentificacion
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
+        if (!empty($request->company_id)) {
+            $Products = Product::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.products', compact('Products')); //genera el PDF la vista
+            return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
+        }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -163,7 +175,7 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('ProductController@index')->with(['message' => 'Registro Modificado', 'alert' => 'success']);
+        return redirect('/perfil')->with(['message' => 'Registro Modificado', 'alert' => 'success']);
     }
 
     /**

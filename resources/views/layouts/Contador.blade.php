@@ -59,7 +59,7 @@
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a></li>

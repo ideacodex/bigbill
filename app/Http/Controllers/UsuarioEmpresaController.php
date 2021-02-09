@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BranchOffice;
-use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
@@ -25,14 +25,12 @@ class UsuarioEmpresaController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::all();
         $company = User::with('company')->get();
         $branch_office = BranchOffice::all();
         return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company, "branch_office" => $branch_office]);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Show the form for editing the specified resource.
@@ -40,10 +38,9 @@ class UsuarioEmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
->>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
     public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::findOrFail($id) and $companies = Company::all();
         $branch_office = BranchOffice::all();
         return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
@@ -58,13 +55,12 @@ class UsuarioEmpresaController extends Controller
      */
     public  function update(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = request()->except((['_token', '_method']));
-        $request->user()->authorizeRoles(['Administrador']);
         User::where('id', '=', $id)->update($user);
-<<<<<<< HEAD
-=======
-
->>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
+        $user = User::find($id);
+        $role= Role::find($request->role_id);
+        $user->syncRoles($role);
         return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
 
@@ -84,8 +80,6 @@ class UsuarioEmpresaController extends Controller
             return $pdf->download('Usuarios-Compañia.pdf'); // descarga el pdf
         }
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Remove the specified resource from storage.
@@ -93,7 +87,6 @@ class UsuarioEmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
->>>>>>> efa74bfc2eaba79a48a40856a292c4cfcdd51257
     public function destroy($id)
     {
         $record = User::destroy($id);

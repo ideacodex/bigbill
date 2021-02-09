@@ -8,13 +8,10 @@ use App\AccountType;
 use App\Company;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountTypesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); //autentificacion del usuario
-    }
 
     /**
      * Display a listing of the resource.
@@ -23,25 +20,12 @@ class AccountTypesController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente','Contador']);//autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+        $account_types = AccountType::where('company_id', $company)->get(); //Obtener los valores 
+        return view("account_types.index", ['account_types' => $account_types]); //generala vista   
 
-        if (!empty($request->company_id)) {
-            $account_types = AccountType::where('company_id', $request->company_id)->get(); //Obtener los valores 
-            return view("account_types.index", ['account_types' => $account_types]);//generala vista   
-        }
-        
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -70,7 +54,6 @@ class AccountTypesController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Tipo de cuenta registrado');
     }
-
     /**
      * Display the specified resource.
      *
@@ -86,39 +69,5 @@ class AccountTypesController extends Controller
             $pdf = PDF::loadView('CompanyInformation.types', compact('AccountTypes')); //genera el PDF la vista
             return $pdf->download('TiposCuentas-Compañia.pdf'); // descarga el pdf
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
