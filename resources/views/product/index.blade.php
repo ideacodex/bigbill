@@ -1,4 +1,4 @@
-@extends('layouts.Administrador')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">

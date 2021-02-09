@@ -89,7 +89,8 @@
                                 </li>
                                 <li><i class="fa fa-id-badge"></i><a href="{{ route('empresas.create') }}">Ingresar
                                         Companía</a></li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ route('sucursales.index') }}">Sucursales</a></li>
+                                <li><i class="fa fa-id-badge"></i><a
+                                        href="{{ route('sucursales.index') }}">Sucursales</a></li>
                                 <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                             </ul>
                         </li>
@@ -98,7 +99,9 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-users"></i>Clientes</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-book"></i> <a href="{{ route('clientes.index') }}"> Listado</a>
+                                <li><i class="fa fa-book"></i>
+                                    <a href="{{ url('clientes?company_id=' . Auth::user()->company_id) }}">
+                                        Listado</a>
                                 </li>
                                 <li><i class="fa fa-id-badge"></i><a href="{{ route('clientes.create') }}"> Ingresar
                                         Cliente</a>

@@ -1,7 +1,5 @@
 @extends('layouts.'. auth()->user()->getRoleNames()[0])
 
-
-
 @section('content')
 
     <!--Validación de errores-->
@@ -35,7 +33,8 @@
                         <div class="card-header">
                             <strong class="card-title">Estados financieros</strong>
                         </div>
-                        @if (Auth::user()->company_id)
+                        @if (Auth::user()->company_id) 
+                        
                             <div>
                                 <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
                                     data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
@@ -131,11 +130,6 @@
                         </div>
                         {{-- company_id --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="fas fa-building"></i>
-                                </span>
-                            </div>
                             <input id="company_id" placeholder="company_id" type="hidden"
                                 class="text-dark form-control @error('company_id') is-invalid @enderror" name="company_id"
                                 value="{{ Auth::user()->company_id }}" required autocomplete="company_id" autofocus>

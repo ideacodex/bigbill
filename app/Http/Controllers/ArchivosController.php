@@ -9,13 +9,17 @@ use App\Product;
 use App\Company;
 use App\Customer;
 use App\Account;
+use App\BranchOffice;
 use App\DetailBill;
 use App\InvoiceBill;
 use App\User;
+use Illuminate\Support\Facades\Crypt; //desenciptar
 use Illuminate\Database\Console\Migrations\StatusCommand;
+use Illuminate\Support\Facades\Auth;
 
 class ArchivosController extends Controller
 {
+    
     //Productos
     public function exportProductPDF(){
         $Products = Product::all();
@@ -69,5 +73,26 @@ class ArchivosController extends Controller
         $companies = Company::all();
         return view('userInfo.index', ['companies' => $companies,]);
     }
-   
+    //usuarios de una empresa
+    public function Personal(Request $request)
+    {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+        $branch_office = BranchOffice::all();
+        $user = User::where('company_id',$company)->with('company')->get(); //Obtener los valores
+        return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista   
+    }
+    
+    public function facturaCompañia(Request $request)
+    {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
+        if (!empty($request->company_id)) {
+            $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($request);
+            $pdf = PDF::loadView('CompanyInformation.bills', compact('InvoiceBill','DetailBill')); //genera el PDF la vista
+            return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
+        }
+    }
+
 }

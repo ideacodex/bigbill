@@ -6,14 +6,11 @@ use DB;
 use App\Customer;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class CustomersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); //autentificacion del usuario
-    }
 
     /**
      * Display a listing of the resource.
@@ -22,11 +19,11 @@ class CustomersController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
-        $customers = Customer::all();
-        return view("customers.index", ["customers" => $customers]);
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+        $customers = Customer::where('company_id', $company)->get(); //Obtener los valores de la compañia asignada
+        return view("customers.index", ["customers" => $customers]); //generala vista   
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -100,7 +97,7 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit($id, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
         $customers = Customer::findOrFail($id);
@@ -134,7 +131,7 @@ class CustomersController extends Controller
         $record = Customer::destroy($id);
         return back()->with('datosEliminados', 'Cliente Eliminado');
     }
-    
+
     public function save(Request $request)
     {
 

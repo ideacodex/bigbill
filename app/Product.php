@@ -12,4 +12,8 @@ class Product extends Model
      public function companies(){
           return $this->hasOne("App\Company", 'id', 'company_id');
       }
+      public function company()
+      {
+          return $this->hasOne("App\Company", 'id', 'company_id');
+      }
 }

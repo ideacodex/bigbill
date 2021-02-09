@@ -7,15 +7,11 @@ use DB;
 use App\Account;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AccountsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); //autentificacion del usuario
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,12 +20,11 @@ class AccountsController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
-        $accounts = Account::all();
-        $account_type = AccountType::all();
-        $account_types = Account::with('account_types')->get();
-        return view("accounts.index", ['accounts' => $accounts, 'account_types' => $account_types, 'account_type' => $account_type]);
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+        $account_type = AccountType::get();
+        $account = Account::where('company_id', $company)->get(); //Obtener los valores de tu request:
+        return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //generala vista   
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +36,6 @@ class AccountsController extends Controller
         $accounts = Account::all();
         return view("accounts.create", ["accounts" => $accounts]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -72,7 +66,6 @@ class AccountsController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Registro Guardado');
     }
-
     /**
      * Display the specified resource.
      *
@@ -89,7 +82,6 @@ class AccountsController extends Controller
             return $pdf->download('Cuentas-Compañia.pdf'); // descarga el pdf
         }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -102,7 +94,6 @@ class AccountsController extends Controller
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -118,7 +109,6 @@ class AccountsController extends Controller
         return redirect()->action('AccountsController@index')
             ->with('datosModificados', 'Registro Modificado');
     }
-
     /**
      * Remove the specified resource from storage.
      *

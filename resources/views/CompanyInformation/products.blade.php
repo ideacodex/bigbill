@@ -1,5 +1,3 @@
-<strong>PRODUCTOS PENDIENTE</strong>
-
 <body style=" font: Georgia">
     <div name="productos">
         <div class="row">
@@ -12,7 +10,7 @@
                             <strong style="color: #2b204b; ">--------------</strong>
                             <h1 style="color: #ed8405; font: Italic;text ;text-align: right">PRODUCTOS</h1>
                         </td>
-                    </tr>
+                    </tr> 
                 </table>
             </div>
         </div>
@@ -88,8 +86,8 @@
                     <td>{{ $item->quantity_values }}</td>
                     <td>{{ $item->income_amount }}</td>
                     <td>{{ $item->amount_expenses }}</td>
-                    <td>{{ $item->date_discharge }}</td>
-                    <td>{{ $product->company->name }}</td>
+                    <td>{{ $item->date_admission }}</td>
+                    <td>{{ $item->company->name }}</td>
                 </tr>
             @endforeach
         </tbody>

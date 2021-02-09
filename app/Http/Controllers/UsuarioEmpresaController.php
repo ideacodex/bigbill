@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BranchOffice;
-use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
@@ -25,7 +25,7 @@ class UsuarioEmpresaController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::all();
         $company = User::with('company')->get();
         $branch_office = BranchOffice::all();
@@ -40,7 +40,7 @@ class UsuarioEmpresaController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']);
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::findOrFail($id) and $companies = Company::all();
         $branch_office = BranchOffice::all();
         return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
@@ -55,10 +55,12 @@ class UsuarioEmpresaController extends Controller
      */
     public  function update(Request $request, $id)
     {
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = request()->except((['_token', '_method']));
-
         User::where('id', '=', $id)->update($user);
-
+        $user = User::find($id);
+        $role= Role::find($request->role_id);
+        $user->syncRoles($role);
         return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
 
