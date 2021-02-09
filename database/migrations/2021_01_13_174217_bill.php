@@ -25,7 +25,7 @@ class Bill extends Migration
             $table->foreign('customer_id')
                 ->references('id')->on('customers');
             $table->decimal('iva')->nullable();
-            $table->integer('acquisition');
+            $table->string('acquisition');
             $table->boolean('active')->nullable();
             $table->string('ListaPro')->nullable();
             $table->decimal('total');

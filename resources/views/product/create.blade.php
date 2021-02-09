@@ -114,9 +114,9 @@
                                             <select name="kind_product" id="kind_product"
                                                 class="form-control @error('kind_product') is-invalid @enderror" required>
                                                 <option selected disabled>Tipo de producto</option>
-                                                <option value="1">Artículo de inventario</option>
-                                                <option value="2">Artículo de venta</option>
-                                                <option value="3">Artículo de compra</option>
+                                                <option value="Artículo de inventario">Artículo de inventario</option>
+                                                <option value="Artículo de venta">Artículo de venta</option>
+                                                <option value="Artículo de compra">Artículo de compra</option>
                                             </select>
                                             @error('kind_product')
                                                 <span class="invalid-feedback" role="alert">

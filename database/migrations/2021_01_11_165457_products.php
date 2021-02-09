@@ -22,7 +22,7 @@ class Products extends Migration
             $table->foreign('company_id')
                 ->references('id')->on('companies');
             $table->string('quantity_values');
-            $table->integer('kind_product');
+            $table->string('kind_product');
             $table->integer('stock');
             $table->boolean('active');
             //Ingresos anteriores
