@@ -2,64 +2,92 @@
 
 namespace App\Http\Controllers;
 
+use App\BranchOffice;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
-use DB;
-use App\Post;
-use App\Reaction;
-use App\Question;
-use App\Category;
-use App\Award;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
 use App\Company;
 
 class UsuarioEmpresaController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+    }
 
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $user = User::all();
         $company = User::with('company')->get();
-        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company]);
+        $branch_office = BranchOffice::all();
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company, "branch_office" => $branch_office]);
     }
 
-    public function edit($id)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']);
         $user = User::findOrFail($id) and $companies = Company::all();
-        return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies]);
+        $branch_office = BranchOffice::all();
+        return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public  function update(Request $request, $id)
     {
         $user = request()->except((['_token', '_method']));
+
         User::where('id', '=', $id)->update($user);
 
         return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request)
     {
-        $usuarios = User::query();
-        //Obtienes los valores de tu request:
-        $company_id = $request->company_id;
-        //Compruebas que tengan algo los valores que envía el usuario:
-        //Agregas los campos que te sean necesarios aquí...
-        if (!empty($company_id)) {
-            $usuarios = $usuarios->where('company_id', $company_id);
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //permisos y autentificacion
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
+        if (!empty($request->company_id)) {
+            $usuarios = User::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.users', compact('usuarios')); //genera el PDF la vista
+            return $pdf->download('Usuarios-Compañia.pdf'); // descarga el pdf
         }
-        //Obtienes los resultados aquí:
+    }
 
-        $usuarios = $usuarios->get(); //También puedes paginar los resultados pero es algo muy fácil de hacer y sugiero cheques la documentación
-
-        //Para llenar el select del formulario, en el caso que tuvieras las opciones en base de datos:
-        $tipos = Company::all();
-
-        return view('CompanyInformation.users')->with(compact('usuarios', 'tipos'));
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $record = User::destroy($id);
+        return back()->with('datosEliminados', 'Registro Eliminado');
     }
 }

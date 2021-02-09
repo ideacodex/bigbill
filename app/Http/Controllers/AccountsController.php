@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use App\AccountType;
 use DB;
 use App\Account;
-use App\Company;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AccountsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::all();
         $account_type = AccountType::all();
         $account_types = Account::with('account_types')->get();
@@ -29,8 +35,9 @@ class AccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::all();
         return view("accounts.create", ["accounts" => $accounts]);
     }
@@ -66,12 +73,21 @@ class AccountsController extends Controller
         return back()->with('usuarioGuardado', 'Registro Guardado');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $Accounts = Account::where('company_id', $request->company_id)->with('types')->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.accuonts', compact('Accounts')); //genera el PDF la vista
+            return $pdf->download('Cuentas-Compañia.pdf'); // descarga el pdf
         }
-        return view('CompanyInformation.accuonts')->with(compact('Accounts'));
     }
 
     /**
@@ -80,8 +96,9 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }

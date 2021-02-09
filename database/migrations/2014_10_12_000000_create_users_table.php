@@ -23,6 +23,18 @@ class CreateUsersTable extends Migration
             $table->timestamps();           
         });
 
+        Schema::create('branch_offices', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('phone')->unique();
+            $table->integer('pbx')->nullable();
+            $table->string('address');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+            ->references('id')->on('companies');
+            $table->timestamps();           
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
@@ -38,6 +50,9 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
             ->references('id')->on('companies');
+            $table->unsignedBigInteger('branch_id')->nullable();
+            $table->foreign('branch_id')
+            ->references('id')->on('branch_offices');
             $table->rememberToken();
             $table->timestamps();       
         });
@@ -51,6 +66,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('branch_offices');
         Schema::dropIfExists('companies');
     }
 }

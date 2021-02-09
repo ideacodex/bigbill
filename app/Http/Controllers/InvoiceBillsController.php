@@ -63,6 +63,7 @@ class InvoiceBillsController extends Controller
             $bill->user_id = $request->user_id;
             $bill->company_id = $request->company_id;
             $bill->customer_id = $request->customer_id;
+            $bill->branch_id = $request->branch_id;
             $bill->iva = $request->iva;
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;

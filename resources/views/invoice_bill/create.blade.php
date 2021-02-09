@@ -37,8 +37,10 @@
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <div class="col-xs-12"><br><br>
 
-                        {{-- Company_id --}}
+                        {{--Company_id --}}
                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                        {{--Sucursal--}}
+                        <input type="hidden" name="company_id" value="{{ auth()->user()->branch_id }}">
 
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">

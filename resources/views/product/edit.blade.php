@@ -224,8 +224,6 @@
                                                     {{ __('Guardar') }}
                                                 </button>
                                             </div>
-                                        </div>
-                                    </div>
 
                                     <!-- Ingresos registrados -->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -235,26 +233,24 @@
                                 </form>
                             </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
-        </div><!-- .animated -->
-    </div><!-- .content -->
 
-    <script>
-        function sumar() {
-            const $total = document.getElementById('total');
-            let subtotal = 0;
-            [...document.getElementsByClassName("monto")].forEach(function(element) {
-                if (element.value !== '') {
-                    subtotal += parseFloat(element.value);
-                    
-                }
-            });
-            $total.value = subtotal;
-        }
+                <script>
+                    function sumar() {
+                        const $total = document.getElementById('total');
+                        let subtotal = 0;
+                        [...document.getElementsByClassName("monto")].forEach(function(element) {
+                            if (element.value !== '') {
+                                subtotal += parseFloat(element.value);
 
-    </script>
+                            }
+                        });
+                        $total.value = subtotal;
+                    }
+
+                </script>
 
 
-@endsection
+            @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.Administrador')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
 @section('content')
 
     <!--Validación de errores-->
@@ -37,7 +37,7 @@
                                 <form action="{{ url('clientes/' . $customers->id) }}" method="POST"
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                     @csrf @method('PATCH')
-                                    {{--Nombre--}}
+                                    {{-- Nombre --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -46,8 +46,8 @@
                                         </div>
                                         <input id="name" type="text"
                                             class="text-dark form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ $customers->name }}" placeholder="Nombre" required autocomplete="name"
-                                            autofocus>
+                                            value="{{ $customers->name }}" placeholder="Nombre" required
+                                            autocomplete="name" autofocus>
 
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -62,7 +62,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Apellido--}}
+                                    {{-- Apellido --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -87,7 +87,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Teléfono--}}
+                                    {{-- Teléfono --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -111,7 +111,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Email--}}
+                                    {{-- Email --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -135,7 +135,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Nit--}}
+                                    {{-- Nit --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -159,7 +159,7 @@
                                         @enderror
                                     </div>
 
-                                    {{--Dpi--}}
+                                    {{-- Dpi --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">

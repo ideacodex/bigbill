@@ -13,7 +13,7 @@ class Bill extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_bills', function(Blueprint $table){
+        Schema::create('invoice_bills', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
@@ -21,6 +21,9 @@ class Bill extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')
                 ->references('id')->on('companies');
+            $table->unsignedBigInteger('branch_id')->nullable();
+            $table->foreign('branch_id')
+                ->references('id')->on('branch_offices');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')
                 ->references('id')->on('customers');
