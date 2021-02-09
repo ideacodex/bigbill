@@ -50,7 +50,7 @@
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
+                                                    <th>No</th>
                                                     <th>Estado de cuenta</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -58,7 +58,7 @@
                                             <tbody>
                                                 @foreach ($account_types as $item)
                                                     <tr>
-                                                        <th>{{ $item->id }}</th>
+                                                        <th>{{ $loop->index + 1 }}</th>
                                                         <td>{{ $item->status }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">

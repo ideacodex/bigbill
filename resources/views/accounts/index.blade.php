@@ -46,7 +46,7 @@
                                     <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <th>No.</th>
                                                 <th>Nombre de la cuenta</th>
                                                 <th>Estado de cuenta </th>
                                                 <th>Acciones</th>
@@ -55,7 +55,7 @@
                                         <tbody>
                                             @foreach ($account as $item)
                                                 <tr>
-                                                    <th>{{ $item->id }}</th>
+                                                    <th>{{ $loop->index + 1 }}</th>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->account_types->status}}</td>
                                                     <td>

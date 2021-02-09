@@ -60,10 +60,12 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 clearfix" style="background: #2b204b;border: 1px solid #000;padding: 10px;">
     <table class="table table-dark">
         <thead style="background: #2b204b ; color:white">
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">No</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">telefono </th>
@@ -87,6 +89,8 @@
             @endforeach
         </tbody>
     </table>
+</div>
+</div>
 
 </body>
 

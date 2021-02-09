@@ -1,21 +1,15 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
-<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Inicio</title>
+    <title>Facturador</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
-
 
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}">
@@ -64,8 +58,8 @@
                             <ul class="sub-menu children dropdown-menu">
                                 <li>
                                     <i class="fa fa-book"></i>
-                                    
-                                    <a href="{{url('Personal')}}">
+
+                                    <a href="{{ url('Personal') }}">
                                         Listado
                                     </a>
                                 </li>
@@ -122,7 +116,7 @@
                                 </li>
                                 <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
                                         Facturas</a></li>
-                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
+
                             </ul>
                         </li>
                         <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
@@ -162,25 +156,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
-                            <ul class="sub-menu children dropdown-menu">
-                                <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                        href="{{ url('/doc-Customer') }}">Clientes</a></li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
-                                        Cuentas</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
-                                </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
-                                </li>
-                            </ul>
-                        </li>
+
                         <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                     @else
                         <script style="background: black; color white">
@@ -202,14 +178,8 @@
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
-
-    <!-- Left Panel -->
-
-    <!-- Right Panel -->
-
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
-
         <!-- Header-->
         <header id="header" class="header">
 
@@ -353,22 +323,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Facturador</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+
         </div>
         {{-- ------------------------- --}}
 
         @yield('content')
 
     </div><!-- /#right-panel -->
-
     <!-- Right Panel -->
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>

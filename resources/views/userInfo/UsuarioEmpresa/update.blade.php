@@ -38,9 +38,7 @@
                                             </div>
                                             <select name="role_id" id="role_id"
                                                 class="form-control @error('role_id') is-invalid @enderror">
-                                                <option value="{{ $user->role_id }}" selected disabled>
-                                                    <p>Seleccione Su cargo</p>
-                                                </option>
+                                                <option value="{{ $user->role_id }}">Actualizar Rol</option>
                                                 <option value="1">1. Administrador</option>
                                                 <option value="2">2. Gerente</option>
                                                 <option value="3">3. Contador</option>

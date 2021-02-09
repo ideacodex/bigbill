@@ -45,7 +45,7 @@
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
+                                                    <th>No.</th>
                                                     <th>Nombre</th>
                                                     <th>Apellido</th>
                                                     <th>Teléfono</th>
@@ -56,7 +56,7 @@
                                             <tbody>
                                                 @foreach ($customers as $item)
                                                     <tr>
-                                                        <th>{{ $item->id }}</th>
+                                                        <th>{{ $loop->index + 1 }}</th>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->lastname }}</td>
                                                         <td>{{ $item->phone }}</td>

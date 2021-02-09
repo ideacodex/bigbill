@@ -45,7 +45,23 @@
                                             @foreach ($user as $item)
                                                 <tr>
                                                     <th>{{ $item->id }}</th>
-                                                    <td>{{ $item->role_id }}</td>
+                                                    @if ($item->role_id == 1)
+                                                        <td> <strong>Administrador</strong> </td>
+                                                    @else
+                                                        @if ($item->role_id == 2)
+                                                            <td><strong>Gerente</strong></td>
+                                                        @else
+                                                            @if ($item->role_id == 3)
+                                                                <td><strong>Contador</strong></td>
+                                                            @else
+                                                                @if ($item->role_id == 4)
+                                                                    <td><strong>Ventas</strong></td>
+                                                                    @else
+                                                                    <td><strong>Sin Role</strong></td>
+                                                                @endif
+                                                            @endif
+                                                        @endif
+                                                    @endif
                                                     <td>{{ $item->name }} {{ $item->lastname }}</td>
                                                     <td>{{ $item->phone }}</td>
                                                     <td>{{ $item->nit }}</td>
@@ -58,7 +74,7 @@
                                                     @endif
 
                                                     @if ($item->branch_office)
-                                                        <td>{{$item->branch_office->name}}</td>
+                                                        <td>{{ $item->branch_office->name }}</td>
                                                     @else
                                                         <td>Oficina central</td>
                                                     @endif
@@ -76,7 +92,7 @@
                                                             @if (Auth::user()->id != $item->id)
                                                                 <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>

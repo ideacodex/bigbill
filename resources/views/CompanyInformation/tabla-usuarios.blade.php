@@ -10,13 +10,13 @@
 
 <table>
     <tr>
-        <td>id</td>
+        <td>No</td>
         <td>nombre</td>
         <td>apellido</td>
     </tr>
     @foreach ($usuarios as $usuario)
         <tr>
-            <td>{{ $usuario->id }}</td>
+            <th>{{ $loop->index + 1 }}</th>
             <td>{{ $usuario->name }}</td>
             <td>{{ $usuario->lastname }}</td>
 

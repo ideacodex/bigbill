@@ -63,7 +63,7 @@
     <table class="table table-dark">
         <thead style="background: #2b204b ; color:white">
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col">No</th>
                 <th scope="col">Productos</th>
                 <th scope="col">Descrpcion</th>
                 <th scope="col">Precio </th>
@@ -78,7 +78,7 @@
         <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
             @foreach ($Products as $item)
                 <tr>
-                    <th scope="row">{{ $item->id }}</th>
+                    <th>{{ $loop->index + 1 }}</th>
                     <td><b> {{ $item->name }}</b></td>
                     <td>{{ $item->description }}</td>
                     <td>{{ $item->price }}</td>
