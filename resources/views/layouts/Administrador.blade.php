@@ -132,7 +132,6 @@
                                         href="{{ route('facturas.index') }}">Ver Facturas</a></li>
                                 <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
                                         Facturas</a></li>
-
                             </ul>
                         </li>
                         <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->

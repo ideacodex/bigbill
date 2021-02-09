@@ -37,10 +37,10 @@
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <div class="col-xs-12"><br><br>
 
-                        {{--Company_id --}}
+                        {{-- Company_id --}}
                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
-                        {{--Sucursal--}}
-                        <input type="hidden" name="company_id" value="{{ auth()->user()->branch_id }}">
+                        {{-- Sucursal --}}
+                        <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
 
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
@@ -80,7 +80,8 @@
                                 class="form-control @error('customer_id') is-invalid @enderror">
                                 <option selected disabled>Cliente</option>
                                 @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->lastname }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->lastname }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('customer_id')
@@ -145,7 +146,7 @@
 
                         <!-- Trigger the modal with a button -->
                         <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
-                            class="btn btn-success text-light" data-dismiss="modal">Agregar Producto <i
+                            class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i
                                 class="fas fa-cart-plus text-light"></i>
                         </button>
 
@@ -216,6 +217,10 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ route('clientes.store') }}" onsubmit="return checkSubmit();">
                         @csrf
+
+                         {{-- Company_id --}}
+                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                                        
                         {{-- Nombre --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
@@ -388,19 +393,8 @@
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
-            `<td>
-                <select class="selectpicker form-control" id="product_id[]" name="product_id[]">
-                    @foreach ($product as $item)>
-                        <option value="{{ $item->id }}">{{ $item->name }}
-                            @if ($item->stock < 5) ({{ $item->stock}} unidades) 
-                            @endif
-                        </option>
-                    @endforeach
-                </select>
-                <td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0"/></td>
-                <td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td>
-                <td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';
-            `
+                `<td>
+                    <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -424,6 +418,24 @@
             });
         }
 
+
+        function showStockSelect() {
+            let valueStock = true;
+            let indexStock = document.getElementsByName("product_id[]");
+            /* console.log(indexStock); */
+
+            for (let i = 0; i < indexStock.length; i++) {
+                let value = indexStock[i].selectedOptions[0].attributes.valuestock.value;
+                /* let indexStockValue = indexStock[i].selectedOptions[0].index; */
+                if (value <= 5) {
+                    alert(`Solo tienes en existencia ${value}`);
+                    /*  notShow.push(indexStockValue); */
+                } else {
+                    /*  notShow.push(indexStockValue); */
+                }
+            }
+        }      
+
         function Calcular(ele) {
             var cantidad = 0,
                 precunit = 0,
@@ -432,25 +444,25 @@
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
 
-            /** Saca el iva
+            /* Saca el iva
             var tasa = 12;
             var monto = $("#spTotal").val();
 
             var iva = (monto * tasa) / 100;
             //se carga el iva en el campo correspondiente
-            $("#iva").val(iva);
-            */
+            $("#iva").val(iva); */
+
 
             for (var x = 0; x < nodes.length; x++) {
                 if (nodes[x].firstChild.id == 'cantidad[]') {
-                    cantidad = parseFloat(nodes[x].firstChild.value, 10);
+                    cantidad = parseFloat(nodes[x].firstChild.value, 0);
                 }
                 if (nodes[x].firstChild.id == 'precunit[]') {
-                    precunit = parseFloat(nodes[x].firstChild.value, 10);
+                    precunit = parseFloat(nodes[x].firstChild.value, 0);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
                     anterior = nodes[x].firstChild.value;
-                    totalitem = parseFloat((precunit * cantidad), 10);
+                    totalitem = parseFloat((precunit * cantidad), 0);
                     nodes[x].firstChild.value = totalitem;
                 }
             }
@@ -465,6 +477,8 @@
             t.value = total.innerText;
             console.log(total);
         }
+
+        
 
     </script>
     <!--Script-->

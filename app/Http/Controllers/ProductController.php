@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
+use GuzzleHttp\Psr7\Message;
 
 class ProductController extends Controller
 {
@@ -202,5 +203,35 @@ class ProductController extends Controller
         }
         DB::commit();
         return redirect()->action('ProductController@index');
+    }
+
+    public function getProduct($id)
+    {
+       /*  $user = auth()->user()->id;
+        if (isset($user)) { */
+            $product = Product::find($id);
+            if (!isset($product)) {
+                $data = [
+                    'code' => 404,
+                    'status' => 'error',
+                    'message' => 'Producto inexistente'
+                ];
+            } else {
+                $data = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'stock' => $product->stock,
+                    'price' => $product->price
+                ];
+            }
+       /*  } else {
+            $data = [
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            ];
+        } */
+
+        return response()->json($data, $data['code']);
     }
 }

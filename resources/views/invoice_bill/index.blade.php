@@ -96,11 +96,11 @@
 
                                 <td>{{ $item->total }}</td>
 
-                                @if ($item->acquisition == 1)
+                                @if ($item->acquisition == "Bienes")
                                     <td>Bienes</td>
-                                @elseif($item->acquisition == 2)
+                                @elseif($item->acquisition == "Servicios")
                                     <td>Servicios</td>
-                                @elseif($item->acquisition == 3)
+                                @elseif($item->acquisition == "Bienes y Servicios")
                                     <td>Bienes y Servicios</td>
                                 @endif
 

@@ -140,7 +140,8 @@ class CustomersController extends Controller
             'lastname' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'nit' => 'required'
+            'nit' => 'required',
+            'company_id'
         ]);
         DB::beginTransaction();
         try {
@@ -150,7 +151,7 @@ class CustomersController extends Controller
             $customers->phone = $request->phone;
             $customers->email = $request->email;
             $customers->nit = $request->nit;
-
+            $customers->company_id = $request->company_id;
             $customers->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();

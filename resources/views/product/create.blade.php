@@ -239,8 +239,4 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
-
-
-
-
 @endsection
