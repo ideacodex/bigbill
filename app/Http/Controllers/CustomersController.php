@@ -21,7 +21,7 @@ class CustomersController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
         $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $customers = Customer::where('company_id', $company)->get(); //Obtener los valores de la compañia asignada
+        $customers = Customer::get(); //Obtener los valores de la compañia asignada
         return view("customers.index", ["customers" => $customers]); //generala vista   
     }
     /**
@@ -51,7 +51,6 @@ class CustomersController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'nit' => 'required',
-            'company_id' => 'required'
         ]);
         DB::beginTransaction();
         try {
@@ -61,8 +60,6 @@ class CustomersController extends Controller
             $customers->phone = $request->phone;
             $customers->email = $request->email;
             $customers->nit = $request->nit;
-            $customers->company_id = $request->company_id;
-
 
             $customers->save();
         } catch (\Illuminate\Database\QueryException $e) {

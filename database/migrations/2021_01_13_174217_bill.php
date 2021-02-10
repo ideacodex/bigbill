@@ -13,6 +13,31 @@ class Bill extends Migration
      */
     public function up()
     {
+        Schema::create('account_types', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('status'); 
+            $table->timestamps();       
+        });
+
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->foreign('status_id')
+                ->references('id')->on('account_types');
+            $table->timestamps();
+        });
+
+        Schema::create('customers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('lastname');
+            $table->integer('phone');
+            $table->string('email');
+            $table->integer('nit');
+            $table->timestamps();           
+        });
+
         Schema::create('invoice_bills', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
@@ -28,10 +53,13 @@ class Bill extends Migration
             $table->foreign('customer_id')
                 ->references('id')->on('customers');
             $table->decimal('iva')->nullable();
-            $table->string('acquisition');
+            $table->integer('acquisition');
             $table->boolean('active')->nullable();
             $table->string('ListaPro')->nullable();
             $table->decimal('total');
+            $table->unsignedBigInteger('account_id')->nullable();
+            $table->foreign('account_id')
+                ->references('id')->on('accounts');
             $table->timestamps();
         });
     }
@@ -44,5 +72,8 @@ class Bill extends Migration
     public function down()
     {
         Schema::dropIfExists('invoice_bills');
+        Schema::dropIfExists('customers');
+        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('account_types');
     }
 }

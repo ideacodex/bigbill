@@ -26,10 +26,9 @@ class UsuarioEmpresaController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $user = User::all();
-        $company = User::with('company')->get();
+        $user = User::with('companies')->get();
         $branch_office = BranchOffice::all();
-        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "company" => $company, "branch_office" => $branch_office]);
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "branch_office" => $branch_office]);
     }
 
     /**

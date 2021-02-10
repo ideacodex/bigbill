@@ -87,11 +87,11 @@
 
                                                 <td>{{ $item->total }}</td>
 
-                                                @if ($item->acquisition == 'Bienes')
+                                                @if ($item->acquisition == '1')
                                                     <td>Bienes</td>
-                                                @elseif($item->acquisition == "Servicios")
+                                                @elseif($item->acquisition == "2")
                                                     <td>Servicios</td>
-                                                @elseif($item->acquisition == "Bienes y Servicios")
+                                                @elseif($item->acquisition == "3")
                                                     <td>Bienes y Servicios</td>
                                                 @endif
 
