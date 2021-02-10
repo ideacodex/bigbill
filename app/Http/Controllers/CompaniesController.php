@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 
 class CompaniesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); //autentificacion del usuario
-    }
     
     /**
      * Display a listing of the resource.
@@ -35,8 +31,8 @@ class CompaniesController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
-        $companies = Company::all();
-        return view("companies.create", ['companies' => $companies]);
+      
+        return view("companies.create");
     }
 
     /**
@@ -49,9 +45,7 @@ class CompaniesController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'nit' => 'required', 
-            'phone',
-            'address'
+            'nit' => 'required|unique'
         ]);
         DB::beginTransaction();
         try{
@@ -84,7 +78,7 @@ class CompaniesController extends Controller
         $companies = Company::findOrFail($id);
         return view('companies.update', compact('companies'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -96,7 +90,6 @@ class CompaniesController extends Controller
     {
         $companies = request()->except((['_token', '_method']));
         Company::where('id', '=', $id)->update($companies);
-
         return redirect()->action('CompaniesController@index')
         ->with('datosModificados', 'Registro Modificado');
     }

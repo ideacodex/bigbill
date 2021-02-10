@@ -22,7 +22,6 @@ class ArchivosController extends Controller
     
     //Productos
     public function exportProductPDF(){
-        $Products = Product::all();
         $companies = Product::with('companies')->get();
         $pdf = PDF::loadView('PDF.Productpdf', compact('Products'));
         return $pdf->download('Product.pdf' , ["companies" => $companies]);
@@ -41,15 +40,12 @@ class ArchivosController extends Controller
     }
     //Account
     public function exportAccountPDF(){
-        $Account = Account::all();
         $account_types = Account::with('account_types')->get();
         $pdf = PDF::loadView('PDF.Accountpdf', compact('Account') );
         return $pdf->download('Account.pdf' , ["account_types" => $account_types]);
     }
     //facturas
     public function exportfacturatPDF(){
-
-        $InvoiceBill = InvoiceBill::all();
         $company = InvoiceBill::with('company')->get();
         $user = InvoiceBill::with('user')->get();
 

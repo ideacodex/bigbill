@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BranchOffice;
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +27,8 @@ class BranchOfficesController extends Controller
      */
     public function create()
     {
-        $branch_office = BranchOffice::all();
-        return view('branchoffice.create', ['branch_office' => $branch_office]);
+        $companies = Company::all();
+        return view('branchoffice.create', ['companies' => $companies]);
     }
 
     /**
@@ -41,7 +42,6 @@ class BranchOfficesController extends Controller
         request()->validate([
             'name' => 'required',
             'phone' => 'required',
-            'pbx',
             'address' => 'required',
             'company_id' => 'required'
         ]);
@@ -100,7 +100,6 @@ class BranchOfficesController extends Controller
         request()->validate([
             'name' => 'required',
             'phone' => 'required',
-            'pbx',
             'address' => 'required',
             'company_id' => 'required'
         ]);
