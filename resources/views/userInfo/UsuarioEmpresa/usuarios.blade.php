@@ -21,7 +21,11 @@
                         <div class="card-header">
                             <strong class="card-title">Usuarios Registrados</strong>
                         </div>
-
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+                                href="{{ route('User.pdf') }}">Reporte de usuarios <i class="fas fa-file-alt"></i>
+                            </a>
+                        </div>
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
@@ -56,7 +60,7 @@
                                                             @else
                                                                 @if ($item->role_id == 4)
                                                                     <td><strong>Ventas</strong></td>
-                                                                    @else
+                                                                @else
                                                                     <td><strong>Sin Role</strong></td>
                                                                 @endif
                                                             @endif
@@ -92,7 +96,7 @@
                                                             @if (Auth::user()->id != $item->id)
                                                                 <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>

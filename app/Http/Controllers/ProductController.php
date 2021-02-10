@@ -90,7 +90,7 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('ProductController@create')
+        return redirect()->action('ProductController@index')
             ->with('datosEliminados', 'Registro exitoso');
     }
 

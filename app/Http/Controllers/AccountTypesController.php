@@ -22,7 +22,7 @@ class AccountTypesController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $account_types = AccountType::where('company_id', $company)->get(); //Obtener los valores 
+        $account_types = AccountType::get(); //Obtener los valores 
         return view("account_types.index", ['account_types' => $account_types]); //generala vista   
 
     }

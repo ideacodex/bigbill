@@ -52,9 +52,9 @@
                             <select name="acquisition" id="acquisition"
                                 class="form-control @error('acquisition') is-invalid @enderror" required>
                                 <option selected disabled>Adquisición</option>
-                                <option value="Bienes">Bienes</option>
-                                <option value="Servicios">Servicios</option>
-                                <option value="Bienes y servicios">Bienes y servicios</option>
+                                <option value="1">Bienes</option>
+                                <option value="2">Servicios</option>
+                                <option value="3">Bienes y servicios</option>
                             </select>
                             @error('acquisition')
                                 <span class="invalid-feedback" role="alert">
@@ -72,9 +72,10 @@
                         {{-- Customer_id --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="fas fa-user"></i>
-                                </span>
+                                <button type="button" class="btn btn-secondary mb-1"
+                                    data-toggle="modal" data-target="#largeModal"><i
+                                        class="fas fa-user-plus text-light"></i>
+                                </button>
                             </div>
                             <select name="customer_id" id="customer_id"
                                 class="form-control @error('customer_id') is-invalid @enderror">
@@ -150,10 +151,6 @@
                                 class="fas fa-cart-plus text-light"></i>
                         </button>
 
-                        <button type="button" style="border-radius: 95px;" class="btn btn-secondary mb-1"
-                            data-toggle="modal" data-target="#largeModal">Nuevo
-                            Cliente <i class="fas fa-user text-light"></i>
-                        </button>
                         </a>
 
                         <input type="hidden" id="ListaPro" name="ListaPro" value="" />
@@ -218,9 +215,6 @@
                     <form method="POST" action="{{ route('clientes.store') }}" onsubmit="return checkSubmit();">
                         @csrf
 
-                         {{-- Company_id --}}
-                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
-                                        
                         {{-- Nombre --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
@@ -394,7 +388,7 @@
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
                 `<td>
-                    <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                                    <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -434,7 +428,7 @@
                     /*  notShow.push(indexStockValue); */
                 }
             }
-        }      
+        }
 
         function Calcular(ele) {
             var cantidad = 0,
@@ -477,8 +471,6 @@
             t.value = total.innerText;
             console.log(total);
         }
-
-        
 
     </script>
     <!--Script-->

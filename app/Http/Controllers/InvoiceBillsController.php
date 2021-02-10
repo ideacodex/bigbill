@@ -69,8 +69,9 @@ class InvoiceBillsController extends Controller
             $bill->total = $request->spTotal;
             $bill->acquisition = $request->acquisition;
             $bill->active = 1;
+            $bill->account_id = 1;
             $bill->save();
-
+            
             /* Detalle */
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();

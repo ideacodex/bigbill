@@ -32,7 +32,7 @@
                         <div class="card-header">
                             <strong class="card-title">Estados financieros</strong>
                         </div>
-                        @if (Auth::user()->company_id)
+{{--                         @if (Auth::user()->company_id) --}}
                             <div class="card-body d-flex justify-content-between align-items-center">
                                 <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
                                     data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @else
+                      {{--   @else
                             <div class="alert alert-success" role="alert">
                                 <h4 class="alert-heading">upss!</h4>
                                 <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
@@ -99,7 +99,7 @@
                                 <p class="mb-0">Al parecer aun no cuentas con una compañia, comunicate con tu superior para
                                     poderte asignar una compañia y empezar a trabajar</p>
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>

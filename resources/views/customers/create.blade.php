@@ -161,8 +161,6 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                         {{-- Company_id --}}
-                                        <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
                                         
                                         <div class="container mt-4">
                                             <div class="col-12">
