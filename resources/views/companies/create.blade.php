@@ -91,7 +91,7 @@
                                         </div>
                                         <input id="address" placeholder="Dirección" type="text"
                                             class="text-dark form-control @error('address') is-invalid @enderror"
-                                            name="address" value="{{ old('address') }}" required autocomplete="address"
+                                            name="address" value="{{ old('address') }}"  autocomplete="address"
                                             autofocus>
 
                                         @error('address')
@@ -116,7 +116,7 @@
                                         </div>
                                         <input id="phone" placeholder="Número de teléfono" type="number"
                                             class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
-                                            value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                            value="{{ old('phone') }}" autocomplete="phone" autofocus>
 
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">

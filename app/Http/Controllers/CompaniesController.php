@@ -31,7 +31,6 @@ class CompaniesController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']);
-      
         return view("companies.create");
     }
 
@@ -45,7 +44,9 @@ class CompaniesController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'nit' => 'required|unique'
+            'nit' => 'required|unique:companies,nit|min:5',
+            'phone' => 'required',
+            'address' => 'required'
         ]);
         DB::beginTransaction();
         try{
