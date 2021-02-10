@@ -22,14 +22,14 @@ class ArchivosController extends Controller
     
     //Productos
     public function exportProductPDF(){
-        $companies = Product::with('companies')->get();
-        $pdf = PDF::loadView('PDF.Productpdf', compact('Products'));
-        return $pdf->download('Product.pdf' , ["companies" => $companies]);
+        $Products = Product::with('companies')->get();
+        $pdf = PDF::loadView('PDF.Productpdf', ["Products" => $Products]);
+        return $pdf->download('Product.pdf');
     }
     //Company
     public function exportCompanyPDF(){
         $Company = Company::get();
-        $pdf = PDF::loadView('PDF.Companypdf', compact('Company'));
+        $pdf = PDF::loadView('PDF.Companypdf', ["Company" => $Company]);
         return $pdf->download('Company.pdf');
     }
     //clientes
@@ -41,7 +41,7 @@ class ArchivosController extends Controller
     //Account
     public function exportAccountPDF(){
         $account_types = Account::with('account_types')->get();
-        $pdf = PDF::loadView('PDF.Accountpdf', compact('Account') );
+        $pdf = PDF::loadView('PDF.Accountpdf', ["Account" => $account_types] );
         return $pdf->download('Account.pdf' , ["account_types" => $account_types]);
     }
     //facturas
@@ -52,7 +52,8 @@ class ArchivosController extends Controller
         $DetailBill = DetailBill::all();
         $product = DetailBill::with('product')->get();
 
-        $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill') );
+        $pdf = PDF::loadView('PDF.Billpdf', ["DetailBill" => $DetailBill, "InvoiceBill" => $user]);
+        /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
         return $pdf->download('Factura.pdf' , ["product" => $product , "company" => $company , "user" => $user]);
     }
     //User

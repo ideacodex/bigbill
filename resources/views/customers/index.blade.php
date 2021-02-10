@@ -30,11 +30,14 @@
                         </div>
 
                         <!-- boton agregar -->
-                        <div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
                             <a href="{{ route('clientes.create') }}" style="border-radius: 95px;"
-                                class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
+                                class="btn btn-success btn-sm mt-2 ml-3">&nbsp;
                                 Agregar Cliente
                                 <i class="fas fa-plus-square"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+                                href="{{ route('Customer.pdf') }}">Reporte pdf <i class="fas fa-file-alt"></i>
                             </a>
                         </div>
                         <!-- boton agregar -->
@@ -74,7 +77,7 @@
                                                                 </a>
                                                                 <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>

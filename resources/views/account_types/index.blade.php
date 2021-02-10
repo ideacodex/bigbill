@@ -1,5 +1,4 @@
 @extends('layouts.'. auth()->user()->getRoleNames()[0])
-
 @section('content')
 
     <!--Validación de errores-->
@@ -33,12 +32,11 @@
                         <div class="card-header">
                             <strong class="card-title">Estados financieros</strong>
                         </div>
-                        @if (Auth::user()->company_id) 
-                        
-                            <div>
+                        @if (Auth::user()->company_id)
+                            <div class="card-body d-flex justify-content-between align-items-center">
                                 <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
                                     data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-                                    Agregar estado financiero
+                                    Agregar tipo de cuenta
                                     <i class="fas fa-plus-square"></i>
                                 </button>
                             </div>
@@ -51,7 +49,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Estado de cuenta</th>
+                                                    <th>Tipo de cuenta</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -73,7 +71,7 @@
                                                                 </a>
                                                                 <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>
@@ -125,8 +123,8 @@
                         <div class="form-group">
                             <input id="status" type="text"
                                 class="text-dark form-control @error('status') is-invalid @enderror" name="status"
-                                value="{{ old('status') }}" placeholder="Estado financiero" required autocomplete="status"
-                                autofocus>
+                                value="{{ old('status') }}" placeholder="Estado financiero" required
+                                autocomplete="status" autofocus>
                         </div>
                         {{-- company_id --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
