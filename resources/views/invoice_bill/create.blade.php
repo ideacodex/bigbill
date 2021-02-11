@@ -170,7 +170,284 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="card-body">
+                <div class="row table-responsive">
+                    <div class="col-sm-12">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="bootstrap-data-table_info">
 
+                            <thead hidden>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <!--  <th></th>
+                                        <th></th>
+                                        <th></th> -->
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if ($records)
+                                @foreach ($records as $item)
+                                <tr>
+                                    @if ($item->customer)
+                                    <td> {{ $item->customer->name }}
+                                        {{ $item->customer->lastname }}
+                                        <input value="{{ $item->customer->name }}
+                                                        {{ $item->customer->lastname }}">
+                                    </td>
+                                    @else
+                                    <td>{{ $item->customer_name}} <input type="hidden" value="{{ $item->customer_name}}"></td>
+
+                                    @endif
+                                    @if ($item->customer)
+
+                                    <td>{{ $item->customer->nit }} </td>
+                                    @else
+                                    <td>C/F</td>
+                                    @endif
+
+
+                                </tr>
+
+                                <!--Modal-->
+                                <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="largeModalLabel">
+                                                    Atención</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="alert alert-danger">
+                                                    ¿Desea eliminar la factura?
+                                                </div>
+                                                <form id="formDel" action="{{ url('facturas/' . $item->id) }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                        <button id="{{ $item->id }}" type="submit" class="btn btn-danger">Confirmar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    </tr>
+                                    <!--Modal-->
+                                    @endforeach
+                                    @endif
+                            </tbody>
+                        </table>
+                        <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <div class="col-xs-12">
+
+                                {{-- Company_id --}}
+                                <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                                {{-- Sucursal --}}
+                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+
+                                {{-- Buscador --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="fas fa-search-plus"></i>
+                                        </span>
+                                    </div>
+                                    <input class="text-dark form-control" name="search" placeholder="Buscar por nit" id="search" type="text">
+
+                                    @error('search')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+
+                                    @error('search')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Adquisición --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <select name="acquisition" id="acquisition" class="form-control @error('acquisition') is-invalid @enderror" required>
+                                        <option selected disabled>Adquisición</option>
+                                        <option value="1">Bienes</option>
+                                        <option value="2">Servicios</option>
+                                        <option value="3">Bienes y servicios</option>
+                                    </select>
+                                    @error('acquisition')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+
+                                    @error('acquisition')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Customer_id --}}
+                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
+                                    data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                </button>
+                            </div>
+                            <select name="customer_id" id="customer_id"
+                                class="form-control @error('customer_id') is-invalid @enderror">
+                                <option selected disabled>Cliente</option>
+                                @foreach ($customer as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->lastname }}
+                                </option>
+                                @endforeach
+                                </select>
+                                @error('customer_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+                                @error('customer_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div> --}}
+
+                            {{-- Iva --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                        <label>Iva</label>
+                                    </span>
+                                </div>
+                                <input id="iva" type="number" class="text-dark form-control @error('iva') is-invalid @enderror" name="iva" value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
+
+                                @error('iva')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+                                @error('iva')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            {{-- Total --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                        <label>Total</label>
+                                    </span>
+                                </div>
+
+                                <input id="spTotal" class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal" autofocus readonly>
+
+                                @error('spTotal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+                                @error('spTotal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            {{-- Nombre del cliente --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <input class="text-dark form-control" name="customer_name" placeholder="Nombre del cliente" id="numero" type="text">
+                            </div>
+
+                            {{-- Correo del cliente --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <input class="text-dark form-control" name="customer_email" placeholder="Correo" id="text" type="text">
+                            </div>
+
+                            {{-- Elige si es c/f o nit --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-secondary mb-1" data-toggle="modal" data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                    </button>
+                                </div>
+                                <select class="form-control" name="cifrado" id="cifrado" onchange="mostrarInput();">
+                                    <option selected disabled>Opciones</option>
+                                    <option value="1">C/F</option>
+                                    <option value="0">Nit</option>
+                                </select>
+                            </div>
+
+                            <input type="hidden" name="date" id="date" required>
+
+                            <!-- Trigger the modal with a button -->
+                            <button type="button" onclick="agregarProducto()" style="border-radius: 95px;" class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i class="fas fa-cart-plus text-light"></i>
+                            </button>
+
+                            <input type="hidden" id="ListaPro" name="ListaPro" value="" />
+
+                            <table id="TablaPro" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Subtotal</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ProSelected">
+                                    <!--Ingreso un id al tbody-->
+                                    <tr>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td><span id="total">0</span>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                    </div>
+                    <!--Button-->
+                    <div class="container">
+                        <div class="col-12">
+                            <div class="col text-center">
+                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                    <i class="far fa-save"></i>
+                                    {{ __('Guardar') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Button-->
+                    </form>
+                </div>
+            </div>
                         {{-- Nombre del cliente --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <input class="text-dark form-control" name="customer_name" placeholder="Nombre del cliente"

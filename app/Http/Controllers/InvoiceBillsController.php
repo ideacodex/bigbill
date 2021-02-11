@@ -33,10 +33,12 @@ class InvoiceBillsController extends Controller
      */
     public function create()
     {
+        $records = InvoiceBill::where('active', 1)->with('user')->with('company')->with('customer')->get();
+        
         $product = Product::where('active', 1)->get();
         $company = Company::all();
         $customer = Customer::all();
-        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer, "records" => $records]);
     }
 
     /**
