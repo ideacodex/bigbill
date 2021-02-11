@@ -66,7 +66,6 @@
                                                 </td>
                                                 <td>{{ $item->company->name }}</td>
 
-
                                                 @if ($item->branch_office)
                                                     <td>{{ $item->branch_office->name }}</td>
                                                 @else
@@ -77,12 +76,12 @@
                                                     <td>{{ $item->customer->name }}
                                                         {{ $item->customer->lastname }}</td>
                                                 @else
-                                                    <td>C/F</td>
+                                                    <td>{{ $item->customer_name}}</td>
                                                 @endif
                                                 @if ($item->customer)
                                                     <td>{{ $item->customer->nit }} </td>
                                                 @else
-                                                    <td>XXXX</td>
+                                                    <td>C/F</td>
                                                 @endif
 
                                                 <td>{{ $item->total }}</td>
@@ -167,10 +166,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
+
     <script>
         window.dataLayer = window.dataLayer || [];
 
