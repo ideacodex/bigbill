@@ -15,10 +15,10 @@ class CompaniesSeeder extends Seeder
     public function run()
     {
         DB::table('companies')->insert([
-            'name'      =>  'PC TECNOLOGI',
+            'name'      =>  'Pc Technologi',
             'nit'       =>  '000000',
             'phone'     =>  '58251362',
-            'address'   =>  'Guatemala Z4 Torre 1',
+            'address'   =>  'Guatemala zona 4 Torre 1',
         ]);
     }
 }
