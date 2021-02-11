@@ -79,7 +79,6 @@ class InvoiceBillsController extends Controller
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();
                 $detail_bill->product_id = $request->product_id[$i];
-                $detail_bill->description = $request->description[$i];
                 $detail_bill->quantity = $request->quantity[$i];
                 $detail_bill->unit_price = $request->unit_price[$i];
                 $detail_bill->subtotal = $request->subtotal[$i];

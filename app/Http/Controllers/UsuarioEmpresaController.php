@@ -60,7 +60,7 @@ class UsuarioEmpresaController extends Controller
         $user = User::find($id);
         $role= Role::find($request->role_id);
         $user->syncRoles($role);
-        return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado');
+        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado');
     }
 
     /**

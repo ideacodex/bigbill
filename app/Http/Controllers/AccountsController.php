@@ -19,7 +19,7 @@ class AccountsController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
         $account_type = AccountType::get();
         $account = Account::get(); //Obtener los valores de tu request:
@@ -72,7 +72,7 @@ class AccountsController extends Controller
      */
     public function show(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $Accounts = Account::where('company_id', $request->company_id)->with('types')->with('company')->get(); //Obtener los valores de tu request:
@@ -88,7 +88,7 @@ class AccountsController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $accounts = Account::findOrFail($id);
         return view('accounts.edit', compact('accounts'));
     }

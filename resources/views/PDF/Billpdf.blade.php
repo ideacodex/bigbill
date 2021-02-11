@@ -1,102 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-
-</head>
-
-<body style=" font: Georgia">
-    <div name="Customerpdf">
-        <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
-                style="background: #2b204b;border: 1px solid #000;padding: 10px;">
-                <table>
-                    <tr style="text-align: right">
-                        <td style="text-align: right">
-                            <strong style="color: #ed8405; font: Italic;  ">Informe de</strong>
-                            <strong style="color: #2b204b; ">--------------</strong>
-                            <h1 style="color: #ed8405; font: Italic;text ;text-align: right">FACTURAS</h1>
-                        </td>
-                    </tr>
-                </table>
+<body style=" font-family:Helvetica;">
+    <table>
+        <!-- Encabezado -->
+        <tr>
+            <!--  Informe de CUENTAS -->
+            <td>
+                <div>
+                    <div style="background: white;padding: 10px;">
+                        <h2 style="color: #00096d; font: Arial; ">Informe de FACTURAS</h2>
+                        <br>
+                        <strong style="color: #00096d">Ultima Actualizacion: <?php echo date('d/m/y'); ?></strong>
+                        <br>
+            </td>
             </div>
-        </div>
-        <div>
-            <div class="row">
-                <div class="col-md-2 col-sm-3 col-xs-2 clearfix"
-                    style="background: #2b204b;border: 1px solid #000;padding: 10px;">
-                    <input type="text" value="<?php echo date('d/m/y'); ?>"
-                        style="border: none; background: none; float: right;color: #ffffff">
-                    <table>
-                        <tr>
-                            <td rowspan="2">
-                                <Strong style="color: #ffffff">Nombre:
-                                    <!-- nombre-->
-                                </Strong>
-                            </td>
-                            <td style="color: #ffffff">
-                                {{ Auth::user()->name }}
-                                <!-- name-->
+            </div>
+            </td>
+            <!-- Datos Emision de informe -->
+            <td>
+                <div>
+                    <table style="font-size:20px">
+                        <tr style="background: #ff7400;padding: 12px;text-align: center;">
+                            <td colspan="2" style=" border-radius :7px; border-top: black 2px solid;border-right: black 2px solid;border-left: black 2px solid;">
+                                <strong style="color: white">Datos de Emision de Informe</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td style="color: #ffffff">
-                                {{ Auth::user()->lastname }}
+                            <td style="  border-radius :3px;border-bottom:  black 2px solid; border-left: black 2px solid;">
+                                <strong style="color: #00096d;">Emitido por: </strong>
+                                <br>
+                                <strong style="color: #00096d">Fecha: </strong>
+                                <br>
+                                <strong style="color: #00096d">Nit</strong>
+                                <br>
+                                <strong style="color: #00096d">Correo: </strong>
+                                <br>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Strong style="color: #ffffff">Nit:</Strong>
-                            </td>
-                            <td style="color: #ffffff">
-                                {{ Auth::user()->nit }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Strong style="color: #ffffff">correo: </Strong>
-                            </td>
-                            <td style="color: #ffffff">
-                                {{ Auth::user()->email }}
+                            <td style=" border-bottom:  black 2px solid; border-right: black 2px solid;">
+                                <label>{{ Auth::user()->name }} , {{ Auth::user()->lastname }}</label>
+                                <br>
+                                <label><?php echo date('d/m/y'); ?></label>
+                                <br>
+                                <label>{{ Auth::user()->nit }}</label>
+                                <br>
+                                <label>{{ Auth::user()->email }}</label>
+                                <br>
                             </td>
                         </tr>
 
                     </table>
-                </div>
-            </div>
-        </div>
 
-    </div>
-    <table>
+                </div>
+            </td>
+        </tr>
+        <!-- Nota: detalle -->
+        <tr>
+            <td colspan="2">
+                <br>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d1cfcbd0; 
+                border-radius: 35px 35px 0px 0px ; 
+                -moz-border-radius:  35px 35px 0px 0px ; 
+                -webkit-border-radius:35px 35px 0px 0px ; ">
+                    <h3 style="color: black;text-align:center"> <b> Detalle De Informe: </b></h3>
+                </div>
+            </td>
+        </tr>
+        <!-- Encabezado Detalle -->
+
+
         <tr>
             <td>
                 <table class="table table-dark">
                     <thead style="background: #2b204b ; color:white">
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Responsable</th>
-                            <th scope="col">compania</th>
-                            <th scope="col">iva </th>
-                            <th scope="col">Total </th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">#</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">Id</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">Responsable</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">compania</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">iva </th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">Total </th>
                         </tr>
 
                     </thead>
                     <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
                         @foreach ($InvoiceBill as $item)
-                            <tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                    {{ $loop->index + 1 }}
+                                </div>
+                            </td>
+                            <th style="background: #ffffff; color: black" scope="row">{{ $item->id }}</th>
+                            <td style="background: #ffffff; color: black">{{ $item->user->name }} <br> {{ $item->user->lastname }}</td>
+                            <td style="background: #ffffff; color: black">{{ $item->company->name }}</td>
+                            <td style="background: #ffffff; color: black">{{ $item->iva }}</td>
+                            <td style="background: #ffffff; color: black">{{ $item->total }}</td>
 
-                                <th scope="row">{{ $item->id }}</th>
-                                <td>{{ $item->user->name }} <br> {{ $item->user->lastname }}</td>
-                                <td>{{ $item->company->name }}</td>
-                                <td>{{ $item->iva }}</td>
-                                <td>{{ $item->total }}</td>
 
-
-                            </tr>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -105,22 +107,28 @@
                 <table class="table table-dark">
                     <thead style="background: #2b204b ; color:white">
                         <tr>
-                            <th scope="col">Factura</th>
-                            <th scope="col">producto</th>
-                            <th scope="col">cat</th>
-                            <th scope="col">Unitario</th>
-                            <th scope="col">SubTotal</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">#</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">Factura</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">producto</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">cat</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">Unitario</th>
+                            <th scope="col" tyle="background: #dddbd9; color: black;">SubTotal</th>
                         </tr>
                     </thead>
                     <tbody style=" color:#2b204b ; border: #2b204b 1px solid">
                         @foreach ($DetailBill as $items)
-                            <tr>
-                                <th scope="row">{{ $items->invoice_id }}</th>
-                                <td>{{ $items->product->name }}</td>
-                                <td>{{ $items->quantity }}</td>
-                                <td>{{ $items->unit_price }}</td>
-                                <td>{{ $items->subtotal }}</td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                    {{ $loop->index + 1 }}
+                                </div>
+                            </td>
+                            <th style="background: #ffffff; color: black" scope="row">{{ $items->invoice_id }}</th>
+                            <td style="background: #ffffff; color: black">{{ $items->product->name }}</td>
+                            <td style="background: #ffffff; color: black">{{ $items->quantity }}</td>
+                            <td style="background: #ffffff; color: black">{{ $items->unit_price }}</td>
+                            <td style="background: #ffffff; color: black">{{ $items->subtotal }}</td>
+                        </tr>
                         @endforeach
 
 
@@ -129,8 +137,27 @@
 
             </td>
         </tr>
-    </table>
 
+        <!-- responsable -->
+        <tr>
+            <td colspan="4">
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <div style="background: #092863;border: 1px solid #000;padding: 12px;text-align: center;">
+
+                    <strong style="color: white"> <b>Informe emitido: por: </b>{{ Auth::user()->name }} {{ Auth::user()->lastname }} | Copyright©</strong>
+
+                </div>
+
+
+            </td>
+        </tr>
+
+
+    </table>
 </body>
 
 </html>

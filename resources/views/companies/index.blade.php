@@ -47,7 +47,6 @@
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
-                                    @if (Auth::user()->company_id)
 
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
@@ -97,16 +96,7 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                    @else
-                                        <div class="alert alert-success" role="alert">
-                                            <h4 class="alert-heading">upss!</h4>
-                                            <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
-                                            <hr>
-                                            <p class="mb-0">Al parecer aún no cuentas con una companía, comunícate con tu
-                                                superior
-                                                para poderte asignar una companía y empezar a trabajar.</p>
-                                        </div>
-                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>

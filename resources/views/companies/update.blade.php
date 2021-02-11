@@ -30,9 +30,7 @@
                             <strong class="card-title">Editar Companía</strong>
                         </div>
                         <div class="card-body">
-
                             <div>
-
                                 <form action="{{ url('empresas/' . $companies->id) }}" method="POST"
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                     @csrf @method('PATCH')
