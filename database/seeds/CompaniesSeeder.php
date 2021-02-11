@@ -15,7 +15,7 @@ class CompaniesSeeder extends Seeder
     public function run()
     {
         DB::table('companies')->insert([
-            'name'      =>  'Pc Technologi',
+            'name'      =>  'Pc Technology',
             'nit'       =>  '000000',
             'phone'     =>  '58251362',
             'address'   =>  'Guatemala zona 4 Torre 1',

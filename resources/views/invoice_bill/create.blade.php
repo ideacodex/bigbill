@@ -46,8 +46,17 @@
                         {{-- Sucursal --}}
                         <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
 
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="texto" placeholder="Buscar por nit">
+                            <div class="input-group-append">
+                                <span class="input-group-text">Buscar</span>
+                            </div>
+                        </div>
+
+                            <input class="form-control" id="resultados" placeholder="Cliente">
+
                         {{-- Buscador --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                        {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                     <i class="fas fa-search-plus"></i>
@@ -67,7 +76,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
@@ -440,7 +449,7 @@
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
                 `<td>
-                                                                                                                        <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                                                                                                                                        <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -551,6 +560,21 @@
             }
 
         }
+
+        /* Buscar por medio de nit */
+        window.addEventListener("load", function() {
+            document.getElementById("texto").addEventListener("keyup", function() {
+                /* alert("a"); */
+                /* console.log(document.getElementById("texto").value) */
+                fetch(`/cliente/buscador?texto=${document.getElementById("texto").value}`,{
+                    method:'get'
+                })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("resultados").innerText += Text
+                })
+            })
+        })
 
     </script>
     <!--Script-->

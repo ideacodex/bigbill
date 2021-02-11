@@ -180,19 +180,9 @@ class InvoiceBillsController extends Controller
         return redirect()->action('InvoiceBillsController@index');
     }
 
-    /* public function getInfoCustomer($nit){
-
-        $customer = Customer::where($nit)->first();
-    
-        if(isset($customer))
-        {
-            return response()->json(['customer' => $customer]);
-        }
-        else
-        {
-            return "No se enceontraron resultados";
-        }
-    } */
-
-
+    public function buscador(Request $request)
+    {
+        $clientes = Customer::where("nit", "like", $request->texto."%")->take(5)->get();
+        return view("invoice_bill.create", compact("clientes"));
+    }
 }

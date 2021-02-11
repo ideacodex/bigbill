@@ -59,37 +59,39 @@
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
                         <li class="menu-item-has-children dropdown">
+                            < <!-- Clientes -->
+                        <li class="menu-item">
+                            <a href="{{ url('clientes?company_id=' . Auth::user()->company_id) }}">
+                                <i class="menu-icon fa fa-book"></i>Clientes
+                            </a>
+                        </li>
+                        <ul class="sub-menu children dropdown-menu">
+                            </li>
+                        </ul>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-users"></i>Clientes</a>
+                                aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-book"></i> <a href="{{ route('clientes.index') }}"> Listado</a>
-                                </li>
-                                <li><i class="fa fa-book"></i> <a href="{{ route('clientes.create') }}"> Ingresar</a>
+                                <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a>
                                 </li>
                         </li>
                 </ul>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a></li>
-                </li>
-                </ul>
-                </li>
 
+                <!--Facturar -->
                 <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
                                 Facturas</a></li>
-                        <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
-                                Facturas</a></li>
+                        <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
+                            </a></li>
                     </ul>
                 </li>
+
                 <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
             @else
                 <script>
@@ -97,12 +99,14 @@
 
                 </script>
                 @endif
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false"> <i class="menu-icon fas fa-external-link-alt"></i>Sesión</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a></li>
-                    </ul>
+                <li class="menu-item">
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"><i
+                            class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
+                </li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
                 </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
