@@ -48,21 +48,12 @@
                         <!--Tipos de Cuentas -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Tipos de cuentas</a>
+                                aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Cuentas contables</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><i class="fa fa-book"></i><a href="{{ route('TipodeCuenta.index') }}">
-                                        Listado</a></li>
-                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
-                            </ul>
-                        </li>
-                        <!-- Cuentas Contables -->
-                        <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-boxes"></i>Cuentas Contables</a>
-                            <ul class="sub-menu children dropdown-menu">
-                                <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Listado</a>
+                                        Tipos</a></li>
+                                <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Cuentas</a>
                                 </li>
-                                <li><i class="fa fa-file-word-o"></i><a href="#">Reportes</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children dropdown">
@@ -73,13 +64,6 @@
                                     <i class="menu-icon fas fa-file-alt"></i>
                                     <a href="{{ route('productos.index') }}">
                                         Listado
-                                    </a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-id-badge">
-                                    </i>
-                                    <a href="{{ route('productos.create') }}">
-                                        Ingresar Producto
                                     </a>
                                 </li>
                             </ul>
@@ -94,45 +78,27 @@
                                     <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
                                         Ver Facturas</a>
                                 </li>
-                                <li><i class="fa fa-id-badge"></i><a href="{{ route('facturas.create') }}"> Crear
-                                        Facturas</a></li>
-
                             </ul>
                         </li>
                         <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-file-word"></i>Reportes</a>
+                                aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li> <i class="menu-icon fas fa-file-alt"></i>
-                                    <a
-                                        href="{{ url('productos/sssss?company_id=' . Auth::user()->company_id . '_132542#?4950_ABCDSXD') }}">Productos</a>
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                        href="{{ url('/doc-Customer') }}">Clientes</a></li>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
                                 </li>
-                                <li>
-                                    <i class="fa fa-id-badge"></i>
-                                    <a
-                                        href="{{ url('clientes/' . Auth::user()->company_id . '?company_id=' . Auth::user()->company_id . '-_32542#?4950_ABSKIBRTE') }}">Clientes</a>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
                                 </li>
-                                <li>
-                                    <i class="fa fa-id-badge"></i>
-                                    <a
-                                        href="{{ url('TipodeCuenta/' . Auth::user()->company_id . '?company_id=' . Auth::user()->company_id . '_2542#?4950_ABDSKIEWR') }}">Tipos
-                                        de Cuentas</a>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
+                                        Cuentas</a>
                                 </li>
-                                <li>
-                                    <i class="fa fa-id-badge"></i>
-                                    <a
-                                        href="{{ url('cuentas/' . Auth::user()->company_id . '?company_id=' . Auth::user()->company_id . '_01542#?4950_JBCSIIAS') }}">Cuentas</a>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Companies') }}">Companias</a>
                                 </li>
-                                <li>
-                                    <i class="fa fa-id-badge"></i>
-                                    <a
-                                        href="{{ url('UsuariosEmpresa/' . Auth::user()->company_id . '?company_id=' . Auth::user()->company_id . '_881242#?4950_CDSKIRI') }}">Usuarios</a>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
                                 </li>
-                                <li>
-                                    <i class="fa fa-id-badge"></i>
-                                    <a
-                                        href="{{ url('facturaCompañia/' . Auth::user()->company_id . '?company_id=' . Auth::user()->company_id . '_6732642#?4950_ABGMFXSKIRI') }}">Facturas</a>
+                                <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
                                 </li>
                             </ul>
                         </li>
@@ -143,13 +109,14 @@
 
                         </script>
                     @endif
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-external-link-alt"></i>Sesión</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fas fa-door-open"></i><a href="page-login.html">Cerrar sesión</a>
-                            </li>
-                        </ul>
+                    <li class="menu-item">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"><i
+                                class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
