@@ -9,6 +9,7 @@ use App\InvoiceBill;
 use App\Mail\ComprobanteMailable;
 use App\Product;
 use App\Customer;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -70,8 +71,10 @@ class InvoiceBillsController extends Controller
             $bill->acquisition = $request->acquisition;
             $bill->active = 1;
             $bill->account_id = 1;
+            $bill->customer_name = $request->customer_name;
+            $bill->customer_email = $request->customer_email;
             $bill->save();
-            
+
             /* Detalle */
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
                 $detail_bill = new DetailBill();
@@ -94,9 +97,9 @@ class InvoiceBillsController extends Controller
                 $product->amount_expenses = $tempo + $request->quantity[$i];
                 $product->quantity_values = $temporal - $request->quantity[$i];
 
-                if($product->stock == 0){
+                if ($product->stock == 0) {
                     $product->active = 0;
-                }else{
+                } else {
                     $product->active = 1;
                 }
                 $product->save();
@@ -151,6 +154,7 @@ class InvoiceBillsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
     }
 
     /**
@@ -176,4 +180,20 @@ class InvoiceBillsController extends Controller
         DB::commit();
         return redirect()->action('InvoiceBillsController@index');
     }
+
+    /* public function getInfoCustomer($nit){
+
+        $customer = Customer::where($nit)->first();
+    
+        if(isset($customer))
+        {
+            return response()->json(['customer' => $customer]);
+        }
+        else
+        {
+            return "No se enceontraron resultados";
+        }
+    } */
+
+
 }

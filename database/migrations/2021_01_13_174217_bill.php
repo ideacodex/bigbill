@@ -60,6 +60,8 @@ class Bill extends Migration
             $table->unsignedBigInteger('account_id')->nullable();
             $table->foreign('account_id')
                 ->references('id')->on('accounts');
+            $table->string('customer_name')->nullable();
+            $table->string('customer_email')->nullable();
             $table->timestamps();
         });
     }

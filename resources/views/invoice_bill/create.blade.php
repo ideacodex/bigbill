@@ -2,6 +2,10 @@
 @section('content')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!--Mensajes-->
     <div>
         <!--Validación de errores-->
@@ -35,12 +39,35 @@
                 <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                    <div class="col-xs-12"><br><br>
+                    <div class="col-xs-12">
 
                         {{-- Company_id --}}
                         <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
                         {{-- Sucursal --}}
                         <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+
+                        {{-- Buscador --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i class="fas fa-search-plus"></i>
+                                </span>
+                            </div>
+                            <input class="text-dark form-control" name="search" placeholder="Buscar por nit" id="search"
+                                type="text">
+
+                            @error('search')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('search')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
@@ -70,11 +97,10 @@
                         </div>
 
                         {{-- Customer_id --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                        {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
-                                <button type="button" class="btn btn-secondary mb-1"
-                                    data-toggle="modal" data-target="#largeModal"><i
-                                        class="fas fa-user-plus text-light"></i>
+                                <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
+                                    data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
                                 </button>
                             </div>
                             <select name="customer_id" id="customer_id"
@@ -96,7 +122,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         {{-- Iva --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -145,13 +171,39 @@
                             @enderror
                         </div>
 
+                        {{-- Nombre del cliente --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <input class="text-dark form-control" name="customer_name" placeholder="Nombre del cliente"
+                                id="numero" type="text">
+                        </div>
+
+                        {{-- Correo del cliente --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <input class="text-dark form-control" name="customer_email" placeholder="Correo" id="text"
+                                type="text">
+                        </div>
+
+                        {{-- Elige si es c/f o nit --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
+                                    data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                </button>
+                            </div>
+                            <select class="form-control" name="cifrado" id="cifrado" onchange="mostrarInput();">
+                                <option selected disabled>Opciones</option>
+                                <option value="1">C/F</option>
+                                <option value="0">Nit</option>
+                            </select>
+                        </div>
+
+                        <input type="hidden" name="date" id="date" required>
+
                         <!-- Trigger the modal with a button -->
                         <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
                             class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i
                                 class="fas fa-cart-plus text-light"></i>
                         </button>
-
-                        </a>
 
                         <input type="hidden" id="ListaPro" name="ListaPro" value="" />
 
@@ -388,7 +440,7 @@
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
                 `<td>
-                                    <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                                                                                                                        <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -411,7 +463,6 @@
 
             });
         }
-
 
         function showStockSelect() {
             let valueStock = true;
@@ -472,8 +523,39 @@
             console.log(total);
         }
 
+        //seleccionando elementos
+        var inputDate = document.getElementById('date');
+        var inputText = document.getElementById('text');
+        var inputNumero = document.getElementById('numero');
+        var select = document.getElementById('cifrado');
+
+        //ocultar input fecha y numero
+        inputDate.style.display = "none";
+        inputNumero.style.display = "none";
+        inputText.style.display = "none";
+
+        function mostrarInput() {
+            var valorSeleccionado = select.value;
+            if (valorSeleccionado == '0') {
+                //ocultar input numero en caso de estar mostrandolo
+                inputDate.style.display = "block";
+                //mostrar input text
+                inputNumero.style.display = "none";
+                inputText.style.display = "none";
+            } else {
+                //ocultar input fecha en caso de estar mostrandolo
+                inputNumero.style.display = "block";
+                inputText.style.display = "block    ";
+                //mostrar input numero
+                inputDate.style.display = "none";
+            }
+
+        }
+
     </script>
     <!--Script-->
+
+
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">

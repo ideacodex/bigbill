@@ -117,6 +117,7 @@
                                                 <option value="1">Artículo de inventario</option>
                                                 <option value="2">Artículo de venta</option>
                                                 <option value="3">Artículo de compra</option>
+                                                <option value="4">Artículo de compra y venta</option>
                                             </select>
                                             @error('kind_product')
                                                 <span class="invalid-feedback" role="alert">

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 
 class InvoiceBill extends Model
 {
+
     protected $fillable = [
         'user_id', 'company_id', 'total', 'product_id'
     ];
