@@ -113,11 +113,18 @@
                         <div style="font-family:Courier New;">
 
                             <Strong style="color: black">Nombre: </Strong>
-                            @if ($records->customer)
+                            @if ($records->customer )
                             <label style="color: black">{{ $records->customer->name }} {{ $records->customer->lastname }}</label>
+                            @else
+                            @if ($records->customer_name)
+                            <label style="color: black">{{ $records->customer_name }} </label>
                             @else
                             <label style="color: black">Consumidor Final</label>
                             @endif
+                            @endif
+
+
+
                             <br>
                             <Strong style="color: black">Nit: </Strong>
                             @if ($records->customer)
@@ -125,7 +132,6 @@
                             @else
 
                             <label style="color: black">C/F</label>
-
                             @endif
                             <br>
                             <Strong style="color: black">Tel: </Strong>
@@ -135,8 +141,22 @@
                             <label style="color: black"> 00000000 </label>
                             @endif
                             <br>
+
+
                             <Strong style="color: black">Direccion: </Strong>
                             <label style="color: black"> Guatemala</label>
+                            <br>
+                            @if ($records->customer)
+                            <Strong style="color: black">Correo: </Strong>
+                            <label style="color: black">{{ $records->customer->email }}</label>
+                            @else
+                            @if ($records->customer_email)
+                            <Strong style="color: black">Correo: </Strong>
+                            <label style="color: black">{{ $records->customer_email }} </label>
+                            @else
+                            @endif
+                            @endif
+
                         </div>
                     </div>
 
@@ -145,7 +165,7 @@
             <!-- Nota: detalle -->
             <tr>
                 <td colspan="5">
-                    <br>
+
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d1cfcbd0">
                         <h3 style="color: black"><b> Detalle: </b></h3>
                     </div>
@@ -280,6 +300,7 @@
             <!-- Te atendio -->
             <tr>
                 <td colspan="5">
+
                     <br>
                     <br>
                     <br>

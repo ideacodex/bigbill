@@ -33,8 +33,6 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
-Route::get('cliente/buscador', 'InvoiceBillsController@buscador');  
-Route::get('correo', 'InvoiceBillsController@getMail');
 /**Bill Route */
 
 /**Companies Route */

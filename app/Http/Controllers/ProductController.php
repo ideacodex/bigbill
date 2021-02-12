@@ -176,7 +176,8 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect('/perfil')->with(['message' => 'Registro Modificado', 'alert' => 'success']);
+        return redirect()->action('ProductController@index')
+            ->with('datosEliminados', 'Registro modificado');
     }
 
     /**

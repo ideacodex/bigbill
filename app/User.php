@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasRoles;   
 
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'lastname', 'role_id', 'status_id', 'score_id', 'check_terms',
+        'name', 'email', 'password', 'phone', 'lastname', 'role_id', 'status_id', 'score_id', 'check_terms','branch_id'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -28,6 +28,10 @@ class User extends Authenticatable
     public function status(){
         return $this->belongsTo("App\Status", 'status_id');
     }
+    public function branch_offices(){
+        return $this->belongsTo("App\BranchOffice", 'branch_id');
+    }    
+
     public function findForPassport($username)
     {
         return User::orWhere('email', $username)->orWhere('phone', $username)->first();

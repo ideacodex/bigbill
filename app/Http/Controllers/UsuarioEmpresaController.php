@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
 use App\Company;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioEmpresaController extends Controller
 {
@@ -26,9 +27,8 @@ class UsuarioEmpresaController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $user = User::with('companies')->get();
-        $branch_office = BranchOffice::all();
-        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user, "branch_office" => $branch_office]);
+        $user = User::with('companies')->with('branch_offices')->get();
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
     }
 
     /**
@@ -39,9 +39,9 @@ class UsuarioEmpresaController extends Controller
      */
     public function edit($id, Request $request)
     {
+        
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $user = User::findOrFail($id) and $companies = Company::all();
-        $branch_office = BranchOffice::all();
+        $user = User::findOrFail($id) and $companies = Company::all() and  $branch_office = BranchOffice::all();
         return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
     }
 
@@ -55,12 +55,40 @@ class UsuarioEmpresaController extends Controller
     public  function update(Request $request, $id)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $user = request()->except((['_token', '_method']));
-        User::where('id', '=', $id)->update($user);
-        $user = User::find($id);
-        $role= Role::find($request->role_id);
-        $user->syncRoles($role);
-        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado');
+
+        request()->validate([ //validando campos requeridos
+            'role_id' => 'required',
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'nit' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'company_id' => 'required',
+            'branch_id' => 'required'
+        ]);
+        DB::beginTransaction(); //transaccion en base de datos
+        try {
+            $user = User::findOrFail($id); //edito al usuario por medio el id
+            $role = Role::find($request->role_id);//edito el rol por medio el role_id
+            $user->syncRoles($role); //actualizo el rol en la tabla de permisos
+            $user->role_id = $request->role_id;//actualizo el rol en la tabla de usuarios
+            $user->name = $request->name; //actualizo el nombre
+            $user->lastname = $request->lastname;//actualizo el apellido
+            $user->phone = $request->phone;//actualizo el telefono
+            $user->nit = $request->nit;//actualizo el nit
+            $user->address = $request->address;//actualizo el direccion
+            $user->email = $request->email;//actualizo el correo
+            $user->company_id = $request->company_id;//actualizo el Compañia
+            $user->branch_id = $request->branch_id;//actualizo el sucursal
+            $user->save();
+        } catch (\Illuminate\Database\QueryException $e) { //si ocurre algo inesperado en la DB que me de error 500
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado') ; //redirecciono a mi pagina de inicio
     }
 
     /**

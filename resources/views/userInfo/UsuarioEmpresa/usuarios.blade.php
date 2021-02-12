@@ -33,7 +33,7 @@
                                         class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>id</th>
+                                                <th>#</th>
                                                 <th>Role</th>
                                                 <th>Nombre</th>
                                                 <th>Teléfono</th>
@@ -48,7 +48,7 @@
                                         <tbody>
                                             @foreach ($user as $item)
                                                 <tr>
-                                                    <th>{{ $item->id }}</th>
+                                                    <th> {{ $loop->index + 1 }}</th>
                                                     @if ($item->role_id == 1)
                                                         <td> <strong>Administrador</strong> </td>
                                                     @else
@@ -77,8 +77,9 @@
                                                         <td>Sin companía</td>
                                                     @endif
 
-                                                    @if ($item->branch_office)
-                                                        <td>{{ $item->branch_office->name }}</td>
+
+                                                    @if ($item->branch_id)
+                                                        <td>{{ $item->branch_offices->name }}</td>
                                                     @else
                                                         <td>Oficina central</td>
                                                     @endif

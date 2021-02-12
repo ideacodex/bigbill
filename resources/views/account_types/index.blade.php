@@ -30,7 +30,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Estados financieros</strong>
+                        <strong class="card-title">Tipos de cuentas</strong>
                     </div>
 
                     <div class="card-body d-flex justify-content-between align-items-center">
@@ -62,7 +62,7 @@
                                                     <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
                                                         <span><i class="fas fa-eye"></i></span>
                                                     </a>
-                                                    <a class="btn btn-sm btn-primary" href="{{ url('cuentas/' . $item->id . '/edit') }}" title="Editar">
+                                                    <a class="btn btn-sm btn-primary" href="{{ url('TipodeCuenta/' . $item->id . '/edit') }}" title="Editar">
                                                         <span><i class="fas fa-edit"></i></span>
                                                     </a>
                                                     <a class="btn btn-sm btn-danger" title="Eliminar" onclick="event.preventDefault();
@@ -95,7 +95,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo estado financiero</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo tipo de cuenta</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -116,7 +116,6 @@
                         </span>
                         @enderror
                     </div>
-
 
                     <div class="container mt-4">
                         <div class="col-12">

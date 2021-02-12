@@ -159,31 +159,6 @@
                                         @enderror
                                     </div>
 
-                                    {{-- Dpi --}}
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Dpi" class="text-dark fas fa-sort-amount-down"></i>
-                                            </span>
-                                        </div>
-                                        <input id="dpi" placeholder="Dpi" type="number"
-                                            class="text-dark form-control @error('dpi') is-invalid @enderror" name="dpi"
-                                            value="{{ $customers->dpi }}" required autocomplete="dpi" autofocus>
-
-                                        @error('dpi')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                        @error('dpi')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">

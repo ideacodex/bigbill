@@ -42,7 +42,6 @@ class AccountTypesController extends Controller
         try {
             $account_types = new AccountType();
             $account_types->status = $request->status;
-            $account_types->company_id = $request->company_id;
 
             $account_types->save();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -69,5 +68,32 @@ class AccountTypesController extends Controller
             $pdf = PDF::loadView('CompanyInformation.types', compact('AccountTypes')); //genera el PDF la vista
             return $pdf->download('TiposCuentas-Compañia.pdf'); // descarga el pdf
         }
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id, Request $request)
+    {
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
+        $account_type = AccountType::findOrFail($id);
+        return view('account_types.edit', ['account_type' => $account_type]);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $account_type = request()->except((['_token', '_method']));
+        AccountType::where('id', '=', $id)->update($account_type);
+
+        return redirect()->action('AccountTypesController@index')
+            ->with('datosModificados', 'Registro Modificado');
     }
 }
