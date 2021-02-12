@@ -48,7 +48,7 @@
                                         <tbody>
                                             @foreach ($user as $item)
                                                 <tr>
-                                                    <th> {{ $loop->index + 1 }}</th>
+                                                    <th> {{ $loop->index + 1 }} </th>
                                                     @if ($item->role_id == 1)
                                                         <td> <strong>Administrador</strong> </td>
                                                     @else
