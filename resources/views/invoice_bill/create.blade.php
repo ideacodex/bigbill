@@ -46,38 +46,6 @@
                         {{-- Sucursal --}}
                         <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
 
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="texto" placeholder="Buscar por nit">
-                            <div class="input-group-append">
-                                <span class="input-group-text">Buscar</span>
-                            </div>
-                        </div>
-
-                            <input class="form-control" id="resultados" placeholder="Cliente">
-
-                        {{-- Buscador --}}
-                        {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="fas fa-search-plus"></i>
-                                </span>
-                            </div>
-                            <input class="text-dark form-control" name="search" placeholder="Buscar por nit" id="search"
-                                type="text">
-
-                            @error('search')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            @error('search')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div> --}}
-
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
@@ -106,17 +74,19 @@
                         </div>
 
                         {{-- Customer_id --}}
-                        {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
                                     data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
                                 </button>
                             </div>
-                            <select name="customer_id" id="customer_id"
-                                class="form-control @error('customer_id') is-invalid @enderror">
+                            <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                class="select2 form-control @error('customer_id') is-invalid @enderror">
                                 <option selected disabled>Cliente</option>
+                                <option value="0">C/F</option>
                                 @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->lastname }}
+                                    <option value="{{ $item->id }}">Cliente: {{ $item->name }}
+                                        {{ $item->lastname }} Nit: {{ $item->nit }}
                                     </option>
                                 @endforeach
                             </select>
@@ -131,7 +101,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> --}}
+                        </div>
 
                         {{-- Iva --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -190,20 +160,6 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <input class="text-dark form-control" name="customer_email" placeholder="Correo" id="text"
                                 type="text">
-                        </div>
-
-                        {{-- Elige si es c/f o nit --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
-                                    data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
-                                </button>
-                            </div>
-                            <select class="form-control" name="cifrado" id="cifrado" onchange="mostrarInput();">
-                                <option selected disabled>Opciones</option>
-                                <option value="1">C/F</option>
-                                <option value="0">Nit</option>
-                            </select>
                         </div>
 
                         <input type="hidden" name="date" id="date" required>
@@ -449,7 +405,7 @@
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
                 `<td>
-                                                                                                                                        <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                                                                                                                                            <select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -546,15 +502,15 @@
         function mostrarInput() {
             var valorSeleccionado = select.value;
             if (valorSeleccionado == '0') {
-                //ocultar input numero en caso de estar mostrandolo
+                //Muestra el input date
                 inputDate.style.display = "block";
-                //mostrar input text
-                inputNumero.style.display = "none";
-                inputText.style.display = "none";
+                //mostrar input text y número
+                inputNumero.style.display = "block";
+                inputText.style.display = "block";
             } else {
                 //ocultar input fecha en caso de estar mostrandolo
-                inputNumero.style.display = "block";
-                inputText.style.display = "block    ";
+                inputNumero.style.display = "none";
+                inputText.style.display = "none";
                 //mostrar input numero
                 inputDate.style.display = "none";
             }
@@ -566,13 +522,13 @@
             document.getElementById("texto").addEventListener("keyup", function() {
                 /* alert("a"); */
                 /* console.log(document.getElementById("texto").value) */
-                fetch(`/cliente/buscador?texto=${document.getElementById("texto").value}`,{
-                    method:'get'
-                })
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById("resultados").innerText += Text
-                })
+                fetch(`/cliente/buscador?texto=${document.getElementById("texto").value}`, {
+                        method: 'get'
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("resultados").innerText += Text
+                    })
             })
         })
 
