@@ -46,29 +46,6 @@
                         {{-- Sucursal --}}
                         <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
 
-                        {{-- Buscador --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="fas fa-search-plus"></i>
-                                </span>
-                            </div>
-                            <input class="text-dark form-control" name="search" placeholder="Buscar por nit" id="search"
-                                type="text">
-
-                            @error('search')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            @error('search')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
                         {{-- Adquisición --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
@@ -97,17 +74,19 @@
                         </div>
 
                         {{-- Customer_id --}}
-                        {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
                                 <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
                                     data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
                                 </button>
                             </div>
-                            <select name="customer_id" id="customer_id"
-                                class="form-control @error('customer_id') is-invalid @enderror">
+                            <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                class="select2 form-control @error('customer_id') is-invalid @enderror">
                                 <option selected disabled>Cliente</option>
+                                <option value="0">C/F</option>
                                 @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->lastname }}
+                                    <option value="{{ $item->id }}">Cliente: {{ $item->name }}
+                                        {{ $item->lastname }} Nit: {{ $item->nit }}
                                     </option>
                                 @endforeach
                             </select>
@@ -122,7 +101,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div> --}}
+                        </div>
 
                         {{-- Iva --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -181,20 +160,6 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <input class="text-dark form-control" name="customer_email" placeholder="Correo" id="text"
                                 type="text">
-                        </div>
-
-                        {{-- Elige si es c/f o nit --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
-                                    data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
-                                </button>
-                            </div>
-                            <select class="form-control" name="cifrado" id="cifrado" onchange="mostrarInput();">
-                                <option selected disabled>Opciones</option>
-                                <option value="1">C/F</option>
-                                <option value="0">Nit</option>
-                            </select>
                         </div>
 
                         <input type="hidden" name="date" id="date" required>
@@ -537,21 +502,20 @@
         function mostrarInput() {
             var valorSeleccionado = select.value;
             if (valorSeleccionado == '0') {
-                //ocultar input numero en caso de estar mostrandolo
+                //Muestra el input date
                 inputDate.style.display = "block";
-                //mostrar input text
-                inputNumero.style.display = "none";
-                inputText.style.display = "none";
+                //mostrar input text y número
+                inputNumero.style.display = "block";
+                inputText.style.display = "block";
             } else {
                 //ocultar input fecha en caso de estar mostrandolo
-                inputNumero.style.display = "block";
-                inputText.style.display = "block    ";
+                inputNumero.style.display = "none";
+                inputText.style.display = "none";
                 //mostrar input numero
                 inputDate.style.display = "none";
             }
 
         }
-
     </script>
     <!--Script-->
 
