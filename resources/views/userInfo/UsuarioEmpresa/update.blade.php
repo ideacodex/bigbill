@@ -47,11 +47,6 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-                                        @error('role_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
                                     </div>
 
 
@@ -152,8 +147,10 @@
                                         </div>
                                         <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror">
                                             @if ($user->company_id)
-                                            <option value="{{ $user->company_id }}" selected disabled>
-                                                <p>{{ $user->companies->name }}</p>
+                                            <option value="{{ $user->company_id }}" selected>
+                                                <p>
+                                                    Su compañia: {{ $user->companies->name }}
+                                                </p>
                                             </option>
                                             <option value="">Quitar Compañia</option>
                                             @else
@@ -172,11 +169,6 @@
                                         </span>
                                         @enderror
 
-                                        @error('company_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
                                     </div>
 
                                     {{-- Sucursal --}}
@@ -187,82 +179,33 @@
                                             </span>
                                         </div>
                                         <select name="branch_id" id="branch_id" class="form-control @error('branch_id') is-invalid @enderror">
-                                            <option selected disabled>Sucursal</option>
+
+                                            @if ($user->branch_id)
+                                            <option value="{{ $user->company_id }}" selected>
+                                                <p>
+                                                    Sucursal: {{ $user->branch_offices->name }}
+                                                </p>
+                                            </option>
+                                            <option value="">Quitar Sucursal</option>
+                                            @else
+                                            <option value="" selected disabled>
+                                                <p>Sin Sucursal Asignada</p>
+                                            </option>
+                                            @endif
+
                                             @foreach ($branch_office as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                @endforeach
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+
+
+
                                         </select>
                                         @error('branch_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-
-                                        @error('branch_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
                                     </div>
-
-                                    <style>
-                                        .cb {
-                                            display: none;
-                                            /* Por defecto */
-                                        }
-                                    </style>
-                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-                                    <?php
-                                    $db = new PDO('mysql:host=localhost;dbname=controlpctec', 'root', '');
-                                    ?>
-                                    <?php
-                                    $sql = $db->prepare("select * from branch_offices order by name asc");
-                                    $sql->execute();
-                                    $branch_offices = $sql->fetchAll();
-                                    ?>
-                                    <select class="form-control" style="height:30px; width:96%;padding:.175rem .25rem" name="categ" id="filtros3">
-                                        <option value="">Seleccione Producto...</option>
-                                        <?php
-                                        foreach ($branch_offices as $row) : ?>
-                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?> </option>
-                                        <?php endforeach; ?>
-                                    </select>
-
-                                    <?php
-                                    //$branch_offices = get_branch_offices();// branch_offices
-                                    $prod = $db->prepare("select * from companies order by name asc");
-                                    $prod->execute();
-                                    $companies = $prod->fetchAll();
-                                    if (count($companies) > 0) : ?>
-                                        <ul class="list-unstyled">
-                                            <?php foreach ($companies as $pro) : ?>
-                                                <li class="cb color_<?= $pro["company_id"] ?>" id="cat<?php echo $pro["id"] ?>">
-                                                    <?php echo $pro["name"] . ""; ?>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php else : ?>
-                                        <p class="alert alert-danger">No hay resultados</p>
-                                    <?php endif; ?>
-                                    <script type="text/javascript">
-                                        $(function() {
-                                            /*$('.cb').show();*/
-                                            $('#filtros3').on('change', function() {
-                                                var value = $(this).val();
-                                                var seats = $("#filtros3").val();
-                                                if (value == "") {
-                                                    $('.cb').show();
-                                                } else {
-                                                    // Ocultamos todos los contenedores de colores
-                                                    $('.cb').hide();
-                                                    // Mostramos el color elegido
-                                                    $('.color_' + value).show();
-                                                }
-
-                                            });
-                                        });
-                                    </script>
 
 
                                     <!--Button-->
