@@ -63,7 +63,12 @@ class InvoiceBillsController extends Controller
             $bill = new InvoiceBill();
             $bill->user_id = $request->user_id;
             $bill->company_id = $request->company_id;
-            $bill->customer_id = $request->customer_id;
+            if($request->customer_id == 0)
+            {
+                $bill->customer_id == null;
+            }else{
+                $bill->customer_id = $request->customer_id;
+            }
             $bill->branch_id = $request->branch_id;
             $bill->iva = $request->iva;
             $bill->ListaPro = $request->ListaPro;

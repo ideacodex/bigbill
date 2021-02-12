@@ -82,7 +82,7 @@
                             </div>
                             <select name="customer_id" id="cifrado" onchange="mostrarInput();"
                                 class="select2 form-control @error('customer_id') is-invalid @enderror">
-                                <option selected disabled>Cliente</option>
+                                <option selected disabled>Clientes</option>
                                 <option value="0">C/F</option>
                                 @foreach ($customer as $item)
                                     <option value="{{ $item->id }}">Cliente: {{ $item->name }}
