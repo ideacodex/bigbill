@@ -203,9 +203,10 @@
                                             <label>Total</label>
                                         </span>
                                     </div>
+
                                     <input id="spTotal"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" type="number"
-                                        name="spTotal" autofocus readonly>
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
+                                        autofocus readonly>
 
                                     @error('spTotal')
                                         <span class="invalid-feedback" role="alert">
@@ -524,20 +525,28 @@
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
 
+            /* Saca el iva
+            var tasa = 12;
+            var monto = $("#spTotal").val();
+
+            var iva = (monto * tasa) / 100;
+            //se carga el iva en el campo correspondiente
+            $("#iva").val(iva); */
+
+
             for (var x = 0; x < nodes.length; x++) {
                 if (nodes[x].firstChild.id == 'cantidad[]') {
-                    cantidad = parseFloat(nodes[x].firstChild.value, 10);
+                    cantidad = parseFloat(nodes[x].firstChild.value, 0);
                 }
                 if (nodes[x].firstChild.id == 'precunit[]') {
-                    precunit = parseFloat(nodes[x].firstChild.value, 10);
+                    precunit = parseFloat(nodes[x].firstChild.value, 0);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
                     anterior = nodes[x].firstChild.value;
-                    totalitem = parseFloat((precunit * cantidad), 10);
+                    totalitem = parseFloat((precunit * cantidad), 0);
                     nodes[x].firstChild.value = totalitem;
                 }
             }
-
             // Resultado final de cada fila ERROR, al editar o eliminar una fila
             var total = document.getElementById("total");
             if (total.innerHTML == 'NaN') {
