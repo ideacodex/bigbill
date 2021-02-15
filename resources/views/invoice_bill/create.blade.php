@@ -196,6 +196,30 @@
                                         id="text" type="text">
                                 </div>
 
+                                {{-- Total --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <label>Total</label>
+                                        </span>
+                                    </div>
+                                    <input id="spTotal"
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" type="number"
+                                        name="spTotal" autofocus readonly>
+
+                                    @error('spTotal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('spTotal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 {{-- Descripción --}}
                                 <textarea class="form-control" rows="5" id="description" placeholder="Descripción"
                                     name="description"></textarea>
@@ -238,50 +262,6 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                </div>
-
-                                {{-- Descuento --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-
-                                    <input id="discount"
-                                        class="text-dark form-control @error('discount') is-invalid @enderror" type="number"
-                                        name="discount" placeholder="Aplicar descuento" autofocus>
-
-                                    @error('discount')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('discount')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- Total --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <label>Total</label>
-                                        </span>
-                                    </div>
-                                    <input id="spTotal"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" type="number"
-                                        name="spTotal" autofocus readonly>
-
-                                    @error('spTotal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('spTotal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 <!--Button-->
@@ -544,28 +524,20 @@
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
 
-            /* Saca el iva
-            var tasa = 12;
-            var monto = $("#spTotal").val();
-
-            var iva = (monto * tasa) / 100;
-            //se carga el iva en el campo correspondiente
-            $("#iva").val(iva); */
-
-
             for (var x = 0; x < nodes.length; x++) {
                 if (nodes[x].firstChild.id == 'cantidad[]') {
-                    cantidad = parseFloat(nodes[x].firstChild.value, 0);
+                    cantidad = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'precunit[]') {
-                    precunit = parseFloat(nodes[x].firstChild.value, 0);
+                    precunit = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
                     anterior = nodes[x].firstChild.value;
-                    totalitem = parseFloat((precunit * cantidad), 0);
+                    totalitem = parseFloat((precunit * cantidad), 10);
                     nodes[x].firstChild.value = totalitem;
                 }
             }
+
             // Resultado final de cada fila ERROR, al editar o eliminar una fila
             var total = document.getElementById("total");
             if (total.innerHTML == 'NaN') {
