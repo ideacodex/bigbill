@@ -62,6 +62,8 @@ class Bill extends Migration
                 ->references('id')->on('accounts');
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
+            $table->string('description')->nullable();
+            $table->date('date_issue');
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class AccountsController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+       
         $account_type = AccountType::get();
         $account = Account::get(); //Obtener los valores de tu request:
         return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //genera la vista   
@@ -45,14 +45,12 @@ class AccountsController extends Controller
         request()->validate([
             'name' => 'required',
             'status_id' => 'required',
-            'company_id' => 'required'
         ]);
         DB::beginTransaction();
         try {
             $accounts = new Account;
             $accounts->name = $request->name;
             $accounts->status_id = $request->status_id;
-            $accounts->company_id = $request->company_id;
 
             $accounts->save();
         } catch (\Illuminate\Database\QueryException $e) {

@@ -1,4 +1,4 @@
-@extends('layouts.Administrador')
+@extends('layouts.'. auth()->user()->getRoleNames()[0])
 @section('content')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -33,186 +33,276 @@
     <!--Mensajes-->
 
     <!--Factura-->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card-body card-block">
-                <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                    <div class="col-xs-12">
-
-                        {{-- Company_id --}}
-                        <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
-                        {{-- Sucursal --}}
-                        <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-
-                        {{-- Adquisición --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                            </div>
-                            <select name="acquisition" id="acquisition"
-                                class="form-control @error('acquisition') is-invalid @enderror" required>
-                                <option selected disabled>Adquisición</option>
-                                <option value="1">Bienes</option>
-                                <option value="2">Servicios</option>
-                                <option value="3">Bienes y servicios</option>
-                            </select>
-                            @error('acquisition')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                            @error('acquisition')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Emiti factura </strong>
                         </div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
-                        {{-- Customer_id --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                            <div class="input-group-prepend">
-                                <button type="button" class="btn btn-secondary mb-1" data-toggle="modal"
-                                    data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                {{-- Fecha de emisión --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input id="date_issue" name="date_issue" type="text"
+                                        class="text-dark form-control @error('date_issue') is-invalid @enderror"
+                                        value="<?php echo date('y/m/d'); ?>" required
+                                        autocomplete="date_issue" autofocus>
+                                    @error('date_issue')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                @if (Auth::user()->role_id == 1)
+                                    {{-- company --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i title="company" class="far fa-building"></i>
+                                            </span>
+                                        </div>
+                                        <select name="company_id" id="company_id"
+                                            class="form-control @error('company_id') is-invalid @enderror">
+                                            @if (auth()->user()->company_id)
+                                                <option value="{{ auth()->user()->company_id }}" selected>
+                                                    <p>
+                                                        Su compañia: {{ auth()->user()->companies->name }}
+                                                    </p>
+                                                </option>
+                                            @endif
+
+                                            @foreach ($company as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('company_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                    </div>
+
+                                @else
+                                    {{-- Company_id --}}
+                                    <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                                @endif
+
+                                {{-- Sucursal --}}
+                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+
+                                {{-- Adquisición --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <select name="acquisition" id="acquisition"
+                                        class="form-control @error('acquisition') is-invalid @enderror" required>
+                                        <option selected disabled>Adquisición</option>
+                                        <option value="1">Bienes</option>
+                                        <option value="2">Servicios</option>
+                                        <option value="3">Bienes y servicios</option>
+                                    </select>
+                                    @error('acquisition')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('acquisition')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Iva --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <label>Iva</label>
+                                        </span>
+                                    </div>
+                                    <input id="iva" type="number"
+                                        class="text-dark form-control @error('iva') is-invalid @enderror" name="iva"
+                                        value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
+
+                                    @error('iva')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('iva')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Customer_id --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <a type="submit" class="btn btn-secondary mb-1" id="inputGroup-sizing-sm"
+                                            data-toggle="modal" data-target="#largeModal"><i
+                                                class="fas fa-user-plus text-light"></i>
+                                        </a>
+                                    </div>
+                                    <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                        class="select2  @error('customer_id') is-invalid @enderror">
+                                        <option selected disabled>Cliente</option>
+                                        <option value="0">C/F</option>
+                                        @foreach ($customer as $item)
+                                            <option value="{{ $item->id }}">Cliente: {{ $item->name }}
+                                                {{ $item->lastname }} Nit: {{ $item->nit }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('customer_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('customer_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Nombre del cliente --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <input class="text-dark form-control" name="customer_name"
+                                        placeholder="Nombre del cliente" id="numero" type="text">
+                                </div>
+
+                                {{-- Correo del cliente --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <input class="text-dark form-control" name="customer_email" placeholder="Correo"
+                                        id="text" type="text">
+                                </div>
+
+                                {{-- Descripción --}}
+                                <textarea class="form-control" rows="5" id="description" placeholder="Descripción"
+                                    name="description"></textarea>
+
+                                <input type="hidden" name="date" id="date">
+                                <br>
+
+                                <!-- Trigger the modal with a button -->
+                                <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
+                                    class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i
+                                        class="fas fa-cart-plus text-light"></i>
                                 </button>
-                            </div>
-                            <select name="customer_id" id="cifrado" onchange="mostrarInput();"
-                                class="select2 form-control @error('customer_id') is-invalid @enderror">
-                                <option selected disabled>Cliente</option>
-                                <option value="0">C/F</option>
-                                @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">Cliente: {{ $item->name }}
-                                        {{ $item->lastname }} Nit: {{ $item->nit }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('customer_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
 
-                            @error('customer_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                                <input type="hidden" id="ListaPro" name="ListaPro" value="" />
 
-                        {{-- Iva --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <label>Iva</label>
-                                </span>
-                            </div>
-                            <input id="iva" type="number" class="text-dark form-control @error('iva') is-invalid @enderror"
-                                name="iva" value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
+                                <div class="row table-responsive">
+                                    <table id="TablaPro" class="table table-striped table-bordered dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                                <th>Subtotal</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ProSelected">
+                                            <!--Ingreso un id al tbody-->
+                                            <tr>
 
-                            @error('iva')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                                <td><span id="total">0</span>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
 
-                            @error('iva')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                                {{-- Descuento --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
 
-                        {{-- Total --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <label>Total</label>
-                                </span>
-                            </div>
+                                    <input id="discount"
+                                        class="text-dark form-control @error('discount') is-invalid @enderror" type="number"
+                                        name="discount" placeholder="Aplicar descuento" autofocus>
 
-                            <input id="spTotal" class="text-dark form-control @error('spTotal') is-invalid @enderror"
-                                name="spTotal" autofocus readonly>
+                                    @error('discount')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
 
-                            @error('spTotal')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                    @error('discount')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                            @error('spTotal')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                                {{-- Total --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <label>Total</label>
+                                        </span>
+                                    </div>
+                                    <input id="spTotal"
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" type="number"
+                                        name="spTotal" autofocus readonly>
 
-                        {{-- Nombre del cliente --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <input class="text-dark form-control" name="customer_name" placeholder="Nombre del cliente"
-                                id="numero" type="text">
-                        </div>
+                                    @error('spTotal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
 
-                        {{-- Correo del cliente --}}
-                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <input class="text-dark form-control" name="customer_email" placeholder="Correo" id="text"
-                                type="text">
-                        </div>
+                                    @error('spTotal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                        <input type="hidden" name="date" id="date" required>
-
-                        <!-- Trigger the modal with a button -->
-                        <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
-                            class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i
-                                class="fas fa-cart-plus text-light"></i>
-                        </button>
-
-                        <input type="hidden" id="ListaPro" name="ListaPro" value="" />
-
-                        <table id="TablaPro" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Subtotal</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ProSelected">
-                                <!--Ingreso un id al tbody-->
-                                <tr>
-
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td><span id="total">0</span>
-                                    <td>&nbsp;</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-
-                    </div>
-                    <!--Button-->
-                    <div class="container">
-                        <div class="col-12">
-                            <div class="col text-center">
-                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                    <i class="far fa-save"></i>
-                                    {{ __('Guardar') }}
-                                </button>
+                                <!--Button-->
+                                <div class="container">
+                                    <div class="col-12">
+                                        <div class="col text-center">
+                                            <button type="submit" style="border-radius: 10px"
+                                                class="btn btn-lg btn-primary mt-3">
+                                                <i class="far fa-save"></i>
+                                                {{ __('Guardar') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Button-->
+                            </form>
+                            <div>
                             </div>
                         </div>
                     </div>
-                    <!--Button-->
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -390,7 +480,8 @@
             if (i > 0) {
                 $('#guardar').removeAttr('disabled', 'disabled');
             }
-            var ipt = JSON.stringify(ip); //Convierto la Lista de Productos a un JSON para procesarlo en tu controlador
+            var ipt = JSON.stringify(
+                ip); //Convierto la Lista de Productos a un JSON para procesarlo en tu controlador
             $('#ListaPro').val(encodeURIComponent(ipt));
 
         }
@@ -404,7 +495,7 @@
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
-                `<td><select id="stock[]" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                `<td><select id="stock[]" onchange="mostrarprecio()" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -516,9 +607,24 @@
 
         }
 
+        function mostrarprecio() {
+            var pizza = document.getElementById("pizza"),
+                precio = document.getElementById("precio");
+
+            precio.value = pizza.value;
+        }
+
     </script>
     <!--Script-->
-
+    {{-- <select id="pizza" onchange="mostrarprecio()">
+        <option value="0"></option>
+        @foreach ($customer as $item)
+            <option value="{{ $item->id }} {{ $item->name}}">Cliente: {{ $item->name }}
+                {{ $item->lastname }} Nit: {{ $item->nit }}
+            </option>
+        @endforeach
+    </select>
+    <input type="text" id="precio" /> --}}
 
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">

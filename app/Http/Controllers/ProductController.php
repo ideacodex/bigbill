@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -25,9 +26,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $companies = Company::all();
         $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
         $product = Product::where('company_id', $company)->get(); //Obtener los valores de tu request:
-        return view("product.index", ['products' => $product]); //generala vista   
+        return view("product.index", ['products' => $product , 'companies' => $companies]); //generala vista   
     }
     /**
      * Show the form for creating a new resource.
@@ -38,7 +40,8 @@ class ProductController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $product = Product::all();
-        return view("product.create", ['product' => $product]);
+        $companies = Company::all();
+        return view("product.create", ['product' => $product,  'companies' => $companies]);
     }
 
     /**

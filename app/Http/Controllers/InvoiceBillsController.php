@@ -11,6 +11,7 @@ use App\Product;
 use App\Customer;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class InvoiceBillsController extends Controller
@@ -22,7 +23,10 @@ class InvoiceBillsController extends Controller
      */
     public function index()
     {
-        $records = InvoiceBill::where('active', 1)->with('user')->with('company')->with('customer')->get();
+
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+
+        $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get();
         return view("invoice_bill.index", ["records" => $records]);
     }
 
@@ -36,7 +40,7 @@ class InvoiceBillsController extends Controller
         $product = Product::where('active', 1)->get();
         $company = Company::all();
         $customer = Customer::all();
-        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer ]);
     }
 
     /**
@@ -78,6 +82,8 @@ class InvoiceBillsController extends Controller
             $bill->account_id = 1;
             $bill->customer_name = $request->customer_name;
             $bill->customer_email = $request->customer_email;
+            $bill->description = $request->description;
+            $bill->date_issue = $request->date_issue;
             $bill->save();
 
             /* Detalle */

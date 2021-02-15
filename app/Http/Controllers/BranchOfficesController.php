@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BranchOffice;
 use App\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BranchOfficesController extends Controller
@@ -16,8 +17,9 @@ class BranchOfficesController extends Controller
      */
     public function index()
     {
-        $branch_office = BranchOffice::all();
-        return view('branchoffice.index', ['branch_office' => $branch_office]);
+        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+        $branch_office = BranchOffice::where('company_id', $company)->get(); //Obtener los valores relacionados a su compañia
+        return view('branchoffice.index', ['branch_office' => $branch_office]); //retorna vista con los datos correspondientes
     }
 
     /**
