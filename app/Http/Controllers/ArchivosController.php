@@ -96,7 +96,7 @@ class ArchivosController extends Controller
         $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
         $branch_office = BranchOffice::all();
         $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
-        return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista   
+        return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
     }
 
     //Vista de ajustes

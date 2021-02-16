@@ -65,7 +65,7 @@
 
                                             @if ($item->active == 1)
                                                 <tr>
-                                                    <th scope="row"> {{ $loop->index }} </th>
+                                                    <th scope="row"> {{ $loop->index+1 }} </th>
                                                     <td>{{ $item->user->name }} {{ $item->user->lastname }}
                                                     </td>
                                                     <td>{{ $item->company->name }}</td>

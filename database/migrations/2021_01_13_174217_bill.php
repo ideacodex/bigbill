@@ -15,8 +15,8 @@ class Bill extends Migration
     {
         Schema::create('account_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('status'); 
-            $table->timestamps();       
+            $table->string('status');
+            $table->timestamps();
         });
 
         Schema::create('accounts', function (Blueprint $table) {
@@ -35,7 +35,7 @@ class Bill extends Migration
             $table->integer('phone');
             $table->string('email');
             $table->integer('nit');
-            $table->timestamps();           
+            $table->timestamps();
         });
 
         Schema::create('invoice_bills', function (Blueprint $table) {
@@ -57,6 +57,7 @@ class Bill extends Migration
             $table->boolean('active')->nullable();
             $table->string('ListaPro')->nullable();
             $table->decimal('total');
+            $table->string('totalletras')->nullable();
             $table->unsignedBigInteger('account_id')->nullable();
             $table->foreign('account_id')
                 ->references('id')->on('accounts');

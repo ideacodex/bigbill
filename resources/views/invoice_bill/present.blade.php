@@ -61,15 +61,15 @@
                     <div>
                         <table style="font-size:15px">
                             <tr>
-                                <td colspan="3" 
+                                <td colspan="3"
                                 style="
                                 background: #ff7400;padding: 12px;
                                 text-align: center;
                                 border-top: black 2px solid;
                                 border-right: black 2px solid;
-                                border-left: black 2px solid; 
-                                border-radius: 15px 15px 0px 0px ; 
-                                -moz-border-radius:  15px 15px 0px 0px ; 
+                                border-left: black 2px solid;
+                                border-radius: 15px 15px 0px 0px ;
+                                -moz-border-radius:  15px 15px 0px 0px ;
                                 -webkit-border-radius:15px 15px 0px 0px "
                                 >
                                     <strong style="color: white">DATOS DE LA FACTURA</strong>
@@ -264,8 +264,10 @@
                     </div>
                 </td>
                 <td colspan="3" style="border-bottom:  #092863  double;">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black; text-align: right">
-                        <p id="salida">Aquí aparecerá la cantidad como letras</p>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                        style="background: #ffffff; color: black; text-align: right">
+                        <label> {{ $data->totalletras }}</label>
+                        {{-- <p id="salida">Aquí aparecerá la cantidad como letras</p> --}}
                     </div>
                 </td>
             </tr>
@@ -278,42 +280,17 @@
                     <br>
 
                     <div style="background: #092863;border: 1px solid #000;padding: 12px;text-align: center;">
-                       
+
                         <strong style="color: white"> <b>Atendido por: </b>{{ $data->user->name }} {{ $data->user->lastname }} |  {{ $data->company->name }} ® | Copyright©</strong>
 
                     </div>
 
-                    <script>
-                        const inputNumero = document.querySelector("#inputNumero"),
-                            botonConvertir = document.querySelector("#factura"),
-                            salida = document.querySelector("#salida");
-
-
-                        // Escuchar el click del botón
-                        botonConvertir.addEventListener("click", function() {
-                            // Obtener valor que hay en el input
-                            let valor = parseFloat(inputNumero.value);
-                            // Simple validación
-                            if (!valor) return alert("Escribe un valor");
-
-                            // Obtener la representación
-                            let letras = numeroALetras(valor, {
-                                plural: "QUETZALES",
-                                singular: "QUETZAL",
-                                centPlural: "CENTAVOS",
-                                centSingular: "CENTAVO"
-                            });
-                            // Y a la salida ponerle el resultado
-                            salida.innerText = letras;
-                        });
-                    </script>
                 </td>
             </tr>
         </table>
     </div>
-    <!-- funcion de convertir numeros a letras -->
-    <script src="NUMEROSLETRAS.js"></script> 
-    
+
+
 
 </body>
 

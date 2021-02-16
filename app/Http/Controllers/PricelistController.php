@@ -22,12 +22,12 @@ class PricelistController extends Controller
         if ($rol == 1) {
             $company = Company::all(); //pasa todas las compañias para el admin
             $price = pricelist::with('companies')->get();
-            return view("price.index", ['price' => $price, 'company' => $company]); //generala vista 
+            return view("price.index", ['price' => $price, 'company' => $company]); //generala vista
         } else {
 
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $price = pricelist::where('company_id', $company)->with('companies')->get(); //Obtener los valores de tu request:
-            return view("price.index", ['price' => $price]); //generala vista   
+            return view("price.index", ['price' => $price]); //generala vista
         }
     }
 
@@ -69,7 +69,6 @@ class PricelistController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Tipo de cuenta registrado');
     }
-
     /**
      * Display the specified resource.
      *
