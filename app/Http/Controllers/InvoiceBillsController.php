@@ -9,7 +9,7 @@ use App\InvoiceBill;
 use App\Mail\ComprobanteMailable;
 use App\Product;
 use App\Customer;
-use Illuminate\Console\Scheduling\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -40,7 +40,7 @@ class InvoiceBillsController extends Controller
         $product = Product::where('active', 1)->get();
         $company = Company::all();
         $customer = Customer::all();
-        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer ]);
+        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
     }
 
     /**
@@ -67,10 +67,9 @@ class InvoiceBillsController extends Controller
             $bill = new InvoiceBill();
             $bill->user_id = $request->user_id;
             $bill->company_id = $request->company_id;
-            if($request->customer_id == 0)
-            {
+            if ($request->customer_id == 0) {
                 $bill->customer_id == null;
-            }else{
+            } else {
                 $bill->customer_id = $request->customer_id;
             }
             $bill->branch_id = $request->branch_id;
@@ -82,6 +81,9 @@ class InvoiceBillsController extends Controller
             $bill->account_id = 1;
             $bill->customer_name = $request->customer_name;
             $bill->customer_email = $request->customer_email;
+            $bill->description = $request->description;
+            $bill->date_issue = $request->date_issue;
+            $bill->expiration_date = $request->expiration_date;
             $bill->save();
 
             /* Detalle */
@@ -147,7 +149,12 @@ class InvoiceBillsController extends Controller
 
         $data = json_decode($records);
         if (isset($data)) {
-            Mail::to(['msarazuac@miumg.edu.gt'])->send(new ComprobanteMailable($data));
+            /**Envía el correo a los clientes registrados si no está registrado se va al else */
+            if ($records->customer_id) {
+                Mail::to([$records->customer->email])->send(new ComprobanteMailable($data));
+            }else {
+                Mail::to([$records->customer_email])->send(new ComprobanteMailable($data));
+            }
         }
 
         return redirect()->action('InvoiceBillsController@index');
@@ -202,6 +209,4 @@ class InvoiceBillsController extends Controller
             return "No se enceontraron resultados";
         }
     } */
-
-
 }

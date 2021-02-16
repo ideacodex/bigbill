@@ -45,14 +45,12 @@ class AccountsController extends Controller
         request()->validate([
             'name' => 'required',
             'status_id' => 'required',
-            'company_id' => 'required'
         ]);
         DB::beginTransaction();
         try {
             $accounts = new Account;
             $accounts->name = $request->name;
             $accounts->status_id = $request->status_id;
-            $accounts->company_id = $request->company_id;
 
             $accounts->save();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -90,7 +88,8 @@ class AccountsController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $accounts = Account::findOrFail($id);
-        return view('accounts.edit', compact('accounts'));
+        $account_type = AccountType::all();
+        return view('accounts.edit', ['accounts' => $accounts, 'account_type' => $account_type]);
     }
     /**
      * Update the specified resource in storage.
