@@ -63,7 +63,8 @@ class Bill extends Migration
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('description')->nullable();
-            $table->date('date_issue');
+            $table->timestamp('date_issue');
+            $table->timestamp('expiration_date');
             $table->timestamps();
         });
     }

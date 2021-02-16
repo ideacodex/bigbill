@@ -39,7 +39,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Emiti factura </strong>
+                            <strong class="card-title">Emitir factura </strong>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
@@ -50,14 +50,31 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-calendar-alt"></i>
+                                            <i title="Fecha de emisión" class="fas fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input id="date_issue" name="date_issue" type="text"
+                                    <input id="date_issue" name="date_issue" type="date"
                                         class="text-dark form-control @error('date_issue') is-invalid @enderror"
-                                        value="<?php echo date('y/m/d'); ?>" required
-                                        autocomplete="date_issue" autofocus>
+                                        value="<?php echo date('y/m/d'); ?>"
+                                        onchange="addDays(30);" required autocomplete="date_issue" autofocus>
                                     @error('date_issue')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Fecha de vencimiento --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Fecha de vencimiento" class="fas fa-calendar-times"></i>
+                                        </span>
+                                    </div>
+                                    <input id="expiration_date" name="expiration_date" type="date"
+                                        class="text-dark form-control @error('expiration_date') is-invalid @enderror"
+                                         required autocomplete="expiration_date" autofocus readonly>
+                                    @error('expiration_date')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -130,7 +147,7 @@
                                 </div>
 
                                 {{-- Iva --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                             <label>Iva</label>
@@ -151,18 +168,17 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 {{-- Customer_id --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <a type="submit" class="btn btn-secondary mb-1" id="inputGroup-sizing-sm"
-                                            data-toggle="modal" data-target="#largeModal"><i
-                                                class="fas fa-user-plus text-light"></i>
+                                        <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
+                                            data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
                                         </a>
                                     </div>
                                     <select name="customer_id" id="cifrado" onchange="mostrarInput();"
-                                        class="select2  @error('customer_id') is-invalid @enderror">
+                                        class="select2 form-control @error('customer_id') is-invalid @enderror">
                                         <option selected disabled>Cliente</option>
                                         <option value="0">C/F</option>
                                         @foreach ($customer as $item)
@@ -194,31 +210,6 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input class="text-dark form-control" name="customer_email" placeholder="Correo"
                                         id="text" type="text">
-                                </div>
-
-                                {{-- Total --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <label>Total</label>
-                                        </span>
-                                    </div>
-
-                                    <input id="spTotal"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
-                                        autofocus readonly>
-
-                                    @error('spTotal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('spTotal')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                                 {{-- Descripción --}}
@@ -263,6 +254,31 @@
                                             </tr>
                                         </tfoot>
                                     </table>
+                                </div>
+
+                                {{-- Total --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <label>Total</label>
+                                        </span>
+                                    </div>
+
+                                    <input id="spTotal"
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
+                                        autofocus readonly>
+
+                                    @error('spTotal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('spTotal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                                 <!--Button-->
@@ -446,6 +462,20 @@
 
     <!--Script inputs dinámicos-->
     <script>
+        /*Fecha de vencimiento*/
+        function addDays(days) {
+            var date = document.getElementById("date_issue").value;
+            console.log(date);
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            console.log(result);
+            var dateDays = document.getElementById("expiration_date");
+            dateDays.placeholder = result;
+            dateDays.valueAsDate = result;
+            console.log(dateDays);
+            return result;
+        }
+
         /*Tabla factura*/
         function RefrescaProducto() {
             var ip = [];
@@ -509,7 +539,7 @@
                 let value = indexStock[i].selectedOptions[0].attributes.valuestock.value;
                 /* let indexStockValue = indexStock[i].selectedOptions[0].index; */
                 if (value <= 5) {
-                    alert(`Solo tienes en existencia ${value}`);
+                    alert(`${value} unidades en existencia.`);
                     /*  notShow.push(indexStockValue); */
                 } else {
                     /*  notShow.push(indexStockValue); */
@@ -536,14 +566,14 @@
 
             for (var x = 0; x < nodes.length; x++) {
                 if (nodes[x].firstChild.id == 'cantidad[]') {
-                    cantidad = parseFloat(nodes[x].firstChild.value, 0);
+                    cantidad = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'precunit[]') {
-                    precunit = parseFloat(nodes[x].firstChild.value, 0);
+                    precunit = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
                     anterior = nodes[x].firstChild.value;
-                    totalitem = parseFloat((precunit * cantidad), 0);
+                    totalitem = parseFloat((precunit * cantidad), 10);
                     nodes[x].firstChild.value = totalitem;
                 }
             }
