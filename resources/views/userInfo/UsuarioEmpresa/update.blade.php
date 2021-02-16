@@ -169,17 +169,9 @@
                                         </span>
                                         @enderror
 
-                                    </div>
 
-                                    {{-- Sucursal --}}
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-user"></i>
-                                            </span>
-                                        </div>
-                                        <select name="branch_id" id="branch_id" class="form-control @error('branch_id') is-invalid @enderror">
-
+                                        {{-- Sucursal --}}
+                                        <select name="branch_id" id="branch_id" class="select2 form-control @error('branch_id') is-invalid @enderror">
                                             @if ($user->branch_id)
                                             <option value="{{ $user->company_id }}" selected>
                                                 <p>
@@ -189,16 +181,12 @@
                                             <option value="">Quitar Sucursal</option>
                                             @else
                                             <option value="" selected disabled>
-                                                <p>Sin Sucursal Asignada</p>
+                                                <p>Sin Sucursal</p>
                                             </option>
                                             @endif
-
                                             @foreach ($branch_office as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->company->name }} - {{ $item->name }}</option>
                                             @endforeach
-
-
-
                                         </select>
                                         @error('branch_id')
                                         <span class="invalid-feedback" role="alert">
@@ -206,6 +194,8 @@
                                         </span>
                                         @enderror
                                     </div>
+
+
 
 
                                     <!--Button-->

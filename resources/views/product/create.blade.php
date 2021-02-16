@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            @if (Auth::user()->company_id)
+                        @if ((Auth::user()->role_id == 1) || (Auth::user()->company_id))
                             <script>
                                 function sumar() {
                                     const $total = document.getElementById('income_amount');
@@ -192,7 +192,6 @@
 
                                 @else
                                 {{-- Company_id --}}
-
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <input type="hidden" value="{{ Auth::user()->company_id }} " name="company_id" readonly="readonly" id="company_id" class="form-control @error('company_id') is-invalid @enderror" required>
 

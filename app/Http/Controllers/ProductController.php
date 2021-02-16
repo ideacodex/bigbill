@@ -26,10 +26,16 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
-        $companies = Company::all();
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $product = Product::where('company_id', $company)->get(); //Obtener los valores de tu request:
-        return view("product.index", ['products' => $product , 'companies' => $companies]); //generala vista   
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $product = Product::with('companies')->get();
+            return view("product.index", ['products' => $product]); //generala vista 
+        } else {
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $product = Product::where('company_id', $company)->with('companies')->get(); //Obtener los valores de tu request:
+            return view("product.index", ['products' => $product ]); //generala vista   
+        }
+        
     }
     /**
      * Show the form for creating a new resource.
@@ -43,7 +49,6 @@ class ProductController extends Controller
         $companies = Company::all();
         return view("product.create", ['product' => $product,  'companies' => $companies]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -96,7 +101,6 @@ class ProductController extends Controller
         return redirect()->action('ProductController@index')
             ->with('datosEliminados', 'Registro exitoso');
     }
-
     /**
      * Display the specified resource.
      *
@@ -124,7 +128,6 @@ class ProductController extends Controller
         $products = Product::findOrFail($id);
         return view('product.edit', ['products' => $products]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -181,7 +184,6 @@ class ProductController extends Controller
         DB::commit();
         return redirect('/perfil')->with(['message' => 'Registro Modificado', 'alert' => 'success']);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -207,7 +209,6 @@ class ProductController extends Controller
         DB::commit();
         return redirect()->action('ProductController@index');
     }
-
     public function getProduct($id)
     {
        /*  $user = auth()->user()->id;

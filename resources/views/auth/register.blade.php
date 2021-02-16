@@ -128,8 +128,9 @@
                                 <input type="checkbox" required> Acepto los terminos y politicas de uso
                             </label>
                         </div>
-                        <!--boton de registrar -->
 
+                        
+                        <!--boton de registrar -->
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>
                             {{ __('Guardar') }}</button>
 

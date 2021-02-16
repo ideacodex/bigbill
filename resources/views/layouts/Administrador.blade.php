@@ -170,8 +170,6 @@
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
-    <!-- Left Panel -->
-    <!-- Right Panel -->
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
 
@@ -180,48 +178,38 @@
 
             <div class="header-menu">
 
-                <div class="col-sm-7">
+            <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
-                        <div class="form-inline">
-                            <form class="search-form">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..."
-                                    aria-label="Search">
-                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
-                            </form>
-                        </div>
 
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Tu tienes tienes Notificaciones</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="/perfil">
+                            <p class="red">Informacion</p>
+                                <a class="dropdown-item media bg-flat-color-3" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)
-                                        <strong>Rol:Administrador.</strong>
+                                        <strong>Cargo: Administrador.</strong>
                                     @else
                                         @if (Auth::user()->role_id == 2)
-                                            <strong>Rol:Gerente.</strong>
+                                            <strong>Cargo: Gerente.</strong>
                                         @else
                                             @if (Auth::user()->role_id == 3)
-                                                <strong>Rol:Contador.</strong>
+                                                <strong>Cargo: Contador.</strong>
                                             @else
                                                 @if (Auth::user()->role_id == 4)
-                                                    <strong>Rol:Ventas.</strong>
+                                                    <strong>Cargo: Ventas.</strong>
                                                 @else
-                                                    <strong>Rol:Sin Rol.</strong>
+                                                    <strong>Cargo: No tiene</strong>
                                                 @endif
                                             @endif
                                         @endif
                                     @endif
-
                                 </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="#">
+                                <a class="dropdown-item media bg-flat-color-5" href="#">
                                     <i class="fa fa-info"></i>
                                     <strong>Empresa:
                                         @if (Auth::user()->company_id)
@@ -234,11 +222,8 @@
                                 </a>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -252,7 +237,7 @@
                             <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
                                     class="fa fa-user"></i> Usuarios </a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Settings</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
                                 {{ __('salir') }}

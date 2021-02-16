@@ -52,7 +52,12 @@
                         <table id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="bootstrap-data-table_info">
                             <thead>
                                 <tr>
-                                    <th>Codigo</th>
+                                    @if (Auth::user()->role_id == 1)
+                                    <th>Id</th>
+                                    @else
+                                    <th>#</th>
+                                    @endif
+
                                     <th>Productos</th>
                                     <th>Descripción</th>
                                     <th>Precio </th>
@@ -67,7 +72,12 @@
                             <tbody>
                                 @foreach ($products as $item)
                                 <tr>
+                                    @if (Auth::user()->role_id == 1)
+
                                     <th>{{ $item->id }}</th>
+                                    @else
+                                    <th> {{ $loop->index+1  }}</th>
+                                    @endif
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td>{{ $item->price }}</td>

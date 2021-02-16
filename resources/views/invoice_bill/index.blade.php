@@ -150,11 +150,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </td>
-                                    </tr>
-                                    <!--Modal-->
-                                    @endforeach
-                                    @endif
+                                </div>
+                                </td>
+                                </tr>
+                                <!--Modal-->
+                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

@@ -80,3 +80,11 @@ Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
 /** Usuarios de las empresas*/ 
 
 
+/**Ajustes */
+Route::get('Ajustes', 'ArchivosController@settings')->middleware('auth');
+/**Ajustes */
+
+/**Lista de precios Route */
+Route::resource('lista', 'PricelistController')->middleware('auth');
+/**Lista de precios Route */
+

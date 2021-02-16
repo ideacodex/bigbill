@@ -41,7 +41,7 @@ class UsuarioEmpresaController extends Controller
     {
         
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $user = User::findOrFail($id) and $companies = Company::all() and  $branch_office = BranchOffice::all();
+        $user = User::findOrFail($id) and $companies = Company::all() and  $branch_office = BranchOffice::with('company')->get();
         return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
     }
 
@@ -63,9 +63,7 @@ class UsuarioEmpresaController extends Controller
             'phone' => 'required',
             'nit' => 'required',
             'address' => 'required',
-            'email' => 'required',
-            'company_id' => 'required',
-            'branch_id' => 'required'
+            'email' => 'required'
         ]);
         DB::beginTransaction(); //transaccion en base de datos
         try {

@@ -13,6 +13,16 @@ class Products extends Migration
      */
     public function up()
     {
+        Schema::create('pricelists', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->float('price');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+                ->references('id')->on('companies');
+            $table->timestamps();
+        });
+
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
@@ -21,6 +31,7 @@ class Products extends Migration
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies');
+            $table->float('iva')->nullable();
             $table->string('quantity_values');
             $table->integer('kind_product');
             $table->integer('stock');
@@ -46,6 +57,7 @@ class Products extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('pricelists');
         Schema::dropIfExists('products');
     }
 }
