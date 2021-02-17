@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
 use App\Company;
+use App\Suscription;
 use Illuminate\Support\Facades\DB;
 
 class UsuarioEmpresaController extends Controller
@@ -27,8 +28,9 @@ class UsuarioEmpresaController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-        $user = User::with('companies')->with('branch_offices')->get();
-        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
+        $user = User::with('companies')->with('branch_offices')->with('suscriptions')->get();
+/*         dd($user);
+ */        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
     }
 
     /**
@@ -114,6 +116,8 @@ class UsuarioEmpresaController extends Controller
      */
     public function destroy($id)
     {
+        $suscription = Suscription::where('user_id', $id)->delete();
+        //$suscription->destroy();
         $record = User::destroy($id);
         return back()->with('datosEliminados', 'Registro Eliminado');
     }
@@ -121,26 +125,18 @@ class UsuarioEmpresaController extends Controller
     public function suscription_user()
     {
         //Finaliza la suscripción de 15 días.
-        $users = User::where('suscription', 0)->get();
-        /* dd($users); */
+        $suscriptions = Suscription::where('active', 1)->whereDate('date_expiration', '<=', now())->with('user')->get();
+        /* dd($suscriptions); */
 
-        for ($i = 0; $i < $users->count(); $i++) {
-            $days = $users[$i]->created_at->diff(date('Y-m-d'))->format('%a');
-
-            if ($days >= 15 && $users[$i]->suscription == 0) {
-                $users[$i]->history_company_id = $users[$i]->company_id;
-                $users[$i]->company_id = null;
-                $users[$i]->syncRoles('Vendedor');
-                $users[$i]->save();
-            } /* elseif ($days >= 30 && $users[$i]->suscription == 1) {
-                $users[$i]->history_company_id = $users[$i]->company_id;
-                $users[$i]->company_id = null;
-                $users[$i]->suscription = 0;
-                $users[$i]->syncRoles('Vendedor');
-                $users[$i]->save();
-            } */
+        for ($i = 0; $i < $suscriptions->count(); $i++) {
+            //$days = $suscriptions[$i]->created_at->diff(date('Y-m-d'))->format('%a');
+            $suscriptions[$i]->user->history_company_id = $suscriptions[$i]->user->company_id;
+            $suscriptions[$i]->user->company_id = null;
+            $suscriptions[$i]->user->syncRoles('Vendedor');
+            $suscriptions[$i]->user->save();
+            $suscriptions[$i]->active = 0;
+            $suscriptions[$i]->save();
         }
         dd('Sale del ciclo');
     }
-    
 }

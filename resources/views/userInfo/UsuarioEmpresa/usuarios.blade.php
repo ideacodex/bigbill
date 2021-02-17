@@ -33,7 +33,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Role</th>
+                                            <th>Cargo</th>
                                             <th>Nombre</th>
                                             <th>Teléfono</th>
                                             <th>Nit</th>
@@ -84,25 +84,26 @@
                                                     <td>Oficina central</td>
                                                 @endif
 
-                                                @if ($item->suscription == 0)
-                                                    <td>
-
-                                                        <a class="btn btn-sm btn-danger" title="Marcar como pagado"
-                                                            data-toggle="modal" data-target="#largeModal"
-                                                            {{-- onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();" --}}>
-                                                            <span class="text-light"> <i title="Marcar como pagado"
-                                                                    class="text-light fas fa-window-close"></i></span>
-                                                        </a>
-                                                    </td>
-                                                @elseif($item->suscription == 1)
-                                                    <td>
-                                                        <a class="btn btn-sm btn-success" title="Marcar como no pagado"
-                                                            data-toggle="modal" data-target="#largeModal"
-                                                            {{-- onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();" --}}>
-                                                            <span class="text-light"> <i title="Marcar como no pagado"
-                                                                    class="text-light fas fa-check-circle"></i></span>
-                                                        </a>
-                                                    </td>
+                                                @if ($item->suscriptions)
+                                                    @if ($item->suscriptions->active == 0)
+                                                        <td>
+                                                            <a class="btn btn-sm btn-danger" title="Marcar como pagado"
+                                                                data-toggle="modal" data-target="#largeModal"
+                                                                {{-- onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();" --}}>
+                                                                <span class="text-light"> <i title="Marcar como pagado"
+                                                                        class="text-light fas fa-window-close"></i></span>
+                                                            </a>
+                                                        </td>
+                                                    @elseif($item->suscriptions->active == 1)
+                                                        <td>
+                                                            <a class="btn btn-sm btn-success" title="Marcar como no pagado"
+                                                                data-toggle="modal" data-target="#largeModal"
+                                                                {{-- onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();" --}}>
+                                                                <span class="text-light"> <i title="Marcar como no pagado"
+                                                                        class="text-light fas fa-check-circle"></i></span>
+                                                            </a>
+                                                        </td>
+                                                    @endif
                                                 @endif
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -117,7 +118,7 @@
                                                         @if (Auth::user()->id != $item->id)
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -132,7 +133,6 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                           
                                         @endforeach
                                     </tbody>
                                 </table>
