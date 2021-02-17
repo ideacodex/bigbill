@@ -65,7 +65,6 @@ class ProductController extends Controller
             'company_id' => 'required',
             'quantity_values',
             'income_amount',
-            'date_admission' => 'required',
             'amount_expenses',
         ]);
         DB::beginTransaction();
@@ -82,7 +81,6 @@ class ProductController extends Controller
             $product->income_amount = $request->income_amount;
             $product->new_income = 0;
             $product->total_revenue = $request->income_amount;
-            $product->date_admission = $request->date_admission;
             $product->amount_expenses = $request->amount_expenses;
             if ($product->quantity_values >= 1) {
                 $product->active = 1;
@@ -145,7 +143,6 @@ class ProductController extends Controller
             'company_id' => 'required',
             'quantity_values',
             'income_amount',
-            'date_admission' => 'required',
             'amount_expenses',
         ]);
 
@@ -163,7 +160,6 @@ class ProductController extends Controller
             $products->new_income = $request->new_income;
             /**Total de ingresos */
             $products->total_revenue = $request->total_revenue;
-            $products->date_admission = $request->date_admission;
             $products->amount_expenses = $request->amount_expenses;
             /**Stock anterior */
             $temporal = $products->new_income;

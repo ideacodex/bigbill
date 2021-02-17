@@ -86,3 +86,8 @@ Route::get('Ajustes', 'ArchivosController@settings')->middleware('auth');
 Route::resource('lista', 'PricelistController')->middleware('auth');
 /**Lista de precios Route */
 
+/**Prueba de sistema */
+Route::get('suscripcion', 'UsuarioEmpresaController@suscription_user');
+/**Prueba de sistema */
+
+    

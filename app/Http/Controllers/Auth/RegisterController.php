@@ -79,7 +79,6 @@ class RegisterController extends Controller
               $roleAdmin = Role::create(['name' => 'Gerente']);
               $roleSeller = Role::create(['name' => 'Contador']);
               $roleFinal = Role::create(['name' => 'Vendedor']);
-             
               
           }
           $request = new Request($data);

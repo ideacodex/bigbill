@@ -44,9 +44,11 @@ class CreateUsersTable extends Migration
             $table->integer('phone');         
             $table->integer('nit')->unique();
             $table->string('address');
+            $table->boolean('suscription')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('history_company_id')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
             ->references('id')->on('companies');

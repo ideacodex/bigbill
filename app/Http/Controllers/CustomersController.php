@@ -48,9 +48,9 @@ class CustomersController extends Controller
         request()->validate([
             'name' => 'required',
             'lastname' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:customers,phone|max:9|min:8',
             'email' => 'required',
-            'nit' => 'required',
+            'nit' => 'required|unique:customers,nit|min:9|max:11'
         ]);
         DB::beginTransaction();
         try {

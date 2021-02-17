@@ -86,7 +86,7 @@
                     <td>{{ $item->quantity_values }}</td>
                     <td>{{ $item->income_amount }}</td>
                     <td>{{ $item->amount_expenses }}</td>
-                    <td>{{ $item->date_admission }}</td>
+                    <td>{{ $item->created_at->format('dd-mm-yyyy') }}</td>
                     <td>{{ $item->company->name }}</td>
                 </tr>
             @endforeach
