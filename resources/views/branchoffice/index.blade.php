@@ -46,7 +46,7 @@
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-12">
-                                    @if (Auth::user()->company_id)
+                                    @if (Auth::user()->role_id == 1 || Auth::user()->company_id)
 
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
@@ -63,7 +63,13 @@
                                             <tbody>
                                                 @foreach ($branch_office as $item)
                                                     <tr>
-                                                        <th>{{ $item->id }}</th>
+                                                        @if (Auth::user()->role_id == 1)
+                                                            <th>{{ $item->id }}</th>
+                                                        @else
+                                                            <th> {{ $loop->index + 1 }}</th>
+                                                        @endif
+
+
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->phone }}</td>
                                                         <td>{{ $item->pbx }}</td>
@@ -82,7 +88,7 @@
                                                                 </a>
                                                                 <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                     onclick="event.preventDefault();
-                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                     <span class="text-light"><i
                                                                             class="fas fa-trash-alt"></i></span>
                                                                 </a>

@@ -30,7 +30,6 @@ class PricelistController extends Controller
             return view("price.index", ['price' => $price]); //generala vista
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -40,7 +39,6 @@ class PricelistController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -79,28 +77,45 @@ class PricelistController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\pricelist  $pricelist
      * @return \Illuminate\Http\Response
      */
-    public function edit(pricelist $pricelist)
+    public function edit($id)
     {
-        //
+        $price = pricelist::findOrFail($id);
+        return view('price.edit', ['price' => $price]);
     }
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pricelist  $pricelist
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pricelist $pricelist)
+    public  function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $price = pricelist::findOrFail($id);
+            $price->name = $request->name;
+            $price->price = $request->price;
+            $price->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('PricelistController@index')
+            ->with('datosEliminados', 'Registro modificado');
     }
 
     /**
@@ -109,25 +124,6 @@ class PricelistController extends Controller
      * @param  \App\pricelist  $pricelist
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $pricelist = pricelist::find($id);
-
-    //         if ($pricelist->active == 1) {
-    //             $pricelist->where('id', $id)->update(['active' => 0]);
-    //         } else {
-    //             $pricelist->where('id', $id)->update(['active' => 1]);
-    //         }
-    //     } catch (\Illuminate\Database\QueryException $e) {
-    //         DB::rollback();
-    //         abort(500, $e->errorInfo[2]);
-    //         return response()->json($response, 500);
-    //     }
-    //     DB::commit();
-    //     return redirect()->action('ProductController@index');
-    // }
     public function destroy($id)
     {
         $record = pricelist::destroy($id);

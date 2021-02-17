@@ -74,13 +74,13 @@ class RegisterController extends Controller
        DB::beginTransaction();
        try{
           if (!Role::find(1)){
-            
+
               $roleSuper = Role::create(['name' => 'Administrador']);
               $roleAdmin = Role::create(['name' => 'Gerente']);
               $roleSeller = Role::create(['name' => 'Contador']);
               $roleFinal = Role::create(['name' => 'Vendedor']);
-             
-              
+
+
           }
           $request = new Request($data);
        }catch(\Illuminate\Database\QueryException $e){

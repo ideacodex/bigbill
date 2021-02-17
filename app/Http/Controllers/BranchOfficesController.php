@@ -15,11 +15,18 @@ class BranchOfficesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $branch_office = BranchOffice::where('company_id', $company)->get(); //Obtener los valores relacionados a su compañia
-        return view('branchoffice.index', ['branch_office' => $branch_office]); //retorna vista con los datos correspondientes
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $branch_office = BranchOffice::with('company')->get();
+            return view('branchoffice.index', ['branch_office' => $branch_office]); //retorna vista con los datos correspondientes
+        } else {
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $branch_office = BranchOffice::where('company_id', $company)->get(); //Obtener los valores relacionados a su compañia
+            return view('branchoffice.index', ['branch_office' => $branch_office]); //retorna vista con los datos correspondientes
+        }
     }
 
     /**
@@ -114,7 +121,7 @@ class BranchOfficesController extends Controller
             $branch_office->address = $request->address;
             $branch_office->company_id = $request->company_id;
             $branch_office->save();
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]);
             return response()->json($response, 500);
