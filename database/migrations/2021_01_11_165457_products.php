@@ -28,10 +28,13 @@ class Products extends Migration
             $table->string('name');
             $table->string('description');
             $table->float('price');
+            $table->float('cost')->nullable();
+            $table->float('special_price')->nullable();
+            $table->float('credit_price')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies');
-            $table->float('iva')->nullable();
+            $table->boolean('tax')->nullable();
             $table->string('quantity_values');
             $table->integer('kind_product');
             $table->integer('stock');
@@ -42,8 +45,6 @@ class Products extends Migration
             $table->integer('new_income');
             //Ingresos totales
             $table->integer('total_revenue');
-            /**Fecha de ingreso */
-            $table->date('date_admission');
             /**Cantidad de egresos */
             $table->integer('amount_expenses')->nullable();
             $table->timestamps();

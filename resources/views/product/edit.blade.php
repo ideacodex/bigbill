@@ -172,19 +172,6 @@
                                         @enderror
                                     </div>
 
-                                    <!-- fecha de ingreso  -->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <input id="date_admission" name="date_admission" type="hidden"
-                                            class="text-dark form-control @error('date_admission') is-invalid @enderror"
-                                            value="<?php echo date('y/m/d'); ?>" required
-                                            autocomplete="date_admission" autofocus readonly="readonly ">
-                                        @error('date_admission')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
                                     <!--  cantidad egresos -->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <input id="amount_expenses" name="amount_expenses" type="hidden"
@@ -225,32 +212,34 @@
                                                 </button>
                                             </div>
 
-                                    <!-- Ingresos registrados -->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <input value="{{ $products->total_revenue }}" type="hidden" id="txt_campo_1"
-                                            class="monto" onchange="sumar();" name="income_amount" readonly />
-                                    </div>
+                                            <!-- Ingresos registrados -->
+                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                <input value="{{ $products->total_revenue }}" type="hidden"
+                                                    id="txt_campo_1" class="monto" onchange="sumar();" name="income_amount"
+                                                    readonly />
+                                            </div>
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <script>
-                    function sumar() {
-                        const $total = document.getElementById('total');
-                        let subtotal = 0;
-                        [...document.getElementsByClassName("monto")].forEach(function(element) {
-                            if (element.value !== '') {
-                                subtotal += parseFloat(element.value);
+    <script>
+        function sumar() {
+            const $total = document.getElementById('total');
+            let subtotal = 0;
+            [...document.getElementsByClassName("monto")].forEach(function(element) {
+                if (element.value !== '') {
+                    subtotal += parseFloat(element.value);
 
-                            }
-                        });
-                        $total.value = subtotal;
-                    }
+                }
+            });
+            $total.value = subtotal;
+        }
 
-                </script>
+    </script>
 
-
-            @endsection
+@endsection

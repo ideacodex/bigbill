@@ -28,7 +28,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Estados financieros</strong>
+                            <strong class="card-title">Listado de Precios</strong>
                         </div>
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
@@ -50,7 +50,7 @@
                                                         <th>#</th>
                                                     @endif
 
-                                                    <th>Nombre</th>
+                                                    <th>Tipo de precio</th>
                                                     <th>Precio</th>
 
                                                     @if (Auth::user()->role_id == 1)

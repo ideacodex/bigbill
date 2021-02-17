@@ -65,7 +65,7 @@
 
                                             @if ($item->active == 1)
                                                 <tr>
-                                                    <th scope="row"> {{ $loop->index+1 }} </th>
+                                                    <th scope="row"> {{ $loop->index + 1 }} </th>
                                                     <td>{{ $item->user->name }} {{ $item->user->lastname }}
                                                     </td>
                                                     <td>{{ $item->company->name }}</td>
@@ -110,24 +110,22 @@
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             @if ($item->customer_id)
-                                                                <a class="btn btn-sm btn-info"
+                                                                <a class="btn btn-sm btn-warning"
                                                                     href="{{ url('facturas/' . $item->id . '/edit') }}"
                                                                     title="Enviar correo">
                                                                     <span><i
                                                                             class="text-light fas fa-paper-plane"></i></span>
                                                                 </a>
                                                             @elseif($item->customer_email)
-                                                                <a class="btn btn-sm btn-info"
+                                                                <a class="btn btn-sm btn-warning"
                                                                     href="{{ url('facturas/' . $item->id . '/edit') }}"
                                                                     title="Enviar correo">
                                                                     <span><i
                                                                             class="text-light fas fa-paper-plane"></i></span>
                                                                 </a>
                                                             @else
-                                                                <a class="btn btn-sm btn-warning"
+                                                                <a class="btn btn-sm btn-light"
                                                                     title="No hay correo registrado">
-                                                                    <span><i
-                                                                            class="text-light fas fa-times-circle"></i></span>
                                                                 </a>
                                                             @endif
 

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
 use App\Company;
+use App\Suscription;
 use DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -71,36 +72,43 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       DB::beginTransaction();
-       try{
-          if (!Role::find(1)){
+        DB::beginTransaction();
+        try {
+            if (!Role::find(1)) {
 
-              $roleSuper = Role::create(['name' => 'Administrador']);
-              $roleAdmin = Role::create(['name' => 'Gerente']);
-              $roleSeller = Role::create(['name' => 'Contador']);
-              $roleFinal = Role::create(['name' => 'Vendedor']);
+                $roleSuper = Role::create(['name' => 'Administrador']);
+                $roleAdmin = Role::create(['name' => 'Gerente']);
+                $roleSeller = Role::create(['name' => 'Contador']);
+                $roleFinal = Role::create(['name' => 'Vendedor']);
+            }
+            //se crea el usuario
+            $user = new User();
+            $user->name = $data['name'];
+            $user->lastname = $data['lastname'];
+            $user->email = $data['email'];
+            $user->password = Hash::make($data['password']);
+            $user->phone = $data['phone'];
+            $user->nit = $data['nit'];
+            $user->address = $data['address'];
+            $user->role_id = 4;
+            $user->save();
+
+            $record = new Suscription;
+            $record->user_id=$user->id;
+            $record->active=1;
+            $record->date_active=$user->created_at;
+            $record->date_expiration=$user->created_at->addDays(15);
+            $record->save();
+            $request = new Request($data);
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
 
 
-          }
-          $request = new Request($data);
-       }catch(\Illuminate\Database\QueryException $e){
-           DB::rollback();
-           abort(500, $e->errorInfo[2]);
-           return response()->json($response, 500);
-       }
-       DB::commit();
 
-       $user = new User();
-       $user->name = $data['name'];
-       $user->lastname = $data['lastname'];
-       $user->email = $data['email'];
-       $user->password = Hash::make($data['password']);
-       $user->phone = $data['phone'];
-       $user->nit = $data['nit'];
-       $user->address = $data['address'];
-       $user->role_id = 4;
-       $user->save();
-
-       return $user;
+        return $user;
     }
 }

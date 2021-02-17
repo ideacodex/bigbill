@@ -50,6 +50,11 @@ class User extends Authenticatable
     {
         return $this->hasMany("App\DetailBill", 'invoice_id');
     }
+
+    public function suscriptions(){
+        return $this->belongsTo("App\Suscription", 'id', 'user_id');
+    }
+
     public function authorizeRoles($roles)
     {
         abort_unless($this->hasAnyRole($roles), 401);
