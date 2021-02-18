@@ -31,6 +31,7 @@ class CreateSuscriptionsTable extends Migration
                 ->references('id')->on('suscriptions');
             $table->string('comments');
             $table->float('amount');
+            $table->integer('suscription_time');
             $table->timestamps();
         });
     }

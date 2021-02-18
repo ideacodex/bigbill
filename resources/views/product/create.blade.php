@@ -58,8 +58,8 @@
                                             </div>
                                             <input id="name" name="name" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('name') }}" placeholder="Producto" required
-                                                autocomplete="name" autofocus>
+                                                value="{{ old('name') }}" placeholder="Producto"
+                                                required autocomplete="name" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -75,8 +75,9 @@
                                             </div>
                                             <input id="description" name="description" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('description') }}" placeholder="Descripción del producto"
-                                                required autocomplete="description" autofocus>
+                                                value="{{ old('description') }}"
+                                                placeholder="Descripción del producto" required
+                                                autocomplete="description" autofocus>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -174,9 +175,6 @@
                                             <input class="text-dark form-control" name="especialprice2" value="0"
                                                 placeholder="Ingrese un Precio" id="especialprice2" type="text">
                                         </div>
-
-
-
                                         {{-- <!--Precio crédito-->--}}
                                         <div id="d" class="d-none col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -204,11 +202,6 @@
                                             <input class="text-dark form-control" name="credit_price2" value="0"
                                                 placeholder="Ingrese un Precio" id="credit_price2" type="text">
                                         </div>
-
-
-
-
-
                                         <!--Company_id-->
                                         @if (Auth::user()->role_id == 1)
                                             {{-- company --}}
