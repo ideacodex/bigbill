@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label>No. Celular</label>
                             <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
-                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7" pattern="[0-9]{7,15}">
+                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7" pattern="[0-9]{7,13}">
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -129,7 +129,7 @@
                             </label>
                         </div>
 
-                        
+
                         <!--boton de registrar -->
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>
                             {{ __('Guardar') }}</button>

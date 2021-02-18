@@ -55,9 +55,9 @@ Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Acc
 Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
 Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
 /**Download PDF */
-/** fACTURAS de las empresas*/ 
+/** fACTURAS de las empresas*/
 Route::get('facturaCompañia', 'ArchivosController@facturaCompañia')->middleware('auth');
-/** fACTURAS de las empresas*/ 
+/** fACTURAS de las empresas*/
 
 /** Descargar Excel */
 Route::get('/doc', function () {return new DocsExport;});
@@ -73,9 +73,9 @@ Route::get('/doc-User', function () {return new DocsUser;});
 Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
 /** perfil */
 
-/** Usuarios de las empresas*/ 
+/** Usuarios de las empresas*/
 Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
-/** Usuarios de las empresas*/ 
+/** Usuarios de las empresas*/
 
 /**Ajustes */
 Route::get('Ajustes', 'ArchivosController@settings')->middleware('auth');

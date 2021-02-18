@@ -22,15 +22,14 @@ class PricelistController extends Controller
         if ($rol == 1) {
             $company = Company::all(); //pasa todas las compañias para el admin
             $price = pricelist::with('companies')->get();
-            return view("price.index", ['price' => $price, 'company' => $company]); //generala vista 
+            return view("price.index", ['price' => $price, 'company' => $company]); //generala vista
         } else {
 
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $price = pricelist::where('company_id', $company)->with('companies')->get(); //Obtener los valores de tu request:
-            return view("price.index", ['price' => $price]); //generala vista   
+            return view("price.index", ['price' => $price]); //generala vista
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -40,7 +39,6 @@ class PricelistController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -69,7 +67,6 @@ class PricelistController extends Controller
         DB::commit();
         return back()->with('usuarioGuardado', 'Tipo de cuenta registrado');
     }
-
     /**
      * Display the specified resource.
      *
@@ -80,28 +77,49 @@ class PricelistController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\pricelist  $pricelist
      * @return \Illuminate\Http\Response
      */
-    public function edit(pricelist $pricelist)
+    public function edit($id)
     {
-        //
+        $price = pricelist::findOrFail($id);
+        $companies =  Company::all();
+        return view('price.edit', ['price' => $price,'companies' => $companies]);
     }
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pricelist  $pricelist
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pricelist $pricelist)
+    public  function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'company_id' => 'required'
+
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $pricelist = pricelist::findOrFail($id);
+            $pricelist->name = $request->name;
+            $pricelist->price = $request->price;
+            $pricelist->company_id = $request->company_id;
+            $pricelist->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('PricelistController@index')
+            ->with('datosEliminados', 'Registro modificado');
     }
 
     /**
@@ -110,25 +128,6 @@ class PricelistController extends Controller
      * @param  \App\pricelist  $pricelist
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $pricelist = pricelist::find($id);
-
-    //         if ($pricelist->active == 1) {
-    //             $pricelist->where('id', $id)->update(['active' => 0]);
-    //         } else {
-    //             $pricelist->where('id', $id)->update(['active' => 1]);
-    //         }
-    //     } catch (\Illuminate\Database\QueryException $e) {
-    //         DB::rollback();
-    //         abort(500, $e->errorInfo[2]);
-    //         return response()->json($response, 500);
-    //     }
-    //     DB::commit();
-    //     return redirect()->action('ProductController@index');
-    // }
     public function destroy($id)
     {
         $record = pricelist::destroy($id);

@@ -21,13 +21,19 @@ class InvoiceBillsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $records = InvoiceBill::with('user')->with('company')->with('customer')->get();//busca todas las facturas
+            return view("invoice_bill.index", ["records" => $records]); //generala vista
+        } else {
 
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-
-        $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get();
-        return view("invoice_bill.index", ["records" => $records]);
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autentificacion
+            return view("invoice_bill.index", ["records" => $records]);
+        }
     }
 
     /**
@@ -76,6 +82,7 @@ class InvoiceBillsController extends Controller
             $bill->iva = $request->iva;
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;
+            $bill->totalletras = $request->totalletras;
             $bill->acquisition = $request->acquisition;
             $bill->active = 1;
             $bill->account_id = 1;
@@ -199,7 +206,7 @@ class InvoiceBillsController extends Controller
     /* public function getInfoCustomer($nit){
 
         $customer = Customer::where($nit)->first();
-    
+
         if(isset($customer))
         {
             return response()->json(['customer' => $customer]);
