@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Score;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\User;
-use App\Company;
 use App\Suscription;
 use DB;
 use Illuminate\Foundation\Auth\RegistersUsers;

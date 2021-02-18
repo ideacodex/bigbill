@@ -57,8 +57,8 @@
                                             </div>
                                             <input id="name" name="name" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('name') }}" placeholder="Producto" required
-                                                autocomplete="name" autofocus>
+                                                value="{{ old('name') }}" placeholder="Producto"
+                                                required autocomplete="name" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -75,8 +75,9 @@
                                             </div>
                                             <input id="description" name="description" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('description') }}" placeholder="Descripción del producto"
-                                                required autocomplete="description" autofocus>
+                                                value="{{ old('description') }}"
+                                                placeholder="Descripción del producto" required
+                                                autocomplete="description" autofocus>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -209,6 +210,7 @@
                                             @enderror
                                         </div>
 
+
                                         <!--Precio crédito-->
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -218,8 +220,8 @@
                                             </div>
                                             <input id="credit_price" name="credit_price" type="number"
                                                 class="text-dark form-control credit_price  @error('credit_price') is-invalid @enderror"
-                                                value="" placeholder="Precio al crédito" autocomplete="credit_price"
-                                                autofocus>
+                                                value="" placeholder="Precio al crédito"
+                                                autocomplete="credit_price" autofocus>
                                             @error('credit_price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

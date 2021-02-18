@@ -11,4 +11,7 @@ class Suscription extends Model
     {
         return $this->hasOne("App\User", 'id', 'user_id');
     }
+
+    protected $dates = ['date_expiration'];
+
 }
