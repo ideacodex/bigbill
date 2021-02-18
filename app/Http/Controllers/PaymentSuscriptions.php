@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\PaymentSuscription;
 use App\Suscription;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Spatie\Permission\Models\Role;
 
 class PaymentSuscriptions extends Controller
 {
@@ -53,13 +55,31 @@ class PaymentSuscriptions extends Controller
             $payment->suscription_time = $request->suscription_time;
             $payment->save();
 
-            $suscription = Suscription::find($request->suscription_id);
-            if ($payment->suscription_time > 1) {
+            $suscription = Suscription::with('user')->find($request->suscription_id);
+            /* Traigo el id de la suscripción guardada en el pago */
+            if ($payment->suscription_time >= 1) {
+                /* Si el tiempo es mayor a 1 pone mi active a 1 */
                 $suscription->active = 1;
+                if (!is_null($suscription->user->history_company_id)) {
+                    /* dd($suscription->user->history_company_id, $suscription->user->company_id); */
+                    $suscription->user->company_id = $suscription->user->history_company_id;
+                    $suscription->user->history_company_id = null;
+                    $suscription->user->save();
+                }
+                if (!is_null($suscription->user->history_role_id)) {
+                    $role = Role::find($suscription->user->history_role_id);
+                    $suscription->user->role_id = $suscription->user->history_role_id;
+                    $suscription->user->syncRoles($role);
+                    $suscription->user->history_role_id = null;
+                    $suscription->user->save();
+                }
             } elseif ($payment->suscription_time <= 0) {
+                /* Si no lo deja en 0 */
                 $suscription->active = 0;
             }
+            /* Multiplico el tiempo de suscripción por los 30 días mensuales y lo guardo en la variable temporal*/
             $temporal = $request->suscription_time * 30;
+            /* La variable temporal llevará el resultado y serán los días a agregar en la fecha */
             $suscription->date_expiration = Carbon::parse($suscription->date_expiration->addDays($temporal)->format('Y-m-d'));
             $suscription->save();
         } catch (\Illuminate\Database\QueryException $e) {

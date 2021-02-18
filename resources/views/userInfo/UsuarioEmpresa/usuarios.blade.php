@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Usuarios Registrados</strong>
+                        <strong class="card-title">Usuarios Registrads</strong>
                     </div>
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
@@ -87,20 +87,20 @@
                                                 @if ($item->suscriptions)
                                                     @if ($item->suscriptions->active == 0)
                                                         <td>
-                                                            <a class="btn btn-sm btn-danger" title="Marcar como pagado"
+                                                            <a class="btn btn-sm btn-danger" title="Suscripción inactiva"
                                                                 data-toggle="modal"
                                                                 data-target="#largeModalUser{{ $item->id }}">
-                                                                <span class="text-light"> <i title="Marcar como pagado"
+                                                                <span class="text-light"> <i title="Suscripción inactiva"
                                                                         class="text-light fas fa-window-close"></i></span>
                                                             </a>
                                                         </td>
                                                     @elseif($item->suscriptions->active == 1)
                                                         <td>
-                                                            <a class="btn btn-sm btn-success" title="Marcar como no pagado"
+                                                            <a class="btn btn-sm btn-success" title="Suscripción activa"
                                                                 data-toggle="modal"
                                                                 data-target="#largeModalUser{{ $item->id }}"
                                                                 {{-- onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();" --}}>
-                                                                <span class="text-light"> <i title="Marcar como no pagado"
+                                                                <span class="text-light"> <i title="Suscripción activa"
                                                                         class="text-light fas fa-check-circle"></i></span>
                                                             </a>
                                                         </td>
@@ -119,7 +119,7 @@
                                                         @if (Auth::user()->id != $item->id)
                                                             <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -157,26 +157,13 @@
                                                                     value="{{ $item->id }}">
 
                                                                 {{-- Suscription_id --}}
-                                                                <div
-                                                                    class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                                <div>
                                                                     <input id="suscription_id" type="hidden"
                                                                         class="text-dark form-control @error('suscription_id') is-invalid @enderror"
                                                                         name="suscription_id"
                                                                         value="{{ $item->suscriptions->id }}"
                                                                         placeholder="Suscripción" required
                                                                         autocomplete="suscription_id" autofocus>
-
-                                                                    @error('suscription_id')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-
-                                                                    @error('suscription_id')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
                                                                 </div>
 
                                                                 {{-- Monto --}}
@@ -189,7 +176,7 @@
                                                                                 class="text-dark fas fa-money-bill-wave-alt"></i>
                                                                         </span>
                                                                     </div>
-                                                                    <input id="amount" placeholder="Mont" type="number"
+                                                                    <input id="amount" placeholder="Monto" type="number"
                                                                         class="text-dark form-control @error('amount') is-invalid @enderror"
                                                                         name="amount" value="{{ old('amount') }}"
                                                                         required autocomplete="amount" autofocus>
@@ -207,27 +194,6 @@
                                                                     @enderror
                                                                 </div>
 
-                                                                {{-- Comentarios --}}
-                                                                <div
-                                                                    class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                                    <textarea class="form-control"
-                                                                        id="exampleFormControlTextarea1" rows="3"
-                                                                        name="comments" id="comments"
-                                                                        placeholder="Comentario"></textarea>
-
-                                                                    @error('lastname')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-
-                                                                    @error('lastname')
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                                                    @enderror
-                                                                </div>
-
                                                                 {{-- Cantidad de meses a pagar --}}
                                                                 <div
                                                                     class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -238,13 +204,24 @@
                                                                                 class="text-dark fas fa-clock"></i>
                                                                         </span>
                                                                     </div>
-                                                                    <input id="suscription_time"
-                                                                        placeholder="Tiempo suscripción mensual"
-                                                                        type="number"
-                                                                        class="text-dark form-control @error('suscription_time') is-invalid @enderror"
-                                                                        name="suscription_time"
-                                                                        value="{{ old('suscription_time') }}" required
-                                                                        autocomplete="suscription_time" autofocus>
+                                                                    <select name="suscription_time" id="suscription_time"
+                                                                        class="form-control @error('suscription_time') is-invalid @enderror"
+                                                                        required>
+                                                                        <option selected disabled>Tiempo de suscripción
+                                                                        </option>
+                                                                        <option value="1">1 mes</option>
+                                                                        <option value="2">2 meses</option>
+                                                                        <option value="3">3 meses</option>
+                                                                        <option value="4">4 meses</option>
+                                                                        <option value="5">5 meses</option>
+                                                                        <option value="6">6 meses</option>
+                                                                        <option value="7">7 meses</option>
+                                                                        <option value="8">8 meses</option>
+                                                                        <option value="9">9 meses</option>
+                                                                        <option value="10">10 meses</option>
+                                                                        <option value="11">11 meses</option>
+                                                                        <option value="12">1 año</option>
+                                                                    </select>
 
                                                                     @error('suscription_time')
                                                                         <span class="invalid-feedback" role="alert">
@@ -253,6 +230,27 @@
                                                                     @enderror
 
                                                                     @error('suscription_time')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+
+                                                                {{-- Comentarios --}}
+                                                                <div
+                                                                    class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                                    <textarea style="width: 100%"
+                                                                        id="exampleFormControlTextarea1" rows="3"
+                                                                        name="comments" id="comments"
+                                                                        placeholder="Escribe tu comentario"></textarea>
+
+                                                                    @error('comments')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                    @enderror
+
+                                                                    @error('comments')
                                                                         <span class="invalid-feedback" role="alert">
                                                                             <strong>{{ $message }}</strong>
                                                                         </span>
@@ -276,13 +274,13 @@
                                                         <div class="modal-footer">
                                                             <button type="button" style="border-radius: 10px"
                                                                 class="btn btn-danger" data-dismiss="modal"><i
-                                                                    class="fas fa-times-circle"></i> Cerrar</button>
+                                                                    class="fas fa-times-circle"></i> Cerrar
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Modal para registrar pagos -->
-
                                         @endforeach
                                     </tbody>
                                 </table>

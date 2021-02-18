@@ -29,8 +29,9 @@ class UsuarioEmpresaController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::with('companies')->with('branch_offices')->with('suscriptions')->get();
-/*         dd($user);
- */        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
+        /*         dd($user);
+ */
+        return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
     }
 
     /**
@@ -132,6 +133,7 @@ class UsuarioEmpresaController extends Controller
             //$days = $suscriptions[$i]->created_at->diff(date('Y-m-d'))->format('%a');
             $suscriptions[$i]->user->history_company_id = $suscriptions[$i]->user->company_id;
             $suscriptions[$i]->user->company_id = null;
+            $suscriptions[$i]->user->history_role_id = $suscriptions[$i]->user->role_id;
             $suscriptions[$i]->user->syncRoles('Vendedor');
             $suscriptions[$i]->user->save();
             $suscriptions[$i]->active = 0;
