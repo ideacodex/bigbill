@@ -52,7 +52,7 @@
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                     @csrf @method('PATCH')
 
-                                    <!--Nombre-->
+                                    {{-- <!--Nombre--> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -70,8 +70,7 @@
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <!-- descripcion -->
+                                    {{-- <!-- descripcion --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -89,8 +88,7 @@
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <!-- precio -->
+                                    {{-- <!-- precio --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -99,62 +97,140 @@
                                         </div>
                                         <input id="price" name="price" type="text"
                                             class="text-dark form-control @error('price') is-invalid @enderror"
-                                            value="{{ $products->price }}"
-                                            placeholder="Precio del Producto: ej. computadora" required autocomplete="price"
-                                            autofocus>
+                                            value="{{ $products->price }}" placeholder="Precio del Producto: ej. Q1.55"
+                                            required autocomplete="price" autofocus>
                                         @error('price')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-
+                                    <!--Precio especial-->
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-star"></i>
+                                            </span>
+                                        </div>
+                                        <input id="special_price" name="special_price" type="number" step="0.01"
+                                            class="text-dark form-control special_price  @error('special_price') is-invalid @enderror"
+                                            value="{{ $products->special_price }}" placeholder="Precio especial" autocomplete="special_price" autofocus>
+                                        @error('special_price')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <!--Precio crédito-->
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-credit-card"></i>
+                                            </span>
+                                        </div>
+                                        <input id="credit_price" name="credit_price" type="number" step="0.01"
+                                            class="text-dark form-control credit_price  @error('credit_price') is-invalid @enderror"
+                                            value="{{ $products->credit_price }}" placeholder="Precio al crédito" autocomplete="credit_price" autofocus>
+                                        @error('credit_price')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                     {{-- Tipo de producto --}}
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-user"></i>
                                             </span>
                                         </div>
-                                        <select name="kind_product" id="kind_product"
-                                            class="form-control @error('kind_product') is-invalid @enderror" required>
-                                            <option selected disabled>Tipo de producto</option>
-                                            <option value="1">Artículo de inventario</option>
-                                            <option value="2">Artículo de venta</option>
-                                            <option value="3">Artículo de compra</option>
+                                        <select name="kind_product" id="kind_product" onchange="mostrarInput();"
+                                            class="form-control @error('kind_product') is-invalid @enderror" required autofocus>
+                                            <option value="{{ $products->kind_product }}" selected>
+                                                @if ($products->kind_product == 1)
+                                                    Artículo de venta
+                                            </option>
+                                            <option value="2">Artículo de compra</option>
+                                            <option value="3">Artículo de compra y venta</option>
+                                        @else
+                                            @if ($products->kind_product == 2)
+                                                Artículo de compra
+                                                </option>
+                                                <option value="1">Artículo de venta</option>
+                                                <option value="3">Artículo de compra y venta</option>
+                                            @else
+                                                @if ($products->kind_product == 3)
+                                                    Artículo de compra y venta
+                                                    </option>
+                                                    <option value="1">Artículo de venta</option>
+                                                    <option value="2">Artículo de compra</option>
+                                                @endif
+                                            @endif
+                                            @endif
                                         </select>
                                         @error('kind_product')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-
-                                        @error('kind_product')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
-
-                                    {{-- Company_id --}}
-                                    <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
-
-                                    <!-- cantidad stock -->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    {{-- <!--costos--> --}}
+                                    <div id="a" @if ($products->kind_product == 2 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                            @else
+                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title=" Stock " class="fas fa-box-open"></i>
+                                            <span class="input-group-text transparent">
+                                                <i class="fas fa-coins"></i>
                                             </span>
                                         </div>
-                                        <input class="form-control" type="number" id="grandTotal"
-                                            value="{{ $products->quantity_values }}" readonly name="quantity_values" />
-                                        @error('quantity_values')
+                                        <input @if ($products->kind_product == 2 || $products->kind_product == 3)
+
+                                                value="{{ $products->cost }}" min="0.01"
+                                        @else
+                                                value="0" @endif id="cost" name="cost"
+                                            type="number" step="0.01" onchange="mostrarInput();"
+                                            class="text-dark form-control @error('cost') is-invalid @enderror"
+                                            placeholder="¿Cuanto te costo?" autocomplete="cost" autofocus >
+                                        @error('cost')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+                                    {{-- <!--Company_id--> --}}
+                                    @if (Auth::user()->role_id == 1)
+                                        {{-- company --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                    <i title="company" class="far fa-building"></i>
+                                                </span>
+                                            </div>
+                                            <select name="company_id" id="company_id"
+                                                class="form-control @error('company_id') is-invalid @enderror">
+                                                @if (auth()->user()->company_id)
+                                                    <option value="{{ auth()->user()->company_id }}" selected>
+                                                        <p>
+                                                            Su companía: {{ auth()->user()->companies->name }}
+                                                        </p>
+                                                    </option>
+                                                @endif
 
+                                                @foreach ($companies as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('company_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                        </div>
+                                    @else
+                                        {{-- Company_id --}}
+                                        <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
+                                    @endif
                                     <!--Nuevos ingresos-->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -162,8 +238,9 @@
                                                 <i title=" Nuevos ingresos" class="fas fa-plus-square"></i>
                                             </span>
                                         </div>
-                                        <input type="number" id="txt_campo_2" name="new_income" class="monto form-control"
-                                            onchange="sumar();" placeholder="Nuevos ingresos" required />
+                                        <input type="number" value="0" id="txt_campo_2" name="new_income"
+                                            class="monto form-control" onchange="sumar();" placeholder="Nuevos ingresos"
+                                            required />
 
                                         @error('quantity_values')
                                             <span class="invalid-feedback" role="alert">
@@ -171,7 +248,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
                                     <!--  cantidad egresos -->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <input id="amount_expenses" name="amount_expenses" type="hidden"
@@ -184,15 +260,12 @@
                                             </span>
                                         @enderror
                                     </div>
-
                                     <!--En este input se va a cargar el total de ingresos del producto-->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                        {{-- <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i title=" Ingresos totales " class="fas fa-shipping-fast"></i>
-                                            </span>
-                                        </div>
-                                        <input class="form-control" type="number" id="total" name="total_revenue" value="0"
+                                            </span> --}}
+                                        <input class="form-control" type="hidden" id="total" name="total_revenue" value="0"
                                             readonly />
                                         @error('quantity_values')
                                             <span class="invalid-feedback" role="alert">
@@ -200,7 +273,21 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <!-- grandTotal -->
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3 hydden">
 
+                                        {{-- <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title=" Stock " class="fas fa-box-open"></i>
+                                        </span> --}}
+
+                                        <input class="form-control" type="hidden" id="grandTotal"
+                                            value="{{ $products->quantity_values }}" readonly name="quantity_values" />
+                                        @error('quantity_values')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                     <!--Button-->
                                     <div class="container mt-4">
                                         <div class="col-12">
@@ -226,7 +313,21 @@
             </div>
         </div>
     </div>
+    <script>
+        //seleccionando elementos
+        function mostrarInput() {
+            var a = document.getElementById('a');
+            var select = document.getElementById('kind_product').value;
+            //console.log("Que viene en select ",select);
+            //console.log("Que viene en a ",a);
+            if (select == '2' || select == '3') {
+                a.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+            } else {
+                a.className = "d-none col-12 col-md-6 input-group input-group-lg mb-3";
+            }
+        }
 
+    </script>
     <script>
         function sumar() {
             const $total = document.getElementById('total');

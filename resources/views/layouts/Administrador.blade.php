@@ -30,7 +30,6 @@
     {{-- selec2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- FONT AWESOME -->
@@ -108,7 +107,7 @@
                     </li>
                     <!-- Clientes -->
                     <li class="menu-item">
-                        <a href="{{ url('clientes?company_id=' . Auth::user()->company_id) }}">
+                        <a href="{{ url('clientes' . Auth::user()->company_id) }}">
                             <i class="menu-icon fa fa-book"></i>Clientes
                         </a>
                     </li>

@@ -114,15 +114,9 @@
                                                 <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
                                             </span>
                                         </div>
-                                        <input id="phone" placeholder="Número de teléfono" type="number"
+                                        <input id="phone"type="text" maxlength="8"  placeholder="Número de teléfono"
                                             class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
-                                            value="{{ old('phone') }}" autocomplete="phone" autofocus>
-
-                                        @error('phone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                            value="{{ old('phone') }}" autocomplete="phone"  autofocus>
 
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">

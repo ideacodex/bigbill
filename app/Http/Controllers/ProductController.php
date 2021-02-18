@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\pricelist;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -29,13 +30,12 @@ class ProductController extends Controller
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
             $product = Product::with('companies')->get();
-            return view("product.index", ['products' => $product]); //generala vista 
+            return view("product.index", ['products' => $product]); //generala vista
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $product = Product::where('company_id', $company)->with('companies')->get(); //Obtener los valores de tu request:
-            return view("product.index", ['products' => $product ]); //generala vista   
+            return view("product.index", ['products' => $product]); //generala vista
         }
-        
     }
     /**
      * Show the form for creating a new resource.
@@ -45,9 +45,16 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
-        $product = Product::all();
-        $companies = Company::all();
-        return view("product.create", ['product' => $product,  'companies' => $companies]);
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $companies = Company::all(); //Selecciona todos los datos de la tabla compañia
+            $pricelist = pricelist::with('companies')->get(); //Selecciona todos los datos de la tabla pricelists + el nombre de sus compañias
+            return view("product.create", ['companies' => $companies, 'pricelist' => $pricelist]); //retorna vista con los datos correspondientes
+        } else {
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $pricelist = pricelist::where('company_id', $company)->with('companies')->get(); //Obtener los valores relacionados a su compañia
+            return view("product.create", ['pricelist' => $pricelist]); //retorna vista con los datos correspondientes
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -57,36 +64,61 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         request()->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
             'kind_product' => 'required',
             'company_id' => 'required',
-            'quantity_values',
-            'income_amount',
-            'amount_expenses',
+            'quantity_values' => 'required',
+            'cost' => 'min:0.05',
         ]);
+
+
         DB::beginTransaction();
         try {
 
             $product = new Product;
             $product->name = $request->name;
             $product->description = $request->description;
-            $product->price = $request->price;
-            $product->kind_product = $request->kind_product;
+            if ($request->price  >=1) {
+                $product->price = $request->price;
+            }else{
+                $product->price = $request->pricenew2;
+            }
+
+            if ($request->special_price  >=1) {
+                $product->special_price = $request->special_price;
+            }else{
+                $product->special_price = $request->especialprice2;
+            }
+            if ($request->credit_price  >=1) {
+                $product->credit_price = $request->credit_price;
+            }else{
+                $product->credit_price = $request->credit_price2;
+            }
+
+
             $product->company_id = $request->company_id;
+            $product->tax = $request->tax;
             $product->quantity_values = $request->quantity_values;
+            $product->kind_product = $request->kind_product;
+            if ($product->kind_product >= 2) {
+                $product->cost = $request->cost;
+            } else {
+                $product->cost = 0;
+            }
             $product->stock = $request->quantity_values;
-            $product->income_amount = $request->income_amount;
-            $product->new_income = 0;
-            $product->total_revenue = $request->income_amount;
-            $product->amount_expenses = $request->amount_expenses;
             if ($product->quantity_values >= 1) {
                 $product->active = 1;
             } else {
                 $product->active = 0;
             }
+            $product->income_amount = $request->quantity_values;
+            $product->new_income = 0;
+            $product->total_revenue = $request->quantity_values;
+            $product->amount_expenses = $request->amount_expenses;
             $product->save();
         } catch (\Illuminate\Database\QueryException $e) {
 
@@ -124,7 +156,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $products = Product::findOrFail($id);
-        return view('product.edit', ['products' => $products]);
+        $companies = Company::all();
+        return view('product.edit', ['companies' => $companies, 'products' => $products]);
     }
     /**
      * Update the specified resource in storage.
@@ -135,16 +168,31 @@ class ProductController extends Controller
      */
     public  function update(Request $request, $id)
     {
-        request()->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'kind_product' => 'required',
-            'company_id' => 'required',
-            'quantity_values',
-            'income_amount',
-            'amount_expenses',
-        ]);
+
+        if ($request->kind_product >= 2) {
+            request()->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'kind_product' => 'required',
+                'company_id' => 'required',
+                'quantity_values' => 'required',
+                'cost' => 'required|min:0.05',
+            ]);
+        } else {
+            request()->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'kind_product' => 'required',
+                'cost' => 'required',
+                'company_id' => 'required',
+                'quantity_values',
+                'income_amount',
+                'amount_expenses',
+
+            ]);
+        }
 
         DB::beginTransaction();
         try {
@@ -153,6 +201,7 @@ class ProductController extends Controller
             $products->description = $request->description;
             $products->price = $request->price;
             $products->kind_product = $request->kind_product;
+            $products->cost = $request->cost;
             $products->company_id = $request->company_id;
             //**Ingresos anteriores */
             $products->income_amount = $request->income_amount;
@@ -208,24 +257,24 @@ class ProductController extends Controller
     }
     public function getProduct($id)
     {
-       /*  $user = auth()->user()->id;
+        /*  $user = auth()->user()->id;
         if (isset($user)) { */
-            $product = Product::find($id);
-            if (!isset($product)) {
-                $data = [
-                    'code' => 404,
-                    'status' => 'error',
-                    'message' => 'Producto inexistente'
-                ];
-            } else {
-                $data = [
-                    'code' => 200,
-                    'status' => 'success',
-                    'stock' => $product->stock,
-                    'price' => $product->price
-                ];
-            }
-       /*  } else {
+        $product = Product::find($id);
+        if (!isset($product)) {
+            $data = [
+                'code' => 404,
+                'status' => 'error',
+                'message' => 'Producto inexistente'
+            ];
+        } else {
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'stock' => $product->stock,
+                'price' => $product->price
+            ];
+        }
+        /*  } else {
             $data = [
                 'code' => 400,
                 'status' => 'error',

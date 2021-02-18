@@ -86,7 +86,8 @@ class PricelistController extends Controller
     public function edit($id)
     {
         $price = pricelist::findOrFail($id);
-        return view('price.edit', ['price' => $price]);
+        $companies =  Company::all();
+        return view('price.edit', ['price' => $price,'companies' => $companies]);
     }
     /**
      * Update the specified resource in storage.
@@ -99,15 +100,18 @@ class PricelistController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'company_id' => 'required'
+
         ]);
 
         DB::beginTransaction();
         try {
-            $price = pricelist::findOrFail($id);
-            $price->name = $request->name;
-            $price->price = $request->price;
-            $price->save();
+            $pricelist = pricelist::findOrFail($id);
+            $pricelist->name = $request->name;
+            $pricelist->price = $request->price;
+            $pricelist->company_id = $request->company_id;
+            $pricelist->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]);

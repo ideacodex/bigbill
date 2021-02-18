@@ -23,11 +23,14 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-    {{-- selec2 --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+       {{-- selec2 --}}
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-    {{-- selec2 --}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+       {{-- selec2 --}}
+       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -208,8 +211,10 @@
                         </a>
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Mi Perfil</a>
-                            <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-user"></i> Usuarios <span class="count">13</span></a>
+                            @if (Auth::user()->company_id)
+                            <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-user"></i> Usuarios </a>
                             <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Settings</a>
+                            @endif
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
                                 {{ __('Logout') }}
