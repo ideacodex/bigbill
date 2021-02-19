@@ -85,14 +85,7 @@
                                 <p class="mb-0">Seleciona una opcion para trabajar</p>
                             </div>
                             <div id="contenedor">
-                                <!-- 
-                                    <a class="nav-link" href="{{ route('lista.create') }}">
-                                    <button class="button1"><i class="fas fa-plus-circle"></i> Agregar Precio</button>
-                                </a>
-                                 -->
-                                <a class="nav-link" href="{{ route('lista.index') }}">
-                                    <button class="button2"><i class="far fa-eye"></i> Ver precios</button>
-                                </a>
+
                                 <br>
                             </div>
                             <br>

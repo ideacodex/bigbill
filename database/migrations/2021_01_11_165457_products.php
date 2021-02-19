@@ -13,10 +13,10 @@ class Products extends Migration
      */
     public function up()
     {
-        Schema::create('pricelists', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->float('price');
+            $table->float('tax');
+            $table->float('exchange_rate');//tasa de cambio del dolar
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies');
@@ -58,7 +58,7 @@ class Products extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pricelists');
+        Schema::dropIfExists('settings');
         Schema::dropIfExists('products');
     }
 }

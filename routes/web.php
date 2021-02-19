@@ -94,4 +94,3 @@ Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 /**Pago de suscripción */
 
 
-    
