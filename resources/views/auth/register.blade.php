@@ -57,7 +57,6 @@
                                 </span>
                             @enderror
                         </div>
-
                         <!--Phone -->
                         <div class="form-group">
                             <label>No. Celular</label>
@@ -73,7 +72,7 @@
                         <div class="form-group">
                             <label>Nit</label>
                             <input id="nit" type="text" class="form-control @error('nit') is-invalid @enderror" name="nit"
-                                minlength="5" value="{{ old('nit') }}"   minlength="8" pattern="[0-9]{7,15}" required autocomplete="nit">
+                                minlength="5" value="{{ old('nit') }}"   minlength="8" pattern="[0-9]{6,15}" required autocomplete="nit">
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -128,8 +127,6 @@
                                 <input type="checkbox" required> Acepto los terminos y politicas de uso
                             </label>
                         </div>
-
-
                         <!--boton de registrar -->
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"> <i class="fas fa-save"></i>
                             {{ __('Guardar') }}</button>

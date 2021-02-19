@@ -21,9 +21,8 @@ class AccountTypesController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $account_types = AccountType::get(); //Obtener los valores 
-        return view("account_types.index", ['account_types' => $account_types]); //generala vista   
+        $account_types = AccountType::get(); //Obtener los valores
+        return view("account_types.index", ['account_types' => $account_types]); //generala vista
 
     }
     /**
@@ -36,13 +35,11 @@ class AccountTypesController extends Controller
     {
         request()->validate([
             'status' => 'required',
-            'company_id' => 'required'
         ]);
         DB::beginTransaction();
         try {
             $account_types = new AccountType();
             $account_types->status = $request->status;
-
             $account_types->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
