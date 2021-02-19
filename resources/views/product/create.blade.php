@@ -400,25 +400,24 @@
 
     </script>
 {{-- Script despliega informacion para precios al creditos o uno nuevo credito --}}
+    <script>
+        //seleccionando elementos
+        var inputNumero2 = document.getElementById('credit_price2');
+        var select2 = document.getElementById('cifrado3');
+        //ocultar input fecha y especialprice2
+        inputNumero2.style.display = "none";
 
-<script>
-    //seleccionando elementos
-    var inputNumero2 = document.getElementById('credit_price2');
-    var select2 = document.getElementById('cifrado3');
-    //ocultar input fecha y especialprice2
-    inputNumero2.style.display = "none";
-
-    function mostrarInput4() {
-        var valorSeleccionado = select2.value;
-        if (valorSeleccionado == '0') {
-            //Muestra el input date
-            inputNumero2.style.display = "block";
-        } else {
-            //ocultar input fecha en caso de estar mostrandolo
-            inputNumero2.style.display = "none";
+        function mostrarInput4() {
+            var valorSeleccionado = select2.value;
+            if (valorSeleccionado == '0') {
+                //Muestra el input date
+                inputNumero2.style.display = "block";
+            } else {
+                //ocultar input fecha en caso de estar mostrandolo
+                inputNumero2.style.display = "none";
+            }
         }
-    }
 
-</script>
+    </script>
 
 @endsection

@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Usuarios Registrads</strong>
+                        <strong class="card-title">Usuarios Registrados</strong>
                     </div>
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"

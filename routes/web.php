@@ -94,4 +94,8 @@ Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 /**Pago de suscripción */
 
 
-    
+/**Lista de precios Route */
+Route::resource('Ajuste-iva', 'TaxController')->middleware('auth');
+/**Lista de precios Route */
+
+

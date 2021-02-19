@@ -62,8 +62,8 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('perfil')}}"><img src="images/" alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil')}}"><img src="images/" alt="Facturador"></a>
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/" alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -71,7 +71,8 @@
                     <li class="active">
                         <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>
                             <h6>Administrador:</h6>
-                            <p class="ml-5 text-secondary">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</p>
+                            <p class="ml-5 text-secondary">{{ Auth::user()->name }} {{ Auth::user()->lastname }}
+                            </p>
                         </a>
                     </li>
 
@@ -79,6 +80,9 @@
                     <li class="menu-item">
                         <a href="{{ route('UsuariosEmpresa.index') }}">
                             <i class="menu-icon fa fa-book"></i>Usuarios
+                        </a>
+                        <a href="{{ url('suscripcion') }}">
+                            <i class="menu-icon fas fa-tasks"></i>Gestión de suscripción
                         </a>
                     </li>
 
@@ -177,7 +181,7 @@
 
             <div class="header-menu">
 
-            <div class="col-sm-7">
+                <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
 
@@ -187,7 +191,7 @@
                                 <i class="fa fa-bell"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                            <p class="red">Informacion</p>
+                                <p class="red">Informacion</p>
                                 <a class="dropdown-item media bg-flat-color-3" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)

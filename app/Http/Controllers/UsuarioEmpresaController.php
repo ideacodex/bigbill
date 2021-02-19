@@ -139,6 +139,6 @@ class UsuarioEmpresaController extends Controller
             $suscriptions[$i]->active = 0;
             $suscriptions[$i]->save();
         }
-        dd('Sale del ciclo');
+        return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Gestión actualizada');
     }
 }
