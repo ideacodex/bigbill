@@ -32,7 +32,7 @@
                                     aria-describedby="bootstrap-data-table_info">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th>No</th>
                                             <th>Cargo</th>
                                             <th>Nombre</th>
                                             <th>Teléfono</th>

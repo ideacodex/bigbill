@@ -30,7 +30,6 @@
                     <div class="card-header user-header alt bg-dark">
                         <div class="media">
 
-                            <img class="align-self-center rounded-circle ml-" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
 
                             <div class="media-body">
                                 <h2 class="text-light display-6"> {{ Auth::user()->name }}
