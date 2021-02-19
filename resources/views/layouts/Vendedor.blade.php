@@ -67,14 +67,14 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src="images/" alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="./"><img src="images/" alt="Facturador"></a>
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/perfil"> <i class="menu-icon fas fa-user-friends"></i>Vendedor:
+                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Vendedor:
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->

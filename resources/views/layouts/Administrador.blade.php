@@ -62,18 +62,15 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/" alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/" alt="Facturador"></a>
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>
-                            <h6>Administrador:</h6>
-                            <p class="ml-5 text-secondary">{{ Auth::user()->name }} {{ Auth::user()->lastname }}
-                            </p>
-                        </a>
+                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Administrador:
+                            {{ Auth::user()->name }}</a>
                     </li>
 
                     <h3 class="menu-title">Gestiones</h3>{{-- <!-- /.menu-title --> --}}
@@ -82,7 +79,7 @@
                             <i class="menu-icon fas fa-users"></i>Usuarios
                         </a>
                         <a href="{{ url('suscripcion') }}">
-                            <i class="menu-icon fas fa-tasks"></i>Gestión de suscripción
+                            <i class="menu-icon fas fa-tasks"></i>Gestionar suscripciones
                         </a>
                     </li>
 
@@ -186,7 +183,7 @@
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
+                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="Información">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">Información</p>
@@ -229,7 +226,7 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
                         </a>
 
                         <div class="user-menu dropdown-menu">

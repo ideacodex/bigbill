@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceBillsController extends Controller
 {
@@ -26,7 +27,7 @@ class InvoiceBillsController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
-            $records = InvoiceBill::with('user')->with('company')->with('customer')->get();//busca todas las facturas
+            $records = InvoiceBill::with('user')->with('company')->with('customer')->get(); //busca todas las facturas
             return view("invoice_bill.index", ["records" => $records]); //generala vista
         } else {
 
@@ -159,7 +160,7 @@ class InvoiceBillsController extends Controller
             /**Envía el correo a los clientes registrados si no está registrado se va al else */
             if ($records->customer_id) {
                 Mail::to([$records->customer->email])->send(new ComprobanteMailable($data));
-            }else {
+            } else {
                 Mail::to([$records->customer_email])->send(new ComprobanteMailable($data));
             }
         }
@@ -216,4 +217,16 @@ class InvoiceBillsController extends Controller
             return "No se enceontraron resultados";
         }
     } */
+    public function exportBill()
+    {
+        Excel::create('InvoiceBill', function ($excel) {
+
+            $invoice_bill = InvoiceBill::all();
+
+            $excel->sheet('InvoiceBill', function ($sheet) use ($invoice_bill) {
+
+                $sheet->fromArray($invoice_bill);
+            });
+        })->export('xlsx');
+    }
 }
