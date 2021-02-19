@@ -217,16 +217,4 @@ class InvoiceBillsController extends Controller
             return "No se enceontraron resultados";
         }
     } */
-    public function exportBill()
-    {
-        Excel::create('InvoiceBill', function ($excel) {
-
-            $invoice_bill = InvoiceBill::all();
-
-            $excel->sheet('InvoiceBill', function ($sheet) use ($invoice_bill) {
-
-                $sheet->fromArray($invoice_bill);
-            });
-        })->export('xlsx');
-    }
 }

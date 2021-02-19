@@ -25,7 +25,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <strong class="card-title">Facturas registradas</strong>
+                    <strong class="card-title">Factura registradas</strong>
                 </div>
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <a href="{{ route('facturas.create') }}" style="border-radius: 95px;"
@@ -208,6 +208,19 @@
         gtag('config', 'UA-23581568-13');
 
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"
+        integrity="sha512-UNbeFrHORGTzMn3HTt00fvdojBYHLPxJbLChmtoyDwB6P9hX5mah3kMKm0HHNx/EvSPJt14b+SlD8xhuZ4w9Lg=="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        new TableExport(document.getElementsByTagName("table"));
+        // OR simply
+        /* TableExport(document.getElementsByTagName("table")); */
+        // OR using jQuery
+
+    </script>
+
 @endsection
 @section('js')
     <!-- Menu Toggle Script -->
