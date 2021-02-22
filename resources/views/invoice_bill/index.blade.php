@@ -25,7 +25,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <strong class="card-title">Factura registradas</strong>
+                    <strong class="card-title">Facturas registradas</strong>
                 </div>
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <a href="{{ route('facturas.create') }}" style="border-radius: 95px;"

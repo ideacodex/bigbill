@@ -110,9 +110,9 @@
                                                     <i class="fas fa-coins"></i>
                                                 </span>
                                             </div>
-                                            <input id="cost" name="cost" type="number" step="0.01" value="0.01" min="0.01"
+                                            <input id="cost" name="cost" type="number" step="0.01" value="" min="0.01"
                                                 class="text-dark form-control @error('cost') is-invalid @enderror"
-                                                placeholder="¿Cuanto te costo?" autocomplete="cost" autofocus>
+                                                placeholder="Precio de compra" autocomplete="cost" autofocus>
                                             @error('cost')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -126,9 +126,9 @@
                                                     <i title="Precio" class="fas fa-hand-holding-usd"></i>
                                                 </span>
                                             </div>
-                                            <input id="price" name="price" type="number" step="0.01" value="0.01" min="0.01"
+                                            <input id="price" name="price" type="number" step="0.01" value="" min="0.01"
                                                 class="text-dark form-control @error('price') is-invalid @enderror"
-                                                placeholder="¿A cuanto lo venderas?" autocomplete="price" autofocus>
+                                                placeholder="Precio de venta" autocomplete="price" autofocus>
                                             @error('price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -145,7 +145,7 @@
                                                 </span>
                                             </div>
                                             <input id="special_price" name="special_price" type="number" step="0.01"
-                                                value="0.01" min="0.01"
+                                                value="" min="0.01"
                                                 class="text-dark form-control @error('special_price') is-invalid @enderror"
                                                 placeholder="Precio Especial" autocomplete="special_price" autofocus>
                                             @error('special_price')
@@ -162,7 +162,7 @@
                                                 </span>
                                             </div>
                                             <input id="credit_price" name="credit_price" type="number" step="0.01"
-                                                value="0.01" min="0.01"
+                                                value="" min="0.01"
                                                 class="text-dark form-control @error('credit_price') is-invalid @enderror"
                                                 placeholder="Precio Credito" autocomplete="credit_price" autofocus>
                                             @error('credit_price')
