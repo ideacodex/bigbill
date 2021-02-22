@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -59,13 +60,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         request()->validate([
             'name' => 'required',
             'description' => 'required',
             'kind_product' => 'required',
             'company_id' => 'required',
             'quantity_values' => 'required',
+            'file' => 'image',
         ]);
 
 
@@ -97,7 +98,30 @@ class ProductController extends Controller
             $product->new_income = 0;
             $product->total_revenue = $request->quantity_values;
             $product->amount_expenses = $request->amount_expenses;
+
+
+
             $product->save();
+
+
+            //***carga de imagen***//
+            if ($request->hasFile('file')) {
+                $extension = $request->file('file')->getClientOriginalExtension();
+                $imageNameToStore = $product->id . '.' . $extension;
+                // Upload file //***nombre de carpeta para almacenar**
+                $path = $request->file('file')->storeAs('public/product', $imageNameToStore);
+                //dd($path);
+
+                $product->file = $imageNameToStore;
+                $product->save();
+            } else {
+                $imageNameToStore = 'no_image.jpg';
+            }
+            //***carga de imagen***//
+
+
+
+
         } catch (\Illuminate\Database\QueryException $e) {
 
             DB::rollback();
@@ -107,6 +131,9 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
+
+
+
         return redirect()->action('ProductController@index')
             ->with('datosEliminados', 'Registro exitoso');
     }

@@ -45,8 +45,10 @@
                                             });
                                             $total.value = subtotal;
                                         }
+
                                     </script>
-                                    <form action="{{ url('productos') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ url('productos') }}" method="POST" enctype="multipart/form-data"
+                                        file="true">
                                         @csrf
                                         {{-- Nombre --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -160,8 +162,8 @@
                                                     <i class="fas fa-credit-card"></i>
                                                 </span>
                                             </div>
-                                            <input id="credit_price" name="credit_price" type="number" step="0.01"
-                                                value="" min="0.01"
+                                            <input id="credit_price" name="credit_price" type="number" step="0.01" value=""
+                                                min="0.01"
                                                 class="text-dark form-control @error('credit_price') is-invalid @enderror"
                                                 placeholder="Precio Credito" autocomplete="credit_price" autofocus>
                                             @error('credit_price')
@@ -254,6 +256,15 @@
                                                 value="0" placeholder="000" required autocomplete="amount_expenses"
                                                 autofocus readonly="readonly">
                                             @error('amount_expenses')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        {{-- imagen --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <input type="file" id="file" name="file" accept="image/*"  class="text-dark form-control @error('amount_expenses') is-invalid @enderror">
+                                            @error('file')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

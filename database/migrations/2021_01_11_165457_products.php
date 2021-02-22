@@ -20,7 +20,7 @@ class Products extends Migration
             //descripcion
             $table->string('description');
             //precio
-            $table->float('price');
+            $table->float('price')->nullable();
             //costo
             $table->float('cost')->nullable();
             //precio especial
@@ -52,7 +52,7 @@ class Products extends Migration
             //familia
             $table->string('product_dimensions')->nullable();
             //Imagen del producto
-            $table->string('product_img')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
