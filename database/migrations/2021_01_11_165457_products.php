@@ -19,7 +19,7 @@ class Products extends Migration
             $table->string('name');
             $table->string('description');
             $table->float('price');
-            $table->float('iva_price');
+            $table->float('iva_price')->nullable();
             $table->float('cost')->nullable();
             $table->float('special_price')->nullable();
             $table->float('iva_special')->nullable();
