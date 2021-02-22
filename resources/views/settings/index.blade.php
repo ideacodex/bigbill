@@ -114,7 +114,7 @@
                                                                     </a>
                                                                     <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                         <span class="text-light"><i
                                                                                 class="fas fa-trash-alt"></i></span>
                                                                     </a>
@@ -145,7 +145,7 @@
                                                                         </a>
                                                                         <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                             <span class="text-light"><i
                                                                                     class="fas fa-trash-alt"></i></span>
                                                                         </a>
@@ -205,8 +205,6 @@
 
                                 <form action="{{ url('Ajustes') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-
-
                                     @if (Auth::user()->role_id == 1)
                                         {{-- tax --}}
                                         <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
@@ -335,103 +333,112 @@
                                             </div>
                                         </div>
                                     @else
-                                        {{-- tax --}}
-                                        <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
 
-                                            <div class="row">
-                                                <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
-                                                    <strong>Monto de Iva</strong>
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <div class="col-ml-1 col-md-1 col-ms-1 col-xs-1  ">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text transparent"
-                                                            id="inputGroup-sizing-sm">
-                                                            <i class="fas fa-coins"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-ml-8 col-md-8 col-ms-8 col-xs-8 ">
-                                                    <input id="tax" name="tax" type="text"
-                                                        class="text-dark form-control @error('tax') is-invalid @enderror"
-                                                        value="{{ old('tax') }}"
-                                                        style="text-align: right; text-shadow: 5px 5px 5px #FF0000;"
-                                                        placeholder="Monto de Iva %" required autocomplete="tax" autofocus>
-                                                    @error('tax')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
+                                        @foreach ($settings as $item)
 
-                                                <div class="col-ml-2 col-md-2 col-ms-2 col-xs-2 ">
-                                                    <strong class="input-group-text "> <b> %</b> </strong>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        {{-- <!--Tada de cambio--> --}}
-                                        <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
+                                                @if ($loop->index + 1 == 1)
+                                                    {{-- tax --}}
+                                                    <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
 
-                                            <div class="row">
-                                                <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
-                                                    <strong>Tasa de Cambio</strong>
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <div class="col-ml-4 col-md-4 col-ms-4 col-xs-4  ">
-                                                    <div class="row">
-                                                        <div class="col-ml-5 col-md-5 col-ms-5 col-xs-5  ">
-                                                            <span class="input-group-text transparent"
-                                                                id="inputGroup-sizing-sm">
-                                                                <i class="fas fa-piggy-bank"></i>
-                                                            </span>
+                                                        <div class="row">
+                                                            <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
+                                                                <strong>Monto de Iva</strong>
+                                                                <br>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-ml-1 col-md-1 col-ms-1 col-xs-1  ">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text transparent"
+                                                                        id="inputGroup-sizing-sm">
+                                                                        <i class="fas fa-coins"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-ml-8 col-md-8 col-ms-8 col-xs-8 ">
+                                                                <input id="tax" name="tax" type="text"
+                                                                    class="text-dark form-control @error('tax') is-invalid @enderror"
+                                                                    value="{{ old('tax') }}"
+                                                                    style="text-align: right; text-shadow: 5px 5px 5px #FF0000;"
+                                                                    placeholder="Monto de Iva %" required autocomplete="tax"
+                                                                    autofocus>
+                                                                @error('tax')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-ml-2 col-md-2 col-ms-2 col-xs-2 ">
+                                                                <strong class="input-group-text "> <b> %</b> </strong>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-ml-7 col-md-7 col-ms-7 col-xs-7  ">
-                                                            <input type="text" class="text-dark form-control"
-                                                                placeholder="$1 Dollar" readonly>
+                                                        <br>
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    {{-- <!--Tada de cambio--> --}}
+                                                    <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
+
+                                                        <div class="row">
+                                                            <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
+                                                                <strong>Tasa de Cambio</strong>
+                                                                <br>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-ml-4 col-md-4 col-ms-4 col-xs-4  ">
+                                                                <div class="row">
+                                                                    <div class="col-ml-5 col-md-5 col-ms-5 col-xs-5  ">
+                                                                        <span class="input-group-text transparent"
+                                                                            id="inputGroup-sizing-sm">
+                                                                            <i class="fas fa-piggy-bank"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-ml-7 col-md-7 col-ms-7 col-xs-7  ">
+                                                                        <input type="text" class="text-dark form-control"
+                                                                            placeholder="$1 Dollar" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-ml-2 col-md-2 col-ms-2 col-xs-2 ">
+                                                                <span class="input-group-text transparent">
+                                                                    <i class="fas fa-exchange-alt"></i>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-ml-6 col-md-6 col-ms-6 col-xs-6 ">
+                                                                <input id="exchange_rate" name="exchange_rate" type="text"
+                                                                    class="text-dark form-control @error('name') is-invalid @enderror"
+                                                                    value="{{ old('exchange_rate') }}"
+                                                                    placeholder="Q. valor" required
+                                                                    autocomplete="exchange_rate" autofocus>
+                                                                @error('exchange_rate')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                    </div>
+                                                    {{-- <!--Company_id--> --}}
+                                                    <input type="hidden" value="{{ Auth::user()->company_id }}"
+                                                        name="company_id">
+                                                    {{-- <!--Button--> --}}
+                                                    <div class="container mt-4">
+                                                        <div class="col-12">
+                                                            <div class="col text-center">
+                                                                <button type="submit" style="border-radius: 10px"
+                                                                    class="btn btn-lg btn-primary mt-3" name="enviar">
+                                                                    <i class="fas fa-cogs"></i>
+                                                                    {{ __('Guardar') }}
+                                                                </button>
+                                                            </div>
+                                                            <br>
+                                                            <br>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-ml-2 col-md-2 col-ms-2 col-xs-2 ">
-                                                    <span class="input-group-text transparent">
-                                                        <i class="fas fa-exchange-alt"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="col-ml-6 col-md-6 col-ms-6 col-xs-6 ">
-                                                    <input id="exchange_rate" name="exchange_rate" type="text"
-                                                        class="text-dark form-control @error('name') is-invalid @enderror"
-                                                        value="{{ old('exchange_rate') }}" placeholder="Q. valor"
-                                                        required autocomplete="exchange_rate" autofocus>
-                                                    @error('exchange_rate')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </div>
-                                        {{-- <!--Company_id--> --}}
-                                        {{-- Company_id --}}
-                                        <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
-                                        {{-- <!--Button--> --}}
-                                        <div class="container mt-4">
-                                            <div class="col-12">
-                                                <div class="col text-center">
-                                                    <button type="submit" style="border-radius: 10px"
-                                                        class="btn btn-lg btn-primary mt-3" name="enviar">
-                                                        <i class="fas fa-cogs"></i>
-                                                        {{ __('Guardar') }}
-                                                    </button>
-                                                </div>
-                                                <br>
-                                                <br>
-                                            </div>
-                                        </div>
+                                                @endif
+                                        @endforeach
+
                                     @endif
 
                                 </form>
