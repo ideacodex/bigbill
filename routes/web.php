@@ -77,10 +77,6 @@ Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
 Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
 /** Usuarios de las empresas*/
 
-/**Ajustes */
-Route::get('Ajustes', 'ArchivosController@settings')->middleware('auth');
-/**Ajustes */
-
 /**Lista de precios Route */
 Route::resource('lista', 'PricelistController')->middleware('auth');
 /**Lista de precios Route */
@@ -92,5 +88,10 @@ Route::get('suscripcion', 'UsuarioEmpresaController@suscription_user');
 /**Pago de suscripción */
 Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 /**Pago de suscripción */
+
+
+/**Lista de precios Route */
+Route::resource('Ajustes', 'SettingController')->middleware('auth');
+/**Lista de precios Route */
 
 

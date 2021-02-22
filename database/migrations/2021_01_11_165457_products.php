@@ -13,15 +13,7 @@ class Products extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->float('tax');
-            $table->float('exchange_rate');//tasa de cambio del dolar
-            $table->unsignedBigInteger('company_id')->nullable();
-            $table->foreign('company_id')
-                ->references('id')->on('companies');
-            $table->timestamps();
-        });
+
 
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
