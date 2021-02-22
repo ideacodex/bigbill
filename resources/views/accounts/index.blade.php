@@ -145,24 +145,14 @@
                             <select name="status_id" id="status_id"
                                 class="form-control @error('status_id') is-invalid @enderror" required>
 
-                                @foreach ($account_type as $item)
-                                    <option value="{{ $item->id }}">{{ $item->status }}</option>
-                                @endforeach
-                            </select>
-                            @error('status_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="container mt-4">
-                            <div class="col-12">
-                                <div class="col text-center">
-                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                        <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
-                                    </button>
-                                </div>
+
+                    <div class="container mt-4">
+                        <div class="col-12">
+                            <div class="col text-center">
+                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                    <i class="far fa-save"></i>
+                                    {{ __('Guardar') }}
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -175,4 +165,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

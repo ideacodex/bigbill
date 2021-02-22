@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\BranchOffice;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
@@ -89,7 +88,7 @@ class UsuarioEmpresaController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
+        return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
     }
 
     /**

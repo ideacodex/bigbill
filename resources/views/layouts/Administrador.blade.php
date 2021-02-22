@@ -79,7 +79,7 @@
                     <h3 class="menu-title">Gestiones</h3>{{-- <!-- /.menu-title --> --}}
                     <li class="menu-item">
                         <a href="{{ route('UsuariosEmpresa.index') }}">
-                            <i class="menu-icon fa fa-book"></i>Usuarios
+                            <i class="menu-icon fas fa-users"></i>Usuarios
                         </a>
                         <a href="{{ url('suscripcion') }}">
                             <i class="menu-icon fas fa-tasks"></i>Gestión de suscripción
@@ -111,24 +111,22 @@
                     </li>
                     <!-- Clientes -->
                     <li class="menu-item">
-                        <a href="{{ url('clientes' . Auth::user()->company_id) }}">
-                            <i class="menu-icon fa fa-book"></i>Clientes
+                        <a href="{{ url('clientes') }}">
+                            <i class="menu-icon fas fa-user-friends"></i>Clientes
                         </a>
                     </li>
                     <!--Productos -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a>
-                            </li>
-                        </ul>
+                    <li class="menu-item">
+                        <a href="{{ route('productos.index') }}">
+                            <i class="menu-icon fas fa-cubes"></i>Productos
+                        </a>
                     </li>
+
                     <!--Facturar -->
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
                                     Facturas</a></li>
@@ -188,10 +186,10 @@
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
+                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Informacion</p>
+                                <p class="red">Información</p>
                                 <a class="dropdown-item media bg-flat-color-3" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)
@@ -231,16 +229,16 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
 
                             <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
-                                    class="fa fa-user"></i> Usuarios </a>
+                                    class="fa fa-users"></i> Usuarios </a>
 
-                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Settings</a>
+                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Ajustes</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
                                 {{ __('salir') }}

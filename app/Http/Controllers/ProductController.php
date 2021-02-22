@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Company;
-use App\pricelist;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -11,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
-use GuzzleHttp\Psr7\Message;
 
 class ProductController extends Controller
 {
@@ -48,12 +46,9 @@ class ProductController extends Controller
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
             $companies = Company::all(); //Selecciona todos los datos de la tabla compañia
-            $pricelist = pricelist::with('companies')->get(); //Selecciona todos los datos de la tabla pricelists + el nombre de sus compañias
-            return view("product.create", ['companies' => $companies, 'pricelist' => $pricelist]); //retorna vista con los datos correspondientes
+            return view("product.create", ['companies' => $companies]); //retorna vista con los datos correspondientes
         } else {
-            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-            $pricelist = pricelist::where('company_id', $company)->with('companies')->get(); //Obtener los valores relacionados a su compañia
-            return view("product.create", ['pricelist' => $pricelist]); //retorna vista con los datos correspondientes
+            return view("product.create",); //retorna vista con los datos correspondientes
         }
     }
     /**
@@ -68,11 +63,9 @@ class ProductController extends Controller
         request()->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required',
             'kind_product' => 'required',
             'company_id' => 'required',
             'quantity_values' => 'required',
-            'cost' => 'min:0.05',
         ]);
 
 
@@ -82,24 +75,9 @@ class ProductController extends Controller
             $product = new Product;
             $product->name = $request->name;
             $product->description = $request->description;
-            if ($request->price  >=1) {
-                $product->price = $request->price;
-            }else{
-                $product->price = $request->pricenew2;
-            }
-
-            if ($request->special_price  >=1) {
-                $product->special_price = $request->special_price;
-            }else{
-                $product->special_price = $request->especialprice2;
-            }
-            if ($request->credit_price  >=1) {
-                $product->credit_price = $request->credit_price;
-            }else{
-                $product->credit_price = $request->credit_price2;
-            }
-
-
+            $product->price = $request->price;
+            $product->special_price = $request->special_price;
+            $product->credit_price = $request->credit_price;
             $product->company_id = $request->company_id;
             $product->tax = $request->tax;
             $product->quantity_values = $request->quantity_values;
@@ -123,6 +101,7 @@ class ProductController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
 
             DB::rollback();
+            dd($e);
             // dd($e);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);

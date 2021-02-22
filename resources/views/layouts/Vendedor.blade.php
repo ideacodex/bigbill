@@ -29,17 +29,18 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-       {{-- selec2 --}}
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    {{-- selec2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-       {{-- selec2 --}}
-       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    {{-- selec2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 
 <style>
@@ -62,67 +63,67 @@
         <nav class="navbar navbar-expand-sm navbar-default">
 
             <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand" href="./"><img src="images/" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/" alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Vendedor:
+                        <a href="/perfil"> <i class="menu-icon fas fa-user-friends"></i>Vendedor:
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
-                    <li class="menu-item-has-children dropdown">
-                        < <!-- Clientes -->
-                    <li class="menu-item">
-                        <a href="{{ url('clientes?company_id=' . Auth::user()->company_id) }}">
-                            <i class="menu-icon fa fa-book"></i>Clientes
-                        </a>
-                    </li>
-                    <ul class="sub-menu children dropdown-menu">
+                        <li class="menu-item-has-children dropdown">
+                            < <!-- Clientes -->
+                        <li class="menu-item">
+                            <a href="{{ url('clientes?company_id=' . Auth::user()->company_id) }}">
+                                <i class="menu-icon fas fa-user-friends"></i>Clientes
+                            </a>
                         </li>
-                    </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-book"></i> <a href="{{ route('productos.index') }}"> Listado</a>
-                            </li>
-                    </li>
-                </ul>
-                </li>
+                        <!--Productos -->
+                        <li class="menu-item">
+                            <a href="{{ route('productos.index') }}">
+                                <i class="menu-icon fas fa-cubes"></i>Productos
+                            </a>
+                        </li>
+                        </li>
 
-                <!--Facturar -->
-                <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
-                                Facturas</a></li>
-                        <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
-                            </a></li>
-                    </ul>
-                </li>
+                        <!--Facturar -->
+                        <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                            <ul class="sub-menu children dropdown-menu">
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                        href="{{ route('facturas.index') }}">Ver
+                                        Facturas</a></li>
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
+                                    </a></li>
+                            </ul>
+                        </li>
 
-                <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-                @else
-                <script>
-                    alert("cargando informacion... \n No tiene compañia");
-                </script>
-                @endif
-                <li class="menu-item">
-                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"><i class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
-                </li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-                </li>
+                        <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                    @else
+                        <script>
+                            alert("cargando informacion... \n No tiene compañia");
+
+                        </script>
+                    @endif
+                    <li class="menu-item">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"><i
+                                class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -139,38 +140,39 @@
                     <div class="header-left">
 
                         <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Informacion</p>
+                                <p class="red">Información</p>
                                 <a class="dropdown-item media bg-flat-color-3" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)
-                                    <strong>Cargo: Administrador.</strong>
+                                        <strong>Cargo: Administrador.</strong>
                                     @else
-                                    @if (Auth::user()->role_id == 2)
-                                    <strong>Cargo: Gerente.</strong>
-                                    @else
-                                    @if (Auth::user()->role_id == 3)
-                                    <strong>Cargo: Contador.</strong>
-                                    @else
-                                    @if (Auth::user()->role_id == 4)
-                                    <strong>Cargo: Ventas.</strong>
-                                    @else
-                                    <strong>Cargo: No tiene</strong>
-                                    @endif
-                                    @endif
-                                    @endif
+                                        @if (Auth::user()->role_id == 2)
+                                            <strong>Cargo: Gerente.</strong>
+                                        @else
+                                            @if (Auth::user()->role_id == 3)
+                                                <strong>Cargo: Contador.</strong>
+                                            @else
+                                                @if (Auth::user()->role_id == 4)
+                                                    <strong>Cargo: Ventas.</strong>
+                                                @else
+                                                    <strong>Cargo: No tiene</strong>
+                                                @endif
+                                            @endif
+                                        @endif
                                     @endif
                                 </a>
                                 <a class="dropdown-item media bg-flat-color-5" href="#">
                                     <i class="fa fa-info"></i>
                                     <strong>Empresa:
                                         @if (Auth::user()->company_id)
-                                        {{ Auth::user()->companies->name }}
+                                            {{ Auth::user()->companies->name }}
                                         @else
-                                        Sin Compañia
+                                            Sin Compañia
                                         @endif
 
                                     </strong>
@@ -182,15 +184,16 @@
 
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                        <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
+                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
-                                {{ __('Logout') }}
+                                {{ __('Salir') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -199,7 +202,8 @@
                     </div>
 
                     <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
+                            aria-expanded="true">
                             <i class="flag-icon flag-icon-gt"></i>
                         </a>
 

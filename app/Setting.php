@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class pricelist extends Model
+class Setting extends Model
 {
-    public $timestamps = false;
-
-    public function companies()
+    public function company()
     {
         return $this->hasOne("App\Company", 'id', 'company_id');
     }

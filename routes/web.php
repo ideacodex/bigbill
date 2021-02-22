@@ -77,10 +77,6 @@ Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
 Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
 /** Usuarios de las empresas*/
 
-/**Ajustes */
-Route::get('Ajustes', 'ArchivosController@settings')->middleware('auth');
-/**Ajustes */
-
 /**Lista de precios Route */
 Route::resource('lista', 'PricelistController')->middleware('auth');
 /**Lista de precios Route */
@@ -95,7 +91,7 @@ Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 
 
 /**Lista de precios Route */
-Route::resource('Ajuste-iva', 'TaxController')->middleware('auth');
+Route::resource('Ajustes', 'SettingController')->middleware('auth');
 /**Lista de precios Route */
 
 

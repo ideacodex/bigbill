@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-       {{-- selec2 --}}
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    {{-- selec2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-       {{-- selec2 --}}
-       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    {{-- selec2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
 
 
@@ -56,8 +56,8 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand" href="./"><img src="images/" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/" alt="Facturador"></a>
             </div>
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -78,24 +78,18 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fas fa-box-open"></i>Productos</a>
-                            <ul class="sub-menu children dropdown-menu">
-                                <li>
-                                    <i class="menu-icon fas fa-file-alt"></i>
-                                    <a href="{{ route('productos.index') }}">
-                                        Listado
-                                    </a>
-                                </li>
-                            </ul>
+                        <!--Productos -->
+                        <li class="menu-item">
+                            <a href="{{ route('productos.index') }}">
+                                <i class="menu-icon fas fa-cubes"></i>Productos
+                            </a>
                         </li>
 
 
                         <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Facturar</a>
+                                aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li>
                                     <i class="menu-icon fas fa-file-alt"></i>
@@ -162,11 +156,10 @@
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-
+                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Informacion</p>
+                                <p class="red">Información</p>
                                 <a class="dropdown-item media bg-flat-color-1" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)
@@ -206,16 +199,16 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg"
+                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="User Avatar"
                                 alt="{{ Auth::user()->name }}">
                         </a>
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
 
-                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Settings</a>
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+{{--                             <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Settings</a>
+ --}}                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
-                                {{ __('Logout') }}
+                                {{ __('Salir') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf

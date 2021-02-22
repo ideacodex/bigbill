@@ -57,8 +57,8 @@
                                             </div>
                                             <input id="name" name="name" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('name') }}" placeholder="Producto"
-                                                required autocomplete="name" autofocus>
+                                                value="{{ old('name') }}" placeholder="Producto" required
+                                                autocomplete="name" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -74,9 +74,8 @@
                                             </div>
                                             <input id="description" name="description" type="text"
                                                 class="text-dark form-control @error('name') is-invalid @enderror"
-                                                value="{{ old('description') }}"
-                                                placeholder="Descripción del producto" required
-                                                autocomplete="description" autofocus>
+                                                value="{{ old('description') }}" placeholder="Descripción del producto"
+                                                required autocomplete="description" autofocus>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -126,26 +125,16 @@
                                                     <i title="Precio" class="fas fa-hand-holding-usd"></i>
                                                 </span>
                                             </div>
-
-                                            {{-- listado de precios --}}
-                                            <select name="price" id="cifrado" onchange="mostrarInput2();"
-                                                class="select2 form-control @error('price') is-invalid @enderror">
-                                                <option selected disabled>Ingrese un Precio</option>
-                                                <option value="0">Precio Unico</option>
-                                                @foreach ($pricelist as $item)
-                                                    <option value="{{ $item->price }}">
-                                                        Tipo: {{ $item->name }} precio {{ $item->price }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <input id="price" name="price" type="number" step="0.01" value="0.01" min="0.01"
+                                                class="text-dark form-control @error('price') is-invalid @enderror"
+                                                placeholder="¿A cuanto lo venderas?" autocomplete="price" autofocus>
                                             @error('price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                             {{-- precio nuevo --}}
-                                            <input class="text-dark form-control" name="pricenew2" value="0"
-                                                placeholder="Ingrese un Precio" id="pricenew2" type="text">
+
                                         </div>
                                         {{-- <!--Precio especial--> --}}
                                         <div class="d-none col-12 col-md-6 input-group input-group-lg mb-3" id="c">
@@ -154,54 +143,34 @@
                                                     <i class="fas fa-star"></i>
                                                 </span>
                                             </div>
-                                            {{-- listado de precios --}}
-                                            <select name="special_price" id="cifrado2" onchange="mostrarInput3();"
-                                                class="select2 form-control @error('special_price') is-invalid @enderror">
-                                                <option selected disabled>Precio Especial</option>
-                                                <option value="0">Precio Unico</option>
-                                                @foreach ($pricelist as $item)
-                                                    <option value="{{ $item->price }}">
-                                                        Tipo: {{ $item->name }} precio {{ $item->price }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <input id="special_price" name="special_price" type="number" step="0.01"
+                                                value="0.01" min="0.01"
+                                                class="text-dark form-control @error('special_price') is-invalid @enderror"
+                                                placeholder="Precio Especial" autocomplete="special_price" autofocus>
                                             @error('special_price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            {{-- precio nuevo --}}
-                                            <input class="text-dark form-control" name="especialprice2" value="0"
-                                                placeholder="Ingrese un Precio" id="especialprice2" type="text">
                                         </div>
-                                        {{-- <!--Precio crédito-->--}}
+                                        {{-- <!--Precio crédito--> --}}
                                         <div id="d" class="d-none col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                     <i class="fas fa-credit-card"></i>
                                                 </span>
                                             </div>
-                                            {{-- listado de precios --}}
-                                            <select name="credit_price" id="cifrado3" onchange="mostrarInput4();"
-                                                class="select2 form-control @error('credit_price') is-invalid @enderror">
-                                                <option selected disabled>Precio Especial</option>
-                                                <option value="0">Precio Unico</option>
-                                                @foreach ($pricelist as $item)
-                                                    <option value="{{ $item->price }}">
-                                                        Tipo: {{ $item->name }} precio {{ $item->price }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <input id="credit_price" name="credit_price" type="number" step="0.01"
+                                                value="0.01" min="0.01"
+                                                class="text-dark form-control @error('credit_price') is-invalid @enderror"
+                                                placeholder="Precio Credito" autocomplete="credit_price" autofocus>
                                             @error('credit_price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            {{-- precio nuevo --}}
-                                            <input class="text-dark form-control" name="credit_price2" value="0"
-                                                placeholder="Ingrese un Precio" id="credit_price2" type="text">
                                         </div>
-                                        <!--Company_id-->
+                                        {{-- <!--Company_id--> --}}
                                         @if (Auth::user()->role_id == 1)
                                             {{-- company --}}
                                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -236,7 +205,7 @@
                                             <input type="hidden" value="{{ Auth::user()->company_id }}"
                                                 name="company_id">
                                         @endif
-                                        <!--Impuestos-->
+                                        {{-- <!--Impuestos--> --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -319,7 +288,7 @@
             </div>
         </div>
     </div>
-{{-- este script es el primer Selec dinamico que despliega los sigueintes 3 --}}
+    {{-- este script es el primer Selec dinamico que despliega los sigueintes 3 --}}
     <script>
         //seleccionando elementos
         function mostrarInput() {
@@ -354,68 +323,6 @@
                 d.className = "col-12 col-md-6 input-group input-group-lg mb-3";
             }
 
-        }
-
-    </script>
-{{-- Script despliega informacion para precios o uno nuevo --}}
-    <script>
-        //seleccionando elementos
-        var inputNumero = document.getElementById('pricenew2');
-        var select = document.getElementById('cifrado');
-
-        //ocultar input fecha y pricenew2
-        inputNumero.style.display = "none";
-
-        function mostrarInput2() {
-            var valorSeleccionado = select.value;
-            if (valorSeleccionado == '0') {
-                //Muestra el input date
-                inputNumero.style.display = "block";
-            } else {
-                //ocultar input fecha en caso de estar mostrandolo
-                inputNumero.style.display = "none";
-            }
-
-        }
-
-    </script>
-{{-- Script despliega informacion para precios especiales o uno nuevo especial--}}
-    <script>
-        //seleccionando elementos
-        var inputNumero1 = document.getElementById('especialprice2');
-        var select1 = document.getElementById('cifrado2');
-        //ocultar input fecha y especialprice2
-        inputNumero1.style.display = "none";
-
-        function mostrarInput3() {
-            var valorSeleccionado = select1.value;
-            if (valorSeleccionado == '0') {
-                //Muestra el input date
-                inputNumero1.style.display = "block";
-            } else {
-                //ocultar input fecha en caso de estar mostrandolo
-                inputNumero1.style.display = "none";
-            }
-        }
-
-    </script>
-{{-- Script despliega informacion para precios al creditos o uno nuevo credito --}}
-    <script>
-        //seleccionando elementos
-        var inputNumero2 = document.getElementById('credit_price2');
-        var select2 = document.getElementById('cifrado3');
-        //ocultar input fecha y especialprice2
-        inputNumero2.style.display = "none";
-
-        function mostrarInput4() {
-            var valorSeleccionado = select2.value;
-            if (valorSeleccionado == '0') {
-                //Muestra el input date
-                inputNumero2.style.display = "block";
-            } else {
-                //ocultar input fecha en caso de estar mostrandolo
-                inputNumero2.style.display = "none";
-            }
         }
 
     </script>
