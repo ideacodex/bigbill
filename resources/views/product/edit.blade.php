@@ -89,7 +89,7 @@
                                         @enderror
                                     </div>
                                     {{-- <!-- precio --> --}}
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div  id="d" class="d-none col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i title="Precio" class="fas fa-hand-holding-usd"></i>
@@ -97,8 +97,8 @@
                                         </div>
                                         <input id="price" name="price" type="text"
                                             class="text-dark form-control @error('price') is-invalid @enderror"
-                                            value="{{ $products->price }}" placeholder="Precio del Producto: ej. Q1.55"
-                                            required autocomplete="price" autofocus>
+                                            value="{{ $products->price }}" placeholder="Precio del Producto" required
+                                            autocomplete="price" autofocus>
                                         @error('price')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -106,7 +106,7 @@
                                         @enderror
                                     </div>
                                     <!--Precio especial-->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div id="b" class="d-none col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-star"></i>
@@ -114,7 +114,8 @@
                                         </div>
                                         <input id="special_price" name="special_price" type="number" step="0.01"
                                             class="text-dark form-control special_price  @error('special_price') is-invalid @enderror"
-                                            value="{{ $products->special_price }}" placeholder="Precio especial" autocomplete="special_price" autofocus>
+                                            value="{{ $products->special_price }}" placeholder="Precio especial"
+                                            autocomplete="special_price" autofocus>
                                         @error('special_price')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -122,7 +123,7 @@
                                         @enderror
                                     </div>
                                     <!--Precio crédito-->
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div id="c" class="d-none col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-credit-card"></i>
@@ -130,7 +131,8 @@
                                         </div>
                                         <input id="credit_price" name="credit_price" type="number" step="0.01"
                                             class="text-dark form-control credit_price  @error('credit_price') is-invalid @enderror"
-                                            value="{{ $products->credit_price }}" placeholder="Precio al crédito" autocomplete="credit_price" autofocus>
+                                            value="{{ $products->credit_price }}" placeholder="Precio al crédito"
+                                            autocomplete="credit_price" autofocus>
                                         @error('credit_price')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -145,7 +147,9 @@
                                             </span>
                                         </div>
                                         <select name="kind_product" id="kind_product" onchange="mostrarInput();"
-                                            class="form-control @error('kind_product') is-invalid @enderror" required autofocus>
+                                            class="form-control @error('kind_product') is-invalid @enderror" required
+                                            autofocus>
+                                            <option selected disabled>Tipo de producto</option>
                                             <option value="{{ $products->kind_product }}" selected>
                                                 @if ($products->kind_product == 1)
                                                     Artículo de venta
@@ -177,20 +181,18 @@
                                     {{-- <!--costos--> --}}
                                     <div id="a" @if ($products->kind_product == 2 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                             @else
-                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent">
                                                 <i class="fas fa-coins"></i>
                                             </span>
                                         </div>
-                                        <input @if ($products->kind_product == 2 || $products->kind_product == 3)
-
-                                                value="{{ $products->cost }}" min="0.01"
+                                        <input @if ($products->kind_product == 2 || $products->kind_product == 3) value="{{ $products->cost }}" min="0.01"
                                         @else
-                                                value="0" @endif id="cost" name="cost"
+                                                            value="" @endif id="cost" name="cost"
                                             type="number" step="0.01" onchange="mostrarInput();"
                                             class="text-dark form-control @error('cost') is-invalid @enderror"
-                                            placeholder="¿Cuanto te costo?" autocomplete="cost" autofocus >
+                                            placeholder="Precio de compra" autocomplete="cost" autofocus>
                                         @error('cost')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -238,7 +240,7 @@
                                                 <i title=" Nuevos ingresos" class="fas fa-plus-square"></i>
                                             </span>
                                         </div>
-                                        <input type="number" value="0" id="txt_campo_2" name="new_income"
+                                        <input type="number" value="" id="txt_campo_2" name="new_income"
                                             class="monto form-control" onchange="sumar();" placeholder="Nuevos ingresos"
                                             required />
 
@@ -313,18 +315,41 @@
             </div>
         </div>
     </div>
+
     <script>
         //seleccionando elementos
         function mostrarInput() {
-            var a = document.getElementById('a');
             var select = document.getElementById('kind_product').value;
-            //console.log("Que viene en select ",select);
-            //console.log("Que viene en a ",a);
-            if (select == '2' || select == '3') {
-                a.className = "col-12 col-md-6 input-group input-group-lg mb-3";
-            } else {
+            var b = document.getElementById('b');
+            var c = document.getElementById('c');
+            var d = document.getElementById('d');
+
+            var a = document.getElementById('a');
+
+            console.log("Que viene en select ", select);
+            console.log("Que viene en a ", a);
+            console.log("Que viene en b ", b);
+            console.log("Que viene en c ", c);
+            console.log("Que viene en d ", d);
+            if (select == '1') {
                 a.className = "d-none col-12 col-md-6 input-group input-group-lg mb-3";
+                b.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+                c.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+                d.className = "col-12 col-md-6 input-group input-group-lg mb-3";
             }
+            if (select == '2') {
+                a.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+                b.className = "d-none col-12 col-md-6 input-group input-group-lg mb-3";
+                c.className = "d-none col-12 col-md-6 input-group input-group-lg mb-3";
+                d.className = "d-none col-12 col-md-6 input-group input-group-lg mb-3";
+            }
+            if (select == '3') {
+                a.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+                b.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+                c.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+                d.className = "col-12 col-md-6 input-group input-group-lg mb-3";
+            }
+
         }
 
     </script>

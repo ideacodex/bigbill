@@ -266,7 +266,7 @@
 
                                     <input id="spTotal" onchange="numbersToText()"
                                         class="text-dark form-control @error('spTotal') is-invalid @enderror"
-                                        name="spTotal">
+                                        name="spTotal" readonly>
 
                                     @error('spTotal')
                                         <span class="invalid-feedback" role="alert">
@@ -287,7 +287,6 @@
                                     @enderror
                                 </div>
 
-
                                 <!--Button-->
                                 <div class="container">
                                     <div class="col-12">
@@ -301,6 +300,16 @@
                                     </div>
                                 </div>
                                 <!--Button-->
+
+                                <select id="pizza" onchange="mostrarprecio()">
+                                    <option selected disabled>Productos</option>
+                                    @foreach ($product as $item)
+                                        <option value="{{ $item->price}}">Producto: {{ $item->name }}
+                                            Precio : {{ $item->price }} 
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <input type="text" id="precio" />
                             </form>
                             <div>
                             </div>
@@ -634,22 +643,8 @@
         }
 
     </script>
-    <!--Script-->
-    {{-- <select id="pizza" onchange="mostrarprecio()">
-        <option value="0"></option>
-        @foreach ($customer as $item)
-            <option value="{{ $item->id }} {{ $item->name}}">Cliente: {{ $item->name }}
-                {{ $item->lastname }} Nit: {{ $item->nit }}
-            </option>
-        @endforeach
-    </select>
-    <input type="text" id="precio" /> --}}
-
-
-
 
     {{-- cantidad en letras --}}
-
     {{-- le da valores a mi moneda --}}
     <script>
         function numbersToText() {
