@@ -95,3 +95,14 @@ Route::resource('Ajustes', 'SettingController')->middleware('auth');
 /**Lista de precios Route */
 
 
+/** https://www.youtube.com/watch?v=h0H4Y0U2DGk */
+/**
+ * PENDIENTE
+* familia y marca
+* foto del productos
+* dimensiones del producto
+ */
+//Importar productos de Excel a mysql
+//Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
+//Importar productos de Excel a mysql
+
