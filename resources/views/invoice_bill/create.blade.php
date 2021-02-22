@@ -265,8 +265,8 @@
                                     </div>
 
                                     <input id="spTotal" onchange="numbersToText()"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror"
-                                        name="spTotal" readonly>
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
+                                        readonly>
 
                                     @error('spTotal')
                                         <span class="invalid-feedback" role="alert">
@@ -513,16 +513,19 @@
 
         }
 
+        var count = 0;
+
         function agregarProducto() {
             var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
             var text = $('#producto_id').find(':selected')
                 .text(); //Capturo el Nombre del Producto- Texto dentro del Select
-
+                count ++;
+            console.log("Presionado : ", count);
             var sptext = text.split();
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
-                `<td><select id="stock[]" onchange="mostrarprecio()" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                `<td><select onchange="mostrarprecio()" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
 
@@ -584,7 +587,7 @@
                 if (nodes[x].firstChild.id == 'cantidad[]') {
                     cantidad = parseFloat(nodes[x].firstChild.value, 10);
                 }
-                if (nodes[x].firstChild.id == 'precunit[]') {
+                if (nodes[x].firstChild.id == `precunit${count}`) {
                     precunit = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
@@ -636,10 +639,10 @@
         }
 
         function mostrarprecio() {
-            var pizza = document.getElementById("pizza"),
-                precio = document.getElementById("precio");
+            var pizza = document.getElementById(`product_id${count}`),
+                precio = document.getElementById(`precunit${count}`);
 
-            precio.value = pizza.value;
+            precio.value = pizza.selectedOptions[0].attributes.valuestock.value;
         }
 
     </script>
@@ -870,9 +873,6 @@
 
     </script>
     {{-- cantidad en letras --}}
-
-
-
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">
