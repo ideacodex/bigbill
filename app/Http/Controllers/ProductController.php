@@ -156,12 +156,13 @@ class ProductController extends Controller
      *
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
+    */
+    public function show($id)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //permisos y autentificacion
-
+        $products = Product::with('company')->find($id);
+        return view('product.show', ['products' => $products]);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
