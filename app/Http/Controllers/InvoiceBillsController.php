@@ -85,7 +85,6 @@ class InvoiceBillsController extends Controller
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;
             $bill->totalletras = $request->totalletras;
-            $bill->acquisition = $request->acquisition;
             $bill->active = 1;
             $bill->account_id = 1;
             $bill->customer_name = $request->customer_name;
