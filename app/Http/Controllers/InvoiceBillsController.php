@@ -9,6 +9,7 @@ use App\InvoiceBill;
 use App\Mail\ComprobanteMailable;
 use App\Product;
 use App\Customer;
+use App\Suscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,6 +93,7 @@ class InvoiceBillsController extends Controller
             $bill->description = $request->description;
             $bill->date_issue = $request->date_issue;
             $bill->expiration_date = $request->expiration_date;
+            $bill->document_type = $request->document_type;
             $bill->save();
 
             /* Detalle */
@@ -104,23 +106,25 @@ class InvoiceBillsController extends Controller
                 $detail_bill->invoice_id = $bill->id;
                 $detail_bill->save();
 
-                /**Trae el product_id que tengo en la request*/
-                $product = Product::find($request->product_id[$i]);
-                /**Declaro una variable temporal que sea igual a mi cantidad en stock */
-                $temp = $product->stock;
-                $temporal = $product->quantity_values;
-                $tempo = $product->amount_expenses;
-                /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
-                $product->stock = $temp - $request->quantity[$i];
-                $product->amount_expenses = $tempo + $request->quantity[$i];
-                $product->quantity_values = $temporal - $request->quantity[$i];
+                if ($request->document_type == 1) {
+                    /**Trae el product_id que tengo en la request*/
+                    $product = Product::find($request->product_id[$i]);
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $product->stock;
+                    $temporal = $product->quantity_values;
+                    $tempo = $product->amount_expenses;
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $product->stock = $temp - $request->quantity[$i];
+                    $product->amount_expenses = $tempo + $request->quantity[$i];
+                    $product->quantity_values = $temporal - $request->quantity[$i];
 
-                if ($product->stock == 0) {
-                    $product->active = 0;
-                } else {
-                    $product->active = 1;
+                    if ($product->stock == 0) {
+                        $product->active = 0;
+                    } else {
+                        $product->active = 1;
+                    }
+                    $product->save();
                 }
-                $product->save();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();

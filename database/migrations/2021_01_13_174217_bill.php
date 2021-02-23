@@ -46,6 +46,7 @@ class Bill extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')
                 ->references('id')->on('companies');
+            $table->integer('document_type');
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')
                 ->references('id')->on('branch_offices');

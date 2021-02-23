@@ -39,7 +39,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Emitir factura </strong>
+                            @if (Auth::user()->suscriptions->type_plan == 1)
+                            <strong class="card-title">Emitir factura o cotización</strong>
+                            @elseif (Auth::user()->suscriptions->type_plan == 0)
+                            <strong class="card-title">Emitir factura</strong>
+                            @endif
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
@@ -94,7 +98,7 @@
                                             @if (auth()->user()->company_id)
                                                 <option value="{{ auth()->user()->company_id }}" selected>
                                                     <p>
-                                                        Su compañia: {{ auth()->user()->companies->name }}
+                                                        Companía {{ auth()->user()->companies->name }}
                                                     </p>
                                                 </option>
                                             @endif
@@ -123,7 +127,7 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-user"></i>
+                                            <i class="fas fa-box-open"></i>
                                         </span>
                                     </div>
                                     <select name="acquisition" id="acquisition"
@@ -200,6 +204,36 @@
                                     @enderror
                                 </div>
 
+                                {{-- Tipo de gestión --}}
+                                @if (Auth::user()->suscriptions->type_plan == 1)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-file-word"></i>
+                                            </span>
+                                        </div>
+                                        <select name="document_type" id="document_type"
+                                            class="form-control @error('document_type') is-invalid @enderror">
+                                            <option selected disabled>Tipo de gestión</option>
+                                            <option value="1">Factura</option>
+                                            <option value="0">Cotización</option>
+                                        </select>
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @elseif(Auth::user()->suscriptions->type_plan == 0)
+                                    <input type="hidden" value="1">
+                                @endif
+
                                 {{-- Nombre del cliente --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input class="text-dark form-control" name="customer_name"
@@ -265,8 +299,8 @@
                                     </div>
 
                                     <input id="spTotal" onchange="numbersToText()"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror"
-                                        name="spTotal" readonly>
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
+                                        readonly>
 
                                     @error('spTotal')
                                         <span class="invalid-feedback" role="alert">
@@ -300,16 +334,6 @@
                                     </div>
                                 </div>
                                 <!--Button-->
-
-                                <select id="pizza" onchange="mostrarprecio()">
-                                    <option selected disabled>Productos</option>
-                                    @foreach ($product as $item)
-                                        <option value="{{ $item->price}}">Producto: {{ $item->name }}
-                                            Precio : {{ $item->price }} 
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <input type="text" id="precio" />
                             </form>
                             <div>
                             </div>
@@ -513,19 +537,21 @@
 
         }
 
+        var count = 0;
+
         function agregarProducto() {
             var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
             var text = $('#producto_id').find(':selected')
                 .text(); //Capturo el Nombre del Producto- Texto dentro del Select
-
+            count++;
+            console.log("Presionado : ", count);
             var sptext = text.split();
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
             newtr = newtr +
-                `<td><select id="stock[]" onchange="mostrarprecio()" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit[]" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-
 
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
             RefrescaProducto(); //Refresco Productos
@@ -584,7 +610,7 @@
                 if (nodes[x].firstChild.id == 'cantidad[]') {
                     cantidad = parseFloat(nodes[x].firstChild.value, 10);
                 }
-                if (nodes[x].firstChild.id == 'precunit[]') {
+                if (nodes[x].firstChild.id == `precunit${count}`) {
                     precunit = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
@@ -636,10 +662,10 @@
         }
 
         function mostrarprecio() {
-            var pizza = document.getElementById("pizza"),
-                precio = document.getElementById("precio");
+            var pizza = document.getElementById(`product_id${count}`),
+                precio = document.getElementById(`precunit${count}`);
 
-            precio.value = pizza.value;
+            precio.value = pizza.selectedOptions[0].attributes.valuestock.value;
         }
 
     </script>
@@ -870,9 +896,6 @@
 
     </script>
     {{-- cantidad en letras --}}
-
-
-
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">
