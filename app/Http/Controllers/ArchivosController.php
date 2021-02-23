@@ -79,9 +79,9 @@ class ArchivosController extends Controller
         return $pdf->download('User.pdf', ["companies" => $companies]);
     }
     //home 2.0 PERFIL
-    public function Perfil(Request $request)
+    public function Perfil()
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        //$request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $company_id = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
         $branch_id = Auth::user()->branch_id; //guardo la variable de Sucursal del ususario autentificado
         $branch_offices =  BranchOffice::where('id', $branch_id)->get(); //realiza consulta mysql
