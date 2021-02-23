@@ -70,7 +70,7 @@ Route::get('/doc-User', function () {return new DocsUser;});
 /** Descargar Excel */
 
 /** perfil */
-Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor');
 /** perfil */
 
 /** Usuarios de las empresas*/
