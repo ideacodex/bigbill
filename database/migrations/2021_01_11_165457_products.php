@@ -13,30 +13,28 @@ class Products extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->float('tax');
-            $table->float('exchange_rate');//tasa de cambio del dolar
-            $table->unsignedBigInteger('company_id')->nullable();
-            $table->foreign('company_id')
-                ->references('id')->on('companies');
-            $table->timestamps();
-        });
-
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
+            //nombre
             $table->string('name');
+            //descripcion
             $table->string('description');
-            $table->float('price');
+            //precio
+            $table->float('price')->nullable();
+            //costo
             $table->float('cost')->nullable();
+            //precio especial
             $table->float('special_price')->nullable();
+            //precio credito
             $table->float('credit_price')->nullable();
+            //compañia
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies');
+            //impuesto booleano si:1|no:0
             $table->boolean('tax')->nullable();
             $table->string('quantity_values');
-            $table->integer('kind_product');
+            $table->string('kind_product');
             $table->integer('stock');
             $table->boolean('active');
             //Ingresos anteriores
@@ -47,6 +45,21 @@ class Products extends Migration
             $table->integer('total_revenue');
             /**Cantidad de egresos */
             $table->integer('amount_expenses')->nullable();
+            //familia
+            $table->string('family')->nullable();
+            //marca
+            $table->string('mark')->nullable();
+            //Dimensiones
+            //peso
+            $table->string('weight')->nullable();
+            //alto
+            $table->string('tall')->nullable();
+            //ancho
+            $table->string('broad')->nullable();
+            //profundidad
+            $table->string('depth')->nullable();
+            //Imagen del producto
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

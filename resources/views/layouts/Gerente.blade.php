@@ -170,7 +170,7 @@
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
 
-                        
+
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -225,6 +225,7 @@
                             @if (Auth::user()->company_id)
                                 <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-users"></i> Usuarios
                                 </a>
+                                <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Ajustes</a>
                                 {{-- <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
                                     Ajustes</a> --}}
                             @endif

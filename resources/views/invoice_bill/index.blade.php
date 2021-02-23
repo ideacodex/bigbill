@@ -101,10 +101,10 @@
 
                                                     <td>{{ $item->description }}</td>
 
-                                                    @if ($item->active == 1)
-                                                        <td>Factura emitida</td>
-                                                    @else
-                                                        <td>Factura Cancelada</td>
+                                                    @if ($item->document_type == 1)
+                                                        <td style="background: rgb(190, 238, 118)">Factura emitida</td>
+                                                    @elseif($item->document_type == 0)
+                                                        <td style="background: rgb(106, 251, 137)">Cotización</td>
                                                     @endif
 
                                                     <td>

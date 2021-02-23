@@ -10,7 +10,7 @@
                             <strong style="color: #2b204b; ">--------------</strong>
                             <h1 style="color: #ed8405; font: Italic;text ;text-align: right">PRODUCTOS</h1>
                         </td>
-                    </tr> 
+                    </tr>
                 </table>
             </div>
         </div>
@@ -86,7 +86,7 @@
                     <td>{{ $item->quantity_values }}</td>
                     <td>{{ $item->income_amount }}</td>
                     <td>{{ $item->amount_expenses }}</td>
-                    <td>{{ $item->created_at->format('dd-mm-yyyy') }}</td>
+                    <td>{{ $item->created_at }}</td>
                     <td>{{ $item->company->name }}</td>
                 </tr>
             @endforeach

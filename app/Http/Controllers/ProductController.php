@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -59,13 +60,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         request()->validate([
             'name' => 'required',
             'description' => 'required',
             'kind_product' => 'required',
             'company_id' => 'required',
             'quantity_values' => 'required',
+            'file' => 'image',
         ]);
 
 
@@ -75,17 +76,31 @@ class ProductController extends Controller
             $product = new Product;
             $product->name = $request->name;
             $product->description = $request->description;
-            $product->price = $request->price;
-            $product->special_price = $request->special_price;
-            $product->credit_price = $request->credit_price;
             $product->company_id = $request->company_id;
             $product->tax = $request->tax;
             $product->quantity_values = $request->quantity_values;
-            $product->kind_product = $request->kind_product;
-            if ($product->kind_product >= 2) {
-                $product->cost = $request->cost;
-            } else {
+            if ($request->kind_product == 1) {
+                # code...
+                $product->kind_product = "Artículo de venta";
+                $product->price = $request->price;
+                $product->special_price = $request->special_price;
+                $product->credit_price = $request->credit_price;
                 $product->cost = 0;
+            } else {
+                if ($request->kind_product == 2) {
+                    # code...
+                    $product->kind_product = "Artículo de compra";
+                    $product->price = 0;
+                    $product->special_price = 0;
+                    $product->credit_price = 0;
+                    $product->cost = $request->cost;
+                } else {
+                    $product->kind_product = "Artículo de compra y venta";
+                    $product->price = $request->price;
+                    $product->special_price = $request->special_price;
+                    $product->credit_price = $request->credit_price;
+                    $product->cost = $request->cost;
+                }
             }
             $product->stock = $request->quantity_values;
             if ($product->quantity_values >= 1) {
@@ -97,7 +112,30 @@ class ProductController extends Controller
             $product->new_income = 0;
             $product->total_revenue = $request->quantity_values;
             $product->amount_expenses = $request->amount_expenses;
+            $product->weight = $request->weight;
+            $product->tall = $request->tall;
+            $product->broad = $request->broad;
+            $product->depth = $request->depth;
+
             $product->save();
+
+            //***carga de imagen***//
+            if ($request->hasFile('file')) {
+                $extension = $request->file('file')->getClientOriginalExtension();
+                $imageNameToStore = $product->id . '.' . $extension;
+                // Upload file //***nombre de carpeta para almacenar**
+                $path = $request->file('file')->storeAs('public/productos', $imageNameToStore);
+                //dd($path);
+                $product->file = $imageNameToStore;
+                $product->save();
+            } else {
+                $imageNameToStore = 'no_image.jpg';
+            }
+            //***carga de imagen***//
+
+
+
+
         } catch (\Illuminate\Database\QueryException $e) {
 
             DB::rollback();
@@ -107,6 +145,9 @@ class ProductController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
+
+
+
         return redirect()->action('ProductController@index')
             ->with('datosEliminados', 'Registro exitoso');
     }
@@ -119,12 +160,7 @@ class ProductController extends Controller
     public function show(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //permisos y autentificacion
-        /**si existe la columna company_id realizar: Filtrado de inforcion*/
-        if (!empty($request->company_id)) {
-            $Products = Product::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
-            $pdf = PDF::loadView('CompanyInformation.products', compact('Products')); //genera el PDF la vista
-            return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
-        }
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -148,39 +184,47 @@ class ProductController extends Controller
     public  function update(Request $request, $id)
     {
 
-        if ($request->kind_product >= 2) {
-            request()->validate([
-                'name' => 'required',
-                'description' => 'required',
-                'price' => 'required',
-                'kind_product' => 'required',
-                'company_id' => 'required',
-                'quantity_values' => 'required',
-                'cost' => 'required|min:0.05',
-            ]);
-        } else {
-            request()->validate([
-                'name' => 'required',
-                'description' => 'required',
-                'price' => 'required',
-                'kind_product' => 'required',
-                'cost' => 'required',
-                'company_id' => 'required',
-                'quantity_values',
-                'income_amount',
-                'amount_expenses',
-
-            ]);
-        }
+        request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'kind_product' => 'required',
+            'cost' => 'required',
+            'company_id' => 'required',
+            'quantity_values',
+            'income_amount',
+            'amount_expenses',
+        ]);
 
         DB::beginTransaction();
         try {
             $products = Product::findOrFail($id);
             $products->name = $request->name;
             $products->description = $request->description;
-            $products->price = $request->price;
-            $products->kind_product = $request->kind_product;
-            $products->cost = $request->cost;
+            if ($request->kind_product == 1) {
+                # code...
+                $products->kind_product = "Artículo de venta";
+                $products->price = $request->price;
+                $products->special_price = $request->special_price;
+                $products->credit_price = $request->credit_price;
+                $products->cost = 0;
+            } else {
+                if ($request->kind_product == 2) {
+                    # code...
+                    $products->kind_product = "Artículo de compra";
+                    $products->price = 0;
+                    $products->special_price = 0;
+                    $products->credit_price = 0;
+                    $products->cost = $request->cost;
+                } else {
+                    $products->kind_product = "Artículo de compra y venta";
+                    $products->price = $request->price;
+                    $products->special_price = $request->special_price;
+                    $products->credit_price = $request->credit_price;
+                    $products->cost = $request->cost;
+                }
+            }
+
             $products->company_id = $request->company_id;
             //**Ingresos anteriores */
             $products->income_amount = $request->income_amount;
@@ -200,6 +244,22 @@ class ProductController extends Controller
                 $products->active = 0;
             }
             $products->save();
+            if ($request->file) {
+                //***carga de imagen***//
+                if ($request->hasFile('file')) {
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $imageNameToStore = $products->id . '.' . $extension;
+                    // Upload file //***nombre de carpeta para almacenar**
+                    $path = $request->file('file')->storeAs('public/productos', $imageNameToStore);
+                    //dd($path);
+                    $products->file = $imageNameToStore;
+                    $products->save();
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+            }
+            //***carga de imagen***//
+
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]);

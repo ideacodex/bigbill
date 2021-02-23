@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AccountType;
 use DB;
 use App\Account;
+use App\Company;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +21,10 @@ class AccountsController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-       
-        $account_type = AccountType::get();
-        $account = Account::get(); //Obtener los valores de tu request:
-        return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //genera la vista   
+
+        $account_type = AccountType::all();
+        $account = Account::with('account_types')->get(); //Obtener los valores de tu request:
+        return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //genera la vista
     }
     /**
      * Show the form for creating a new resource.
@@ -32,7 +33,6 @@ class AccountsController extends Controller
      */
     public function create()
     {
-
     }
     /**
      * Store a newly created resource in storage.

@@ -77,10 +77,6 @@ Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrado
 Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
 /** Usuarios de las empresas*/
 
-/**Ajustes */
-Route::get('Ajustes', 'ArchivosController@settings')->middleware('auth');
-/**Ajustes */
-
 /**Lista de precios Route */
 Route::resource('lista', 'PricelistController')->middleware('auth');
 /**Lista de precios Route */
@@ -93,4 +89,18 @@ Route::get('suscripcion', 'UsuarioEmpresaController@suscription_user');
 Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 /**Pago de suscripción */
 
+
+/**Lista de precios Route */
+Route::resource('Ajustes', 'SettingController')->middleware('auth');
+/**Lista de precios Route */
+
+
+/** https://www.youtube.com/watch?v=h0H4Y0U2DGk */
+/**
+ * PENDIENTE
+*
+ */
+//Importar productos de Excel a mysql
+//Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
+//Importar productos de Excel a mysql
 

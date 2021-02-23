@@ -12,13 +12,8 @@ class Account extends Model
         return $this->hasOne("App\AccountType", 'id', 'status_id');
     }
     protected $fillable = [
-        'user_id', 'company_id', 'total', 'product_id'
+        'user_id', 'total', 'product_id'
     ];
-
-    public function company()
-    {
-        return $this->hasOne("App\Company", 'id', 'company_id');
-    }
     public function types()
     {
         return $this->hasOne("App\AccountType", 'id', 'status_id');

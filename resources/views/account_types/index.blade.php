@@ -106,16 +106,7 @@
                     <div class="form-group">
                         <input id="status" type="text" class="text-dark form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}" placeholder="Estado financiero" required autocomplete="status" autofocus>
                     </div>
-                    {{-- company_id --}}
-                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                        <input id="company_id" placeholder="company_id" type="hidden" class="text-dark form-control @error('company_id') is-invalid @enderror" name="company_id" value="{{ Auth::user()->company_id }}" required autocomplete="company_id" autofocus>
 
-                        @error('company_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
 
                     <div class="container mt-4">
                         <div class="col-12">
