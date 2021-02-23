@@ -160,12 +160,7 @@ class ProductController extends Controller
     public function show(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //permisos y autentificacion
-        /**si existe la columna company_id realizar: Filtrado de inforcion*/
-        if (!empty($request->company_id)) {
-            $Products = Product::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
-            $pdf = PDF::loadView('CompanyInformation.products', compact('Products')); //genera el PDF la vista
-            return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
-        }
+
     }
     /**
      * Show the form for editing the specified resource.
