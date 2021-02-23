@@ -305,7 +305,7 @@
                                                 <i class="fas fa-ruler-vertical"></i>
                                             </span>
                                         </div>
-                                        <input id="tall" name="tall" type="text"
+                                        <input id="tall" name="tall" type="text" value="{{ $products->tall}}"
                                             class="text-dark form-control @error('tall') is-invalid @enderror"
                                             placeholder="Altura" autocomplete="tall" autofocus>
                                         @error('tall')
@@ -326,7 +326,7 @@
                                                 <i class="fas fa-ruler-horizontal"></i>
                                             </span>
                                         </div>
-                                        <input id="broad" name="broad" type="text"
+                                        <input id="broad" name="broad" type="text" value="{{$products->broad}}"
                                             class="text-dark form-control @error('broad') is-invalid @enderror"
                                             placeholder="Ancho" autocomplete="broad" autofocus>
                                         @error('broad')
@@ -346,7 +346,7 @@
                                                 <i class="fas fa-ruler"></i>
                                             </span>
                                         </div>
-                                        <input id="depth" name="depth" type="text"
+                                        <input id="depth" name="depth" type="text" value="{{$products->depth}}"
                                             class="text-dark form-control @error('depth') is-invalid @enderror"
                                             placeholder="Profundidad" autocomplete="depth" autofocus>
                                         @error('depth')

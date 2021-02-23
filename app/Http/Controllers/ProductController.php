@@ -189,39 +189,47 @@ class ProductController extends Controller
     public  function update(Request $request, $id)
     {
 
-        if ($request->kind_product >= 2) {
-            request()->validate([
-                'name' => 'required',
-                'description' => 'required',
-                'price' => 'required',
-                'kind_product' => 'required',
-                'company_id' => 'required',
-                'quantity_values' => 'required',
-                'cost' => 'required|min:0.05',
-            ]);
-        } else {
-            request()->validate([
-                'name' => 'required',
-                'description' => 'required',
-                'price' => 'required',
-                'kind_product' => 'required',
-                'cost' => 'required',
-                'company_id' => 'required',
-                'quantity_values',
-                'income_amount',
-                'amount_expenses',
-
-            ]);
-        }
+        request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'kind_product' => 'required',
+            'cost' => 'required',
+            'company_id' => 'required',
+            'quantity_values',
+            'income_amount',
+            'amount_expenses',
+        ]);
 
         DB::beginTransaction();
         try {
             $products = Product::findOrFail($id);
             $products->name = $request->name;
             $products->description = $request->description;
-            $products->price = $request->price;
-            $products->kind_product = $request->kind_product;
-            $products->cost = $request->cost;
+            if ($request->kind_product == 1) {
+                # code...
+                $products->kind_product = "Artículo de venta";
+                $products->price = $request->price;
+                $products->special_price = $request->special_price;
+                $products->credit_price = $request->credit_price;
+                $products->cost = 0;
+            } else {
+                if ($request->kind_product == 2) {
+                    # code...
+                    $products->kind_product = "Artículo de compra";
+                    $products->price = 0;
+                    $products->special_price = 0;
+                    $products->credit_price = 0;
+                    $products->cost = $request->cost;
+                } else {
+                    $products->kind_product = "Artículo de compra y venta";
+                    $products->price = $request->price;
+                    $products->special_price = $request->special_price;
+                    $products->credit_price = $request->credit_price;
+                    $products->cost = $request->cost;
+                }
+            }
+
             $products->company_id = $request->company_id;
             //**Ingresos anteriores */
             $products->income_amount = $request->income_amount;
@@ -241,6 +249,22 @@ class ProductController extends Controller
                 $products->active = 0;
             }
             $products->save();
+            if ($request->file) {
+                //***carga de imagen***//
+                if ($request->hasFile('file')) {
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $imageNameToStore = $products->id . '.' . $extension;
+                    // Upload file //***nombre de carpeta para almacenar**
+                    $path = $request->file('file')->storeAs('public/productos', $imageNameToStore);
+                    //dd($path);
+                    $products->file = $imageNameToStore;
+                    $products->save();
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+            }
+            //***carga de imagen***//
+
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]);
