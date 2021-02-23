@@ -37,4 +37,5 @@ class InvoiceBill extends Model
     {
         return $this->hasMany("App\DetailBill", 'invoice_id');
     }
+
 }
