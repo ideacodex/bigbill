@@ -34,7 +34,7 @@ class Products extends Migration
             //impuesto booleano si:1|no:0
             $table->boolean('tax')->nullable();
             $table->string('quantity_values');
-            $table->integer('kind_product');
+            $table->string('kind_product');
             $table->integer('stock');
             $table->boolean('active');
             //Ingresos anteriores
@@ -49,8 +49,15 @@ class Products extends Migration
             $table->string('family')->nullable();
             //marca
             $table->string('mark')->nullable();
-            //familia
-            $table->string('product_dimensions')->nullable();
+            //Dimensiones
+            //peso
+            $table->string('weight')->nullable();
+            //alto
+            $table->string('tall')->nullable();
+            //ancho
+            $table->string('broad')->nullable();
+            //profundidad
+            $table->string('depth')->nullable();
             //Imagen del producto
             $table->string('file')->nullable();
             $table->timestamps();

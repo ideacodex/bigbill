@@ -76,17 +76,31 @@ class ProductController extends Controller
             $product = new Product;
             $product->name = $request->name;
             $product->description = $request->description;
-            $product->price = $request->price;
-            $product->special_price = $request->special_price;
-            $product->credit_price = $request->credit_price;
             $product->company_id = $request->company_id;
             $product->tax = $request->tax;
             $product->quantity_values = $request->quantity_values;
-            $product->kind_product = $request->kind_product;
-            if ($product->kind_product >= 2) {
-                $product->cost = $request->cost;
-            } else {
+            if ($request->kind_product == 1) {
+                # code...
+                $product->kind_product = "Artículo de venta";
+                $product->price = $request->price;
+                $product->special_price = $request->special_price;
+                $product->credit_price = $request->credit_price;
                 $product->cost = 0;
+            } else {
+                if ($request->kind_product == 2) {
+                    # code...
+                    $product->kind_product = "Artículo de compra";
+                    $product->price = 0;
+                    $product->special_price = 0;
+                    $product->credit_price = 0;
+                    $product->cost = $request->cost;
+                } else {
+                    $product->kind_product = "Artículo de compra y venta";
+                    $product->price = $request->price;
+                    $product->special_price = $request->special_price;
+                    $product->credit_price = $request->credit_price;
+                    $product->cost = $request->cost;
+                }
             }
             $product->stock = $request->quantity_values;
             if ($product->quantity_values >= 1) {
@@ -98,20 +112,20 @@ class ProductController extends Controller
             $product->new_income = 0;
             $product->total_revenue = $request->quantity_values;
             $product->amount_expenses = $request->amount_expenses;
-
-
+            $product->weight = $request->weight;
+            $product->tall = $request->tall;
+            $product->broad = $request->broad;
+            $product->depth = $request->depth;
 
             $product->save();
-
 
             //***carga de imagen***//
             if ($request->hasFile('file')) {
                 $extension = $request->file('file')->getClientOriginalExtension();
                 $imageNameToStore = $product->id . '.' . $extension;
                 // Upload file //***nombre de carpeta para almacenar**
-                $path = $request->file('file')->storeAs('public/product', $imageNameToStore);
+                $path = $request->file('file')->storeAs('public/productos', $imageNameToStore);
                 //dd($path);
-
                 $product->file = $imageNameToStore;
                 $product->save();
             } else {
