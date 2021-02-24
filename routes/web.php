@@ -19,7 +19,7 @@ Auth::routes();
 Route::resource('home', 'HomeController')->middleware('auth');
 
 /**Product Route */
-Route::resource('productos', 'ProductController')->middleware('auth' );
+Route::resource('productos', 'ProductController')->middleware('auth');
 /**Product Route */
 
 /**Companies Route */
@@ -60,17 +60,31 @@ Route::get('facturaCompañia', 'ArchivosController@facturaCompañia')->middlewar
 /** fACTURAS de las empresas*/
 
 /** Descargar Excel */
-Route::get('/doc', function () {return new DocsExport;});
-Route::get('/doc-Account', function () {return new DocsAccount;});
-Route::get('/doc-AccountType', function () {return new DocsAccountType;});
-Route::get('/doc-bills', function () {return new DocsBill;});
-Route::get('/doc-Companies', function () {return new DocsCompany;});
-Route::get('/doc-Customer', function () {return new DocsCustomer;});
-Route::get('/doc-User', function () {return new DocsUser;});
+Route::get('/doc', function () {
+    return new DocsExport;
+});
+Route::get('/doc-Account', function () {
+    return new DocsAccount;
+});
+Route::get('/doc-AccountType', function () {
+    return new DocsAccountType;
+});
+Route::get('/doc-bills', function () {
+    return new DocsBill;
+});
+Route::get('/doc-Companies', function () {
+    return new DocsCompany;
+});
+Route::get('/doc-Customer', function () {
+    return new DocsCustomer;
+});
+Route::get('/doc-User', function () {
+    return new DocsUser;
+});
 /** Descargar Excel */
 
 /** perfil */
-Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth');
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth'); //autentificacion y permisos
 /** perfil */
 
 /** Usuarios de las empresas*/
@@ -96,20 +110,19 @@ Route::resource('Ajustes', 'SettingController')->middleware('auth');
 
 
 /**Lista de familias Route */
-Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth');
+Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
 /**Lista de familias Route */
 
 /**Lista de marcas Route */
-Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth');
+Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
 /**Lista de marcas Route */
 
 
 /** https://www.youtube.com/watch?v=h0H4Y0U2DGk */
 /**
  * PENDIENTE
-*
+ *
  */
 //Importar productos de Excel a mysql
 //Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
 //Importar productos de Excel a mysql
-
