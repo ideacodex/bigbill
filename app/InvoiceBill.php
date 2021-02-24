@@ -38,4 +38,8 @@ class InvoiceBill extends Model
         return $this->hasMany("App\DetailBill", 'invoice_id');
     }
 
+    public function settings()
+    {
+        return $this->hasOne("App\Setting", 'id', 'setting_id');
+    }
 }

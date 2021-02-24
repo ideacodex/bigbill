@@ -46,19 +46,22 @@
                             @endif
                         </div>
                         @if (Auth::user()->suscriptions->type_plan == 1)
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>¡Atención!</strong> Al momento de estar realizando su factura o
-                                cotización<strong> ¡No
-                                    recargue esta
-                                    página!</strong>.
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+                                <span class="badge badge-pill badge-warning">¡Atención!</span>
+                                Al momento de estar realizando su factura o cotización.<span
+                                    class="badge badge-pill badge-warning">¡No recargue esta página!</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
                             </div>
                         @elseif (Auth::user()->suscriptions->type_plan == 0)
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>¡Atención!</strong> Al momento de estar realizando su factura<strong> ¡No
-                                    recargue esta
-                                    página!</strong>.
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+                                <span class="badge badge-pill badge-warning">¡Atención!</span>
+                                Al momento de estar realizando su factura.<span
+                                    class="badge badge-pill badge-warning">¡No recargue esta página!</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
                             </div>
                         @endif
                         <div class="card-body">
@@ -251,6 +254,32 @@
                                     <input type="hidden" value="1">
                                 @endif
 
+                                {{-- Tipo de factura --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="fas fa-receipt"></i>
+                                        </span>
+                                    </div>
+                                    <select name="invoice_type" id="invoice_type"
+                                        class="form-control @error('invoice_type') is-invalid @enderror" required>
+                                        <option selected disabled>Tipo de factura</option>
+                                        <option value="0">Factura sin iva</option>
+                                        <option value="1">Factura con iva</option>
+                                    </select>
+                                    @error('invoice_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('invoice_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 {{-- Nombre del cliente --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input class="text-dark form-control" name="customer_name"
@@ -271,7 +300,7 @@
                                 <br>
 
                                 <!-- Trigger the modal with a button -->
-                                <button type="button" onclick="agregarProducto(/* '#applied_price' */)" style="border-radius: 95px;"
+                                <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
                                     class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i
                                         class="fas fa-cart-plus text-light"></i>
                                 </button>
@@ -557,8 +586,11 @@
         var count = 0;
 
         function agregarProducto() {
-            let selectedPrice= document.getElementById('applied_price').value
+            let selectedInvoice = document.getElementById('invoice_type').value
+            console.error(selectedInvoice);
+            let selectedPrice = document.getElementById('applied_price').value
             console.error(selectedPrice);
+            var tax = 1.12;
             var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
             var text = $('#producto_id').find(':selected')
                 .text(); //Capturo el Nombre del Producto- Texto dentro del Select
@@ -567,24 +599,58 @@
             var sptext = text.split();
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
-            if (selectedPrice == 1) {
-                newtr = newtr +
-                    `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                newtr = newtr +
-                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-            } 
-            if (selectedPrice == 2) {
-                newtr = newtr +
-                    `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                newtr = newtr +
-                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-            } 
-            if (selectedPrice == 3) {
-                newtr = newtr +
-                    `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                newtr = newtr +
-                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-            } 
+
+            if (selectedInvoice == 1) {
+                console.error("aplica iva");
+                if (selectedPrice == 1) {
+                    console.error("precio espcial");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+                if (selectedPrice == 2) {
+                    console.error("precio normal");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+                if (selectedPrice == 3) {
+                    console.error("precio credito");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+            } else if (selectedInvoice == 0) {
+                console.error("exportacion");
+                if (selectedPrice == 1) {
+                    console.error("precio 1");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+                if (selectedPrice == 2) {
+                    console.error("precio 2");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+                if (selectedPrice == 3) {
+                    console.error("precio 3");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+            }
 
 
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected

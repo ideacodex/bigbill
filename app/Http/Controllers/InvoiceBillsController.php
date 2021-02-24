@@ -32,7 +32,7 @@ class InvoiceBillsController extends Controller
             return view("invoice_bill.index", ["records" => $records]); //generala vista
         } else {
 
-            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $company = Auth::user()->company_id; //guardo la variable de companía del ususario autentificado
             $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autentificacion
             return view("invoice_bill.index", ["records" => $records]);
         }
@@ -63,7 +63,7 @@ class InvoiceBillsController extends Controller
         request()->validate([
             'user_id',
             'company_id' => 'required',
-            'iva',
+            'invoice_type' => 'required',
             'ListaPro',
             'total'
         ]);
@@ -81,7 +81,7 @@ class InvoiceBillsController extends Controller
                 $bill->customer_id = $request->customer_id;
             }
             $bill->branch_id = $request->branch_id;
-            $bill->iva = $request->iva;
+            $bill->invoice_type = $request->invoice_type;
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;
             $bill->totalletras = $request->totalletras;

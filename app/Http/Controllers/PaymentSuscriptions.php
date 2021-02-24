@@ -76,7 +76,10 @@ class PaymentSuscriptions extends Controller
             } elseif ($payment->suscription_time <= 0) {
                 /* Si no lo deja en 0 */
                 $suscription->active = 0;
-            }
+            }    
+
+            $suscription->type_plan = $request->type_plan;            
+
             /* Multiplico el tiempo de suscripción por los 30 días mensuales y lo guardo en la variable temporal*/
             $temporal = $request->suscription_time * 30;
             /* La variable temporal llevará el resultado y serán los días a agregar en la fecha */

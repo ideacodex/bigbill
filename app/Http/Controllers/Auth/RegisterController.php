@@ -95,7 +95,7 @@ class RegisterController extends Controller
             $record->active=1;
             $record->date_active=$user->created_at;
             $record->date_expiration=$user->created_at->addDays(15);
-            $record->type_plan=1;
+            $record->type_plan=0;
             $record->save();
             $request = new Request($data);
         } catch (\Illuminate\Database\QueryException $e) {
