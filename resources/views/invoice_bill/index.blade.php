@@ -52,7 +52,6 @@
                                         <th>Cliente</th>
                                         <th>Nit</th>
                                         <th>Total</th>
-                                        <th>Adquisición</th>
                                         <th>Descripción</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
@@ -91,20 +90,13 @@
 
                                                     <td>{{ $item->total }}</td>
 
-                                                    @if ($item->acquisition == '1')
-                                                        <td>Bienes</td>
-                                                    @elseif($item->acquisition == "2")
-                                                        <td>Servicios</td>
-                                                    @elseif($item->acquisition == "3")
-                                                        <td>Bienes y Servicios</td>
-                                                    @endif
 
                                                     <td>{{ $item->description }}</td>
 
                                                     @if ($item->document_type == 1)
-                                                        <td style="background: rgb(190, 238, 118)">Factura emitida</td>
+                                                        <td> <i class="text-primary fas fa-check-circle">Factura</i></td>
                                                     @elseif($item->document_type == 0)
-                                                        <td style="background: rgb(106, 251, 137)">Cotización</td>
+                                                        <td><i class="text-danger fas fa-check-circle">Cotización</i></td>
                                                     @endif
 
                                                     <td>
