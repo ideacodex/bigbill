@@ -320,6 +320,49 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        {{-- select etiquetas FAMILIA --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                                                    <i class="fas fa-users"></i>
+                                                </span>
+                                            </div>
+                                            <select
+                                                class="js-example-basic-multiple js-states form-control @error('family_id') is-invalid @enderror"
+                                                name="family_id[]" id="family_id" multiple="multiple" required>
+                                                <option disabled selected>Categorias-</option>
+                                                @foreach ($family as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('family_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        {{-- select etiquetas marcas --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                                                    <i class="fas fa-users"></i>
+                                                </span>
+                                            </div>
+                                            <select
+                                                class="js-example-basic-multiple js-states form-control @error('mark_id') is-invalid @enderror"
+                                                name="mark_id[]" id="mark_id" multiple="multiple" required>
+                                                <option disabled selected>Categorias-</option>
+                                                @foreach ($mark as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('mark_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
                                         {{-- imagen --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <input type="file" id="file" name="file" accept="image/*"
@@ -397,6 +440,7 @@
             }
 
         }
+
         function MostrarDimensiones() {
             var select = document.getElementById('dimensiones').value;
             var Peso = document.getElementById('Peso');
@@ -418,6 +462,31 @@
             }
 
         }
+
     </script>
+ <script>
+    $('.js-example-basic-multiple').select2();
+
+</script>
 
 @endsection
+
+
+
+{{-- Crear select dinamicos con etiquetas (select multiple)
+    https://translate.google.com/translate?hl=es-419&sl=en&u=https://select2.org/getting-started/basic-usage&prev=search&pto=aue
+
+
+     <select
+                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
+                            name="category_id[]" id="category_id" multiple="multiple" required>
+                            <option disabled selected>Categorias</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+
+    <script>
+        $('.js-example-basic-multiple').select2();
+
+    </script> --}}

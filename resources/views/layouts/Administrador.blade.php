@@ -64,8 +64,9 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                        alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -115,22 +116,19 @@
                         </a>
                     </li>
                     <!--Productos -->
-                    <li class="menu-item">
-                        <a href="{{ route('productos.index') }}">
-                            <i class="menu-icon fas fa-cubes"></i>Productos
-                        </a>
-                    </li>
-
-                    <!--Facturar -->
-                    <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                            aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
-                                    Facturas</a></li>
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
-                                </a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('productos.index') }}">Listado de Productos</a>
+                            </li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('familias.index') }}">Familias</a>
+                            </li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('marcas.index') }}">Marcas</a>
+                            </li>
                         </ul>
                     </li>
                     <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
@@ -300,7 +298,7 @@
         $('.select2').select2();
 
     </script>
-        <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+    <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
 
 </body>
 

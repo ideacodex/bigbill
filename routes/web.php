@@ -90,9 +90,18 @@ Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 /**Pago de suscripción */
 
 
-/**Lista de precios Route */
+/**Lista de Ajustes Route */
 Route::resource('Ajustes', 'SettingController')->middleware('auth');
-/**Lista de precios Route */
+/**Lista de Ajustes Route */
+
+
+/**Lista de familias Route */
+Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador');
+/**Lista de familias Route */
+
+/**Lista de marcas Route */
+Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador');
+/**Lista de marcas Route */
 
 
 /** https://www.youtube.com/watch?v=h0H4Y0U2DGk */

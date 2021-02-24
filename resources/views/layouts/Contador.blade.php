@@ -79,11 +79,22 @@
                             </ul>
                         </li>
                         <!--Productos -->
-                        <li class="menu-item">
-                            <a href="{{ route('productos.index') }}">
-                                <i class="menu-icon fas fa-cubes"></i>Productos
-                            </a>
-                        </li>
+                         <!--Productos -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('productos.index') }}">Listado de Productos</a>
+                            </li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('familias.index') }}">Familias</a>
+                            </li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('marcas.index') }}">Marcas</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
                         <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->

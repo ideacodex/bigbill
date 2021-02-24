@@ -22,7 +22,7 @@ class SettingController extends Controller
         if ($rol == 1) {
             $company = Company::all();
             $settings = Setting::with('company')->get();
-            return view("settings.index", ['settings' => $settings , 'company' => $company ]); //generala vista
+            return view("settings.index", ['settings' => $settings, 'company' => $company]); //generala vista
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $settings = Setting::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
@@ -59,16 +59,6 @@ class SettingController extends Controller
         return back()->with('datosEliminados', 'Registro Guardado');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Setting  $setting
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Setting $setting)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

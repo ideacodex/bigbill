@@ -57,8 +57,7 @@
         <div class="row">
             <div class="col-md-12 ml-9 ms-12">
                 <aside class="profile-nav alt">
-                    <!-- Diseño de los blocks -->
-
+                    <!-- Tabla iva -->
                     <div class="col-ml-6 col-md-6 col-ms-12   col-xs-12 ">
                         <div style="background-color: #2b364f; color: white; border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;"
                             class="col-ml-12 col-md-12 col-ms-12   col-xs-12 ">
@@ -114,7 +113,7 @@
                                                                     </a>
                                                                     <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                         <span class="text-light"><i
                                                                                 class="fas fa-trash-alt"></i></span>
                                                                     </a>
@@ -145,7 +144,7 @@
                                                                         </a>
                                                                         <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
                                                                             <span class="text-light"><i
                                                                                     class="fas fa-trash-alt"></i></span>
                                                                         </a>
@@ -180,8 +179,6 @@
                             <br>
                         </div>
                     </div>
-
-
                     <!-- LISTA DE PRECIOS -->
                     <div class="col-ml-6 col-md-6 col-ms-12   col-xs-12 ">
                         <div style="background-color: #2b364f; color: white;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;"
