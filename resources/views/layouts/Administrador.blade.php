@@ -129,11 +129,25 @@
                             <li> <i class="menu-icon fas fa-file-alt"></i>
                                 <a href="{{ route('marcas.index') }}">Marcas</a>
                             </li>
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
-                                    Facturas</a></li>
+                        </ul>
+                    </li>
+
+                    <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li>
+                                <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
+                                    Ver Facturas</a>
+                            </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                                <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
-                                    </a></li>
+                                <li>
+                                    <i class="menu-icon fas fa-file-alt"></i>
+                                    <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                        Cotizaciones</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
