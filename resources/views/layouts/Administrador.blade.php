@@ -30,7 +30,7 @@
 
     {{-- selec2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    
+
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -64,8 +64,9 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"  alt="Facturador"></a>
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                        alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -129,8 +130,10 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
                                     Facturas</a></li>
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
-                                </a></li>
+                            @if (Auth::user()->suscriptions->type_plan == 1)
+                                <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
+                                    </a></li>
+                            @endif
                         </ul>
                     </li>
                     <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
@@ -300,7 +303,7 @@
         $('.select2').select2();
 
     </script>
-        <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+    <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
 
 </body>
 

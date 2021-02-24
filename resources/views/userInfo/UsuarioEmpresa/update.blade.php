@@ -169,13 +169,13 @@
                                                 @if ($user->company_id)
                                                     <option value="{{ $user->company_id }}" selected>
                                                         <p>
-                                                            Su compañia: {{ $user->companies->name }}
+                                                            Companía: {{ $user->companies->name }}
                                                         </p>
                                                     </option>
-                                                    <option value="">Quitar Compañia</option>
+                                                    <option value="">Quitar Companía</option>
                                                 @else
                                                     <option value="" selected disabled>
-                                                        <p>Sin Compañia</p>
+                                                        <p>Sin Companía</p>
                                                     </option>
                                                 @endif
 

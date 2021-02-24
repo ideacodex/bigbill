@@ -50,9 +50,10 @@
                                         <th>Companía</th>
                                         <th>Sucursal</th>
                                         <th>Cliente</th>
-                                        <th>Nit</th>
-                                        <th>Total</th>
+                                        <th>Nit</th>   
                                         <th>Descripción</th>
+                                        <th>Total</th>
+                                        <th>Tipo de factura</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -88,10 +89,15 @@
                                                         <td>C/F</td>
                                                     @endif
 
+                                                    <td>{{ $item->description }}</td>
+
                                                     <td>{{ $item->total }}</td>
 
-
-                                                    <td>{{ $item->description }}</td>
+                                                    @if ($item->invoice_type == 1)
+                                                        <td>Factura con iva</td>
+                                                    @elseif($item->invoice_type == 0)
+                                                        <td>Factura sim iva</td>
+                                                    @endif
 
                                                     @if ($item->document_type == 1)
                                                         <td> <i class="text-primary fas fa-check-circle">Factura</i></td>
