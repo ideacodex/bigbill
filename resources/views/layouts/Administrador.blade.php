@@ -290,6 +290,8 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
+
+ {{-- select con etiquetas --}}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
@@ -299,6 +301,9 @@
 
     </script>
     <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+
+    @yield('js')
+
 
 </body>
 

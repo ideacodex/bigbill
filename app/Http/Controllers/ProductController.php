@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\family;
 use App\mark;
+use App\pivote_family;
+use App\pivote_mark;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -125,6 +127,20 @@ class ProductController extends Controller
             $product->depth = $request->depth;
 
             $product->save();
+            // crear la insercion de  categorias
+            for ($i = 0; $i < sizeof($request->family_id); $i++) {
+                $request->family_id[$i];
+                DB::table('pivote_family')->insert(
+                    ['family_id' => $request->family_id[$i], 'product_id' => $product->id]
+                );
+            }
+            // crear el insertado de datos en marcas
+            for ($i = 0; $i < sizeof($request->mark_id); $i++) {
+                $request->mark_id[$i];
+                DB::table('pivote_mark')->insert(
+                    ['mark_id' => $request->mark_id[$i], 'product_id' => $product->id]
+                );
+            }
 
             //***carga de imagen***//
             if ($request->hasFile('file')) {
@@ -166,8 +182,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $family = pivote_family::with('product')->with('family')->get();
+        $mark = pivote_mark::with('product')->with('mark')->get();
         $products = Product::with('company')->find($id);
-        return view('product.show', ['products' => $products]);
+        return view('product.show', ['products' => $products , 'family' => $family , 'mark' => $mark]);
     }
     /**
      * Show the form for editing the specified resource.

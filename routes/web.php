@@ -40,7 +40,7 @@ Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth
 /**Companies Route */
 
 /**userInfo Route */
-Route::resource('cuentas', 'AccountsController')->middleware('auth');
+Route::resource('cuentas', 'AccountsController')->middleware('role:Administrador')->middleware('auth'); //autentificacion y permisos
 /**userInfo Route */
 
 /**Account_type Route */
@@ -70,7 +70,7 @@ Route::get('/doc-User', function () {return new DocsUser;});
 /** Descargar Excel */
 
 /** perfil */
-Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor');
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth');
 /** perfil */
 
 /** Usuarios de las empresas*/
@@ -96,11 +96,11 @@ Route::resource('Ajustes', 'SettingController')->middleware('auth');
 
 
 /**Lista de familias Route */
-Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador');
+Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth');
 /**Lista de familias Route */
 
 /**Lista de marcas Route */
-Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador');
+Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth');
 /**Lista de marcas Route */
 
 
