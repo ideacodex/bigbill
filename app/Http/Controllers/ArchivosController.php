@@ -23,10 +23,22 @@ class ArchivosController extends Controller
     //Productos
     public function exportProductPDF()
     {
-        $Products = Product::with('companies')->get();
-        $pdf = PDF::loadView('PDF.Productpdf', ["Products" => $Products]);
-        return $pdf->download('Product.pdf');
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $Products = Product::with('companies')->get();
+            $pdf = PDF::loadView('PDF.Productpdf', ["Products" => $Products]);
+            return $pdf->download('Product.pdf');
+        } else {
+            /**si existe la columna company_id realizar: Filtrado de inforcion*/
+            $companipdf = Auth::user()->company_id;
+                $Products = Product::where('company_id', $companipdf)->with('company')->get(); //Obtener los valores de tu request:
+                $pdf = PDF::loadView('CompanyInformation.products', compact('Products')); //genera el PDF la vista
+                return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
+        }
     }
+
+
+
     //Company
     public function exportCompanyPDF()
     {
@@ -79,9 +91,9 @@ class ArchivosController extends Controller
         return $pdf->download('User.pdf', ["companies" => $companies]);
     }
     //home 2.0 PERFIL
-    public function Perfil(Request $request)
+    public function Perfil()
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+
         $company_id = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
         $branch_id = Auth::user()->branch_id; //guardo la variable de Sucursal del ususario autentificado
         $branch_offices =  BranchOffice::where('id', $branch_id)->get(); //realiza consulta mysql
@@ -105,7 +117,5 @@ class ArchivosController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente']); //autentificacion y permisos
         $company =  Company::where('id', (Auth::user()->company_id))->get(); //realiza consulta mysql
         return view('settings.index', ["company" => $company]);
-
     }
-
 }

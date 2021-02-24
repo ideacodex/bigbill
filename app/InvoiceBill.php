@@ -42,4 +42,25 @@ class InvoiceBill extends Model
     {
         return $this->hasOne("App\Setting", 'id', 'setting_id');
     }
+
+    public function invoiceTypes()
+    {
+        if ($this->invoice_type == 0) {
+            return "Factura sin iva";
+        }elseif ($this->invoice_type == 1){
+            return "Factura con iva";
+        }
+    }
+
+    public function appliedPrices()
+    {
+        if ($this->applied_price == 1) {
+            return "Precio especial";
+        } elseif($this->applied_price == 2) {
+            return "Precio al contado";
+        } elseif($this->applied_price == 3){
+            return "Precio de crédito"; 
+        }
+        
+    }
 }

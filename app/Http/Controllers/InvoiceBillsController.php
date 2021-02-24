@@ -64,6 +64,7 @@ class InvoiceBillsController extends Controller
             'user_id',
             'company_id' => 'required',
             'invoice_type' => 'required',
+            'applied_price' => 'required',
             'ListaPro',
             'total'
         ]);
@@ -93,6 +94,7 @@ class InvoiceBillsController extends Controller
             $bill->date_issue = $request->date_issue;
             $bill->expiration_date = $request->expiration_date;
             $bill->document_type = $request->document_type;
+            $bill->applied_price = $request->applied_price;
             $bill->save();
 
             /* Detalle */
@@ -146,6 +148,15 @@ class InvoiceBillsController extends Controller
     {
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
         return view('invoice_bill.show', ['records' => $records]);
+    }
+
+    public function editar($id)
+    {
+        $product = Product::where('active', 1)->get();
+        $company = Company::all();
+        $customer = Customer::all();
+        $invoice = InvoiceBill::findOrFail($id);
+        return view("invoice_bill.edit", ["invoice" => $invoice,"product" => $product, "company" => $company, "customer" => $customer]);
     }
 
     /**

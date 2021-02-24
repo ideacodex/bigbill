@@ -116,26 +116,42 @@
                         </a>
                     </li>
                     <!--Productos -->
-                    <li class="menu-item">
-                        <a href="{{ route('productos.index') }}">
-                            <i class="menu-icon fas fa-cubes"></i>Productos
-                        </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('productos.index') }}">Listado de Productos</a>
+                            </li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('familias.index') }}">Familias</a>
+                            </li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('marcas.index') }}">Marcas</a>
+                            </li>
+                        </ul>
                     </li>
 
-                    <!--Facturar -->
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ route('facturas.index') }}">Ver
-                                    Facturas</a></li>
+                            <li>
+                                <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
+                                    Ver Facturas</a>
+                            </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                                <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
-                                    </a></li>
+                                <li>
+                                    <i class="menu-icon fas fa-file-alt"></i>
+                                    <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                        Cotizaciones</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
+
                     <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
