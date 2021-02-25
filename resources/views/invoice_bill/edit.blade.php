@@ -74,7 +74,7 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de emisión" class="fas fa-calendar-alt"></i>
+                                            <i title="Fecha de emisión" class="text-primary fas fa-calendar-alt"></i>
                                         </span>
                                     </div>
                                     <input id="date_issue" name="date_issue" type="date"
@@ -92,7 +92,7 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de vencimiento" class="fas fa-calendar-times"></i>
+                                            <i title="Fecha de vencimiento" class="text-primary fas fa-calendar-times"></i>
                                         </span>
                                     </div>
                                     <input id="expiration_date" name="expiration_date" type="date"
@@ -106,46 +106,55 @@
                                     @enderror
                                 </div>
 
-                                <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                                @if (Auth::user()->role_id == 1)
+                                    {{-- company --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i title="company" class="text-primary far fa-building"></i>
+                                            </span>
+                                        </div>
+                                        <select name="company_id" id="company_id"
+                                            class="form-control @error('company_id') is-invalid @enderror">
+                                            @if (auth()->user()->company_id)
+                                                <option value="{{ auth()->user()->company_id }}" selected>
+                                                    <p>
+                                                        Companía {{ auth()->user()->companies->name }}
+                                                    </p>
+                                                </option>
+                                            @endif
+
+                                            @foreach ($company as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('company_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                    </div>
+
+                                @else
+                                    {{-- Company_id --}}
+                                    <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                                @endif
 
                                 {{-- Sucursal --}}
                                 <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-
-                                {{-- Iva --}}
-                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <label>Iva</label>
-                                        </span>
-                                    </div>
-                                    <input id="iva" type="number"
-                                        class="text-dark form-control @error('iva') is-invalid @enderror" name="iva"
-                                        value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
-
-                                    @error('iva')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('iva')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
 
                                 {{-- Precio a aplicar en la factura --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-tags"></i>
+                                            <i class="text-primary fas fa-tags"></i>
                                         </span>
                                     </div>
                                     <select name="applied_price" id="applied_price"
                                         class="form-control @error('applied_price') is-invalid @enderror" required
                                         onchange="alert('Los precios serán afectados con esta opción.')">
-                                        <option selected disabled value="{{ $invoice->applied_price }}">
+                                        <option selected value="{{ $invoice->applied_price }}">
                                             {{ $invoice->appliedPrices() }}
                                         </option>
                                         <option value="1">Especial</option>
@@ -165,76 +174,19 @@
                                     @enderror
                                 </div>
 
-                                {{-- Customer_id --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
-                                            data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
-                                        </a>
-                                    </div>
-                                    <select name="customer_id" id="cifrado" onchange="mostrarInput();"
-                                        class="select2 form-control @error('customer_id') is-invalid @enderror">
-                                        <option selected disabled>Cliente</option>
-                                        <option value="0">C/F</option>
-                                        {{-- @foreach ($records->customer as $item)
-                                            <option value="{{ $item->id }}">Cliente: {{ $item->name }}
-                                                {{ $item->lastname }} Nit: {{ $item->nit }}
-                                            </option>
-                                        @endforeach --}}
-                                    </select>
-                                    @error('customer_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('customer_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- Tipo de factura --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-receipt"></i>
-                                        </span>
-                                    </div>
-                                    <select name="invoice_type" id="invoice_type"
-                                        class="form-control @error('invoice_type') is-invalid @enderror" required>
-                                        <option selected disabled value="{{ $invoice->invoice_type }}">
-                                            {{ $invoice->invoiceTypes() }}
-
-                                        </option>
-                                        <option value="0">Factura sin iva</option>
-                                        <option value="1">Factura con iva</option>
-                                    </select>
-                                    @error('invoice_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('invoice_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
                                 {{-- Tipo de gestión --}}
                                 @if (Auth::user()->suscriptions->type_plan == 1)
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-file-word"></i>
+                                                <i class="text-primary fas fa-file-word"></i>
                                             </span>
                                         </div>
                                         <select name="document_type" id="document_type"
                                             class="form-control @error('document_type') is-invalid @enderror" required>
-                                            <option selected disabled>Tipo de gestión</option>
+                                            <option selected value="{{ $invoice->document_type }}">
+                                                {{ $invoice->documentTypes() }}
+                                            </option>
                                             <option value="1">Factura</option>
                                             <option value="0">Cotización</option>
                                         </select>
@@ -254,16 +206,105 @@
                                     <input type="hidden" id="document_type" name="document_type" value="1">
                                 @endif
 
+                                {{-- Tipo de factura --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="text-primary fas fa-receipt"></i>
+                                        </span>
+                                    </div>
+                                    <select name="invoice_type" id="invoice_type"
+                                        class="form-control @error('invoice_type') is-invalid @enderror" required>
+                                        <option selected value="{{ $invoice->invoice_type }}">
+                                            {{ $invoice->invoiceTypes() }}
+
+                                        </option>
+                                        <option value="0">Factura sin iva</option>
+                                        <option value="1">Factura con iva</option>
+                                    </select>
+                                    @error('invoice_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('invoice_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                @if (!is_null($invoice->customer_id))
+                                    {{-- Customer_id --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
+                                                data-target="#largeModal"><i class="text-light fas fa-user-plus"></i>
+                                            </a>
+                                        </div>
+                                        <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                            class="select2 form-control @error('customer_id') is-invalid @enderror">
+                                            <option selected value="{{ $invoice->customer_id }}">
+                                                Cliente: {{ $invoice->customer->name }} Nit:
+                                                {{ $invoice->customer->nit }}
+                                            </option>
+                                            <option value="0">C/F</option>
+                                        </select>
+                                        @error('customer_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('customer_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @elseif($invoice->customer_id == null)
+                                    {{-- Customer_id --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
+                                                data-target="#largeModal"><i class="text-light fas fa-user-plus"></i>
+                                            </a>
+                                        </div>
+                                        <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                            class="select2 form-control @error('customer_id') is-invalid @enderror">
+                                            <option selected disabled>Cliente</option>
+                                            <option value="0">C/F</option>
+                                            @foreach ($customer as $item)
+                                                <option value="{{ $item->id }}">Cliente: {{ $item->name }}
+                                                    {{ $item->lastname }} Nit: {{ $item->nit }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('customer_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('customer_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @endif
+
                                 {{-- Nombre del cliente --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input class="text-dark form-control" name="customer_name"
-                                        placeholder="Nombre del cliente" id="numero" type="text">
+                                        placeholder="Nombre del cliente" id="numero" type="text"
+                                        value="{{ $invoice->customer_name }}">
                                 </div>
-
                                 {{-- Correo del cliente --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input class="text-dark form-control" name="customer_email" placeholder="Correo"
-                                        id="text" type="text">
+                                        id="text" type="text" value="{{ $invoice->customer_email }}">
                                 </div>
 
                                 {{-- Descripción --}}
@@ -293,6 +334,39 @@
                                             </tr>
                                         </thead>
                                         <tbody id="ProSelected">
+                                            @foreach ($invoice->detail as $record)
+                                                <tr>
+                                                    <td><select onchange="mostrarprecio()" class="select2 form-control"
+                                                            onchange="showStockSelect()" class="selectpicker form-control"
+                                                            id="product_id{{ $loop->index }}" name="product_id[]">
+                                                            <option disabled selected value="{{ $record->product_id }}">
+                                                                {{ $record->product->name }}</option>
+                                                            @foreach ($product as $item)>
+                                                                <option value="{{ $item->id }}"
+                                                                    valuestock="{{ $item->price * 1.12 }}">
+                                                                    {{ $item->name }}@if ($item->stock < 5)({{ $item->stock }}
+                                                                        unidades)@endif
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    <td><input class="form-control" type="number" id="cantidad[]"
+                                                            name="quantity[]" onChange="Calcular(this);"
+                                                            value="{{ $record->quantity }}" /></td>
+                                                    <td><input class="form-control" type="number"
+                                                            id="precunit{{ $loop->index }}" step="0.01"
+                                                            name="unit_price[]" onChange="Calcular(this);"
+                                                            value="{{ $record->product->price }}" readonly /></td>
+                                                    <td><input class="form-control" type="number" id="totalitem[]"
+                                                            name="subtotal[]" readonly value="{{ $record->subtotal }}" />
+                                                    </td>
+                                                    <td><button type="button" class="btn btn-danger btn-xs remove-item"><i
+                                                                class="far fa-trash-alt"></i></button></td>
+                                                </tr>
+                                                <script>
+                                                    var count = {{ $loop->index + 1 }};
+
+                                                </script>
+                                            @endforeach
                                             <!--Ingreso un id al tbody-->
                                             <tr>
 
@@ -303,7 +377,7 @@
                                                 <td>Total</td>
                                                 <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
-                                                <td><span id="total">0</span>
+                                                <td><span id="total">{{ $invoice->total }}</span>
                                                 <td>&nbsp;</td>
                                             </tr>
                                         </tfoot>
@@ -318,7 +392,7 @@
                                         </span>
                                     </div>
 
-                                    <input id="spTotal" onchange="numbersToText()"
+                                    <input id="spTotal" onchange="numbersToText()" value="{{ $invoice->total }}"
                                         class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
                                         readonly>
 
@@ -331,7 +405,7 @@
 
                                 {{-- totalletras --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <input id="totalletras"
+                                    <input id="totalletras" value="{{ $invoice->totalletras }}"
                                         class="text-dark form-control @error('totalletras') is-invalid @enderror"
                                         name="totalletras" autofocus value="total letras" readonly>
                                     @error('totalletras')
@@ -540,7 +614,7 @@
         function RefrescaProducto() {
             var ip = [];
             var i = 0;
-            $('#guardar').attr('disabled', 'disabled'); //Deshabilito el Boton Guardar
+            $('#guardar').attr('disabled', 'disabled'); //DessetContadorhabilito el Boton Guardar
             $('.iProduct').each(function(index, element) {
                 i++;
                 ip.push({
@@ -557,7 +631,7 @@
 
         }
 
-        var count = 0;
+
 
         function agregarProducto() {
             let selectedInvoice = document.getElementById('invoice_type').value
@@ -571,8 +645,7 @@
             count++;
             console.log("Presionado : ", count);
             var sptext = text.split();
-            var newtr = '<tr class="item"  data-id="' + sel + '">';
-            var newtr = '<tr class=""  data-id="' + sel + '">';
+            var newtr = '<tr >';
 
             if (selectedInvoice == 1) {
                 console.error("aplica iva");
@@ -610,7 +683,7 @@
                 }
 
                 if (selectedPrice == 2) {
-                    console.error("precio 2");
+                    console.error("preProSelectedcio 2");
                     newtr = newtr +
                         `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
                     newtr = newtr +

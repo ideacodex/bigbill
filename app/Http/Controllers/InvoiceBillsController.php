@@ -155,7 +155,9 @@ class InvoiceBillsController extends Controller
         $product = Product::where('active', 1)->get();
         $company = Company::all();
         $customer = Customer::all();
-        $invoice = InvoiceBill::findOrFail($id);
+        $invoice = InvoiceBill::where('id', $id)
+        ->with('customer')
+        ->with('detail.product')->first();
         return view("invoice_bill.edit", ["invoice" => $invoice,"product" => $product, "company" => $company, "customer" => $customer]);
     }
 
@@ -167,6 +169,7 @@ class InvoiceBillsController extends Controller
      */
     public function edit($id)
     {
+        //este metodo es utilizado para enviar el correo
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
 
         $data = json_decode($records);

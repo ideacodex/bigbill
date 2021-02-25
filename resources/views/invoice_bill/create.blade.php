@@ -40,7 +40,7 @@
                     <div class="card">
                         <div class="card-header">
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                                <strong class="card-title">Emitir factura o cotización</strong>
+                                <strong class="card-title">Emitir factura o cotización.</strong>
                             @elseif (Auth::user()->suscriptions->type_plan == 0)
                                 <strong class="card-title">Emitir factura</strong>
                             @endif
@@ -73,7 +73,7 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de emisión" class="fas fa-calendar-alt"></i>
+                                            <i title="Fecha de emisión" class="text-primary fas fa-calendar-alt"></i>
                                         </span>
                                     </div>
                                     <input id="date_issue" name="date_issue" type="date"
@@ -91,10 +91,11 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de vencimiento" class="fas fa-calendar-times"></i>
+                                            <i title="Fecha de vencimiento" class="text-primary fas fa-calendar-times"></i>
                                         </span>
                                     </div>
                                     <input id="expiration_date" name="expiration_date" type="date"
+                                        value="{{ old('expiration_date') }}"
                                         class="text-dark form-control @error('expiration_date') is-invalid @enderror"
                                         required autocomplete="expiration_date" autofocus readonly>
                                     @error('expiration_date')
@@ -109,7 +110,7 @@
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="company" class="far fa-building"></i>
+                                                <i title="company" class="text-primary far fa-building"></i>
                                             </span>
                                         </div>
                                         <select name="company_id" id="company_id"
@@ -142,35 +143,11 @@
                                 {{-- Sucursal --}}
                                 <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
 
-                                {{-- Iva --}}
-                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <label>Iva</label>
-                                        </span>
-                                    </div>
-                                    <input id="iva" type="number"
-                                        class="text-dark form-control @error('iva') is-invalid @enderror" name="iva"
-                                        value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
-
-                                    @error('iva')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('iva')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
                                 {{-- Precio a aplicar en la factura --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-tags"></i>
+                                            <i class="text-primary fas fa-tags"></i>
                                         </span>
                                     </div>
                                     <select name="applied_price" id="applied_price"
@@ -194,11 +171,67 @@
                                     @enderror
                                 </div>
 
+                                {{-- Tipo de factura --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="text-primary fas fa-receipt"></i>
+                                        </span>
+                                    </div>
+                                    <select name="invoice_type" id="invoice_type"
+                                        class="form-control @error('invoice_type') is-invalid @enderror" required>
+                                        <option selected disabled>Tipo de factura</option>
+                                        <option value="0">Factura sin iva</option>
+                                        <option value="1">Factura con iva</option>
+                                    </select>
+                                    @error('invoice_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('invoice_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                {{-- Tipo de gestión --}}
+                                @if (Auth::user()->suscriptions->type_plan == 1)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-file-word"></i>
+                                            </span>
+                                        </div>
+                                        <select name="document_type" id="document_type"
+                                            class="form-control @error('document_type') is-invalid @enderror" required>
+                                            <option selected disabled>Tipo de gestión</option>
+                                            <option value="1">Factura</option>
+                                            <option value="0">Cotización</option>
+                                        </select>
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @elseif(Auth::user()->suscriptions->type_plan == 0)
+                                    <input type="hidden" id="document_type" name="document_type" value="1">
+                                @endif
+
                                 {{-- Customer_id --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
-                                            data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                            data-target="#largeModal"><i class="text-light fas fa-user-plus"></i>
                                         </a>
                                     </div>
                                     <select name="customer_id" id="cifrado" onchange="mostrarInput();"
@@ -224,62 +257,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Tipo de gestión --}}
-                                @if (Auth::user()->suscriptions->type_plan == 1)
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-file-word"></i>
-                                            </span>
-                                        </div>
-                                        <select name="document_type" id="document_type"
-                                            class="form-control @error('document_type') is-invalid @enderror" required>
-                                            <option selected disabled>Tipo de gestión</option>
-                                            <option value="1">Factura</option>
-                                            <option value="0">Cotización</option>
-                                        </select>
-                                        @error('document_type')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                        @error('document_type')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                @elseif(Auth::user()->suscriptions->type_plan == 0)
-                                    <input type="hidden" id="document_type" name="document_type" value="1">
-                                @endif
-
-                                {{-- Tipo de factura --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-receipt"></i>
-                                        </span>
-                                    </div>
-                                    <select name="invoice_type" id="invoice_type"
-                                        class="form-control @error('invoice_type') is-invalid @enderror" required>
-                                        <option selected disabled>Tipo de factura</option>
-                                        <option value="0">Factura sin iva</option>
-                                        <option value="1">Factura con iva</option>
-                                    </select>
-                                    @error('invoice_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('invoice_type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
                                 {{-- Nombre del cliente --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input class="text-dark form-control" name="customer_name"
@@ -294,7 +271,7 @@
 
                                 {{-- Descripción --}}
                                 <textarea class="form-control" rows="5" id="description" placeholder="Descripción"
-                                    name="description"></textarea>
+                                    name="description" value="{{ old('description') }}"></textarea>
 
                                 <input type="hidden" name="date" id="date">
                                 <br>
@@ -409,7 +386,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nombre" class="text-dark fas fa-user"></i>
+                                    <i title="Nombre" class="text-primary fas fa-user"></i>
                                 </span>
                             </div>
                             <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
@@ -433,7 +410,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Apellido" class="text-dark fas fa-user"></i>
+                                    <i title="Apellido" class="text-primary fas fa-user"></i>
                                 </span>
                             </div>
                             <input id="lastname" placeholder="Apellido" type="text"
@@ -457,7 +434,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
+                                    <i title="Número de teléfono" class="text-primary fas fa-mobile"></i>
                                 </span>
                             </div>
                             <input id="phone" placeholder="Número de teléfono" type="number"
@@ -481,7 +458,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Correo electrónico" class="text-dark fas fa-at"></i>
+                                    <i title="Correo electrónico" class="text-primary fas fa-at"></i>
                                 </span>
                             </div>
                             <input id="email" placeholder="Correo electrónico" type="text"
@@ -505,7 +482,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nit" class="text-dark fas fa-sort-amount-down"></i>
+                                    <i title="Nit" class="text-primary fas fa-sort-amount-down"></i>
                                 </span>
                             </div>
                             <input id="nit" placeholder="Nit" type="number"
