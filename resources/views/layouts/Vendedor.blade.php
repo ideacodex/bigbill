@@ -77,16 +77,15 @@
                     <li class="active">
                         <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Vendedor:
                             {{ Auth::user()->name }}</a>
-                    </li
-                    <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
+                    </li <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
 
 
                         <!--Clientes -->
                         <li class="menu-item-has-children dropdown">
-                            <a href="{{ url('clientes?company_id=' ) }}"
-                                class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"><i class="menu-icon fas fa-user-friends"></i> Clientes
+                            <a href="{{ url('clientes?company_id=') }}" class="dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                    class="menu-icon fas fa-user-friends"></i> Clientes
                             </a>
                         </li>
 
@@ -115,11 +114,19 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                        href="{{ route('facturas.index') }}">Ver
-                                        Facturas</a></li>
-                                <li> <i class="menu-icon fas fa-file-alt"></i><a href="">Cotizaciones
-                                    </a></li>
+                                <li>
+                                    <i class="menu-icon fas fa-file-alt"></i>
+                                    <a href="{{ route('facturas.index') }}">Ver
+                                        Facturas</a>
+                                </li>
+                                @if (Auth::user()->suscriptions->type_plan == 1)
+                                    <li>
+                                        <i class="menu-icon fas fa-file-alt"></i>
+                                        <a
+                                            href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                            Cotizaciones</a>
+                                    </li>
+                                @endif
                             </ul>
                         </li>
                         <h3 class="menu-title">Extras</h3><!-- /.menu-title -->

@@ -130,14 +130,14 @@ class ProductController extends Controller
             // crear la insercion de  categorias
             for ($i = 0; $i < sizeof($request->family_id); $i++) {
                 $request->family_id[$i];
-                DB::table('pivote_family')->insert(
+                DB::table('pivote_families')->insert(
                     ['family_id' => $request->family_id[$i], 'product_id' => $product->id]
                 );
             }
             // crear el insertado de datos en marcas
             for ($i = 0; $i < sizeof($request->mark_id); $i++) {
                 $request->mark_id[$i];
-                DB::table('pivote_mark')->insert(
+                DB::table('pivote_marks')->insert(
                     ['mark_id' => $request->mark_id[$i], 'product_id' => $product->id]
                 );
             }

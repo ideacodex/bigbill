@@ -40,9 +40,9 @@
                     <div class="card">
                         <div class="card-header">
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                                <strong class="card-title">Emitir factura o cotización</strong>
+                                <strong class="card-title">Cotización y factura</strong>
                             @elseif (Auth::user()->suscriptions->type_plan == 0)
-                                <strong class="card-title">Emitir factura</strong>
+                                <strong class="card-title">Cotización y factura</strong>
                             @endif
                         </div>
                         @if (Auth::user()->suscriptions->type_plan == 1)
@@ -65,9 +65,37 @@
                             </div>
                         @endif
                         <div class="card-body">
-                            <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
-                                @csrf
+                            <form action="{{ route('update', $invoice->id) }}" method="POST" enctype="multipart/form-data"
+                                onsubmit="return checkSubmit();">
+                                @csrf @method('PATCH')
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
+                                {{-- Sucursal --}}
+                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
+
+                                {{-- Iva --}}
+                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <label>Iva</label>
+                                        </span>
+                                    </div>
+                                    <input id="iva" type="number"
+                                        class="text-dark form-control @error('iva') is-invalid @enderror" name="iva"
+                                        value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
+
+                                    @error('iva')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('iva')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> --}}
 
                                 {{-- Fecha de emisión --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -78,7 +106,7 @@
                                     </div>
                                     <input id="date_issue" name="date_issue" type="date"
                                         class="text-dark form-control @error('date_issue') is-invalid @enderror"
-                                        value="<?php echo date('y/m/d'); ?>"
+                                        value="{{ Carbon\Carbon::parse($invoice->date_issue)->format('Y-m-d') }}"
                                         onchange="addDays(30);" required autocomplete="date_issue" autofocus>
                                     @error('date_issue')
                                         <span class="invalid-feedback" role="alert">
@@ -96,6 +124,7 @@
                                     </div>
                                     <input id="expiration_date" name="expiration_date" type="date"
                                         class="text-dark form-control @error('expiration_date') is-invalid @enderror"
+                                        value="{{ Carbon\Carbon::parse($invoice->date_expiration)->format('Y-m-d') }}"
                                         required autocomplete="expiration_date" autofocus readonly>
                                     @error('expiration_date')
                                         <span class="invalid-feedback" role="alert">
@@ -139,33 +168,6 @@
                                     <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
                                 @endif
 
-                                {{-- Sucursal --}}
-                                <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
-
-                                {{-- Iva --}}
-                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <label>Iva</label>
-                                        </span>
-                                    </div>
-                                    <input id="iva" type="number"
-                                        class="text-dark form-control @error('iva') is-invalid @enderror" name="iva"
-                                        value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
-
-                                    @error('iva')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('iva')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-
                                 {{-- Precio a aplicar en la factura --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
@@ -176,7 +178,9 @@
                                     <select name="applied_price" id="applied_price"
                                         class="form-control @error('applied_price') is-invalid @enderror" required
                                         onchange="alert('Los precios serán afectados con esta opción.')">
-                                        <option selected disabled>Precio a aplicar</option>
+                                        <option selected disabled value="{{ $invoice->applied_price }}">
+                                            {{ $invoice->appliedPrices() }}
+                                        </option>
                                         <option value="1">Especial</option>
                                         <option value="2">Contado</option>
                                         <option value="3">Crédito</option>
@@ -194,64 +198,49 @@
                                     @enderror
                                 </div>
 
+                                {{-- @dd($invoice->customer_id) --}}
+
                                 {{-- Customer_id --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
-                                            data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
-                                        </a>
-                                    </div>
-                                    <select name="customer_id" id="cifrado" onchange="mostrarInput();"
-                                        class="select2 form-control @error('customer_id') is-invalid @enderror">
-                                        <option selected disabled>Cliente</option>
-                                        <option value="0">C/F</option>
-                                        @foreach ($customer as $item)
-                                            <option value="{{ $item->id }}">Cliente: {{ $item->name }}
-                                                {{ $item->lastname }} Nit: {{ $item->nit }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('customer_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('customer_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- Tipo de gestión --}}
-                                @if (Auth::user()->suscriptions->type_plan == 1)
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                @if ($invoice->customer_id === null)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-file-word"></i>
-                                            </span>
+                                            <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
+                                                data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                            </a>
                                         </div>
-                                        <select name="document_type" id="document_type"
-                                            class="form-control @error('document_type') is-invalid @enderror" required>
-                                            <option selected disabled>Tipo de gestión</option>
-                                            <option value="1">Factura</option>
-                                            <option value="0">Cotización</option>
+                                        <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                            class="select2 form-control @error('customer_id') is-invalid @enderror">
+                                            <option selected disabled>C/F
+                                            </option>
+                                            <option value="0">C/F</option>
                                         </select>
-                                        @error('document_type')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                        @error('document_type')
+                                        @error('customer_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                @elseif(Auth::user()->suscriptions->type_plan == 0)
-                                    <input type="hidden" id="document_type" name="document_type" value="1">
+                                @else
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
+                                                data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                            </a>
+                                        </div>
+                                        <select name="customer_id" id="cifrado" onchange="mostrarInput();"
+                                            class="select2 form-control @error('customer_id') is-invalid @enderror">
+                                            <option selected disabled value="{{ $invoice->customer->id }}">
+                                                Cliente: {{ $invoice->customer->name }} Nit:
+                                                {{ $invoice->customer->nit }}
+                                            </option>
+                                            <option value="0">C/F</option>
+                                        </select>
+                                        @error('customer_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 @endif
 
                                 {{-- Tipo de factura --}}
@@ -263,7 +252,10 @@
                                     </div>
                                     <select name="invoice_type" id="invoice_type"
                                         class="form-control @error('invoice_type') is-invalid @enderror" required>
-                                        <option selected disabled>Tipo de factura</option>
+                                        <option selected disabled value="{{ $invoice->invoice_type }}">
+                                            {{ $invoice->invoiceTypes() }}
+
+                                        </option>
                                         <option value="0">Factura sin iva</option>
                                         <option value="1">Factura con iva</option>
                                     </select>
@@ -280,21 +272,59 @@
                                     @enderror
                                 </div>
 
+                                {{-- Tipo de gestión --}}
+                                @if (Auth::user()->suscriptions->type_plan == 1)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-file-word"></i>
+                                            </span>
+                                        </div>
+                                        <select name="document_type" id="document_type"
+                                            class="form-control @error('document_type') is-invalid @enderror" required>
+                                            <option selected disabled value="{{ $invoice->document_type }}">
+                                                {{ $invoice->documentTypes() }}
+                                            </option>
+                                            <option value="1">Factura</option>
+                                            <option value="0">Cotización</option>
+                                        </select>
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @elseif(Auth::user()->suscriptions->type_plan == 0)
+                                    <input type="hidden" id="document_type" name="document_type"
+                                        value="{{ $invoice->document_type }}">
+                                @endif
+
                                 {{-- Nombre del cliente --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <input class="text-dark form-control" name="customer_name"
-                                        placeholder="Nombre del cliente" id="numero" type="text">
-                                </div>
+                                @if ($invoice->customer_id == null)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <input class="text-dark form-control" name="customer_name"
+                                            placeholder="Nombre del cliente" value="{{ $invoice->customer_name }}"
+                                            id="numero" type="text">
+                                    </div>
+                                @endif
 
                                 {{-- Correo del cliente --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <input class="text-dark form-control" name="customer_email" placeholder="Correo"
-                                        id="text" type="text">
-                                </div>
+                                @if ($invoice->customer_id == null)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <input class="text-dark form-control" name="customer_email" placeholder="Correo"
+                                            id="text" type="text" value="{{ $invoice->customer_email }}">
+                                    </div>
+                                @endif
 
                                 {{-- Descripción --}}
-                                <textarea class="form-control" rows="5" id="description" placeholder="Descripción"
-                                    name="description"></textarea>
+                                <input class="form-control" rows="5" id="description" placeholder="Descripción"
+                                    name="description" value="{{ $invoice->description }}">
 
                                 <input type="hidden" name="date" id="date">
                                 <br>
@@ -321,7 +351,37 @@
                                         <tbody id="ProSelected">
                                             <!--Ingreso un id al tbody-->
                                             <tr>
-
+                                                {{-- <td>
+                                                    <select onchange="mostrarprecio()" class="select2 form-control"
+                                                        onchange="showStockSelect()" class="selectpicker form-control"
+                                                        id="product_id${count}" name="product_id[]">
+                                                        @foreach ($invoice->detail as $itemProduct)
+                                                            <option disabled selected
+                                                                value="{{ $itemProduct->product->product_id }}">
+                                                                {{ $itemProduct->product->name }} 
+                                                            </option>
+                                                        @endforeach
+                                                        @foreach ($product as $item)
+                                                            <option value="{{ $item->id }}"
+                                                                valuestock="{{ $item->price * 1.12 }}">
+                                                                {{ $item->name }}@if ($item->stock < 5)({{ $item->stock }}
+                                                                    unidades)@endif
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                <td>
+                                                    <input class="form-control" type="number" id="cantidad[]"
+                                                        name="quantity[]" onChange="Calcular(this);" value="0" />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="number" id="precunit${count}"
+                                                        step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"
+                                                        readonly />
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="number" id="totalitem[]"
+                                                        name="subtotal[]" readonly />
+                                                </td> --}}
                                             </tr>
                                         </tbody>
                                         <tfoot>
@@ -329,7 +389,7 @@
                                                 <td>Total</td>
                                                 <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
-                                                <td><span id="total">0</span>
+                                                <td><span id="total">{{ $invoice->total }}</span>
                                                 <td>&nbsp;</td>
                                             </tr>
                                         </tfoot>
@@ -344,7 +404,7 @@
                                         </span>
                                     </div>
 
-                                    <input id="spTotal" onchange="numbersToText()"
+                                    <input id="spTotal" onchange="numbersToText()" value="{{ $invoice->total }}"
                                         class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
                                         readonly>
 
@@ -359,7 +419,7 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input id="totalletras"
                                         class="text-dark form-control @error('totalletras') is-invalid @enderror"
-                                        name="totalletras" autofocus value="total letras" readonly>
+                                        name="totalletras" autofocus value="{{ $invoice->totalletras }}" readonly>
                                     @error('totalletras')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -557,15 +617,15 @@
             console.log(result);
             var dateDays = document.getElementById("expiration_date");
             dateDays.placeholder = result;
-            dateDays.invoice = result;
+            dateDays.valueAsDate = result;
             console.log(dateDays);
             return result;
         }
 
         /*Tabla factura*/
         function RefrescaProducto() {
-            var ip = [];
-            var i = 0;
+            let ip = [];
+            let i = 0;
             $('#guardar').attr('disabled', 'disabled'); //Deshabilito el Boton Guardar
             $('.iProduct').each(function(index, element) {
                 i++;
@@ -577,7 +637,7 @@
             if (i > 0) {
                 $('#guardar').removeAttr('disabled', 'disabled');
             }
-            var ipt = JSON.stringify(
+            let ipt = JSON.stringify(
                 ip); //Convierto la Lista de Productos a un JSON para procesarlo en tu controlador
             $('#ListaPro').val(encodeURIComponent(ipt));
 
@@ -600,76 +660,79 @@
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
 
-            if (selectedInvoice == 1) {
-                console.error("aplica iva");
-                if (selectedPrice == 1) {
-                    console.error("precio espcial");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+            for (let i = 0; i < invoice.detail.length; i++) {
+                if (selectedInvoice == 1 || invoice.invoice_type == 1) {
+                    console.error("aplica iva");
+                    if (selectedPrice == 1 || invoice.applied_price == 1) {
+                        console.error("precio espcial");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]">@foreach ($invoice->detail as $itemProduct)<option disabled selected value="{{ $itemProduct->product->product_id }}">{{ $itemProduct->product->name }} </option>@endforeach @foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
-                if (selectedPrice == 2) {
-                    console.error("precio normal");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
-                if (selectedPrice == 3) {
-                    console.error("precio credito");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+                    if (selectedPrice == 2 || invoice.applied_price == 2) {
+                        console.error("precio normal");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected></option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
+                    if (selectedPrice == 3 || invoice.applied_price == 3) {
+                        console.error("precio credito");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
-            } else if (selectedInvoice == 0) {
-                console.error("exportacion");
-                if (selectedPrice == 1) {
-                    console.error("precio 1");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+                } else if (selectedInvoice == 0 || invoice.invoice_type == 0) {
+                    console.error("exportacion");
+                    if (selectedPrice == 1 || invoice.applied_price == 1) {
+                        console.error("precio 1");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
-                if (selectedPrice == 2) {
-                    console.error("precio 2");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
-                if (selectedPrice == 3) {
-                    console.error("precio 3");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    if (selectedPrice == 2 || invoice.applied_price == 2) {
+                        console.error("precio 2");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
+                    if (selectedPrice == 3 || invoice.applied_price == 3) {
+                        console.error("precio 3");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
+
                 }
 
             }
+        }
 
+        $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
+        RefrescaProducto(); //Refresco Productos
+        $('.remove-item').off().click(function(e) {
+            var total = document.getElementById("total");
+            total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode
+                .childNodes[3].childNodes[0].value);
+            $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
+            if ($('#ProSelected tr.item').length == 0)
+                $('#ProSelected .no-item').slideDown(300);
+            RefrescaProducto();
 
-            $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
-            RefrescaProducto(); //Refresco Productos
-            $('.remove-item').off().click(function(e) {
-                var total = document.getElementById("total");
-                total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode
-                    .childNodes[3].childNodes[0].value);
-                $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
-                if ($('#ProSelected tr.item').length == 0)
-                    $('#ProSelected .no-item').slideDown(300);
-                RefrescaProducto();
+            Calcular(e.target);
+        });
+        $('.iProduct').off().change(function(e) {
+            RefrescaProducto();
 
-                Calcular(e.target);
-            });
-            $('.iProduct').off().change(function(e) {
-                RefrescaProducto();
-
-            });
+        });
         }
 
         function showStockSelect() {

@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use App\Exports\DocsExport;
 use App\Exports\DocsAccount;
@@ -33,6 +33,8 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
+Route::get('/editar/{id}', 'InvoiceBillsController@editar')->name('editar')->middleware('auth'); //Actualizar usuarios
+Route::patch('/update/{id}', 'InvoiceBillsController@update')->name('update'); //Edición de usuarios
 /**Bill Route */
 
 /**Companies Route */
