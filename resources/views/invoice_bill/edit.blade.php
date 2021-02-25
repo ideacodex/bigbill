@@ -1,10 +1,15 @@
-@extends('layouts.'. auth()->user()->getRoleNames()[0])
+@extends('layouts.pos')
 @section('content')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+
+    <div id="example">
+        
+    </div>
 
     <!--Mensajes-->
     <div>
@@ -235,7 +240,7 @@
                                     @enderror
                                 </div>
 
-                                @if (!is_null($invoice->customer_id))
+                                @if (!is_null($invoice->customer_id))   
                                     {{-- Customer_id --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -1049,4 +1054,5 @@
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
     <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
