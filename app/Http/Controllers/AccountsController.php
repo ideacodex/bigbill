@@ -20,8 +20,6 @@ class AccountsController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
-
         $account_type = AccountType::all();
         $account = Account::with('account_types')->get(); //Obtener los valores de tu request:
         return view("accounts.index", ['account' => $account, 'account_type' => $account_type]); //genera la vista

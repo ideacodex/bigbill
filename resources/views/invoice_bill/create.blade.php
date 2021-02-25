@@ -557,7 +557,7 @@
             console.log(result);
             var dateDays = document.getElementById("expiration_date");
             dateDays.placeholder = result;
-            dateDays.valueAsDate = result;
+            dateDays.invoice = result;
             console.log(dateDays);
             return result;
         }

@@ -66,7 +66,7 @@
                                                     </option>
                                                 @endif
 
-                                                @foreach ($compan as $item)
+                                                @foreach ($company as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>

@@ -155,8 +155,9 @@ class InvoiceBillsController extends Controller
         $product = Product::where('active', 1)->get();
         $company = Company::all();
         $customer = Customer::all();
-        $invoice = InvoiceBill::findOrFail($id);
-        return view("invoice_bill.edit", ["invoice" => $invoice,"product" => $product, "company" => $company, "customer" => $customer]);
+        $invoice = InvoiceBill::with('detail.product')->with('customer')->find($id);
+        /* dd($invoice); */
+        return view("invoice_bill.edit", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer]);
     }
 
     /**
@@ -191,7 +192,79 @@ class InvoiceBillsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'user_id',
+            'company_id' => 'required',
+            'invoice_type' => 'required',
+            'applied_price' => 'required',
+            'ListaPro',
+            'total'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $bill = InvoiceBill::findOrFail($id);
+            $bill->user_id = $request->user_id;
+            $bill->company_id = $request->company_id;
+            if ($request->customer_id == 0) {
+                $bill->customer_id == null;
+            } else {
+                $bill->customer_id = $request->customer_id;
+            }
+            $bill->branch_id = $request->branch_id;
+            $bill->invoice_type = $request->invoice_type;
+            $bill->ListaPro = $request->ListaPro;
+            $bill->total = $request->spTotal;
+            $bill->totalletras = $request->totalletras;
+            $bill->active = 1;
+            $bill->account_id = 1;
+            $bill->customer_name = $request->customer_name;
+            $bill->customer_email = $request->customer_email;
+            $bill->description = $request->description;
+            $bill->date_issue = $request->date_issue;
+            $bill->expiration_date = $request->expiration_date;
+            $bill->document_type = $request->document_type;
+            $bill->applied_price = $request->applied_price;
+            $bill->save();
+
+            /* Detalle */
+            for ($i = 0; $i < sizeof($request->product_id[$i]); $i++) {
+                $detail_bill = DetailBill::findOrFail($id);
+                $detail_bill->product_id = $request->product_id[$i];
+                $detail_bill->quantity = $request->quantity[$i];
+                $detail_bill->unit_price = $request->unit_price[$i];
+                $detail_bill->subtotal = $request->subtotal[$i];
+                $detail_bill->invoice_id = $bill->id;
+                $detail_bill->save();
+
+                if ($request->document_type == 1) {
+                    /**Trae el product_id que tengo en la request*/
+                    $product = Product::find($request->product_id[$i]);
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $product->stock;
+                    $temporal = $product->quantity_values;
+                    $tempo = $product->amount_expenses;
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $product->stock = $temp - $request->quantity[$i];
+                    $product->amount_expenses = $tempo + $request->quantity[$i];
+                    $product->quantity_values = $temporal - $request->quantity[$i];
+
+                    if ($product->stock == 0) {
+                        $product->active = 0;
+                    } else {
+                        $product->active = 1;
+                    }
+                    $product->save();
+                }
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('InvoiceBillsController@index')
+            ->with('datosEliminados', 'Registro modificado');
     }
 
     /**
