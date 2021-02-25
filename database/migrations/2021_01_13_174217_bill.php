@@ -53,7 +53,7 @@ class Bill extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')
                 ->references('id')->on('customers');
-            $table->decimal('iva')->nullable();
+            $table->integer('invoice_type');
             $table->boolean('active')->nullable();
             $table->string('ListaPro')->nullable();
             $table->decimal('total');
@@ -61,6 +61,7 @@ class Bill extends Migration
             $table->unsignedBigInteger('account_id')->nullable();
             $table->foreign('account_id')
                 ->references('id')->on('accounts');
+            $table->integer('applied_price');
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('description')->nullable();

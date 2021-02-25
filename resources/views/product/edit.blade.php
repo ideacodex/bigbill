@@ -269,8 +269,6 @@
                                             @endif
                                         </select>
                                     </div>
-
-
                                     {{-- <!--Peso--> --}}
                                     <div  @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
                                         class=" col-12 col-md-6 input-group input-group-lg mb-3"
@@ -482,3 +480,23 @@
     </script>
 
 @endsection
+
+
+{{-- Crear select dinamicos con etiquetas (select multiple)
+    https://translate.google.com/translate?hl=es-419&sl=en&u=https://select2.org/getting-started/basic-usage&prev=search&pto=aue
+
+
+     <select
+                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
+                            name="category_id[]" id="category_id" multiple="multiple" required>
+                            <option disabled selected>Categorias</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+
+    <script>
+        $('.js-example-basic-multiple').select2();
+
+    </script>
+    --}}

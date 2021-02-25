@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\family;
+use App\mark;
 use App\Product;
 
 use Illuminate\Http\Request;
@@ -47,9 +49,14 @@ class ProductController extends Controller
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
             $companies = Company::all(); //Selecciona todos los datos de la tabla compañia
-            return view("product.create", ['companies' => $companies]); //retorna vista con los datos correspondientes
+            $family = family::all();
+            $mark = mark::all();
+            return view("product.create", ['companies' => $companies, 'family' => $family, 'mark' => $mark]); //retorna vista con los datos correspondientes
         } else {
-            return view("product.create",); //retorna vista con los datos correspondientes
+            $company = Auth::user()->company_id;
+            $family = family::where('company_id', $company)->get(); //Obtener los valores de tu request:
+            $mark = mark::where('company_id', $company)->get(); //Obtener los valores de tu request:
+            return view("product.create", ['family' => $family, 'mark' => $mark]); //retorna vista con los datos correspondientes
         }
     }
     /**
@@ -156,13 +163,12 @@ class ProductController extends Controller
      *
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
-    */
+     */
     public function show($id)
     {
         $products = Product::with('company')->find($id);
         return view('product.show', ['products' => $products]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *

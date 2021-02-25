@@ -60,6 +60,60 @@ class Products extends Migration
             $table->string('depth')->nullable();
             //Imagen del producto
             $table->string('file')->nullable();
+            //fechas y horas
+            $table->timestamps();
+        });
+        Schema::create('families', function (Blueprint $table) {
+            //id
+            $table->bigIncrements('id');
+            //familia
+            $table->string('name');
+            //compañia
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+                ->references('id')->on('companies');
+            //fechas y horas
+            $table->timestamps();
+        });
+        Schema::create('marks', function (Blueprint $table) {
+            //id
+            $table->bigIncrements('id');
+            //familia
+            $table->string('name');
+            //compañia
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->foreign('company_id')
+                ->references('id')->on('companies');
+            //fechas y horas
+            $table->timestamps();
+        });
+        Schema::create('pivote_family', function (Blueprint $table) {
+            //id
+            $table->bigIncrements('id');
+            //familia
+            $table->unsignedBigInteger('family_id')->nullable();
+            $table->foreign('family_id')
+                ->references('id')->on('families');
+            //producto id
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')
+                ->references('id')->on('products');
+            //fechas y horas
+            $table->timestamps();
+        });
+        Schema::create('pivote_mark', function (Blueprint $table) {
+            //id
+            $table->bigIncrements('id');
+            //marca
+            $table->unsignedBigInteger('mark_id')->nullable();
+            $table->foreign('mark_id')
+                ->references('id')->on('marks');
+
+            //producto id
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')
+                ->references('id')->on('products');
+            //fechas y horas
             $table->timestamps();
         });
     }
@@ -73,5 +127,10 @@ class Products extends Migration
     {
         Schema::dropIfExists('settings');
         Schema::dropIfExists('products');
+
+        Schema::dropIfExists('families');
+        Schema::dropIfExists('marks');
+        Schema::dropIfExists('pivote_family');
+        Schema::dropIfExists('pivote_mark');
     }
 }
