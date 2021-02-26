@@ -32,159 +32,90 @@
                         <div class="card-body">
 
 
-                                {{-- <!--Company_id--> --}}
-                                @if (Auth::user()->role_id == 1)
-                                    {{-- company --}}
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="company" class="far fa-building"></i>
-                                            </span>
-                                        </div>
-                                        <select name="company_id" id="company_id"
-                                            class="form-control @error('company_id') is-invalid @enderror">
-                                            <option selected value="{{ $branch_office->company_id }}">Compania Asignada:
-                                                {{ $branch_office->company->name }}</option>
-                                            @if (auth()->user()->company_id)
-                                                <option value="{{ auth()->user()->company_id }}" selected>
-                                                    <p>
-                                                        Su companía: {{ auth()->user()->companies->name }}
-                                                    </p>
-                                                </option>
-                                            @endif
-                                            <option disabled>Cambia de Compania</option>
+                            {{-- <!--Company_id--> --}}
+
+                            {{-- company --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
+                                        <i title="company" class="far fa-building"></i>
+                                    </span>
+                                </div>
+                                <span class="form-control">
+                                    Compania Asignada:
+                                    {{ $branch_office->company->name }}
+                                </span>
+
+                            </div>
 
 
-                                            @foreach ($companies as $item)
-                                                @if ($branch_office->company_id != $item->id)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endif
-                                            @endforeach
+                            {{-- Nombre de la sucursal --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
+                                        <i title="Nombre de sucursal" class="far fa-building"></i>
+                                    </span>
+                                </div>
+                                <span class="form-control">
+                                    Nombre de sucursal:
+                                    {{ $branch_office->name }}
+                                </span>
+                            </div>
 
-                                        </select>
+                            {{-- Teléfono --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
+                                        <i title="Teléfono" class="fas fa-phone-square"></i>
+                                    </span>
+                                </div>
+                                <span class="form-control">
+                                    Teléfono:
+                                    {{ $branch_office->company->name }}
+                                </span>
+                            </div>
 
-                                        @error('company_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                            {{-- PBX --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
+                                        <i title="PBX" class="fas fa-phone-volume"></i>
+                                    </span>
+                                </div>
+                                <span class="form-control">
+                                    PBX:
+                                    {{ $branch_office->pbx }}
+                                </span>
+                            </div>
 
-                                    </div>
-                                @else
-                                    {{-- Company_id --}}
-                                    <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
-                                @endif
-
-                                {{-- Nombre de la sucursal --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Nombre de sucursal" class="text-dark far fa-building"></i>
-                                        </span>
-                                    </div>
-                                    <input id="name" placeholder="Nombre de sucursal" type="text"
-                                        class="text-dark form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ $branch_office->name }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                            {{-- Dirección --}}
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
+                                        <i title="Dirección" class="fas fa-map-marker"></i>
+                                    </span>
                                 </div>
 
-                                {{-- Teléfono --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Teléfono" class="text-dark fas fa-phone-square"></i>
-                                        </span>
-                                    </div>
-                                    <input id="phone" placeholder="Teléfono" type="number"
-                                        class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
-                                        value="{{ $branch_office->phone }}" required autocomplete="phone" autofocus>
+                                <span class="form-control">
+                                    Dirección:
+                                    {{ $branch_office->address }}
+                                </span>
+                            </div>
 
-                                    @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- PBX --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="PBX" class="text-dark fas fa-phone-volume"></i>
-                                        </span>
-                                    </div>
-                                    <input id="pbx" placeholder="PBX" type="number"
-                                        class="text-dark form-control @error('pbx') is-invalid @enderror" name="pbx"
-                                        value="{{ $branch_office->pbx }}" required autocomplete="pbx" autofocus>
-
-                                    @error('pbx')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('pbx')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- Dirección --}}
-                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Dirección" class="text-dark fas fa-map-marker"></i>
-                                        </span>
-                                    </div>
-                                    <input id="address" placeholder="Dirección" type="text"
-                                        class="text-dark form-control @error('address') is-invalid @enderror" name="address"
-                                        value="{{ $branch_office->address }}" required autocomplete="address" autofocus>
-
-                                    @error('address')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
-                                    @error('address')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- Regresar a vista de companias --}}
-                                <a href="{{ url('sucursales') }}">
-                                    <div class="container mt-4">
-                                        <div class="col-12">
-                                            <div class="col text-center">
-                                                <button type="submit" style="border-radius: 10px"
-                                                    class="btn btn-lg btn-primary mt-3">
-                                                    <i class="fas fa-undo"></i>
-                                                    {{ __('Regresar') }}
-                                                </button>
-                                            </div>
+                            {{-- Regresar a vista de companias --}}
+                            <a href="{{ url('sucursales') }}">
+                                <div class="container mt-4">
+                                    <div class="col-12">
+                                        <div class="col text-center">
+                                            <button type="submit" style="border-radius: 10px"
+                                                class="btn btn-lg btn-success mt-3">
+                                                <i class="fas fa-undo"></i>
+                                                {{ __('Regresar') }}
+                                            </button>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
