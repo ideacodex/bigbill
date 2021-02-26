@@ -41,15 +41,15 @@
         }
 
         /* .zoom {
-                            display: block;
-                            height: auto;
-                            background-color: transparent;
-                            transition: transform .2s;
-                            height: 200px;
-                            width: 50%;
-                            margin: 0 auto;
+                                                                                    display: block;
+                                                                                    height: auto;
+                                                                                    background-color: transparent;
+                                                                                    transition: transform .2s;
+                                                                                    height: 200px;
+                                                                                    width: 50%;
+                                                                                    margin: 0 auto;
 
-                        } */
+                                                                                } */
 
         .image:hover {
             filter: none;
@@ -86,7 +86,6 @@
                             <br> <br>
 
                             {{-- imagen --}}
-
                             <img src="{{ asset('/storage/productos/' . $products->file) }}" class="image" width="150px"
                                 height="150px" alt="producto">
                             <br>
@@ -94,60 +93,68 @@
                             <br>
                             {{-- <!--Nombre--> --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                <span class=" text text-dark form-control"><i title="Nombre"
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;" title="Nombre"
                                         class="fas fa-people-carry"></i>
                                     Producto: {{ $products->name }}</span>
                             </div>
                             {{-- <!-- descripcion --> --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                <span class=" text text-dark form-control"><i title="Descripción" class="fas fa-book"></i>
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;" title="Descripción"
+                                        class="fas fa-book"></i>
                                     Descripcion:
                                     {{ $products->description }}</span>
                             </div>
                             {{-- Tipo de producto --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                <span class=" text text-dark form-control"><i class="fas fa-wallet"></i> Tipo de producto:
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-wallet"></i> Tipo de producto:
                                     {{ $products->kind_product }}</span>
                             </div>
                             {{-- <!-- precio --> --}}
                             <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
-                                <span class=" text text-dark form-control"><i class="fas fa-hand-holding-usd"></i> Precio:
+                                                                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-hand-holding-usd"></i> Precio:
                                     {{ $products->price }}</span>
                             </div>
                             <!--Precio especial-->
                             <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
-                                <span class=" text text-dark form-control"><i class="fas fa-star"></i> Precio
+                                                                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;  "
+                                        class="fas fa-star"></i> Precio
                                     especial:{{ $products->special_price }}</span>
                             </div>
                             <!--Precio crédito-->
                             <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
-                                <span class=" text text-dark form-control"><i class="fas fa-credit-card"></i> Precio
+                                                                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-credit-card"></i> Precio
                                     crédito:{{ $products->credit_price }}</span>
                             </div>
                             {{-- <!--costos--> --}}
                             <div id="a" @if ($products->kind_product == 'Artículo de compra' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                             @else
-                                                                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
-                                <span class=" text text-dark form-control"><i class="fas fa-coins"></i> Precio de compra:
+                                                                                                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-coins"></i> Precio de compra:
                                     {{ $products->cost }}</span>
                             </div>
                             {{-- <!--Company_id--> --}}
                             @if (Auth::user()->role_id == 1)
                                 {{-- company --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                    <span class=" text text-dark form-control"><i class="far fa-building"></i> Companía:
+                                    <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                            class="far fa-building"></i> Companía:
                                         {{ $products->company->name }}</span>
                                 </div>
                             @endif
                             <!--Nuevos ingresos-->
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                <span class=" text text-dark form-control"><i class="fas fa-plus-square"></i> Ultimos
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-plus-square"></i> Ultimos
                                     Ingresos:
                                     {{ $products->new_income }}</span>
                             </div>
@@ -155,86 +162,91 @@
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                 @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
                                     <span class=" text text-dark form-control">
-                                        <i class="fas fa-balance-scale"></i> Contiene dimensiones
+                                        <i style="color: #bf6c00;" class="fas fa-balance-scale"></i> Contiene dimensiones
                                     </span>
                                 @else
                                     <span class=" text text-dark form-control">
-                                        <i class="fas fa-balance-scale"></i>No contiene dimensiones
+                                        <i style="color: #bf6c00;" class="fas fa-balance-scale"></i>No contiene dimensiones
                                     </span>
                                 @endif
                             </div>
                             {{-- <!--Peso--> --}}
                             <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Peso">
-                                <span class=" text text-dark form-control"><i class="fas fa-shopping-bag"></i> Peso
+                                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Peso">
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-shopping-bag"></i> Peso
                                     :{{ $products->weight }}</span>
                             </div>
                             {{-- <!--Altura --> --}}
                             <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                  @else
-                                                                                 class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Altura">
-                                <span class=" text text-dark form-control"><i class="fas fa-ruler-vertical"></i> Altura
+                                                                                                                                         class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Altura">
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-ruler-vertical"></i> Altura
                                     :{{ $products->tall }}</span>
                             </div>
                             {{-- <!--Ancho --> --}}
                             <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                     @else
-                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Ancho">
-                                <span class=" text text-dark form-control"><i class="fas fa-ruler-horizontal"></i> Ancho
+                                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Ancho">
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-ruler-horizontal"></i> Ancho
                                     :{{ $products->broad }}</span>
                             </div>
                             {{-- <!--Profundidad --> --}}
                             <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                 @else
-                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Profundidad">
-                                <span class=" text text-dark form-control"><i class="fas fa-ruler"></i> Profundidad
+                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Profundidad">
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-ruler"></i> Profundidad
                                     :{{ $products->depth }}</span>
                             </div>
                             {{-- <!--  cantidad egresos --> --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
 
-                                <span class=" text text-dark form-control"><i class="fas fa-sign-out-alt"></i> Cantidad
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-sign-out-alt"></i> Cantidad
                                     egresos:
                                     {{ $products->amount_expenses }}</span>
                             </div>
                             {{-- <!--En este input se va a cargar el total de ingresos del producto--> --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                <span class=" text text-dark form-control"><i class="fas fa-globe"></i> Ingresos totales :
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-globe"></i> Ingresos totales :
                                     {{ $products->total_revenue }}</span>
                             </div>
                             {{-- <!-- grandTotal --> --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                <span class=" text text-dark form-control"><i class="fas fa-cubes"></i> Stock :
+                                <span class=" text text-dark form-control"><i style="color: #bf6c00;"
+                                        class="fas fa-cubes"></i> Stock :
                                     {{ $products->stock }}</span>
                             </div>
-
                             {{-- categorias familias --}}
-                            @if ($family->family_id >= 1)
-                                @if ($family->family_id == $products->id)
-                                    @foreach ($family as $datos)
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <span class=" text text-dark form-control"><i class="fas fa-cubes"></i>
-                                                categorias :
-                                                {{ $datos->family->name }}</span>
-                                        </div>
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <span class=" text text-dark form-control"><i style="color: #09247c;"
+                                        class="fas fa-cubes"></i> categorias :
+                                    @foreach ($pivote_family as $datos)
+                                        @if ($datos->product_id == $products->id)
+                                            {{ $datos->families->name }} |
+                                        @endif
                                     @endforeach
-
-                                @endif
-                            @endif
+                                </span>
+                            </div>
                             {{-- categorias marca --}}
-                            @if ($mark->mark_id >= 1)
-                            @if ($mark->mark_id == $products->id)
-                                @foreach ($mark as $datos)
-                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                        <span class=" text text-dark form-control"><i class="fas fa-cubes"></i>
-                                            categorias :
-                                            {{ $datos->mark->name }}</span>
-                                    </div>
-                                @endforeach
+                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                <span class=" text text-dark form-control"><i style="color: #00bf27;"
+                                        class="fas fa-cubes"></i>
+                                    Marcas :
+                                    @foreach ($pivote_mark as $datos)
+                                        @if ($datos->product_id == $products->id)
+                                            {{ $datos->marks->name }} |
+                                        @endif
+                                    @endforeach
+                                </span>
+                            </div>
 
-                            @endif
-                        @endif
+
                         </div>
                     </div>
                 </div>

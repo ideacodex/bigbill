@@ -45,10 +45,6 @@ class Products extends Migration
             $table->integer('total_revenue');
             /**Cantidad de egresos */
             $table->integer('amount_expenses')->nullable();
-            //familia
-            $table->string('family')->nullable();
-            //marca
-            $table->string('mark')->nullable();
             //Dimensiones
             //peso
             $table->string('weight')->nullable();

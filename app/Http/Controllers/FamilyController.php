@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
-use App\family;
+use App\Family;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,11 +20,11 @@ class FamilyController extends Controller
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
             $company = Company::all();
-            $family = family::with('company')->get();
+            $family = Family::with('company')->get();
             return view("family.index", ['family' => $family, 'company' => $company]); //generala vista
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-            $family = family::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
+            $family = Family::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
             return view("family.index", ['family' => $family]); //generala vista
         }
     }
@@ -42,7 +42,7 @@ class FamilyController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            $family = new family();
+            $family = new Family();
             $family->name = $request->name;
             $family->company_id = $request->company_id;
             $family->save();
@@ -63,7 +63,7 @@ class FamilyController extends Controller
      */
     public function edit($id)
     {
-        $family = family::findOrFail($id);
+        $family = Family::findOrFail($id);
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
             $company = Company::all();
@@ -89,7 +89,7 @@ class FamilyController extends Controller
 
         DB::beginTransaction();
         try {
-            $family = family::findOrFail($id);
+            $family = Family::findOrFail($id);
             // nombre
             $family->name = $request->name;
             // compañia
@@ -108,13 +108,13 @@ class FamilyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\family  $family
+     * @param  \App\Family  $family
      * @return \Illuminate\Http\Response
      */
 
     public function destroy($id)
     {
-        $branch_office = family::destroy($id);
+        $branch_office = Family::destroy($id);
         return back()->with('datosEliminados', 'La familia de la categoria fue eliminada exitosamente');
     }
 }

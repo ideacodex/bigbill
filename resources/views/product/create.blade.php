@@ -330,6 +330,7 @@
                                             <select
                                                 class="js-example-basic-multiple js-states form-control @error('family_id') is-invalid @enderror"
                                                 name="family_id[]" id="family_id" multiple="multiple" required>
+                                                <option selected disabled>Categorias:</option>
                                                 @foreach ($family as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -351,6 +352,7 @@
                                             <select
                                                 class="js-example-basic-multiple js-states form-control @error('mark_id') is-invalid @enderror"
                                                 name="mark_id[]" id="mark_id" multiple="multiple" required>
+                                                <option selected disabled>Marcas:</option>
                                                 @foreach ($mark as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
