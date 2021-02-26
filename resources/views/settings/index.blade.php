@@ -192,9 +192,8 @@
                             <div style="background-color: white;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;"
                                 class="col-ml-12 col-md-12 col-ms-12   col-xs-12 ">
                                 <div class="alert alert-success" role="alert">
-                                    <h4 class="alert-heading">Agregara precios generales de Productos</h4>
-                                    <p>Puedes agregar precios en general para ahorar tu trabajo al momento de ingresar un
-                                        producto</p>
+                                    <h4 class="alert-heading">Agregara Datos</h4>
+                                    <p>Puedes agregar el IVA con el que podras trabajar en tu compania, tambien actualiza el valor de la taza de cambio con el que manejaras en tu empresa.</p>
                                     <hr>
                                     <p class="mb-0">Seleciona una opcion para trabajar</p>
                                 </div>
