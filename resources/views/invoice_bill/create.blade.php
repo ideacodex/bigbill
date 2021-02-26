@@ -31,6 +31,7 @@
         <!--Mensaje flash-->
     </div>
     <!--Mensajes-->
+    <div id="example"></div>
 
     <!--Factura-->
     <div class="content mt-3" id="factura">
@@ -979,4 +980,5 @@
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
     <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
