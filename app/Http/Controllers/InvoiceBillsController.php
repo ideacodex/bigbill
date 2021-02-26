@@ -156,9 +156,9 @@ class InvoiceBillsController extends Controller
         $company = Company::all();
         $customer = Customer::all();
         $invoice = InvoiceBill::where('id', $id)
-        ->with('customer')
-        ->with('detail.product')->first();
-        return view("invoice_bill.edit", ["invoice" => $invoice,"product" => $product, "company" => $company, "customer" => $customer]);
+            ->with('customer')
+            ->with('detail.product')->first();
+        return view("invoice_bill.edit", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer]);
     }
 
     /**
@@ -234,4 +234,23 @@ class InvoiceBillsController extends Controller
             return "No se enceontraron resultados";
         }
     } */
+
+    public function createReact()
+    {
+        $product = Product::where('active', 1)->get();
+        $company = Company::all();
+        $customer = Customer::all();
+        return view("invoice_bill.CreateReact", ["product" => $product, "company" => $company, "customer" => $customer]);
+    }
+
+    public function editReact($id)
+    {
+        $product = Product::where('active', 1)->get();
+        $company = Company::all();
+        $customer = Customer::all();
+        $invoice = InvoiceBill::where('id', $id)
+            ->with('customer')
+            ->with('detail.product')->first();
+        return view("invoice_bill.EditReact", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer]);
+    }
 }
