@@ -34,7 +34,7 @@
                                 <form action="{{ url('empresas/' . $companies->id) }}" method="POST"
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                     @csrf @method('PATCH')
-                                    {{--Nombre de la companía--}}
+                                    {{--Nombre de la Sucursal--}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
@@ -58,7 +58,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
                                     {{--Nit--}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -82,7 +81,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
                                     {{--Dirección--}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -107,7 +105,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
                                     {{--Teléfono--}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -131,6 +128,10 @@
                                             </span>
                                         @enderror
                                     </div>
+
+
+
+
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">

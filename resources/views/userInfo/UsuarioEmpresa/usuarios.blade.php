@@ -270,7 +270,7 @@
 
                                                                 {{-- Comentarios --}}
                                                                 <textarea class="form-control" rows="5" id="comments"
-                                                                    placeholder="Comentarios" name="comments"></textarea>
+                                                                    placeholder="Comentarios" name="comments" required></textarea>
 
                                                                 <div class="container mt-4">
                                                                     <div class="col-12">

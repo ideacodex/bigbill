@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 
 class CompaniesController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +33,6 @@ class CompaniesController extends Controller
         $request->user()->authorizeRoles(['Administrador']);
         return view("companies.create");
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -66,7 +65,6 @@ class CompaniesController extends Controller
         return redirect()->action('CompaniesController@index')
         ->with('datosAgregados', 'Registro exitoso');
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -79,7 +77,14 @@ class CompaniesController extends Controller
         $companies = Company::findOrFail($id);
         return view('companies.update', compact('companies'));
     }
-    
+    //Show
+    public function show($id,Request $request)//editform
+    {
+        $request->user()->authorizeRoles(['Administrador']);
+        $companies = Company::findOrFail($id);
+        return view('companies.show', compact('companies'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -94,7 +99,6 @@ class CompaniesController extends Controller
         return redirect()->action('CompaniesController@index')
         ->with('datosModificados', 'Registro Modificado');
     }
-
     /**
      * Remove the specified resource from storage.
      *

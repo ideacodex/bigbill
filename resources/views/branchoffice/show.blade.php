@@ -30,9 +30,7 @@
                             <strong class="card-title">Editar sucursal</strong>
                         </div>
                         <div class="card-body">
-                            <form action="{{ url('sucursales/' . $branch_office->id) }}" method="POST"
-                                enctype="multipart/form-data" onsubmit="return checkSubmit();">
-                                @csrf @method('PATCH')
+
 
                                 {{-- <!--Company_id--> --}}
                                 @if (Auth::user()->role_id == 1)
@@ -173,18 +171,20 @@
                                     @enderror
                                 </div>
 
-                                <div class="container mt-4">
-                                    <div class="col-12">
-                                        <div class="col text-center">
-                                            <button type="submit" style="border-radius: 10px"
-                                                class="btn btn-lg btn-primary mt-3">
-                                                <i class="far fa-save"></i>
-                                                {{ __('Guardar') }}
-                                            </button>
+                                {{-- Regresar a vista de companias --}}
+                                <a href="{{ url('sucursales') }}">
+                                    <div class="container mt-4">
+                                        <div class="col-12">
+                                            <div class="col text-center">
+                                                <button type="submit" style="border-radius: 10px"
+                                                    class="btn btn-lg btn-primary mt-3">
+                                                    <i class="fas fa-undo"></i>
+                                                    {{ __('Regresar') }}
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </a>
                         </div>
                     </div>
                 </div>
