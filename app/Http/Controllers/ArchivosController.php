@@ -36,9 +36,6 @@ class ArchivosController extends Controller
                 return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
         }
     }
-
-
-
     //Company
     public function exportCompanyPDF()
     {
@@ -63,13 +60,10 @@ class ArchivosController extends Controller
     //Reporte facturas
     public function exportfacturatPDF()
     {
-        $company = InvoiceBill::with('company')->get();
-        $user = InvoiceBill::with('user')->get();
-        $DetailBill = DetailBill::all();
-        $product = DetailBill::with('product')->get();
-        $pdf = PDF::loadView('PDF.Billpdf', ["DetailBill" => $DetailBill, "InvoiceBill" => $user]);
+        $InvoiceBill = InvoiceBill::with('user')->with('company')->with('detail')->get();
+        $pdf = PDF::loadView('PDF.Billpdf', ["InvoiceBill" => $InvoiceBill]);
         /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
-        return $pdf->download('Factura.pdf', ["product" => $product, "company" => $company, "user" => $user]);
+        return $pdf->download('Factura.pdf');
     }
     //Impresion de Factura
     public function facturaCompañia(Request $request)

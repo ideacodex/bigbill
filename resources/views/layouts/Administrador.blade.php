@@ -139,13 +139,13 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li>
                                 <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
+                                <a href="{{ url('facturas') }}">
                                     Ver Facturas</a>
                             </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
                                 <li>
                                     <i class="menu-icon fas fa-file-alt"></i>
-                                    <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                    <a href="{{ url('facturas/create') }}">
                                         Cotizaciones</a>
                                 </li>
                             @endif

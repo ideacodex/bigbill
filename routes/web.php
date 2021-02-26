@@ -126,5 +126,5 @@ Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gere
  *
  */
 //Importar productos de Excel a mysql
-//Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
+Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
 //Importar productos de Excel a mysql
