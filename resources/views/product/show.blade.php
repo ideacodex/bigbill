@@ -111,7 +111,7 @@
                                     {{ $products->kind_product }}</span>
                             </div>
                             {{-- <!-- precio --> --}}
-                            <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                            <div @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
                                                                                                                                                                                 class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                 <span class=" text text-dark form-control"><i style="color: #bf6c00;"
@@ -119,7 +119,7 @@
                                     {{ $products->price }}</span>
                             </div>
                             <!--Precio especial-->
-                            <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                            <div @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
                                                                                                                                                                                 class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                 <span class=" text text-dark form-control"><i style="color: #bf6c00;  "
@@ -127,7 +127,7 @@
                                     especial:{{ $products->special_price }}</span>
                             </div>
                             <!--Precio crédito-->
-                            <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                            <div @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
                                                                                                                                                                                 class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                 <span class=" text text-dark form-control"><i style="color: #bf6c00;"
@@ -135,7 +135,7 @@
                                     crédito:{{ $products->credit_price }}</span>
                             </div>
                             {{-- <!--costos--> --}}
-                            <div id="a" @if ($products->kind_product == 'Artículo de compra' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                            <div id="a" @if ($products->kind_product == 2 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                             @else
                                                                                                                                                                                     class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                 <span class=" text text-dark form-control"><i style="color: #bf6c00;"

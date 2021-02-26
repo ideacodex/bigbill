@@ -64,8 +64,8 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
                         alt="Facturador"></a>
             </div>
 
@@ -312,7 +312,7 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
 
- {{-- select con etiquetas --}}
+    {{-- select con etiquetas --}}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>

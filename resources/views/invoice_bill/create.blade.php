@@ -96,7 +96,7 @@
                                     </div>
                                     <input id="expiration_date" name="expiration_date" type="date"
                                         class="text-dark form-control @error('expiration_date') is-invalid @enderror"
-                                        required autocomplete="expiration_date" autofocus readonly>
+                                        required autocomplete="expiration_date" autofocus>
                                     @error('expiration_date')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
