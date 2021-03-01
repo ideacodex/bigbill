@@ -129,7 +129,6 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>
-                                                        @else
                                                         @endif
                                                     </div>
                                                 </td>

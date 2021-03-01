@@ -14,12 +14,14 @@
 
     <div class="content mt-3">
         <div class="animated fadeIn">
-            @if (Auth::user()->company_id)
+            @if (Auth::user()->company_id || Auth::user()->role_id ==1 )
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
+                                @if (Auth::user()->company_id )
                                 <strong class="card-title">Usuarios de {{ Auth::user()->company->name }} </strong>
+                                @endif
                             </div>
 
                             <div class="card-body">
@@ -37,6 +39,7 @@
                                                     <th>Dirección</th>
                                                     <th>Correo</th>
                                                     <th>Sucursal</th>
+                                                    <th>Despedir</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -54,6 +57,17 @@
                                                         @else
                                                             <td>Oficina central</td>
                                                         @endif
+                                                        <td>
+                                                            @if (Auth::user()->id != $item->id)
+                                                                <a class="btn btn-sm btn-primary"
+                                                                    href="{{ url('Personal/' . $item->id ) }}"
+                                                                    title="Eliminar Empleado">
+                                                                    <span class="text-light"><i class="fas fa-trash-alt"></i></span>
+                                                                </a>
+
+                                                            @endif
+                                                        </td>
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>
