@@ -90,7 +90,9 @@ Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrado
 /** perfil */
 
 /** Usuarios de las empresas*/
-Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
+Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');//muestra listado de emleados y/o ususarios de una compañia
+Route::get('Personal/{id}', 'ArchivosController@eliminar')->middleware('auth');//me manda al formulario de confirmacion de eliminar usuario de la compañia
+Route::get('PersonalEliminado/{id}', 'ArchivosController@deleteuser')->name('Personal.deleteuser')->middleware('auth');//quita compañias, solo el gerente puede despedir a usuarios de su emrpesa
 /** Usuarios de las empresas*/
 
 /**Lista de precios Route */

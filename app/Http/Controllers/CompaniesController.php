@@ -45,10 +45,11 @@ class CompaniesController extends Controller
             'name' => 'required',
             'nit' => 'required|unique:companies,nit|min:5',
             'phone' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'file' => 'image',
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $companies = new Company;
             $companies->name = $request->name;
             $companies->nit = $request->nit;
@@ -56,14 +57,30 @@ class CompaniesController extends Controller
             $companies->address = $request->address;
             $companies->save();
 
-        }catch(\Illuminate\Database\QueryException $e){
+            //***carga de imagen***//
+            if ($request->hasFile('file')) {
+                $extension = $request->file('file')->getClientOriginalExtension();
+                $imageNameToStore = $companies->id . '.' . $extension;
+                // Upload file //***nombre de carpeta para almacenar**
+                $path = $request->file('file')->storeAs('public/companias', $imageNameToStore);
+                //dd($path);
+                $companies->file = $imageNameToStore;
+                $companies->save();
+            } else {
+                $imageNameToStore = 'no_image.jpg';
+            }
+            //***carga de imagen***//
+
+
+
+        } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
         }
         DB::commit();
         return redirect()->action('CompaniesController@index')
-        ->with('datosAgregados', 'Registro exitoso');
+            ->with('datosAgregados', 'Registro exitoso');
     }
     /**
      * Show the form for editing the specified resource.
@@ -71,20 +88,19 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)//editform
+    public function edit($id, Request $request) //editform
     {
         $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::findOrFail($id);
         return view('companies.update', compact('companies'));
     }
     //Show
-    public function show($id,Request $request)//editform
+    public function show($id, Request $request) //editform
     {
         $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::findOrFail($id);
         return view('companies.show', compact('companies'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -92,13 +108,55 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public  function update(Request $request, $id)
     {
-        $companies = request()->except((['_token', '_method']));
-        Company::where('id', '=', $id)->update($companies);
+        request()->validate([
+            'name' => 'required',
+            'nit' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'file' => 'image',
+
+        ]);
+        DB::beginTransaction();
+        try {
+            //mandamos a llamar al modelo
+            $companies = Company::findOrFail($id);
+            //Actualizamos los datos con todo lo que venga del request
+            $companies->name = $request->name;
+            $companies->nit = $request->nit;
+            $companies->address = $request->address;
+            $companies->phone = $request->phone;            
+            $companies->save();
+
+            //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
+            if ($request->file) {
+                //***carga de imagen***//
+                if ($request->hasFile('file')) {
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $imageNameToStore = $companies->id . '.' . $extension;
+                    // Upload file //***nombre de carpeta para almacenar**
+                    $path = $request->file('file')->storeAs('public/companias', $imageNameToStore);
+                    //dd($path);
+                    $companies->file = $imageNameToStore;
+                    $companies->save();
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+            }
+            //***carga de imagen***//
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
         return redirect()->action('CompaniesController@index')
-        ->with('datosModificados', 'Registro Modificado');
+            ->with('datosModificados', 'Registro modificado');
     }
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -107,7 +165,7 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     {
-        $record=Company::destroy($id);
+        $record = Company::destroy($id);
         return back()->with('datosEliminados', 'Registro Eliminado');
     }
 }

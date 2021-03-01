@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
-use DB;
+
 use App\Company;
 use App\Post;
 use App\Reaction;
@@ -14,6 +14,7 @@ use App\Category;
 use App\Award;
 use App\User;
 use App\Score;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -52,7 +53,7 @@ class HomeController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $user = User::findOrFail($id);
         return view('userInfo.edit', compact('user'));
     }
@@ -64,12 +65,58 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public  function update(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
-        $user = request()->except((['_token', '_method']));
-        User::where('id', '=', $id)->update($user);
+        
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'nit' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'file' => 'image',
 
-        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado');
+        ]);
+        DB::beginTransaction();
+        try {
+            //mandamos a llamar al modelo
+            $user = User::findOrFail($id);
+            //Actualizamos los datos con todo lo que venga del request
+            $user->name = $request->name;
+            $user->lastname = $request->lastname;
+            $user->phone = $request->phone;
+            $user->nit = $request->nit;
+            $user->address = $request->address;
+            $user->email = $request->email;
+            //Guarda Informacion
+            $user->save();
+
+            //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
+            if ($request->file) {
+                //***carga de imagen***//
+                if ($request->hasFile('file')) {
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $imageNameToStore = $user->id . '.' . $extension;
+                    // Upload file //***nombre de carpeta para almacenar**
+                    $path = $request->file('file')->storeAs('public/usuarios', $imageNameToStore);
+                    //dd($path);
+                    $user->file = $imageNameToStore;
+                    $user->save();
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+            }
+            //***carga de imagen***//
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($e, 500);
+        }
+        DB::commit();
+        return redirect()->action('ArchivosController@Perfil')
+            ->with('MENSAJEEXITOSO', 'Registro modificado');
     }
 }
