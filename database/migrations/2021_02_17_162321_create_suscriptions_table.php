@@ -19,8 +19,8 @@ class CreateSuscriptionsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users');
             $table->integer('type_plan');
-            $table->timestamp('date_active');
-            $table->timestamp('date_expiration');
+            $table->timestamp('date_active')->nullable();
+            $table->timestamp('date_expiration')->nullable();
             $table->boolean('active');
             $table->timestamps();
         });
