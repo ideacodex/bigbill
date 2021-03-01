@@ -102,7 +102,6 @@ class ArchivosController extends Controller
         $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
         return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
     }
-
     //Vista de ajustes
     public function settings(Request $request)
     {
