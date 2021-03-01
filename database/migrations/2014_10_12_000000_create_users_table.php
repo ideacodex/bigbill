@@ -20,7 +20,9 @@ class CreateUsersTable extends Migration
             $table->integer('nit')->unique();
             $table->integer('phone')->nullable();
             $table->string('address')->nullable();
-            $table->timestamps();           
+            //Imagen de la compañia
+            $table->string('file')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('branch_offices', function (Blueprint $table) {
@@ -32,7 +34,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
             ->references('id')->on('companies');
-            $table->timestamps();           
+            $table->timestamps();
         });
 
         Schema::create('users', function (Blueprint $table) {
@@ -41,7 +43,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('role_id')->nullable();
             $table->string('name');
             $table->string('lastname');
-            $table->integer('phone');         
+            $table->integer('phone');
             $table->integer('nit')->unique();
             $table->string('address');
             $table->string('email')->unique();
@@ -56,7 +58,7 @@ class CreateUsersTable extends Migration
             $table->foreign('branch_id')
             ->references('id')->on('branch_offices');
             $table->rememberToken();
-            $table->timestamps();       
+            $table->timestamps();
         });
     }
 

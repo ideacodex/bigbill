@@ -45,7 +45,8 @@ class CompaniesController extends Controller
             'name' => 'required',
             'nit' => 'required|unique:companies,nit|min:5',
             'phone' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'file' => 'image',
         ]);
         DB::beginTransaction();
         try{
@@ -55,6 +56,22 @@ class CompaniesController extends Controller
             $companies->phone = $request->phone;
             $companies->address = $request->address;
             $companies->save();
+
+              //***carga de imagen***//
+              if ($request->hasFile('file')) {
+                $extension = $request->file('file')->getClientOriginalExtension();
+                $imageNameToStore = $companies->id . '.' . $extension;
+                // Upload file //***nombre de carpeta para almacenar**
+                $path = $request->file('file')->storeAs('public/companias', $imageNameToStore);
+                //dd($path);
+                $companies->file = $imageNameToStore;
+                $companies->save();
+            } else {
+                $imageNameToStore = 'no_image.jpg';
+            }
+            //***carga de imagen***//
+
+
 
         }catch(\Illuminate\Database\QueryException $e){
             DB::rollback();

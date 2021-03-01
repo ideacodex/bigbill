@@ -69,7 +69,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Gerencia:
+                        <a  href="{{ url('perfil') }}"> <i class="menu-icon fas fa-toolbox"></i>Gerencia:
                             {{ Auth::user()->name }}</a>
                     </li>
 
