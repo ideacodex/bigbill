@@ -90,7 +90,7 @@ class ProductController extends Controller
             $product->quantity_values = $request->quantity_values;
             if ($request->kind_product == 1) {
                 # code...
-                $product->kind_product = "Artículo de venta";
+                $product->kind_product = 1;
                 $product->price = $request->price;
                 $product->special_price = $request->special_price;
                 $product->credit_price = $request->credit_price;
@@ -98,13 +98,13 @@ class ProductController extends Controller
             } else {
                 if ($request->kind_product == 2) {
                     # code...
-                    $product->kind_product = "Artículo de compra";
+                    $product->kind_product = 2;
                     $product->price = 0;
                     $product->special_price = 0;
                     $product->credit_price = 0;
                     $product->cost = $request->cost;
                 } else {
-                    $product->kind_product = "Artículo de compra y venta";
+                    $product->kind_product = 3;
                     $product->price = $request->price;
                     $product->special_price = $request->special_price;
                     $product->credit_price = $request->credit_price;
@@ -232,7 +232,7 @@ class ProductController extends Controller
             $products->description = $request->description;
             if ($request->kind_product == 1) {
                 # code...
-                $products->kind_product = "Artículo de venta";
+                $products->kind_product = 1;
                 $products->price = $request->price;
                 $products->special_price = $request->special_price;
                 $products->credit_price = $request->credit_price;
@@ -240,13 +240,13 @@ class ProductController extends Controller
             } else {
                 if ($request->kind_product == 2) {
                     # code...
-                    $products->kind_product = "Artículo de compra";
+                    $products->kind_product = 2;
                     $products->price = 0;
                     $products->special_price = 0;
                     $products->credit_price = 0;
                     $products->cost = $request->cost;
                 } else {
-                    $products->kind_product = "Artículo de compra y venta";
+                    $products->kind_product = 3;
                     $products->price = $request->price;
                     $products->special_price = $request->special_price;
                     $products->credit_price = $request->credit_price;

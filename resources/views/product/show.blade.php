@@ -17,7 +17,6 @@
     {{ session('datosEliminados') }}
 </div>
 @endif
-
 <style>
     * {
         box-sizing: border-box;
@@ -56,29 +55,20 @@
     }
 
 </style>
-
-
-
 <!--Mensaje flash-->
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="row">
-
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Visualizar Producto</strong>
                     </div>
                     <div class="card-body">
-
-
                         <br> <br>
-
                         {{-- imagen --}}
                         <img src="{{ asset('/storage/productos/' . $products->file) }}" class="image" width="150px" height="150px" alt="producto">
-                        <br>
-                        <br>
-                        <br>
+                        <br><br><br>
                         {{-- <!--Nombre--> --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <span class=" text text-dark form-control"><i style="color: #bf6c00;" title="Nombre" class="fas fa-people-carry"></i>
@@ -87,8 +77,7 @@
                         {{-- <!-- descripcion --> --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <span class=" text text-dark form-control"><i style="color: #bf6c00;" title="Descripción" class="fas fa-book"></i>
-                                Descripcion:
-                                {{ $products->description }}</span>
+                                Descripcion:{{ $products->description }}</span>
                         </div>
                         {{-- Tipo de producto --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -96,11 +85,13 @@
                                 {{ $products->kind_product }}</span>
                         </div>
                         {{-- <!-- precio --> --}}
-                        <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                        <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta')
+                            class=" col-12 col-md-6 input-group input-group-lg mb-3"
                             @else
-                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
-                            <span class=" text text-dark form-control"><i style="color: #bf6c00;" class="fas fa-hand-holding-usd"></i> Precio:
-                                {{ $products->price }}</span>
+                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3"
+                            @endif
+                            >
+                            <span class=" text text-dark form-control"><i style="color: #bf6c00;" class="fas fa-hand-holding-usd"></i> Precio:{{ $products->price }}</span>
                         </div>
                         <!--Precio especial-->
                         <div @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
@@ -118,24 +109,25 @@
                         </div>
                         {{-- <!--costos--> --}}
                         <div id="a" @if ($products->kind_product == 'Artículo de compra' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
-                            @else
-                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                            @else class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                             <span class=" text text-dark form-control"><i style="color: #bf6c00;" class="fas fa-coins"></i> Precio de compra:
                                 {{ $products->cost }}</span>
                         </div>
                         {{-- <!--Company_id--> --}}
                         @if (Auth::user()->role_id == 1)
-                        {{-- company --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <span class=" text text-dark form-control"><i style="color: #bf6c00;" class="far fa-building"></i> Companía:
-                                {{ $products->company->name }}</span>
+                            <span class=" text text-dark form-control">
+                                <i style="color: #bf6c00;" class="far fa-building"></i>
+                                Companía: {{ $products->company->name }}
+                            </span>
                         </div>
                         @endif
                         <!--Nuevos ingresos-->
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                            <span class=" text text-dark form-control"><i style="color: #bf6c00;" class="fas fa-plus-square"></i> Ultimos
-                                Ingresos:
-                                {{ $products->new_income }}</span>
+                            <span class=" text text-dark form-control">
+                                <i style="color: #bf6c00;" class="fas fa-plus-square"></i>
+                                Ultimos Ingresos: {{ $products->new_income }}
+                            </span>
                         </div>
                         {{-- ¿Agregar dimensiones? --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -215,13 +207,10 @@
                                 @endforeach
                             </span>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-        @endsection
+    </div>
+</div>
+@endsection
