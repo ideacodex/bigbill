@@ -142,6 +142,11 @@
                                 <a href="{{ url('facturas') }}">
                                     Ver Facturas</a>
                             </li>
+                            <li>
+                                <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('compras') }}">
+                                    Compras</a>
+                            </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
                                 <li>
                                     <i class="menu-icon fas fa-file-alt"></i>

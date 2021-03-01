@@ -37,6 +37,10 @@ Route::get('/editar/{id}', 'InvoiceBillsController@editar')->name('editar')->mid
 Route::patch('/update/{id}', 'InvoiceBillsController@update')->name('update'); //Edición de usuarios
 /**Bill Route */
 
+/** Shopping Route */
+Route::resource('compras', 'ShoppingsController')->middleware('auth');
+/** Shopping Route */
+
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
