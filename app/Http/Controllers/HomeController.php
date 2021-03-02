@@ -54,8 +54,16 @@ class HomeController extends Controller
     public function edit($id, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $role_id = Auth::user()->role_id;
         $user = User::findOrFail($id);
-        return view('userInfo.edit', compact('user'));
+        if ($role_id == 2) {
+            $companies = Company::where('user', $id)->get();
+            return view('userInfo.edit', ['companies' => $companies, 'user' => $user]);
+            
+        } else {
+            $company = Company::all();
+            return view('userInfo.edit', ['company' => $company, 'user' => $user]);
+        }
     }
 
     /**
@@ -68,7 +76,7 @@ class HomeController extends Controller
 
     public  function update(Request $request, $id)
     {
-        
+
         request()->validate([
             'name' => 'required',
             'lastname' => 'required',
@@ -90,6 +98,7 @@ class HomeController extends Controller
             $user->nit = $request->nit;
             $user->address = $request->address;
             $user->email = $request->email;
+            $user->company_id = $request->company_id;
             //Guarda Informacion
             $user->save();
 

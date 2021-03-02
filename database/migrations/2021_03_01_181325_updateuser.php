@@ -16,6 +16,9 @@ class Updateuser extends Migration
         Schema::table('companies', function (Blueprint $table) {
             //Imagen de la compañia
             $table->string('file')->nullable();
+            //Asignacion de compania por el id de usuario
+            $table->integer('user')->nullable();
+            
         });
         Schema::table('users', function (Blueprint $table) {
             //Imagen del usuario
@@ -35,6 +38,7 @@ class Updateuser extends Migration
         });
         Schema::table('companies', function (Blueprint $table) {
             $table->dropColumn('file');
+            $table->integer('user');
         });
     }
 }

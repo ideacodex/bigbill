@@ -53,14 +53,15 @@ class CompaniesController extends Controller
         ]);
         DB::beginTransaction();
         try {
+            $usuarioID = Auth::user()->id;
             $companies = new Company;
             $companies->name = $request->name;
             $companies->nit = $request->nit;
             $companies->phone = $request->phone;
             $companies->address = $request->address;
+            $companies->user = $usuarioID;
             $companies->save();
             if ($usuario == 4) {
-                $usuarioID = Auth::user()->id;
                 $datosususario = Auth::user();
                 $user = User::findOrFail($usuarioID); //edito al usuario por medio el id
                 $role = Role::find(2); //edito el rol por medio el role_id
