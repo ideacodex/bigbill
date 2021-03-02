@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class Updatetable extends Migration
 {
+    //maria
     /**
      * Run the migrations.
      *
