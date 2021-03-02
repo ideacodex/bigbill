@@ -60,34 +60,36 @@
                                 <tbody>
                                     @if ($records)
                                         @foreach ($records as $item)
-                                            <td>{{ $item->id }}</td>
-                                            <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
-                                            <td>{{ $item->company->name }}</td>
-                                            @if ($item->branch_id != null)
-                                                <td>{{ $item->branch_office->name }}</td>
-                                            @else
-                                                <td>Central</td>
-                                            @endif
-                                            <td>{{ $item->supplier }}</td>
-                                            <td>{{ $item->description }}</td>
-                                            <td>{{ $item->total }}</td>
-                                            @if ($item->type_product == 1)
-                                                <td>Artículo de compra</td>
-                                            @elseif($item->type_product == 2)
-                                                <td>Artículo de compra y venta</td>
-                                            @endif
-                                            <td>
-                                                <a class="btn btn-sm btn-secondary"
-                                                    href="{{ url('facturas/' . $item->id) }}" title="Ver factura">
-                                                    <span><i class="text-light fas fa-eye"></i></span>
-                                                </a>
+                                            <tr>
+                                                <th scope="row"> {{ $item->id }} </th>
+                                                <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
+                                                <td>{{ $item->company->name }}</td>
+                                                @if ($item->branch_id != null)
+                                                    <td>{{ $item->branch_office->name }}</td>
+                                                @else
+                                                    <td>Central</td>
+                                                @endif
+                                                <td>{{ $item->supplier }}</td>
+                                                <td>{{ $item->description }}</td>
+                                                <td>{{ $item->total }}</td>
+                                                @if ($item->type_product == 1)
+                                                    <td>Artículo de compra</td>
+                                                @elseif($item->type_product == 2)
+                                                    <td>Artículo de compra y venta</td>
+                                                @endif
+                                                <td>
+                                                    <a class="btn btn-sm btn-secondary"
+                                                        href="{{ url('facturas/' . $item->id) }}" title="Ver factura">
+                                                        <span><i class="text-light fas fa-eye"></i></span>
+                                                    </a>
 
-                                                <a class="btn btn-sm btn-danger" title="Eliminar" data-toggle="modal"
-                                                    data-target="#largeModal"
-                                                    onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
-                                                    <span class="text-light"><i class="fas fa-trash-alt"></i></span>
-                                                </a>
-                                            </td>
+                                                    <a class="btn btn-sm btn-danger" title="Eliminar" data-toggle="modal"
+                                                        data-target="#largeModal"
+                                                        onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
+                                                        <span class="text-light"><i class="fas fa-trash-alt"></i></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     @endif
                                 </tbody>

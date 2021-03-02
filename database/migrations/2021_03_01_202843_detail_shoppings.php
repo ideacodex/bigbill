@@ -18,7 +18,10 @@ class DetailShoppings extends Migration
             $table->unsignedBigInteger('shopping_id')->nullable();
             $table->foreign('shopping_id')
                 ->references('id')->on('shoppings');
-            $table->string('product');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')
+                ->references('id')->on('products');
+            $table->string('product')->nullable();
             $table->decimal('quantity');
             $table->decimal('unit_price');
             $table->decimal('subtotal');

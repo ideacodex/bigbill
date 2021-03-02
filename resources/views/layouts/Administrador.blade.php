@@ -174,7 +174,7 @@
                     <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Informes</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li> <i class="menu-icon fas fa-file-alt"></i><a
                                     href="{{ url('/doc-Customer') }}">Clientes</a></li>

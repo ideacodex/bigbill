@@ -18,7 +18,7 @@ class Products extends Migration
             //nombre
             $table->string('name');
             //descripcion
-            $table->string('description');
+            $table->string('description')->nullable();
             //precio
             $table->float('price')->nullable();
             //costo
@@ -33,16 +33,16 @@ class Products extends Migration
                 ->references('id')->on('companies');
             //impuesto booleano si:1|no:0
             $table->boolean('tax')->nullable();
-            $table->string('quantity_values');
-            $table->integer('kind_product');
-            $table->integer('stock');
-            $table->boolean('active');
+            $table->string('quantity_values')->nullable();
+            $table->integer('kind_product')->nullable();
+            $table->integer('stock')->nullable();
+            $table->boolean('active')->nullable();
             //Ingresos anteriores
-            $table->integer('income_amount');
+            $table->integer('income_amount')->nullable();
             /**Nuevos ingresos */
-            $table->integer('new_income');
+            $table->integer('new_income')->nullable();
             //Ingresos totales
-            $table->integer('total_revenue');
+            $table->integer('total_revenue')->nullable();
             /**Cantidad de egresos */
             $table->integer('amount_expenses')->nullable();
             //Dimensiones

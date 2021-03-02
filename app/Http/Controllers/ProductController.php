@@ -216,14 +216,10 @@ class ProductController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'description' => 'required',
             'price' => 'required',
             'kind_product' => 'required',
             'cost' => 'required',
             'company_id' => 'required',
-            'quantity_values',
-            'income_amount',
-            'amount_expenses',
         ]);
         DB::beginTransaction();
         try {
