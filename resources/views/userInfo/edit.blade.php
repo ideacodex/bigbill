@@ -1,4 +1,4 @@
-@extends('layouts.'. auth()->user()->getRoleNames()[0])
+@extends('layouts.'. Auth::user()->getRoleNames()[0])
 @section('content')
 <!--Validación de errores-->
 @if ($errors->any())
@@ -11,7 +11,18 @@
 </div>
 @endif
 <!--Validación de errores-->
-
+<!--Mensaje flash-->
+@if (session('MENSAJEEXITOSO'))
+<div class="alert  alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success">
+        {{ session('MENSAJEEXITOSO') }}
+    </div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+<!--Mensaje flash-->
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="row">
@@ -121,6 +132,87 @@
                                     </span>
                                     @enderror
                                 </div>
+                                {{-- <!--Company_id--> --}}
+                                @if (Auth::user()->role_id == 2)
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="company" class="far fa-building"></i>
+                                        </span>
+                                    </div>
+                                    <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror">
+                                        @if (Auth::user()->company_id)
+                                        <option value="{{ Auth::user()->company_id }}" selected>
+                                            <p>
+                                                Su companía: {{ Auth::user()->companies->name }}
+                                            </p>
+                                        </option>
+                                        @else
+                                        @foreach ($companies as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                    @error('company_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                @else
+                                @if (Auth::user()->role_id == 1)
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="company" class="far fa-building"></i>
+                                        </span>
+                                    </div>
+                                    <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror">
+                                        @if (Auth::user()->company_id)
+                                        <option value="{{ Auth::user()->company_id }}" selected>
+                                            <p>
+                                                Su companía: {{ auth::user()->companies->name }}
+                                            </p>
+                                        </option>
+                                        @foreach ($company as $item)
+                                       
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                       
+                                        @endforeach
+                                        @else
+                                        @foreach ($company as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+
+                                </div>
+                                @else
+                                {{-- company_id --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                   
+                                    <select name="company_id" id="cifrado" onchange="mostrarInput();"
+                                        class="select2 form-control @error('company_id') is-invalid @enderror">
+                                        <option selected value="0">Asignate a la compania</option>
+                                        @foreach ($company as $item)
+                                            <option value="{{ $item->id }}">Nombre: {{ $item->name }}
+                                                {{ $item->lastname }} Nit: {{ $item->nit }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('company_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                @endif
+                                @endif
+
+
+
+
+
                                 {{-- <!--Button--> --}}
                                 <div class="container mt-4">
                                     <div class="col-12">
@@ -132,6 +224,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </form>
                         </div>
                     </div>

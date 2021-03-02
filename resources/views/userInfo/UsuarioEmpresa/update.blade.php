@@ -180,7 +180,11 @@
                                                 @endif
 
                                                 @foreach ($companies as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @if ($item->id != $user->company_id)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endif
+                                                    
+
                                                 @endforeach
                                             </select>
                                             @error('company_id')

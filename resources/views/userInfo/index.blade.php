@@ -22,18 +22,7 @@
     </button>
 </div>
 @endif
-{{--Efecataso pero no me sirvio por el blade 
-    <style>
-    .imagen:hover{
-border-radius:50%;
--webkit-border-radius:50%;
-box-shadow: 0px 0px 15px 15px #ec731e;
--webkit-box-shadow: 0px 0px 15px 15px #ec731e;
-transform: rotate(360deg);
--webkit-transform: rotate(360deg);
-}
 
-</style> --}}
 <div class="content mt-3">
     <div class="row">
         <div class="col-md-9 ml-2">
