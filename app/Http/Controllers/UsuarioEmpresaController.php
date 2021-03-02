@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use App\User;
 use App\Company;
 use App\Suscription;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UsuarioEmpresaController extends Controller
@@ -98,7 +99,14 @@ class UsuarioEmpresaController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
+
+        if(Auth::user()->role_id == 1)
+            {
+                return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
+            }else{
+                return redirect()->action('ArchivosController@Personal')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
+            }
+        
     }
 
     /**
