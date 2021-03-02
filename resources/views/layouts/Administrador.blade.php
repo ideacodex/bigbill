@@ -64,15 +64,15 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
                         alt="Facturador"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="/perfil"> <i class="menu-icon fas fa-toolbox"></i>Administrador:
+                        <a href="{{ url('Personal') }}"> <i class="menu-icon fas fa-toolbox"></i>Administrador:
                             {{ Auth::user()->name }}</a>
                     </li>
 
@@ -139,13 +139,18 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li>
                                 <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
+                                <a href="{{ url('facturas') }}">
                                     Ver Facturas</a>
+                            </li>
+                            <li>
+                                <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('compras') }}">
+                                    Compras</a>
                             </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
                                 <li>
                                     <i class="menu-icon fas fa-file-alt"></i>
-                                    <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                    <a href="{{ url('facturas/create') }}">
                                         Cotizaciones</a>
                                 </li>
                             @endif
@@ -311,6 +316,8 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
+
+    {{-- select con etiquetas --}}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
@@ -320,6 +327,9 @@
 
     </script>
     <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+
+    @yield('js')
+
 
 </body>
 

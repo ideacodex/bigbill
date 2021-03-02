@@ -66,10 +66,12 @@ class InvoiceBill extends Model
 
     public function documentTypes()
     {
-        if ($this->document_type == 0){
+        if ($this->document_type == 0) {
             return "Cotización";
-        }elseif($this->document_type == 1){
+        } elseif($this->document_type == 1) {
             return "Factura";
         }
+        
     }
+
 }

@@ -16,7 +16,7 @@ class CustomersController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
@@ -50,7 +50,7 @@ class CustomersController extends Controller
             'lastname' => 'required',
             'phone' => 'required|unique:customers,phone|max:9|min:8',
             'email' => 'required',
-            'nit' => 'required|unique:customers,nit|min:9|max:11'
+            'nit' => 'required|unique:customers,nit|min:6|max:11'
         ]);
         DB::beginTransaction();
         try {

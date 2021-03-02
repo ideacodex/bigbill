@@ -97,21 +97,25 @@
                                         <select name="kind_product" id="kind_product" onchange="mostrarInput();"
                                             class="form-control @error('kind_product') is-invalid @enderror" required>
 
-                                            @if ($products->kind_product == 'Artículo de venta')
-                                                <option value="1" selected> {{ $products->kind_product }}</option>
+                                            @if ($products->kind_product == 1)
+                                                <option value="{{ $products->kind_product }}" selected>Artículo de venta
+                                                </option>
                                                 <option value="2">Artículo de compra</option>
                                                 <option value="3">Artículo de compra y venta
                                                 </option>
                                             @else
-                                                @if ($products->kind_product == 'Artículo de compra')
+                                                @if ($products->kind_product == 2)
                                                     <option value="1">Artículo de venta</option>
-                                                    <option value="2" selected> {{ $products->kind_product }}</option>
+                                                    <option value="{{ $products->kind_product }}" selected>Articulo de
+                                                        compra </option>
                                                     <option value="3">Artículo de compra y venta</option>
                                                 @else
-                                                    @if ($products->kind_product == 'Artículo de compra y venta')
+                                                    @if ($products->kind_product == 3)
                                                         <option value="1">Artículo de venta</option>
                                                         <option value="2">Artículo de compra</option>
-                                                        <option value="3" selected> {{ $products->kind_product }}</option>
+                                                        <option value="{{ $products->kind_product }}" selected> Articulo
+                                                            de
+                                                            compra y venta</option>
                                                     @endif
                                                 @endif
                                             @endif
@@ -123,9 +127,9 @@
                                         @enderror
                                     </div>
                                     {{-- <!-- precio --> --}}
-                                    <div id="d" @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div id="d" @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i title="Precio" class="fas fa-hand-holding-usd"></i>
@@ -142,9 +146,9 @@
                                         @enderror
                                     </div>
                                     <!--Precio especial-->
-                                    <div id="b" @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div id="b" @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-star"></i>
@@ -161,9 +165,9 @@
                                         @enderror
                                     </div>
                                     <!--Precio crédito-->
-                                    <div id="c" @if ($products->kind_product == 'Artículo de venta' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div id="c" @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-credit-card"></i>
@@ -180,9 +184,9 @@
                                         @enderror
                                     </div>
                                     {{-- <!--costos--> --}}
-                                    <div id="a" @if ($products->kind_product == 'Artículo de compra' || $products->kind_product == 'Artículo de compra y venta') class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div id="a" @if ($products->kind_product == 2 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                             @else
-                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent">
                                                 <i class="fas fa-coins"></i>
@@ -248,9 +252,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
-
-
                                     {{-- ¿Agregar dimensiones? --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -270,18 +271,15 @@
                                         </select>
                                     </div>
                                     {{-- <!--Peso--> --}}
-                                    <div  @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
-                                        class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3"
-                                        @endif
-                                        id="Peso">
+                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Peso">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-shopping-bag"></i>
                                             </span>
                                         </div>
-                                        <input id="weight" name="weight" type="text" value="{{$products->weight}}"
+                                        <input id="weight" name="weight" type="text" value="{{ $products->weight }}"
                                             class="text-dark form-control @error('weight') is-invalid @enderror"
                                             placeholder="Peso lbs ó kgs" autocomplete="weight" autofocus>
                                         @error('weight')
@@ -291,19 +289,15 @@
                                         @enderror
                                     </div>
                                     {{-- <!--Altura --> --}}
-                                    <div
-                                    @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
-                                        class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3"
-                                        @endif
-                                     id="Altura">
+                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Altura">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-ruler-vertical"></i>
                                             </span>
                                         </div>
-                                        <input id="tall" name="tall" type="text" value="{{ $products->tall}}"
+                                        <input id="tall" name="tall" type="text" value="{{ $products->tall }}"
                                             class="text-dark form-control @error('tall') is-invalid @enderror"
                                             placeholder="Altura" autocomplete="tall" autofocus>
                                         @error('tall')
@@ -313,18 +307,15 @@
                                         @enderror
                                     </div>
                                     {{-- <!--Ancho --> --}}
-                                    <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
-                                        class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3"
-                                        @endif
-                                     id="Ancho">
+                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Ancho">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-ruler-horizontal"></i>
                                             </span>
                                         </div>
-                                        <input id="broad" name="broad" type="text" value="{{$products->broad}}"
+                                        <input id="broad" name="broad" type="text" value="{{ $products->broad }}"
                                             class="text-dark form-control @error('broad') is-invalid @enderror"
                                             placeholder="Ancho" autocomplete="broad" autofocus>
                                         @error('broad')
@@ -334,17 +325,15 @@
                                         @enderror
                                     </div>
                                     {{-- <!--Profundidad --> --}}
-                                    <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
-                                        class=" col-12 col-md-6 input-group input-group-lg mb-3"
+                                    <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3"
-                                        @endif id="Profundidad">
+                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Profundidad">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
                                                 <i class="fas fa-ruler"></i>
                                             </span>
                                         </div>
-                                        <input id="depth" name="depth" type="text" value="{{$products->depth}}"
+                                        <input id="depth" name="depth" type="text" value="{{ $products->depth }}"
                                             class="text-dark form-control @error('depth') is-invalid @enderror"
                                             placeholder="Profundidad" autocomplete="depth" autofocus>
                                         @error('depth')
@@ -367,6 +356,71 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    {{-- select etiquetas FAMILIA --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-users"></i>
+                                            </span>
+                                        </div>
+                                        <select
+                                            class="js-example-basic-multiple js-states form-control @error('family_id') is-invalid @enderror"
+                                            name="family_id[]" id="family_id" multiple="multiple" required>
+                                            <option disabled>Categorias Seleccionadas:</option>
+                                            @foreach ($products->pivotFamily as $datos)
+                                                @if ($datos->product_id == $products->id)
+                                                    <option selected value="{{ $datos->family_id }}">
+                                                        {{ $datos->families->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                            <option disabled>Otras Categorias::</option>
+                                            @foreach ($family as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('family_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- select etiquetas MARCAS --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                                                <i class="fas fa-users"></i>
+                                            </span>
+                                        </div>
+                                        <select
+                                            class="js-example-basic-multiple js-states form-control @error('mark_id') is-invalid @enderror"
+                                            name="mark_id[]" id="mark_id" multiple="multiple" required>
+                                            <option disabled>Marcas Seleccionadas:</option>
+
+                                            @foreach ($products->pivotMark as $datos)
+                                                @if ($datos->product_id == $products->id)
+                                                    <option selected value="{{ $datos->mark_id }}">
+                                                        {{ $datos->marks->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                            <option disabled>Otras Marcas::</option>
+                                            @foreach ($mark as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('mark_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+
+
+
+
                                     {{-- Inicio Inputs de tipo hydden --}}
                                     <!--  cantidad egresos -->
                                     <input id="amount_expenses" name="amount_expenses" type="hidden"
@@ -481,6 +535,19 @@
 
 @endsection
 
+@section('js')
+    <script>
+        $('.js-example-basic-multiple').select2();
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+@endsection
+
 
 {{-- Crear select dinamicos con etiquetas (select multiple)
     https://translate.google.com/translate?hl=es-419&sl=en&u=https://select2.org/getting-started/basic-usage&prev=search&pto=aue
@@ -498,5 +565,4 @@
     <script>
         $('.js-example-basic-multiple').select2();
 
-    </script>
-    --}}
+    </script> --}}

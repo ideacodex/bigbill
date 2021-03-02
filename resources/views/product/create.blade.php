@@ -330,7 +330,7 @@
                                             <select
                                                 class="js-example-basic-multiple js-states form-control @error('family_id') is-invalid @enderror"
                                                 name="family_id[]" id="family_id" multiple="multiple" required>
-                                                <option disabled selected>Categorias-</option>
+                                                <option selected disabled>Categorias:</option>
                                                 @foreach ($family as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -341,8 +341,9 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        {{-- select etiquetas marcas --}}
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+
+                                         {{-- select etiquetas marcas --}}
+                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
                                                     <i class="fas fa-users"></i>
@@ -351,7 +352,7 @@
                                             <select
                                                 class="js-example-basic-multiple js-states form-control @error('mark_id') is-invalid @enderror"
                                                 name="mark_id[]" id="mark_id" multiple="multiple" required>
-                                                <option disabled selected>Categorias-</option>
+                                                <option selected disabled>Marcas:</option>
                                                 @foreach ($mark as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -362,6 +363,8 @@
                                                 </span>
                                             @enderror
                                         </div>
+
+
 
                                         {{-- imagen --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
@@ -464,29 +467,18 @@
         }
 
     </script>
- <script>
-    $('.js-example-basic-multiple').select2();
 
-</script>
 
 @endsection
-
-
-
-{{-- Crear select dinamicos con etiquetas (select multiple)
-    https://translate.google.com/translate?hl=es-419&sl=en&u=https://select2.org/getting-started/basic-usage&prev=search&pto=aue
-
-
-     <select
-                            class="js-example-basic-multiple js-states form-control @error('category_id') is-invalid @enderror"
-                            name="category_id[]" id="category_id" multiple="multiple" required>
-                            <option disabled selected>Categorias</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-
+@section('js')
     <script>
         $('.js-example-basic-multiple').select2();
 
-    </script> --}}
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+@endsection

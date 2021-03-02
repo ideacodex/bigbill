@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use App\Exports\DocsExport;
 use App\Exports\DocsAccount;
@@ -34,14 +34,19 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
 Route::get('/editar/{id}', 'InvoiceBillsController@editar')->name('editar')->middleware('auth'); //Actualizar usuarios
+Route::patch('/update/{id}', 'InvoiceBillsController@update')->name('update'); //Edición de usuarios
 /**Bill Route */
+
+/** Shopping Route */
+Route::resource('compras', 'ShoppingsController')->middleware('auth');
+/** Shopping Route */
 
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
 
 /**userInfo Route */
-Route::resource('cuentas', 'AccountsController')->middleware('auth');
+Route::resource('cuentas', 'AccountsController')->middleware('role:Administrador')->middleware('auth'); //autentificacion y permisos
 /**userInfo Route */
 
 /**Account_type Route */
@@ -85,11 +90,13 @@ Route::get('/doc-User', function () {
 /** Descargar Excel */
 
 /** perfil */
-Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor');
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth'); //autentificacion y permisos
 /** perfil */
 
 /** Usuarios de las empresas*/
-Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
+Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');//muestra listado de emleados y/o ususarios de una compañia
+Route::get('Personal/{id}', 'ArchivosController@eliminar')->middleware('auth');//me manda al formulario de confirmacion de eliminar usuario de la compañia
+Route::get('PersonalEliminado/{id}', 'ArchivosController@deleteuser')->name('Personal.deleteuser')->middleware('auth');//quita compañias, solo el gerente puede despedir a usuarios de su emrpesa
 /** Usuarios de las empresas*/
 
 /**Lista de precios Route */
@@ -111,11 +118,11 @@ Route::resource('Ajustes', 'SettingController')->middleware('auth');
 
 
 /**Lista de familias Route */
-Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador');
+Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
 /**Lista de familias Route */
 
 /**Lista de marcas Route */
-Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador');
+Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
 /**Lista de marcas Route */
 
 
@@ -125,7 +132,7 @@ Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gere
  *
  */
 //Importar productos de Excel a mysql
-//Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
+// Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
 //Importar productos de Excel a mysql
 
 /* React */

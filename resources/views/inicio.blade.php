@@ -190,7 +190,7 @@ Sistema de facturacion, que permite almacenar informacion relacionada a la empre
             <div class="row text-center text-white">
                 <div class="col ml-auto">
                     <p>Copyright &copy; 2021</p>
-                    <p>maria zarazua </p>
+                    <p>Pc Technology </p>
                 </div>
             </div>
         </div>

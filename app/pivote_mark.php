@@ -10,8 +10,8 @@ class pivote_mark extends Model
       {
           return $this->hasOne("App\Product", 'id', 'product_id');
       }
-      public function mark()
+      public function marks()
       {
-          return $this->hasOne("App\mark", 'id', 'family_id');
+          return $this->hasOne("App\mark", 'id', 'mark_id');
       }
 }

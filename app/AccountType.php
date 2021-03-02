@@ -29,4 +29,9 @@ class AccountType extends Model
     {
         return $this->hasMany("App\DetailBill", 'invoice_id');
     }
+
+    public function detailshopping()
+    {
+        return $this->hasMany("App\DetailShopping", 'shopping_id');
+    }
 }

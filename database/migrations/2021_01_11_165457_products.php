@@ -34,7 +34,7 @@ class Products extends Migration
             //impuesto booleano si:1|no:0
             $table->boolean('tax')->nullable();
             $table->string('quantity_values');
-            $table->string('kind_product');
+            $table->integer('kind_product');
             $table->integer('stock');
             $table->boolean('active');
             //Ingresos anteriores
@@ -45,10 +45,6 @@ class Products extends Migration
             $table->integer('total_revenue');
             /**Cantidad de egresos */
             $table->integer('amount_expenses')->nullable();
-            //familia
-            $table->string('family')->nullable();
-            //marca
-            $table->string('mark')->nullable();
             //Dimensiones
             //peso
             $table->string('weight')->nullable();
@@ -87,7 +83,7 @@ class Products extends Migration
             //fechas y horas
             $table->timestamps();
         });
-        Schema::create('pivote_family', function (Blueprint $table) {
+        Schema::create('pivote_families', function (Blueprint $table) {
             //id
             $table->bigIncrements('id');
             //familia
@@ -101,7 +97,7 @@ class Products extends Migration
             //fechas y horas
             $table->timestamps();
         });
-        Schema::create('pivote_mark', function (Blueprint $table) {
+        Schema::create('pivote_marks', function (Blueprint $table) {
             //id
             $table->bigIncrements('id');
             //marca
@@ -130,7 +126,7 @@ class Products extends Migration
 
         Schema::dropIfExists('families');
         Schema::dropIfExists('marks');
-        Schema::dropIfExists('pivote_family');
-        Schema::dropIfExists('pivote_mark');
+        Schema::dropIfExists('pivote_families');
+        Schema::dropIfExists('pivote_marks');
     }
 }

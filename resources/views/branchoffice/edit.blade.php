@@ -34,8 +34,48 @@
                                 enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                 @csrf @method('PATCH')
 
-                                {{-- Company_id --}}
-                                <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
+                                {{-- <!--Company_id--> --}}
+                                @if (Auth::user()->role_id == 1)
+                                    {{-- company --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i title="company" class="far fa-building"></i>
+                                            </span>
+                                        </div>
+                                        <select name="company_id" id="company_id"
+                                            class="form-control @error('company_id') is-invalid @enderror">
+                                            <option selected value="{{ $branch_office->company_id }}">Compania Asignada:
+                                                {{ $branch_office->company->name }}</option>
+                                            @if (auth()->user()->company_id)
+                                                <option value="{{ auth()->user()->company_id }}" selected>
+                                                    <p>
+                                                        Su companía: {{ auth()->user()->companies->name }}
+                                                    </p>
+                                                </option>
+                                            @endif
+                                            <option disabled>Cambia de Compania</option>
+
+
+                                            @foreach ($companies as $item)
+                                                @if ($branch_office->company_id != $item->id)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endif
+                                            @endforeach
+
+                                        </select>
+
+                                        @error('company_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                    </div>
+                                @else
+                                    {{-- Company_id --}}
+                                    <input type="hidden" value="{{ Auth::user()->company_id }}" name="company_id">
+                                @endif
 
                                 {{-- Nombre de la sucursal --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">

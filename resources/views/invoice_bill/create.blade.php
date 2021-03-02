@@ -97,7 +97,7 @@
                                     <input id="expiration_date" name="expiration_date" type="date"
                                         value="{{ old('expiration_date') }}"
                                         class="text-dark form-control @error('expiration_date') is-invalid @enderror"
-                                        required autocomplete="expiration_date" autofocus readonly>
+                                        required autocomplete="expiration_date" autofocus>
                                     @error('expiration_date')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -534,7 +534,7 @@
             console.log(result);
             var dateDays = document.getElementById("expiration_date");
             dateDays.placeholder = result;
-            dateDays.valueAsDate = result;
+            dateDays.invoice = result;
             console.log(dateDays);
             return result;
         }
