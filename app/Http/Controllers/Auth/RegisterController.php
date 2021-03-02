@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\User;
 use App\Suscription;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -88,6 +88,7 @@ class RegisterController extends Controller
             $user->nit = $data['nit'];
             $user->address = $data['address'];
             $user->role_id = 4;
+            $user->work_permits = 0;
             $user->save();
 
             $record = new Suscription;
@@ -95,10 +96,12 @@ class RegisterController extends Controller
             $record->active=1;
             $record->date_active=$user->created_at;
             $record->date_expiration=$user->created_at->addDays(15);
+            $record->type_plan=0;
             $record->save();
             $request = new Request($data);
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
+            dd($e);
             abort(500, $e->errorInfo[2]);
             return response()->json($response, 500);
         }

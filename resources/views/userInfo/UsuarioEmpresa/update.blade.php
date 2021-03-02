@@ -169,18 +169,22 @@
                                                 @if ($user->company_id)
                                                     <option value="{{ $user->company_id }}" selected>
                                                         <p>
-                                                            Su compañia: {{ $user->companies->name }}
+                                                            Companía: {{ $user->companies->name }}
                                                         </p>
                                                     </option>
-                                                    <option value="">Quitar Compañia</option>
+                                                    <option value="">Quitar Companía</option>
                                                 @else
                                                     <option value="" selected disabled>
-                                                        <p>Sin Compañia</p>
+                                                        <p>Sin Companía</p>
                                                     </option>
                                                 @endif
 
                                                 @foreach ($companies as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @if ($item->id != $user->company_id)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endif
+                                                    
+
                                                 @endforeach
                                             </select>
                                             @error('company_id')

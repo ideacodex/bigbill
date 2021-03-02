@@ -210,8 +210,6 @@
             <!-- Operaciones -->
             <?php
             $a = $data->total;
-            $b = $data->iva;
-            $c = $a - $b;
             ?>
             <!-- Subtotal -->
             <tr>
@@ -222,11 +220,7 @@
                         <b>Subtotal</b> <strong style="color:#092863">----</strong>
                     </div>
                 </td>
-                <td colspan="1">
-                    <div style="background: #ffffff; text-align: right">
-                        <label><?php echo $c; ?></label>
-                    </div>
-                </td>
+                
             </tr>
             <!-- Iva -->
             <tr>
@@ -237,12 +231,7 @@
                         <b>IVA</b> <strong style="color:#092863">----</strong>
                     </div>
                 </td>
-                <td colspan="1" style="border-bottom:  #092863 1px solid;">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; text-align: right">
-
-                        <label><?php echo $b; ?></label>
-                    </div>
-                </td>
+                
             </tr>
             <!-- Total -->
             <tr>

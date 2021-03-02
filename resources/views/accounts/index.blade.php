@@ -24,6 +24,7 @@
         </div>
     @endif
     <!--Mensaje flash-->
+
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
@@ -57,32 +58,17 @@
                                         <tbody>
                                             @foreach ($account as $item)
                                                 <tr>
-                                                    <th>{{ $loop->index + 1 }}</th>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->account_types->status }}</td>
+                                                    <th title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
+                                                    <td title="{{ $item->name }}">{{ $item->name }}</td>
+                                                    <td title="{{ $item->account_types->status }}">
+                                                        {{ $item->account_types->status }}</td>
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a class="btn btn-sm btn-secondary" href=""
-                                                                title="Ver Detalles">
-                                                                <span><i class="fas fa-eye"></i></span>
-                                                            </a>
                                                             <a class="btn btn-sm btn-primary"
                                                                 href="{{ url('cuentas/' . $item->id . '/edit') }}"
-                                                                title="Editar">
+                                                                title="Editar Cuenta">
                                                                 <span><i class="fas fa-edit"></i></span>
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger" title="Eliminar"
-                                                                onclick="event.preventDefault();
-                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                <span class="text-light"><i
-                                                                        class="fas fa-trash-alt"></i></span>
-                                                            </a>
-                                                            <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('cuentas/' . $item->id) }}" method="POST"
-                                                                style="display: none;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -96,7 +82,8 @@
                 </div>
             </div>
         </div><!-- .animated -->
-    </div><!-- .content -->
+    </div>
+    <!-- .content -->
 
     <!--Modal create-->
     <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
@@ -135,6 +122,7 @@
                                 </span>
                             @enderror
                         </div>
+
                         {{-- Tipos de Cuentas --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
@@ -142,17 +130,23 @@
                                     <i title="accounttype" class="fas fa-calculator"></i>
                                 </span>
                             </div>
-                            <select name="status_id" id="status_id"
-                                class="form-control @error('status_id') is-invalid @enderror" required>
+                            <select class="form-control" class="selectpicker form-control" id="status_id"
+                                name="status_id">
+                                <option disabled selected>Tipo de cuenta</option>
+                                @foreach ($account_type as $item)
+                                    <option value="{{ $item->id }}">{{ $item->status }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-
-                    <div class="container mt-4">
-                        <div class="col-12">
-                            <div class="col text-center">
-                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                    <i class="far fa-save"></i>
-                                    {{ __('Guardar') }}
-                                </button>
+                        <div class="container mt-4">
+                            <div class="col-12">
+                                <div class="col text-center">
+                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                        <i class="far fa-save"></i>
+                                        {{ __('Guardar') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -165,5 +159,5 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection

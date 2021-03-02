@@ -9,11 +9,9 @@ use App\InvoiceBill;
 use App\Mail\ComprobanteMailable;
 use App\Product;
 use App\Customer;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceBillsController extends Controller
 {
@@ -31,7 +29,7 @@ class InvoiceBillsController extends Controller
             return view("invoice_bill.index", ["records" => $records]); //generala vista
         } else {
 
-            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $company = Auth::user()->company_id; //guardo la variable de companía del ususario autentificado
             $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autentificacion
             return view("invoice_bill.index", ["records" => $records]);
         }
@@ -44,7 +42,7 @@ class InvoiceBillsController extends Controller
      */
     public function create()
     {
-        $product = Product::where('active', 1)->get();
+        $product = Product::where('active', 1)->where('kind_product', '!=', 2)->get();
         $company = Company::all();
         $customer = Customer::all();
         return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
@@ -62,7 +60,8 @@ class InvoiceBillsController extends Controller
         request()->validate([
             'user_id',
             'company_id' => 'required',
-            'iva',
+            'invoice_type' => 'required',
+            'applied_price' => 'required',
             'ListaPro',
             'total'
         ]);
@@ -80,11 +79,10 @@ class InvoiceBillsController extends Controller
                 $bill->customer_id = $request->customer_id;
             }
             $bill->branch_id = $request->branch_id;
-            $bill->iva = $request->iva;
+            $bill->invoice_type = $request->invoice_type;
             $bill->ListaPro = $request->ListaPro;
             $bill->total = $request->spTotal;
             $bill->totalletras = $request->totalletras;
-            $bill->acquisition = $request->acquisition;
             $bill->active = 1;
             $bill->account_id = 1;
             $bill->customer_name = $request->customer_name;
@@ -92,6 +90,8 @@ class InvoiceBillsController extends Controller
             $bill->description = $request->description;
             $bill->date_issue = $request->date_issue;
             $bill->expiration_date = $request->expiration_date;
+            $bill->document_type = $request->document_type;
+            $bill->applied_price = $request->applied_price;
             $bill->save();
 
             /* Detalle */
@@ -104,23 +104,25 @@ class InvoiceBillsController extends Controller
                 $detail_bill->invoice_id = $bill->id;
                 $detail_bill->save();
 
-                /**Trae el product_id que tengo en la request*/
-                $product = Product::find($request->product_id[$i]);
-                /**Declaro una variable temporal que sea igual a mi cantidad en stock */
-                $temp = $product->stock;
-                $temporal = $product->quantity_values;
-                $tempo = $product->amount_expenses;
-                /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
-                $product->stock = $temp - $request->quantity[$i];
-                $product->amount_expenses = $tempo + $request->quantity[$i];
-                $product->quantity_values = $temporal - $request->quantity[$i];
+                if ($request->document_type == 1) {
+                    /**Trae el product_id que tengo en la request*/
+                    $product = Product::find($request->product_id[$i]);
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $product->stock;
+                    $temporal = $product->quantity_values;
+                    $tempo = $product->amount_expenses;
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $product->stock = $temp - $request->quantity[$i];
+                    $product->amount_expenses = $tempo + $request->quantity[$i];
+                    $product->quantity_values = $temporal - $request->quantity[$i];
 
-                if ($product->stock == 0) {
-                    $product->active = 0;
-                } else {
-                    $product->active = 1;
+                    if ($product->stock == 0) {
+                        $product->active = 0;
+                    } else {
+                        $product->active = 1;
+                    }
+                    $product->save();
                 }
-                $product->save();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
@@ -145,6 +147,16 @@ class InvoiceBillsController extends Controller
         return view('invoice_bill.show', ['records' => $records]);
     }
 
+    public function editar($id)
+    {
+        $product = Product::where('active', 1)->get();
+        $company = Company::all();
+        $customer = Customer::all();
+        $invoice = InvoiceBill::with('detail.product')->with('customer')->find($id);
+        /* dd($invoice); */
+        return view("invoice_bill.edit", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -153,6 +165,7 @@ class InvoiceBillsController extends Controller
      */
     public function edit($id)
     {
+        //este metodo es utilizado para enviar el correo
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
 
         $data = json_decode($records);
@@ -177,7 +190,79 @@ class InvoiceBillsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'user_id',
+            'company_id' => 'required',
+            'invoice_type' => 'required',
+            'applied_price' => 'required',
+            'ListaPro',
+            'total'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $bill = InvoiceBill::findOrFail($id);
+            $bill->user_id = $request->user_id;
+            $bill->company_id = $request->company_id;
+            if ($request->customer_id == 0) {
+                $bill->customer_id == null;
+            } else {
+                $bill->customer_id = $request->customer_id;
+            }
+            $bill->branch_id = $request->branch_id;
+            $bill->invoice_type = $request->invoice_type;
+            $bill->ListaPro = $request->ListaPro;
+            $bill->total = $request->spTotal;
+            $bill->totalletras = $request->totalletras;
+            $bill->active = 1;
+            $bill->account_id = 1;
+            $bill->customer_name = $request->customer_name;
+            $bill->customer_email = $request->customer_email;
+            $bill->description = $request->description;
+            $bill->date_issue = $request->date_issue;
+            $bill->expiration_date = $request->expiration_date;
+            $bill->document_type = $request->document_type;
+            $bill->applied_price = $request->applied_price;
+            $bill->save();
+
+            /* Detalle */
+            for ($i = 0; $i < sizeof($request->product_id[$i]); $i++) {
+                $detail_bill = DetailBill::findOrFail($id);
+                $detail_bill->product_id = $request->product_id[$i];
+                $detail_bill->quantity = $request->quantity[$i];
+                $detail_bill->unit_price = $request->unit_price[$i];
+                $detail_bill->subtotal = $request->subtotal[$i];
+                $detail_bill->invoice_id = $bill->id;
+                $detail_bill->save();
+
+                if ($request->document_type == 1) {
+                    /**Trae el product_id que tengo en la request*/
+                    $product = Product::find($request->product_id[$i]);
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $product->stock;
+                    $temporal = $product->quantity_values;
+                    $tempo = $product->amount_expenses;
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $product->stock = $temp - $request->quantity[$i];
+                    $product->amount_expenses = $tempo + $request->quantity[$i];
+                    $product->quantity_values = $temporal - $request->quantity[$i];
+
+                    if ($product->stock == 0) {
+                        $product->active = 0;
+                    } else {
+                        $product->active = 1;
+                    }
+                    $product->save();
+                }
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('InvoiceBillsController@index')
+            ->with('datosEliminados', 'Registro modificado');
     }
 
     /**
@@ -217,4 +302,23 @@ class InvoiceBillsController extends Controller
             return "No se enceontraron resultados";
         }
     } */
+
+    public function createReact()
+    {
+        $product = Product::where('active', 1)->get();
+        $company = Company::all();
+        $customer = Customer::all();
+        return view("invoice_bill.CreateReact", ["product" => $product, "company" => $company, "customer" => $customer]);
+    }
+
+    public function editReact($id)
+    {
+        $product = Product::where('active', 1)->get();
+        $company = Company::all();
+        $customer = Customer::all();
+        $invoice = InvoiceBill::where('id', $id)
+            ->with('customer')
+            ->with('detail.product')->first();
+        return view("invoice_bill.EditReact", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer]);
+    }
 }

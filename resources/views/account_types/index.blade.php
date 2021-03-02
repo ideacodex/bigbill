@@ -55,24 +55,15 @@
                                     <tbody>
                                         @foreach ($account_types as $item)
                                         <tr>
-                                            <th>{{ $loop->index + 1 }}</th>
-                                            <td>{{ $item->status }}</td>
+                                            <th title="{{ $loop->index + 1 }}"  >{{ $loop->index + 1 }}</th>
+                                            <td title="{{ $item->status }}" >{{ $item->status }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
-                                                        <span><i class="fas fa-eye"></i></span>
-                                                    </a>
-                                                    <a class="btn btn-sm btn-primary" href="{{ url('TipodeCuenta/' . $item->id . '/edit') }}" title="Editar">
+
+                                                    <a   title="Actualizar Tipo de Cuenta" class="btn btn-sm btn-primary" href="{{ url('TipodeCuenta/' . $item->id . '/edit') }}" title="Editar">
                                                         <span><i class="fas fa-edit"></i></span>
                                                     </a>
-                                                    <a class="btn btn-sm btn-danger" title="Eliminar" onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
-                                                        <span class="text-light"><i class="fas fa-trash-alt"></i></span>
-                                                    </a>
-                                                    <form id="formDel{{ $item->id }}" action="{{ url('cuentas/' . $item->id) }}" method="POST" style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
+
                                                 </div>
                                             </td>
                                         </tr>

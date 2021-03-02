@@ -45,23 +45,28 @@
                             Agrregar Producto
                             <i class=" fas fa-plus-square"></i>
                         </a>
-                        {{-- PENDIENTE EL AREA DE IMPORTAR PRODUCTOS
-                             <form action="{{ route('products.import.excel') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @if (session('message'))
-                                <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-                                    <span class="badge badge-pill badge-success">Atención</span>
-                                    {{ session('datosEliminados') }}
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                            @endif
 
-                            <input type="file" name="file">
-                            <button>Importar Productos</button>
-                        </form>
-                        --}}
+                        {{-- ingresar csv --}}
+                        {{-- <form action="{{ route('products.import.excel') }}" method="POST"
+enctype="multipart/form-data">
+@csrf
+@if (session('message'))
+    <div
+        class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+        <span class="badge badge-pill badge-success">Atención</span>
+        {{ session('datosEliminados') }}
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+@endif
+
+<input type="file" name="file">
+<button>Importar Productos</button>
+</form> --}}
+                        {{-- FIN ingresar csv --}}
+
                         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
                             href="{{ route('Product.pdf') }}">Reporte pdf <i class="fas fa-file-alt"></i>
                         </a>
@@ -121,7 +126,8 @@
 
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
+
+                                                        <a  href="{{ url('productos/' . $item->id ) }}" class="btn btn-sm btn-secondary" title="Ver Detalles">
                                                             <span><i class="fas fa-eye"></i></span>
                                                         </a>
                                                         <a class="btn btn-sm btn-primary"

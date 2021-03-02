@@ -39,8 +39,31 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Emitir factura </strong>
+                            @if (Auth::user()->suscriptions->type_plan == 1)
+                                <strong class="card-title">Emitir factura o cotización.</strong>
+                            @elseif (Auth::user()->suscriptions->type_plan == 0)
+                                <strong class="card-title">Emitir factura</strong>
+                            @endif
                         </div>
+                        @if (Auth::user()->suscriptions->type_plan == 1)
+                            <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+                                <span class="badge badge-pill badge-warning">¡Atención!</span>
+                                Al momento de estar realizando su factura o cotización.<span
+                                    class="badge badge-pill badge-warning">¡No recargue esta página!</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @elseif (Auth::user()->suscriptions->type_plan == 0)
+                            <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+                                <span class="badge badge-pill badge-warning">¡Atención!</span>
+                                Al momento de estar realizando su factura. <span class="badge badge-pill badge-warning">¡No
+                                    recargue esta página!</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
                         <div class="card-body">
                             <form method="POST" action="{{ route('facturas.store') }}" onsubmit="return checkSubmit();">
                                 @csrf
@@ -50,7 +73,7 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de emisión" class="fas fa-calendar-alt"></i>
+                                            <i title="Fecha de emisión" class="text-primary fas fa-calendar-alt"></i>
                                         </span>
                                     </div>
                                     <input id="date_issue" name="date_issue" type="date"
@@ -68,12 +91,13 @@
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de vencimiento" class="fas fa-calendar-times"></i>
+                                            <i title="Fecha de vencimiento" class="text-primary fas fa-calendar-times"></i>
                                         </span>
                                     </div>
                                     <input id="expiration_date" name="expiration_date" type="date"
+                                        value="{{ old('expiration_date') }}"
                                         class="text-dark form-control @error('expiration_date') is-invalid @enderror"
-                                        required autocomplete="expiration_date" autofocus readonly>
+                                        required autocomplete="expiration_date" autofocus>
                                     @error('expiration_date')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -86,7 +110,7 @@
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="company" class="far fa-building"></i>
+                                                <i title="company" class="text-primary far fa-building"></i>
                                             </span>
                                         </div>
                                         <select name="company_id" id="company_id"
@@ -94,7 +118,7 @@
                                             @if (auth()->user()->company_id)
                                                 <option value="{{ auth()->user()->company_id }}" selected>
                                                     <p>
-                                                        Su compañia: {{ auth()->user()->companies->name }}
+                                                        Companía {{ auth()->user()->companies->name }}
                                                     </p>
                                                 </option>
                                             @endif
@@ -119,62 +143,95 @@
                                 {{-- Sucursal --}}
                                 <input type="hidden" name="branch_id" value="{{ auth()->user()->branch_id }}">
 
-                                {{-- Adquisición --}}
+                                {{-- Precio a aplicar en la factura --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-user"></i>
+                                            <i class="text-primary fas fa-tags"></i>
                                         </span>
                                     </div>
-                                    <select name="acquisition" id="acquisition"
-                                        class="form-control @error('acquisition') is-invalid @enderror" required>
-                                        <option selected disabled>Adquisición</option>
-                                        <option value="1">Bienes</option>
-                                        <option value="2">Servicios</option>
-                                        <option value="3">Bienes y servicios</option>
+                                    <select name="applied_price" id="applied_price"
+                                        class="form-control @error('applied_price') is-invalid @enderror" required
+                                        onchange="alert('Los precios serán afectados con esta opción.')">
+                                        <option selected disabled>Precio a aplicar</option>
+                                        <option value="1">Especial</option>
+                                        <option value="2">Contado</option>
+                                        <option value="3">Crédito</option>
                                     </select>
-                                    @error('acquisition')
+                                    @error('applied_price')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
 
-                                    @error('acquisition')
+                                    @error('applied_price')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
 
-                                {{-- Iva --}}
-                                {{-- <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                {{-- Tipo de factura --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <label>Iva</label>
+                                            <i class="text-primary fas fa-receipt"></i>
                                         </span>
                                     </div>
-                                    <input id="iva" type="number"
-                                        class="text-dark form-control @error('iva') is-invalid @enderror" name="iva"
-                                        value="{{ old('iva') }}" required autocomplete="iva" autofocus readonly>
-
-                                    @error('iva')
+                                    <select name="invoice_type" id="invoice_type"
+                                        class="form-control @error('invoice_type') is-invalid @enderror" required>
+                                        <option selected disabled>Tipo de factura</option>
+                                        <option value="0">Factura sin iva</option>
+                                        <option value="1">Factura con iva</option>
+                                    </select>
+                                    @error('invoice_type')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
 
-                                    @error('iva')
+                                    @error('invoice_type')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div> --}}
+                                </div>
+
+                                {{-- Tipo de gestión --}}
+                                @if (Auth::user()->suscriptions->type_plan == 1)
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-file-word"></i>
+                                            </span>
+                                        </div>
+                                        <select name="document_type" id="document_type"
+                                            class="form-control @error('document_type') is-invalid @enderror" required>
+                                            <option selected disabled>Tipo de gestión</option>
+                                            <option value="1">Factura</option>
+                                            <option value="0">Cotización</option>
+                                        </select>
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('document_type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                @elseif(Auth::user()->suscriptions->type_plan == 0)
+                                    <input type="hidden" id="document_type" name="document_type" value="1">
+                                @endif
 
                                 {{-- Customer_id --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
                                         <a type="submit" class="btn btn-secondary mb-1" data-toggle="modal"
-                                            data-target="#largeModal"><i class="fas fa-user-plus text-light"></i>
+                                            data-target="#largeModal"><i class="text-light fas fa-user-plus"></i>
                                         </a>
                                     </div>
                                     <select name="customer_id" id="cifrado" onchange="mostrarInput();"
@@ -214,7 +271,7 @@
 
                                 {{-- Descripción --}}
                                 <textarea class="form-control" rows="5" id="description" placeholder="Descripción"
-                                    name="description"></textarea>
+                                    name="description" value="{{ old('description') }}"></textarea>
 
                                 <input type="hidden" name="date" id="date">
                                 <br>
@@ -265,8 +322,8 @@
                                     </div>
 
                                     <input id="spTotal" onchange="numbersToText()"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror"
-                                        name="spTotal" readonly>
+                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
+                                        readonly>
 
                                     @error('spTotal')
                                         <span class="invalid-feedback" role="alert">
@@ -300,16 +357,6 @@
                                     </div>
                                 </div>
                                 <!--Button-->
-
-                                <select id="pizza" onchange="mostrarprecio()">
-                                    <option selected disabled>Productos</option>
-                                    @foreach ($product as $item)
-                                        <option value="{{ $item->price}}">Producto: {{ $item->name }}
-                                            Precio : {{ $item->price }} 
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <input type="text" id="precio" />
                             </form>
                             <div>
                             </div>
@@ -339,7 +386,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nombre" class="text-dark fas fa-user"></i>
+                                    <i title="Nombre" class="text-primary fas fa-user"></i>
                                 </span>
                             </div>
                             <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
@@ -363,7 +410,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Apellido" class="text-dark fas fa-user"></i>
+                                    <i title="Apellido" class="text-primary fas fa-user"></i>
                                 </span>
                             </div>
                             <input id="lastname" placeholder="Apellido" type="text"
@@ -387,7 +434,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
+                                    <i title="Número de teléfono" class="text-primary fas fa-mobile"></i>
                                 </span>
                             </div>
                             <input id="phone" placeholder="Número de teléfono" type="number"
@@ -411,7 +458,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Correo electrónico" class="text-dark fas fa-at"></i>
+                                    <i title="Correo electrónico" class="text-primary fas fa-at"></i>
                                 </span>
                             </div>
                             <input id="email" placeholder="Correo electrónico" type="text"
@@ -435,7 +482,7 @@
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nit" class="text-dark fas fa-sort-amount-down"></i>
+                                    <i title="Nit" class="text-primary fas fa-sort-amount-down"></i>
                                 </span>
                             </div>
                             <input id="nit" placeholder="Nit" type="number"
@@ -487,7 +534,7 @@
             console.log(result);
             var dateDays = document.getElementById("expiration_date");
             dateDays.placeholder = result;
-            dateDays.valueAsDate = result;
+            dateDays.invoice = result;
             console.log(dateDays);
             return result;
         }
@@ -513,18 +560,81 @@
 
         }
 
+        var count = 0;
+
         function agregarProducto() {
+            let selectedInvoice = document.getElementById('invoice_type').value
+            console.error(selectedInvoice);
+            let selectedPrice = document.getElementById('applied_price').value
+            console.error(selectedPrice);
+            var tax = 1.12;
             var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
             var text = $('#producto_id').find(':selected')
                 .text(); //Capturo el Nombre del Producto- Texto dentro del Select
-
+            count++;
+            console.log("Presionado : ", count);
             var sptext = text.split();
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
+<<<<<<< HEAD
             newtr = newtr +
                 `<td><select id="stock[]" onchange="mostrarprecio()" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->price }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precio[]" id="precunit[]" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
             newtr = newtr +
                 '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+=======
+
+            if (selectedInvoice == 1) {
+                console.error("aplica iva");
+                if (selectedPrice == 1) {
+                    console.error("precio espcial");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+                if (selectedPrice == 2) {
+                    console.error("precio normal");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+                if (selectedPrice == 3) {
+                    console.error("precio credito");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+            } else if (selectedInvoice == 0) {
+                console.error("exportacion");
+                if (selectedPrice == 1) {
+                    console.error("precio 1");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+                if (selectedPrice == 2) {
+                    console.error("precio 2");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+                if (selectedPrice == 3) {
+                    console.error("precio 3");
+                    newtr = newtr +
+                        `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    newtr = newtr +
+                        '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                }
+
+            }
+>>>>>>> 3cf5697f3d3919f223e0295c0339405843b8240f
 
 
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
@@ -584,7 +694,7 @@
                 if (nodes[x].firstChild.id == 'cantidad[]') {
                     cantidad = parseFloat(nodes[x].firstChild.value, 10);
                 }
-                if (nodes[x].firstChild.id == 'precunit[]') {
+                if (nodes[x].firstChild.id == `precunit${count}`) {
                     precunit = parseFloat(nodes[x].firstChild.value, 10);
                 }
                 if (nodes[x].firstChild.id == 'totalitem[]') {
@@ -636,10 +746,15 @@
         }
 
         function mostrarprecio() {
+<<<<<<< HEAD
             var pizza = document.getElementById("stock[]"),
                 precio = document.getElementById("precio[]");
+=======
+            var pizza = document.getElementById(`product_id${count}`),
+                precio = document.getElementById(`precunit${count}`);
+>>>>>>> 3cf5697f3d3919f223e0295c0339405843b8240f
 
-            precio.value = pizza.value;
+            precio.value = pizza.selectedOptions[0].attributes.valuestock.value;
         }
 
     </script>
@@ -870,9 +985,6 @@
 
     </script>
     {{-- cantidad en letras --}}
-
-
-
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css') }}">

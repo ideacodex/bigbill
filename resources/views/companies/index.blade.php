@@ -48,55 +48,56 @@
                             <div class="row table-responsive">
                                 <div class="col-12">
 
-                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                            <thead>
+                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nombre</th>
+                                                <th>Nit</th>
+                                                <th>Teléfono</th>
+                                                <th>Dirección</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($companies as $item)
                                                 <tr>
-                                                    <th>No.</th>
-                                                    <th>Nombre</th>
-                                                    <th>Nit</th>
-                                                    <th>Teléfono</th>
-                                                    <th>Dirección</th>
-                                                    <th>Acciones</th>
+                                                    <th title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
+                                                    <td title="{{ $item->name}}">{{ $item->name }}</td>
+                                                    <td title="{{ $item->nit}}">{{ $item->nit }}</td>
+                                                    <td title="{{ $item->phone}}">{{ $item->phone }}</td>
+                                                    <td title="{{ $item->address}}">{{ $item->address }}</td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <a class="btn btn-sm btn-secondary"
+                                                                href="{{ url('empresas/' . $item->id ) }}"
+                                                                title="Ver Detalles De {{ $item->name}}">
+                                                                <span><i class="fas fa-eye"></i></span>
+                                                            </a>
+                                                            <a class="btn btn-sm btn-primary"
+                                                                href="{{ url('empresas/' . $item->id . '/edit') }}"
+                                                                title="Editar {{ $item->name}}">
+                                                                <span><i class="fas fa-edit"></i></span>
+                                                            </a>
+                                                            <a class="btn btn-sm btn-danger" title="Eliminar {{ $item->name}}"
+                                                                onclick="event.preventDefault();
+                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                <span class="text-light"><i
+                                                                        class="fas fa-trash-alt"></i></span>
+                                                            </a>
+                                                            <form id="formDel{{ $item->id }}"
+                                                                action="{{ url('empresas/' . $item->id) }}" method="POST"
+                                                                style="display: none;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
+                                                        </div>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($companies as $item)
-                                                    <tr>
-                                                        <th>{{ $loop->index + 1 }}</th>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->nit }}</td>
-                                                        <td>{{ $item->phone }}</td>
-                                                        <td>{{ $item->address }}</td>
-                                                        <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a class="btn btn-sm btn-secondary" href=""
-                                                                    title="Ver Detalles">
-                                                                    <span><i class="fas fa-eye"></i></span>
-                                                                </a>
-                                                                <a class="btn btn-sm btn-primary"
-                                                                    href="{{ url('empresas/' . $item->id . '/edit') }}"
-                                                                    title="Editar">
-                                                                    <span><i class="fas fa-edit"></i></span>
-                                                                </a>
-                                                                <a class="btn btn-sm btn-danger" title="Eliminar"
-                                                                    onclick="event.preventDefault();
-                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                    <span class="text-light"><i
-                                                                            class="fas fa-trash-alt"></i></span>
-                                                                </a>
-                                                                <form id="formDel{{ $item->id }}"
-                                                                    action="{{ url('empresas/' . $item->id) }}"
-                                                                    method="POST" style="display: none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
                                 </div>
                             </div>
                         </div>

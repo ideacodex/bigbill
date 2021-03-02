@@ -71,6 +71,24 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+        'productos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/productos'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'companias' => [
+            'driver' => 'local',
+            'root' => storage_path('app/companias'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+        'usuarios' => [
+            'driver' => 'local',
+            'root' => storage_path('app/usuarios'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

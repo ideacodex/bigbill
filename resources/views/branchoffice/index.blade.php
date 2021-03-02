@@ -77,10 +77,14 @@
                                                         <td>{{ $item->company->name }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a class="btn btn-sm btn-secondary" href=""
+
+                                                                <a class="btn btn-sm btn-secondary"
+                                                                    href="{{ url('sucursales/' . $item->id) }}"
                                                                     title="Ver Detalles">
                                                                     <span><i class="fas fa-eye"></i></span>
                                                                 </a>
+
+
                                                                 <a class="btn btn-sm btn-primary"
                                                                     href="{{ url('sucursales/' . $item->id . '/edit') }}"
                                                                     title="Editar">

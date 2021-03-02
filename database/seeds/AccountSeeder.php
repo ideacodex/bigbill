@@ -20,5 +20,14 @@ class AccountSeeder extends Seeder
             'name' => 'Ventas', 
             'status_id' => '1'
         ]); 
+
+        DB::table('account_types')->insert([
+            'status' => 'Gastos'
+        ]);
+
+        DB::table('accounts')->insert([
+            'name' => 'Compras', 
+            'status_id' => '2'
+        ]); 
     }
 }

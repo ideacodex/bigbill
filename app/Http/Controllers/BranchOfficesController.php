@@ -28,7 +28,6 @@ class BranchOfficesController extends Controller
             return view('branchoffice.index', ['branch_office' => $branch_office]); //retorna vista con los datos correspondientes
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +38,6 @@ class BranchOfficesController extends Controller
         $companies = Company::all();
         return view('branchoffice.create', ['companies' => $companies]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -73,7 +71,6 @@ class BranchOfficesController extends Controller
         return redirect()->action('BranchOfficesController@index')
             ->with('usuarioGuardado', 'Sucursal Registrada');
     }
-
     /**
      * Display the specified resource.
      *
@@ -82,9 +79,10 @@ class BranchOfficesController extends Controller
      */
     public function show($id)
     {
-        //
+        $branch_office = BranchOffice::with('company')->findOrFail($id);
+        $companies = Company::all();
+        return view('branchoffice.show', ['branch_office' => $branch_office , 'companies' => $companies ]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -93,8 +91,9 @@ class BranchOfficesController extends Controller
      */
     public function edit($id)
     {
-        $branch_office = BranchOffice::findOrFail($id);
-        return view('branchoffice.edit', compact('branch_office'));
+        $branch_office = BranchOffice::with('company')->findOrFail($id);
+        $companies = Company::all();
+        return view('branchoffice.edit', ['branch_office' => $branch_office , 'companies' => $companies ]);
     }
 
     /**

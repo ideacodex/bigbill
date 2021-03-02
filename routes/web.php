@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use App\Exports\DocsExport;
 use App\Exports\DocsAccount;
@@ -19,7 +19,7 @@ Auth::routes();
 Route::resource('home', 'HomeController')->middleware('auth');
 
 /**Product Route */
-Route::resource('productos', 'ProductController')->middleware('auth' );
+Route::resource('productos', 'ProductController')->middleware('auth');
 /**Product Route */
 
 /**Companies Route */
@@ -33,14 +33,20 @@ Route::resource('clientes', 'CustomersController')->middleware('auth');
 
 /**Bill Route */
 Route::resource('facturas', 'InvoiceBillsController')->middleware('auth');
+Route::get('/editar/{id}', 'InvoiceBillsController@editar')->name('editar')->middleware('auth'); //Actualizar usuarios
+Route::patch('/update/{id}', 'InvoiceBillsController@update')->name('update'); //Edición de usuarios
 /**Bill Route */
+
+/** Shopping Route */
+Route::resource('compras', 'ShoppingsController')->middleware('auth');
+/** Shopping Route */
 
 /**Companies Route */
 Route::resource('UsuariosEmpresa', 'UsuarioEmpresaController')->middleware('auth');
 /**Companies Route */
 
 /**userInfo Route */
-Route::resource('cuentas', 'AccountsController')->middleware('auth');
+Route::resource('cuentas', 'AccountsController')->middleware('role:Administrador')->middleware('auth'); //autentificacion y permisos
 /**userInfo Route */
 
 /**Account_type Route */
@@ -60,21 +66,37 @@ Route::get('facturaCompañia', 'ArchivosController@facturaCompañia')->middlewar
 /** fACTURAS de las empresas*/
 
 /** Descargar Excel */
-Route::get('/doc', function () {return new DocsExport;});
-Route::get('/doc-Account', function () {return new DocsAccount;});
-Route::get('/doc-AccountType', function () {return new DocsAccountType;});
-Route::get('/doc-bills', function () {return new DocsBill;});
-Route::get('/doc-Companies', function () {return new DocsCompany;});
-Route::get('/doc-Customer', function () {return new DocsCustomer;});
-Route::get('/doc-User', function () {return new DocsUser;});
+Route::get('/doc', function () {
+    return new DocsExport;
+});
+Route::get('/doc-Account', function () {
+    return new DocsAccount;
+});
+Route::get('/doc-AccountType', function () {
+    return new DocsAccountType;
+});
+Route::get('/doc-bills', function () {
+    return new DocsBill;
+});
+Route::get('/doc-Companies', function () {
+    return new DocsCompany;
+});
+Route::get('/doc-Customer', function () {
+    return new DocsCustomer;
+});
+Route::get('/doc-User', function () {
+    return new DocsUser;
+});
 /** Descargar Excel */
 
 /** perfil */
-Route::get('perfil', 'ArchivosController@Perfil')->middleware('auth');
+Route::get('perfil', 'ArchivosController@Perfil')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth'); //autentificacion y permisos
 /** perfil */
 
 /** Usuarios de las empresas*/
-Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');
+Route::get('Personal', 'ArchivosController@Personal')->middleware('auth');//muestra listado de emleados y/o ususarios de una compañia
+Route::get('Personal/{id}', 'ArchivosController@eliminar')->middleware('auth');//me manda al formulario de confirmacion de eliminar usuario de la compañia
+Route::get('PersonalEliminado/{id}', 'ArchivosController@deleteuser')->name('Personal.deleteuser')->middleware('auth');//quita compañias, solo el gerente puede despedir a usuarios de su emrpesa
 /** Usuarios de las empresas*/
 
 /**Lista de precios Route */
@@ -90,19 +112,33 @@ Route::resource('pago', 'PaymentSuscriptions')->middleware('auth');
 /**Pago de suscripción */
 
 
-/**Lista de precios Route */
+/**Lista de Ajustes Route */
 Route::resource('Ajustes', 'SettingController')->middleware('auth');
-/**Lista de precios Route */
+/**Lista de Ajustes Route */
 
+
+/**Lista de familias Route */
+Route::resource('familias', 'FamilyController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
+/**Lista de familias Route */
+
+/**Lista de marcas Route */
+Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
+/**Lista de marcas Route */
+
+/** Asinate tu compania */
+Route::get('AsinateTuCompania', 'ArchivosController@Companyassignment')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth'); //autentificacion y permisos
+/** Asinate tu compania */
 
 /** https://www.youtube.com/watch?v=h0H4Y0U2DGk */
 /**
  * PENDIENTE
-* familia y marca
-* foto del productos
-* dimensiones del producto
+ *
  */
 //Importar productos de Excel a mysql
-//Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
+// Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
 //Importar productos de Excel a mysql
 
+/* React */
+Route::get('factura/create', 'InvoiceBillsController@createReact')->middleware('auth');
+Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware('auth');
+/* React */

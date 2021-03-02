@@ -45,15 +45,15 @@
 
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Facturador</th>
                                         <th>Companía</th>
                                         <th>Sucursal</th>
                                         <th>Cliente</th>
                                         <th>Nit</th>
-                                        <th>Total</th>
-                                        <th>Adquisición</th>
                                         <th>Descripción</th>
+                                        <th>Total</th>
+                                        <th>Tipo de factura</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -89,22 +89,28 @@
                                                         <td>C/F</td>
                                                     @endif
 
-                                                    <td>{{ $item->total }}</td>
-
-                                                    @if ($item->acquisition == '1')
-                                                        <td>Bienes</td>
-                                                    @elseif($item->acquisition == "2")
-                                                        <td>Servicios</td>
-                                                    @elseif($item->acquisition == "3")
-                                                        <td>Bienes y Servicios</td>
-                                                    @endif
-
                                                     <td>{{ $item->description }}</td>
 
-                                                    @if ($item->active == 1)
-                                                        <td>Factura emitida</td>
-                                                    @else
-                                                        <td>Factura Cancelada</td>
+                                                    <td>{{ $item->total }}</td>
+
+                                                    @if ($item->invoice_type == 1)
+                                                        <td>Factura con iva</td>
+                                                    @elseif($item->invoice_type == 0)
+                                                        <td>Factura sin iva</td>
+                                                    @endif
+
+                                                    @if ($item->document_type == 1)
+                                                        <td>
+                                                            <h6 class="text-primary"
+                                                                style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                                Factura</h6>
+                                                        </td>
+                                                    @elseif($item->document_type == 0)
+                                                        <td>
+                                                            <h6 class="text-danger"
+                                                                style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                                Cotización</h6>
+                                                        </td>
                                                     @endif
 
                                                     <td>
@@ -123,10 +129,6 @@
                                                                     <span><i
                                                                             class="text-light fas fa-paper-plane"></i></span>
                                                                 </a>
-                                                            @else
-                                                                <a class="btn btn-sm btn-light"
-                                                                    title="No hay correo registrado">
-                                                                </a>
                                                             @endif
 
                                                             <a class="btn btn-sm btn-secondary"
@@ -141,6 +143,12 @@
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
+                                                            @if ($item->document_type == 0)
+                                                                <a class="btn btn-sm btn-info" title="Facturar"
+                                                                    href="{{ url('editar', $item->id) }}">
+                                                                    <span><i class="text-light fas fa-edit"></i></span>
+                                                                </a>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>

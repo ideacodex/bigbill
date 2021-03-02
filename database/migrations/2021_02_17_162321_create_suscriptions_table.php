@@ -18,8 +18,9 @@ class CreateSuscriptionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')->on('users');
-            $table->timestamp('date_active');
-            $table->timestamp('date_expiration');
+            $table->integer('type_plan');
+            $table->timestamp('date_active')->nullable();
+            $table->timestamp('date_expiration')->nullable();
             $table->boolean('active');
             $table->timestamps();
         });

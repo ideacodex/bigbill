@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
-use DB;
+
 use App\Company;
 use App\Post;
 use App\Reaction;
@@ -14,6 +14,7 @@ use App\Category;
 use App\Award;
 use App\User;
 use App\Score;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -36,12 +37,11 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if (!$user->hasAnyRole(Role::all())) {
+        if (!$user->hasAnyRole(['Administrador', 'Gerente', 'Contador', 'Vendedor'])) {
             auth()->user()->syncRoles('Vendedor');
-
-            $request->user()->authorizeRoles(['Vendedor',]); //autentificacion y permisos
         }
-        return view('PrimerIngreso.PrimerIngreso');
+        $company = Company::all();
+        return view('PrimerIngreso.PrimerIngreso',['company' => $company]);
     }
 
     /**
@@ -52,9 +52,17 @@ class HomeController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
+        $role_id = Auth::user()->role_id;
         $user = User::findOrFail($id);
-        return view('userInfo.edit', compact('user'));
+        if ($role_id == 2) {
+            $companies = Company::where('user', $id)->get();
+            return view('userInfo.edit', ['companies' => $companies, 'user' => $user]);
+            
+        } else {
+            $company = Company::all();
+            return view('userInfo.edit', ['company' => $company, 'user' => $user]);
+        }
     }
 
     /**
@@ -64,12 +72,67 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public  function update(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
-        $user = request()->except((['_token', '_method']));
-        User::where('id', '=', $id)->update($user);
 
-        return redirect()->action('ArchivosController@Perfil')->with('MENSAJEEXITOSO', 'Registro Modificado');
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'nit' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'file' => 'image',
+
+        ]);
+        DB::beginTransaction();
+        try {
+            //mandamos a llamar al modelo
+            $user = User::findOrFail($id);
+            //Actualizamos los datos con todo lo que venga del request
+            $user->name = $request->name;
+            $user->lastname = $request->lastname;
+            $user->phone = $request->phone;
+            $user->nit = $request->nit;
+            $user->address = $request->address;
+            $user->email = $request->email;
+            $user->company_id = $request->company_id;
+            //permisos de accion
+            $permisos = Auth::user()->work_permits;
+            if ($permisos == 1){
+                $user->work_permits = $permisos;
+            }else{
+                $user->work_permits = 0;
+            }
+
+            //Guarda Informacion
+            $user->save();
+
+            //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
+            if ($request->file) {
+                //***carga de imagen***//
+                if ($request->hasFile('file')) {
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $imageNameToStore = $user->id . '.' . $extension;
+                    // Upload file //***nombre de carpeta para almacenar**
+                    $path = $request->file('file')->storeAs('public/usuarios', $imageNameToStore);
+                    //dd($path);
+                    $user->file = $imageNameToStore;
+                    $user->save();
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+            }
+            //***carga de imagen***//
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($e, 500);
+        }
+        DB::commit();
+        return redirect()->action('ArchivosController@Perfil')
+            ->with('MENSAJEEXITOSO', 'Registro modificado');
     }
 }

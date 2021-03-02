@@ -46,14 +46,14 @@ class Bill extends Migration
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')
                 ->references('id')->on('companies');
+            $table->integer('document_type');
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')
                 ->references('id')->on('branch_offices');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')
                 ->references('id')->on('customers');
-            $table->decimal('iva')->nullable();
-            $table->integer('acquisition');
+            $table->integer('invoice_type');
             $table->boolean('active')->nullable();
             $table->string('ListaPro')->nullable();
             $table->decimal('total');
@@ -61,11 +61,12 @@ class Bill extends Migration
             $table->unsignedBigInteger('account_id')->nullable();
             $table->foreign('account_id')
                 ->references('id')->on('accounts');
+            $table->integer('applied_price');
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('description')->nullable();
-            $table->timestamp('date_issue');
-            $table->timestamp('expiration_date');
+            $table->timestamp('date_issue')->nullable();
+            $table->timestamp('expiration_date')->nullable();
             $table->timestamps();
         });
     }
