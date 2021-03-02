@@ -39,8 +39,6 @@ class HomeController extends Controller
         $user = Auth::user();
         if (!$user->hasAnyRole(['Administrador', 'Gerente', 'Contador', 'Vendedor'])) {
             auth()->user()->syncRoles('Vendedor');
-
-            $request->user()->authorizeRoles(['Vendedor',]); //autentificacion y permisos
         }
         return view('PrimerIngreso.PrimerIngreso');
     }
