@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\DetailShoppings;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Shopping;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ShoppingsController extends Controller
@@ -15,7 +17,7 @@ class ShoppingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $records = Shopping::with('user')->with('company')->get(); //busca todas las facturas
         return view("shopping.index", ["records" => $records]); //generala vista
@@ -28,7 +30,8 @@ class ShoppingsController extends Controller
      */
     public function create()
     {
-        return view("shopping.create");
+        $product = Product::all();
+        return view("shopping.create", ['product' => $product]);
     }
 
     /**
@@ -60,21 +63,67 @@ class ShoppingsController extends Controller
             $shopping->date_issue = $request->date_issue;
             $shopping->description = $request->description;
             $shopping->account_id = 2;
+            $shopping->new_existing = $request->new_existing;
             $shopping->save();
 
             /**Detalle de compra */
-            for ($i = 0; $i < sizeof($request->product); $i++) {
-                /* dd('está llegando aquí'); */
-                $detail_shopping = new DetailShoppings();
-                $detail_shopping->product = $request->product[$i];
-                $detail_shopping->quantity = $request->quantity[$i];
-                $detail_shopping->unit_price = $request->unit_price[$i];
-                $detail_shopping->subtotal = $request->subtotal[$i];
-                $detail_shopping->shopping_id = $shopping->id;
-                $detail_shopping->save();
+            if ($request->type_product == 2 && $request->new_existing == 1) {
+                for ($i = 0; $i < sizeof($request->product); $i++) {
+                    /* dd('está llegando aquí'); */
+                    $detail_shopping = new DetailShoppings();
+                    $detail_shopping->product = $request->product[$i];
+                    $detail_shopping->quantity = $request->quantity[$i];
+                    $detail_shopping->unit_price = $request->unit_price[$i];
+                    $detail_shopping->subtotal = $request->subtotal[$i];
+                    $detail_shopping->shopping_id = $shopping->id;
+                    $detail_shopping->product_id = $request->product_id[$i];
+                    $detail_shopping->save();
+
+                    if ($request->type_product == 2) {
+                        if ($request->new_existing == 1) {
+                            $new_product = new Product();
+                            $new_product->name = $request->product[$i];
+                            $new_product->new_income = $request->quantity[$i];
+                            $new_product->quantity_values = $request->quantity[$i];
+                            $new_product->stock = $request->quantity[$i];
+                            $new_product->income_amount = $request->quantity[$i];
+                            $new_product->total_revenue = $request->quantity[$i];
+                            $new_product->cost = $request->unit_price[$i];
+                            $new_product->company_id = auth()->user()->id;
+                            $new_product->price = $request->unit_price[$i];
+                            $new_product->kind_product = 3;
+                            $new_product->active = 1;
+                            $new_product->save();
+                        }
+                    }
+                }
+            }
+            if ($request->type_product == 2 && $request->new_existing == 2) {
+                for ($i = 0; $i < sizeof($request->product_id); $i++) {
+                    $product = Product::find($request->product_id[$i]);
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $product->stock;
+                    $temporal = $product->quantity_values;
+                    $tempo = $product->new_income;
+                    $tempor = $product->income_amount;
+                    $temporales = $product->total_revenue;
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $product->stock = $temp + $request->quantity[$i];
+                    $product->quantity_values = $temporal + $request->quantity[$i];
+                    $product->new_income = $tempo + $request->quantity[$i];
+                    $product->income_amount = $tempor + $request->quantity[$i];
+                    $product->total_revenue = $temporales + $request->quantity[$i];
+                    if ($product->stock == 0) {
+                        $product->active = 0;
+                    } else {
+                        $product->active = 1;
+                    }
+                    $product->save();
+                }
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
+            dd($e);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
         }

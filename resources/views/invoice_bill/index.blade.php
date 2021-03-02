@@ -45,7 +45,7 @@
 
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Facturador</th>
                                         <th>Companía</th>
                                         <th>Sucursal</th>

@@ -92,6 +92,32 @@
                                     @enderror
                                 </div>
 
+                                {{-- Elije si es nuevo o existente --}}
+                                <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i class="fas fa-file-word"></i>
+                                        </span>
+                                    </div>
+                                    <select name="new_existing" id="new_existing"
+                                        class="form-control @error('new_existing') is-invalid @enderror" required>
+                                        <option selected disabled>Compra en:</option>
+                                        <option value="1">Producto nuevo</option>
+                                        <option value="2">Producto existente</option>
+                                    </select>
+                                    @error('new_existing')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+
+                                    @error('new_existing')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 {{-- Proveedor --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
@@ -135,7 +161,7 @@
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
-                                                <th>Precio</th>
+                                                <th>Precio de compra</th>
                                                 <th>Subtotal</th>
                                                 <th>Acción</th>
                                             </tr>
@@ -254,6 +280,8 @@
         var count = 0;
 
         function agregarProducto() {
+            let selectedProduct = document.getElementById('new_existing').value;
+            console.error(selectedProduct);
             var tax = 1.12;
             var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
             var text = $('#producto_id').find(':selected')
@@ -264,11 +292,20 @@
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
 
-            newtr = newtr +
-                `<td><input class="form-control" type="text" id="product" name="product[]" value="" /><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-            newtr = newtr +
-                '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-
+            if (selectedProduct == 1) {
+                console.error("Producto existente");
+                newtr = newtr +
+                    `<td><input class="form-control" placeholder="Producto" type="text" id="product" name="product[]" value="" /><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                newtr = newtr +
+                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+            }
+            if (selectedProduct == 2) {
+                console.error("Producto existente");
+                newtr = newtr +
+                    `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                newtr = newtr +
+                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+            }
 
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
             RefrescaProducto(); //Refresco Productos

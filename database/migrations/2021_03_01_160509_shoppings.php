@@ -28,6 +28,7 @@ class Shoppings extends Migration
                 ->references('id')->on('branch_offices');
             //Proveedor
             $table->string('supplier');
+            $table->integer('new_existing');
             $table->string('ListaPro')->nullable();
             $table->decimal('total');
             $table->string('totalletras')->nullable();
