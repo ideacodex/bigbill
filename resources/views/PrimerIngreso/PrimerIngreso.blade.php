@@ -635,13 +635,14 @@
                                     @endif
                                     @endif
                                     @endif
+
                                     {{-- <!--Button--> --}}
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">
-                                                <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                                    <i class="far fa-save"></i>
-                                                    {{ __('Actualizar Informacion') }}
+                                                <button type="submit" style="border-radius: 10px" class="btn btn-primary">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                    {{ __('Asignarme') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -655,7 +656,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Asignarme</button>
+                
             </div>
         </div>
     </div>

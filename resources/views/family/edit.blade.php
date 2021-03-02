@@ -61,7 +61,7 @@
                                                 @if (auth()->user()->company_id)
                                                     <option value="{{ auth()->user()->company_id }}" selected>
                                                         <p>
-                                                            Su companía: {{ auth()->user()->compan->name }}
+                                                            Su companía: {{ auth()->user()->company->name }}
                                                         </p>
                                                     </option>
                                                 @endif
