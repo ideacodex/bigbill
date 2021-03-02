@@ -104,16 +104,11 @@
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
-
-
                     <!--Clientes -->
                     <li class="menu-item-has-children dropdown">
                         <a href="{{ url('clientes?company_id=') }}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fas fa-user-friends"></i> Clientes
                         </a>
                     </li>
-
-
-
                     {{-- <!--Productos --> --}}
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
@@ -129,7 +124,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <!--Facturar -->
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
@@ -155,6 +149,28 @@
                         alert("cargando informacion... \n No tiene compañia");
 
                     </script>
+                    <!--Crear Nueva Compania -->
+
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="menu-icon fas fa-flag"></i> Empieza a Trabajar
+                        </a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li>
+                                <i class="fa fa-book"></i>
+                                <a href="{{ url('empresas/create') }}">
+                                    Crear tu compania
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fa fa-book"></i>
+                                <a href="{{ route('empresas.create') }}"> Asignate a una existente
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     @endif
                     <li class="menu-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

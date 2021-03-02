@@ -125,6 +125,9 @@ Route::resource('familias', 'FamilyController')->middleware('role:Administrador|
 Route::resource('marcas', 'MarkController')->middleware('role:Administrador|Gerente|Contador')->middleware('auth'); //autentificacion y permisos
 /**Lista de marcas Route */
 
+/** Asinate tu compania */
+Route::get('AsinateTuCompania', 'ArchivosController@Companyassignment')->middleware('role:Administrador|Gerente|Contador|Vendedor')->middleware('auth'); //autentificacion y permisos
+/** Asinate tu compania */
 
 /** https://www.youtube.com/watch?v=h0H4Y0U2DGk */
 /**

@@ -28,8 +28,9 @@ class UsuarioEmpresaController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::with('companies')->with('branch_offices')->with('suscriptions')->get();
-        /*         dd($user);
- */
+        /*         
+        dd($user);
+        */
         return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
     }
 

@@ -58,17 +58,31 @@
 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-
             <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
-                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
+                {{-- Logo de la Empresa --}}
+                @if (Auth::user()->company_id)
+                @if (Auth::user()->company->file != null)
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px" height="70px" alt="Facturador"></a>
+                @else
                 <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
-                        alt="Facturador"></a>
+                @endif
+                @else
+                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                @endif
+                {{-- Logo Cuando la barra se minimiza --}}
+                @if (Auth::user()->company_id)
+                @if (Auth::user()->company->file != null)
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px" height="40px" alt="Facturador"></a>
+                @else
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                @endif
+                @else
+                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                @endif
             </div>
-
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
@@ -252,7 +266,13 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
+                            
+                            @if (Auth::user()->file != null)
+                            {{-- imagen --}}
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img" width="50px" height="50px" alt="Compania">
+                            @else
                             <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
+                            @endif
                         </a>
 
                         <div class="user-menu dropdown-menu">

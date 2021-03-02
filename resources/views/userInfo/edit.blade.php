@@ -11,7 +11,18 @@
 </div>
 @endif
 <!--Validación de errores-->
-
+<!--Mensaje flash-->
+@if (session('MENSAJEEXITOSO'))
+<div class="alert  alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success">
+        {{ session('MENSAJEEXITOSO') }}
+    </div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
+<!--Mensaje flash-->
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="row">
