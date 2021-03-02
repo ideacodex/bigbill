@@ -75,6 +75,7 @@ class CompaniesController extends Controller
                 $user->email = $datosususario->email; //actualizo el correo
                 $user->company_id = $datosususario->company_id; //actualizo el Compañia
                 $user->branch_id = $datosususario->branch_id; //actualizo el sucursal
+                $user->work_permits = 1; //actualizo el sucursal
                 $user->save();
             
         }

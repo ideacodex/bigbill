@@ -137,3 +137,8 @@ Route::get('AsinateTuCompania', 'ArchivosController@Companyassignment')->middlew
 //Importar productos de Excel a mysql
 // Route::post('import-list-excel', 'ArchivosController@importExcel')->name('products.import.excel')->middleware('auth');
 //Importar productos de Excel a mysql
+
+/* React */
+Route::get('factura/create', 'InvoiceBillsController@createReact')->middleware('auth');
+Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware('auth');
+/* React */
