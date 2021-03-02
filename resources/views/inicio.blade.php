@@ -8,7 +8,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="img/bannerlogo.png" style="width: 70%;">
+                    <img src="img/bannerlogo.png" style="width: 60%;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <img src="img/1.jpg" class="img-fluid d-none d-sm-block">
+                        <img src="img/not-found.png" style="width: 1000px; height: 500px" class="img-fluid d-none d-sm-block">
                     </div>
                 </div>
             </div>

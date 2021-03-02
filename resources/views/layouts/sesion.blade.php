@@ -26,7 +26,7 @@
 
 .main-header {
   position: relative;
-  background: url(../img/1.jpg);
+  background: url(../img/fondo.png);
   background-size: cover;
   min-height 700px;
 }

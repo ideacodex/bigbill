@@ -217,7 +217,7 @@
                 </td>
                 <td colspan="2">
                     <div style=" border-radius:7px;background: #092863;color:white ;text-align: right">
-                        <b>Subtotal</b> <strong style="color:#092863">----</strong>
+                        <b>Subtotal</b> <strong style="color:#031c49">----</strong>
                     </div>
                 </td>
                 

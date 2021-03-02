@@ -22,7 +22,7 @@
     </button>
 </div>
 @endif
-
+<!--Mensaje flash-->
 <div class="content mt-3">
     <div class="row">
         <div class="col-md-9 ml-2">
