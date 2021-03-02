@@ -43,7 +43,7 @@ class UsuarioEmpresaController extends Controller
     public function edit($id, Request $request)
     {
 
-        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente']); //autentificacion y permisos
         $user = User::findOrFail($id) and $companies = Company::all() and  $branch_office = BranchOffice::with('company')->get();
         return view('userInfo.UsuarioEmpresa.update', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
     }
@@ -57,7 +57,7 @@ class UsuarioEmpresaController extends Controller
      */
     public  function update(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente']); //autentificacion y permisos
 
         request()->validate([ //validando campos requeridos
             'role_id' => 'required',
@@ -66,7 +66,8 @@ class UsuarioEmpresaController extends Controller
             'phone' => 'required',
             'nit' => 'required',
             'address' => 'required',
-            'email' => 'required'
+            'email' => 'required',
+            'work_permits' => 'required'
         ]);
         DB::beginTransaction(); //transaccion en base de datos
         try {
@@ -82,6 +83,14 @@ class UsuarioEmpresaController extends Controller
             $user->email = $request->email; //actualizo el correo
             $user->company_id = $request->company_id; //actualizo el Compañia
             $user->branch_id = $request->branch_id; //actualizo el sucursal
+
+            if($request->work_permits == 1)
+            {
+                $user->work_permits = $request->work_permits; //actualizo Permisos
+            }else{
+                $user->work_permits = 0; //actualizo Permisos
+            }
+
             $user->save();
         } catch (\Illuminate\Database\QueryException $e) { //si ocurre algo inesperado en la DB que me de error 500
             DB::rollback();

@@ -85,8 +85,13 @@
                                             <td>Oficina central</td>
                                             @endif
                                             <td>
+                                                 <a class="btn btn-sm btn-primary"
+                                                            href="{{ url('UsuariosEmpresa/' . $item->id . '/edit') }}"
+                                                            title="Editar">
+                                                            <span><i class="fas fa-edit"></i></span>
+                                                        </a>
                                                 @if (Auth::user()->id != $item->id)
-                                                <a class="btn btn-sm btn-primary" href="{{ url('Personal/' . $item->id ) }}" title="Eliminar Empleado">
+                                                <a class="btn btn-sm btn-danger" href="{{ url('Personal/' . $item->id ) }}" title="Eliminar Empleado">
                                                     <span class="text-light"><i class="fas fa-trash-alt"></i></span>
                                                 </a>
 
