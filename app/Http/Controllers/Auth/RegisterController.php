@@ -88,6 +88,7 @@ class RegisterController extends Controller
             $user->nit = $data['nit'];
             $user->address = $data['address'];
             $user->role_id = 4;
+            $user->work_permits = 0;
             $user->save();
 
             $record = new Suscription;

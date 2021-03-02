@@ -18,12 +18,8 @@ class Updateuser extends Migration
             $table->string('file')->nullable();
             //Asignacion de compania por el id de usuario
             $table->integer('user')->nullable();
-            
         });
-        Schema::table('users', function (Blueprint $table) {
-            //Imagen del usuario
-            $table->string('file')->nullable();
-        });
+        
     }
 
     /**
@@ -33,12 +29,11 @@ class Updateuser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('file');
-        });
+        
         Schema::table('companies', function (Blueprint $table) {
-            $table->dropColumn('file');
-            $table->integer('user');
+            $table->dropColumn('file')->nullable();
+            $table->integer('user')->nullable();
         });
+       
     }
 }

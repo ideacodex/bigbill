@@ -40,7 +40,8 @@ class HomeController extends Controller
         if (!$user->hasAnyRole(['Administrador', 'Gerente', 'Contador', 'Vendedor'])) {
             auth()->user()->syncRoles('Vendedor');
         }
-        return view('PrimerIngreso.PrimerIngreso');
+        $company = Company::all();
+        return view('PrimerIngreso.PrimerIngreso',['company' => $company]);
     }
 
     /**
@@ -97,6 +98,14 @@ class HomeController extends Controller
             $user->address = $request->address;
             $user->email = $request->email;
             $user->company_id = $request->company_id;
+            //permisos de accion
+            $permisos = Auth::user()->work_permits;
+            if ($permisos == 1){
+                $user->work_permits = $permisos;
+            }else{
+                $user->work_permits = 0;
+            }
+
             //Guarda Informacion
             $user->save();
 
