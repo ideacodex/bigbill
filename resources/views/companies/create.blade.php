@@ -30,7 +30,7 @@
                             <strong class="card-title">Agregar Companía</strong>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('empresas.store') }}" onsubmit="return checkSubmit();"
+                            <form method="POST" action="{{ route('empresas.store') }}" onsubmit="return checkSubmit();" enctype="multipart/form-data"
                                 file="true">
                                 @csrf
                                 {{-- Nombre de la companía --}}

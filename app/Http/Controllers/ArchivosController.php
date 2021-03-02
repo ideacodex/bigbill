@@ -30,9 +30,9 @@ class ArchivosController extends Controller
         } else {
             /**si existe la columna company_id realizar: Filtrado de inforcion*/
             $companipdf = Auth::user()->company_id;
-                $Products = Product::where('company_id', $companipdf)->with('company')->get(); //Obtener los valores de tu request:
-                $pdf = PDF::loadView('CompanyInformation.products', compact('Products')); //genera el PDF la vista
-                return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
+            $Products = Product::where('company_id', $companipdf)->with('company')->get(); //Obtener los valores de tu request:
+            $pdf = PDF::loadView('CompanyInformation.products', compact('Products')); //genera el PDF la vista
+            return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
         }
     }
     //Company
@@ -102,7 +102,6 @@ class ArchivosController extends Controller
         $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
         return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
     }
-
     //Vista de ajustes
     public function settings(Request $request)
     {
@@ -110,21 +109,17 @@ class ArchivosController extends Controller
         $company =  Company::where('id', (Auth::user()->company_id))->get(); //realiza consulta mysql
         return view('settings.index', ["company" => $company]);
     }
-
-
     //Eliminar USUSARIO DESDE VISTA GENERENTE
     //El gerente podra eliminar a los ususarios de su empresa: Es decir le quita la compania
-
-    public function eliminar( $id)
+    public function eliminar($id)
     {
         $user = User::findOrFail($id) and $companies = Company::all() and  $branch_office = BranchOffice::with('company')->get();
         return view('users.delete', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
     }
     //muestra datos del ususario a quitar empresa por el gerente
-
     public  function deleteuser(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['Administrador','Gerente']); //autentificacion y permisos
+        $request->user()->authorizeRoles(['Administrador', 'Gerente']); //autentificacion y permisos
 
         request()->validate([ //validando campos requeridos
             'role_id' => 'required',
@@ -161,4 +156,9 @@ class ArchivosController extends Controller
     }
 
 
+    // Vista de Asignarse Compania
+    public function Companyassignment(Request $request)
+    {
+        return view('companies.Companyassignment');
+    }
 }

@@ -83,6 +83,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'usuarios' => [
+            'driver' => 'local',
+            'root' => storage_path('app/usuarios'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

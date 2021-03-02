@@ -15,6 +15,9 @@ class Company extends Model
     public function branch_offices(){
         return $this->belongsTo("App\BranchOffice", 'id','company_id');
     }
+    public function user(){
+        return $this->belongsTo("App\User", 'id','company_id');
+    }
 
 
 

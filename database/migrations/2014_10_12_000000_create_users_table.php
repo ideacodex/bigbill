@@ -20,8 +20,6 @@ class CreateUsersTable extends Migration
             $table->integer('nit')->unique();
             $table->integer('phone')->nullable();
             $table->string('address')->nullable();
-            //Imagen de la compañia
-            $table->string('file')->nullable();
             $table->timestamps();
         });
 
