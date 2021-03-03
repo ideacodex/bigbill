@@ -41,6 +41,7 @@ class SettingController extends Controller
             'tax' => 'required',
             'exchange_rate' => 'required',
             'company_id' => 'required',
+            'favcolor' => 'required'
         ]);
         DB::beginTransaction();
         try {
@@ -48,6 +49,7 @@ class SettingController extends Controller
             $Setting->tax = $request->tax;
             $Setting->exchange_rate = $request->exchange_rate;
             $Setting->company_id = $request->company_id;
+            $Setting->favcolor = $request->favcolor;
             $Setting->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();

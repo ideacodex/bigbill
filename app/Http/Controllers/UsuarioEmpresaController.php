@@ -11,6 +11,7 @@ use App\Company;
 use App\Suscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use SimpleXMLElement;
 
 class UsuarioEmpresaController extends Controller
 {
@@ -29,9 +30,19 @@ class UsuarioEmpresaController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         $user = User::with('companies')->with('branch_offices')->with('suscriptions')->get();
-        /*         
-        dd($user);
-        */
+
+        /* $xmlstr =
+            '<?xml version="1.0" encoding="UTF-8"?>
+                <keys>
+                <key lang="en">&lt;Insert&gt;</key>
+                <key lang="de">&lt;Einfügen&gt;</key>
+                </keys>';
+
+        $sxe = new SimpleXMLElement($xmlstr);
+
+        $output = $sxe->asXML();
+        dd($output); */
+
         return view("userInfo.UsuarioEmpresa.usuarios", ["user" => $user]);
     }
 
@@ -85,10 +96,9 @@ class UsuarioEmpresaController extends Controller
             $user->company_id = $request->company_id; //actualizo el Compañia
             $user->branch_id = $request->branch_id; //actualizo el sucursal
 
-            if($request->work_permits == 1)
-            {
+            if ($request->work_permits == 1) {
                 $user->work_permits = $request->work_permits; //actualizo Permisos
-            }else{
+            } else {
                 $user->work_permits = 0; //actualizo Permisos
             }
 
@@ -100,13 +110,11 @@ class UsuarioEmpresaController extends Controller
         }
         DB::commit();
 
-        if(Auth::user()->role_id == 1)
-            {
-                return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
-            }else{
-                return redirect()->action('ArchivosController@Personal')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
-            }
-        
+        if (Auth::user()->role_id == 1) {
+            return redirect()->action('UsuarioEmpresaController@index')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
+        } else {
+            return redirect()->action('ArchivosController@Personal')->with('MENSAJEEXITOSO', 'Registro Modificado'); //redirecciono a mi pagina de inicio
+        }
     }
 
     /**

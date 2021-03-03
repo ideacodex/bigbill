@@ -17,15 +17,13 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->float('tax');
-            $table->float('exchange_rate');//tasa de cambio del dolar
+            $table->float('exchange_rate'); //tasa de cambio del dolar
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')
                 ->references('id')->on('companies');
+            $table->string('favcolor')->nullable();
             $table->timestamps();
         });
-
-
-
     }
 
     /**

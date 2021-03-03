@@ -19,10 +19,12 @@
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
+                    <img style="display:scroll;
+                            position:fixed; bottom:0px; right:0px;" width="15%" src="../img/not-found.png" />
                     <a href="login">
 
                         <label class="align-content"
-                            style="color: white; font-size:30px; font-family: georgia;">Sesion</label>
+                            style="color: white; font-size:30px; font-family: georgia;">Iniciar Sesión</label>
                     </a>
                 </div>
                 <div class="login-form">

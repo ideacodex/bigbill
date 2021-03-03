@@ -87,6 +87,7 @@
                                                     @if (Auth::user()->role_id == 1)
                                                         <th>Compañia</th>
                                                     @endif
+                                                    <th>Color</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -113,7 +114,7 @@
                                                                     </a>
                                                                     <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('formDel{{ $item->id }}').submit();">
                                                                         <span class="text-light"><i
                                                                                 class="fas fa-trash-alt"></i></span>
                                                                     </a>
@@ -130,6 +131,7 @@
                                                                 <th> {{ $loop->index + 1 }}</th>
                                                                 <td>{{ $item->tax }}</td>
                                                                 <td>{{ $item->exchange_rate }}</td>
+                                                                <td>{{ $item->favcolor }}</td>
                                                                 <td>
                                                                     <div class="btn-group" role="group"
                                                                         aria-label="Basic example">
@@ -144,7 +146,7 @@
                                                                         </a>
                                                                         <a class="btn btn-sm btn-danger" title="Eliminar"
                                                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
                                                                             <span class="text-light"><i
                                                                                     class="fas fa-trash-alt"></i></span>
                                                                         </a>
@@ -179,6 +181,7 @@
                             <br>
                         </div>
                     </div>
+
                     <!-- LISTA DE PRECIOS -->
                     <div class="col-ml-6 col-md-6 col-ms-12   col-xs-12 ">
                         <div style="background-color: #2b364f; color: white;border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;"
@@ -193,7 +196,8 @@
                                 class="col-ml-12 col-md-12 col-ms-12   col-xs-12 ">
                                 <div class="alert alert-success" role="alert">
                                     <h4 class="alert-heading">Agregara Datos</h4>
-                                    <p>Puedes agregar el IVA con el que podras trabajar en tu compania, tambien actualiza el valor de la taza de cambio con el que manejaras en tu empresa.</p>
+                                    <p>Puedes agregar el IVA con el que podras trabajar en tu compania, tambien actualiza el
+                                        valor de la taza de cambio con el que manejaras en tu empresa.</p>
                                     <hr>
                                     <p class="mb-0">Seleciona una opcion para trabajar</p>
                                 </div>
@@ -239,9 +243,8 @@
                                             </div>
                                             <br>
                                         </div>
-                                        <br>
-                                        <br>
-                                        {{-- <!--Tada de cambio--> --}}
+
+                                        {{-- <!--Tasa de cambio--> --}}
                                         <div class="col-ml-12 col-md-12 col-ms-12  col-xs-12 ">
 
                                             <div class="row">
@@ -283,6 +286,7 @@
                                             </div>
                                             <br>
                                         </div>
+
                                         {{-- <!--Company_id--> --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -314,6 +318,11 @@
                                             @enderror
 
                                         </div>
+
+                                        <label for="favcolor">Seleccione un color de sistema:</label>
+                                        <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+                                        <input type="submit">
+
                                         {{-- <!--Button--> --}}
                                         <div class="container mt-4">
                                             <div class="col-12">
@@ -328,6 +337,7 @@
                                                 <br>
                                             </div>
                                         </div>
+
                                     @else
                                         @if (!$settings->first())
                                             {{-- tax --}}
@@ -435,10 +445,7 @@
                         </div>
                     </div>
 
-
-
                 </aside>
-
             </div>
         </div>
     </div>

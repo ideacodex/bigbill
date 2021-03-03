@@ -17,9 +17,11 @@
         input:invalid {
             border: 1px solid rgb(0, 60, 255);
         }
+
         input:invalid:focus {
             background-image: linear-gradient(rgb(192, 198, 255), rgb(255, 255, 255));
         }
+
     </style>
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
@@ -27,6 +29,8 @@
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
+                    <img style="display:scroll;
+                                position:fixed; bottom:0px; right:0px;" width="15%" src="../img/not-found.png" />
                     <a href="register">
                         <label class="align-content" style="color: white; font-size:30px; font-family: georgia;">Registrar
                             Usuario</label>
@@ -39,7 +43,7 @@
                         <div class="form-group">
                             <label>Nombre</label>
                             <input id="name" type="text" class="form-control" @error('name') is-invalid @enderror"
-                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus >
+                                name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -50,7 +54,7 @@
                         <div class="form-group">
                             <label>Apellido</label>
                             <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror"
-                                name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" >
+                                name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname">
                             @error('lastname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -61,7 +65,8 @@
                         <div class="form-group">
                             <label>No. Celular</label>
                             <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
-                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7" pattern="[0-9]{7,13}">
+                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7"
+                                pattern="[0-9]{7,13}">
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -72,7 +77,8 @@
                         <div class="form-group">
                             <label>Nit</label>
                             <input id="nit" type="text" class="form-control @error('nit') is-invalid @enderror" name="nit"
-                                minlength="5" value="{{ old('nit') }}"   minlength="8" pattern="[0-9]{6,15}" required autocomplete="nit">
+                                minlength="5" value="{{ old('nit') }}" minlength="8" pattern="[0-9]{6,15}" required
+                                autocomplete="nit">
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
