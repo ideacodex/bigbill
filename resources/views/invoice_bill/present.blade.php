@@ -212,7 +212,7 @@
             $a = $data->total;
             ?>
             <!-- Subtotal -->
-            <tr>
+            {{-- <tr>
                 <td colspan="2">
                 </td>
                 <td colspan="2">
@@ -220,10 +220,9 @@
                         <b>Subtotal</b> <strong style="color:#031c49">----</strong>
                     </div>
                 </td>
-                
-            </tr>
+            </tr> --}}
             <!-- Iva -->
-            <tr>
+            {{-- <tr>
                 <td colspan="2">
                 </td>
                 <td colspan="2">
@@ -232,7 +231,7 @@
                     </div>
                 </td>
                 
-            </tr>
+            </tr> --}}
             <!-- Total -->
             <tr>
                 <td colspan="2">
