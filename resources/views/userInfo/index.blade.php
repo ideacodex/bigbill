@@ -34,11 +34,7 @@
                             {{-- imagen --}}
                             <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="image" width="130px" height="130px" alt="Compania">
                             @endif
-                            
-
                             <div class="media-body" >
-
-
 
                                 <h2 class="text-light display-6">     {{ Auth::user()->name }}
                                     {{ Auth::user()->lastname }}

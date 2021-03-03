@@ -525,7 +525,7 @@
 
     <!--Script inputs dinámicos-->
     <script>
-        /*Fecha de vencimiento*/
+        /Fecha de vencimiento/
         function addDays(days) {
             var date = document.getElementById("date_issue").value;
             console.log(date);
@@ -539,7 +539,7 @@
             return result;
         }
 
-        /*Tabla factura*/
+        /Tabla factura/
         function RefrescaProducto() {
             var ip = [];
             var i = 0;
@@ -576,12 +576,6 @@
             var sptext = text.split();
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
-<<<<<<< HEAD
-            newtr = newtr +
-                `<td><select id="stock[]" onchange="mostrarprecio()" onchange="showStockSelect()" class="selectpicker form-control" id="product_id[]" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->price }}" valuestock="{{ $item->stock }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precio[]" id="precunit[]" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-            newtr = newtr +
-                '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-=======
 
             if (selectedInvoice == 1) {
                 console.error("aplica iva");
@@ -634,7 +628,6 @@
                 }
 
             }
->>>>>>> 3cf5697f3d3919f223e0295c0339405843b8240f
 
 
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
@@ -746,13 +739,8 @@
         }
 
         function mostrarprecio() {
-<<<<<<< HEAD
-            var pizza = document.getElementById("stock[]"),
-                precio = document.getElementById("precio[]");
-=======
             var pizza = document.getElementById(`product_id${count}`),
                 precio = document.getElementById(`precunit${count}`);
->>>>>>> 3cf5697f3d3919f223e0295c0339405843b8240f
 
             precio.value = pizza.selectedOptions[0].attributes.valuestock.value;
         }
