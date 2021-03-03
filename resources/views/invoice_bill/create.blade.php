@@ -525,7 +525,7 @@
 
     <!--Script inputs dinámicos-->
     <script>
-        /*Fecha de vencimiento*/
+        /Fecha de vencimiento/
         function addDays(days) {
             var date = document.getElementById("date_issue").value;
             console.log(date);
@@ -539,7 +539,7 @@
             return result;
         }
 
-        /*Tabla factura*/
+        /Tabla factura/
         function RefrescaProducto() {
             var ip = [];
             var i = 0;
