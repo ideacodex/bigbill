@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Mail;
 
 class InvoiceBillsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,10 +48,18 @@ class InvoiceBillsController extends Controller
      */
     public function create()
     {
-        $product = Product::where('active', 1)->where('kind_product', '!=', 2)->get();
-        $company = Company::all();
-        $customer = Customer::all();
-        return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $product = Product::where('active', 1)->where('kind_product', '!=', 2)->get();
+            $company = Company::all();
+            $customer = Customer::all();
+            return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+        } else {
+            $product = Product::where('active', 1)->where('company_id', Auth()->user()->company_id)->where('kind_product', '!=', 2)->get();
+            $company = Company::all();
+            $customer = Customer::all();
+            return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+        }
     }
 
     /**

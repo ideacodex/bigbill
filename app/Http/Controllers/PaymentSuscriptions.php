@@ -12,6 +12,11 @@ use Spatie\Permission\Models\Role;
 
 class PaymentSuscriptions extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -76,9 +81,9 @@ class PaymentSuscriptions extends Controller
             } elseif ($payment->suscription_time <= 0) {
                 /* Si no lo deja en 0 */
                 $suscription->active = 0;
-            }    
+            }
 
-            $suscription->type_plan = $request->type_plan;            
+            $suscription->type_plan = $request->type_plan;
 
             /* Multiplico el tiempo de suscripción por los 30 días mensuales y lo guardo en la variable temporal*/
             $temporal = $request->suscription_time * 30;
