@@ -82,10 +82,9 @@ class CompaniesController extends Controller
                 $user->branch_id = $datosususario->branch_id; //actualizo el sucursal
                 $user->work_permits = 1; //actualizo el sucursal
                 $user->save();
-            
-        }
+            }
 
-           
+
 
             //***carga de imagen***//
             if ($request->hasFile('file')) {
@@ -100,8 +99,8 @@ class CompaniesController extends Controller
                 $imageNameToStore = 'no_image.jpg';
             }
             //***carga de imagen***//
-            
-            
+
+
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
@@ -124,9 +123,16 @@ class CompaniesController extends Controller
      */
     public function edit($id, Request $request) //editform
     {
-        $request->user()->authorizeRoles(['Administrador']);
-        $companies = Company::findOrFail($id);
-        return view('companies.update', compact('companies'));
+        $permisos = Auth::user()->work_permits;
+        $rol = Auth::user()->role_id;
+        if ($permisos == 1 || $rol == 1) {
+            $request->user()->authorizeRoles(['Administrador', 'Gerente']);
+            $companies = Company::findOrFail($id);
+            return view('companies.update', compact('companies'));
+        } else {
+            return redirect()->action('ArchivosController@Perfil')
+                ->with('MENSAJEEXITOSO', 'Usted no esta autorizado para actualizar o gestionar informacion');
+        }
     }
     //Show
     public function show($id, Request $request) //editform
@@ -144,50 +150,59 @@ class CompaniesController extends Controller
      */
     public  function update(Request $request, $id)
     {
-        request()->validate([
-            'name' => 'required',
-            'nit' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'file' => 'image',
+        $permisos = Auth::user()->work_permits;
+        $rol = Auth::user()->role_id;
+        if ($permisos == 1 || $rol == 1) {
+            request()->validate([
+                'name' => 'required',
+                'nit' => 'required',
+                'address' => 'required',
+                'phone' => 'required',
+                'file' => 'image',
 
-        ]);
-        DB::beginTransaction();
-        try {
-            //mandamos a llamar al modelo
-            $companies = Company::findOrFail($id);
-            //Actualizamos los datos con todo lo que venga del request
-            $companies->name = $request->name;
-            $companies->nit = $request->nit;
-            $companies->address = $request->address;
-            $companies->phone = $request->phone;
-            $companies->save();
+            ]);
+            DB::beginTransaction();
+            try {
+                //mandamos a llamar al modelo
+                $companies = Company::findOrFail($id);
+                //Actualizamos los datos con todo lo que venga del request
+                $companies->name = $request->name;
+                $companies->nit = $request->nit;
+                $companies->address = $request->address;
+                $companies->phone = $request->phone;
+                $companies->save();
 
-            //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
-            if ($request->file) {
-                //***carga de imagen***//
-                if ($request->hasFile('file')) {
-                    $extension = $request->file('file')->getClientOriginalExtension();
-                    $imageNameToStore = $companies->id . '.' . $extension;
-                    // Upload file //***nombre de carpeta para almacenar**
-                    $path = $request->file('file')->storeAs('public/companias', $imageNameToStore);
-                    //dd($path);
-                    $companies->file = $imageNameToStore;
-                    $companies->save();
-                } else {
-                    $imageNameToStore = 'no_image.jpg';
+                //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
+                if ($request->file) {
+                    //***carga de imagen***//
+                    if ($request->hasFile('file')) {
+                        $extension = $request->file('file')->getClientOriginalExtension();
+                        $imageNameToStore = $companies->id . '.' . $extension;
+                        // Upload file //***nombre de carpeta para almacenar**
+                        $path = $request->file('file')->storeAs('public/companias', $imageNameToStore);
+                        //dd($path);
+                        $companies->file = $imageNameToStore;
+                        $companies->save();
+                    } else {
+                        $imageNameToStore = 'no_image.jpg';
+                    }
                 }
-            }
-            //***carga de imagen***//
+                //***carga de imagen***//
 
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback();
-            abort(500, $e->errorInfo[2]);
-            return response()->json($response, 500);
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback();
+                abort(500, $e->errorInfo[2]);
+                return response()->json($response, 500);
+            }
+            DB::commit();
+            if ($rol == 1) {
+                return redirect()->action('CompaniesController@index')
+                    ->with('datosModificados', 'Registro modificado');
+            } else {
+                return redirect()->action('ArchivosController@Perfil')
+                    ->with('MENSAJEEXITOSO', 'Registro modificado');
+            }
         }
-        DB::commit();
-        return redirect()->action('CompaniesController@index')
-            ->with('datosModificados', 'Registro modificado');
     }
 
 
