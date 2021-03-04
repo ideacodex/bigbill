@@ -42,7 +42,7 @@ class HomeController extends Controller
             auth()->user()->syncRoles('Vendedor');
         }
         $company = Company::all();
-        return view('PrimerIngreso.PrimerIngreso',['company' => $company]);
+        return view('PrimerIngreso.PrimerIngreso', ['company' => $company]);
     }
 
     /**
@@ -59,7 +59,6 @@ class HomeController extends Controller
         if ($role_id == 2) {
             $companies = Company::where('user', $id)->get();
             return view('userInfo.edit', ['companies' => $companies, 'user' => $user]);
-            
         } else {
             $company = Company::all();
             return view('userInfo.edit', ['company' => $company, 'user' => $user]);
@@ -76,7 +75,7 @@ class HomeController extends Controller
 
     public  function update(Request $request, $id)
     {
-
+        // dd($request);
         request()->validate([
             'name' => 'required',
             'lastname' => 'required',
@@ -85,7 +84,7 @@ class HomeController extends Controller
             'address' => 'required',
             'email' => 'required',
             'file' => 'image',
-
+            'company_id' => 'required',
         ]);
         DB::beginTransaction();
         try {
@@ -98,18 +97,20 @@ class HomeController extends Controller
             $user->nit = $request->nit;
             $user->address = $request->address;
             $user->email = $request->email;
-            $user->company_id = $request->company_id;
+            if ($request->company_id == 0) {
+                $user->company_id = null;
+            } else {
+                $user->company_id = $request->company_id;
+            }
             //permisos de accion
             $permisos = Auth::user()->work_permits;
-            if ($permisos == 1){
+            if ($permisos == 1) {
                 $user->work_permits = $permisos;
-            }else{
+            } else {
                 $user->work_permits = 0;
             }
-
             //Guarda Informacion
             $user->save();
-
             //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
             if ($request->file) {
                 //***carga de imagen***//
@@ -126,7 +127,6 @@ class HomeController extends Controller
                 }
             }
             //***carga de imagen***//
-
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]);
@@ -134,6 +134,6 @@ class HomeController extends Controller
         }
         DB::commit();
         return redirect()->action('ArchivosController@Perfil')
-            ->with('MENSAJEEXITOSO', 'Registro modificado');
+            ->with('MENSAJEEXITOSO', 'Registro xdxfdx modificado');
     }
 }

@@ -171,9 +171,11 @@
                     @if (Auth::user()->company_id)
                     @if (Auth::user()->work_permits == 1)
                     <!--Clientes -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="{{ url('clientes?company_id=') }}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fas fa-user-friends"></i> Clientes
+                    <li class="menu-item">
+                        <a href="{{ url('clientes') }}">
+                            <i class="menu-icon fas fa-user-friends"></i>Clientes
                         </a>
+                        
                     </li>
                     {{-- <!--Productos --> --}}
                     <li class="menu-item-has-children dropdown">
@@ -260,7 +262,7 @@
 
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
+                                <img class="user-avatar rounded-circle" src="{{ asset('images/contacts.png') }}" alt="Información">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">Información</p>
@@ -307,7 +309,7 @@
                             {{-- imagen --}}
                             <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img" width="50px" height="50px" alt="Compania">
                             @else
-                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
+                            <img class="user-avatar rounded-circle" src="{{ asset('images/setting.png') }}" alt="Más...">
                             @endif
 
 

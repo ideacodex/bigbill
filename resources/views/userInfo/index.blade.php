@@ -32,7 +32,9 @@
                         <div class="media">
                             @if (Auth::user()->file != null)
                             {{-- imagen --}}
-                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="image" width="130px" height="130px" alt="Compania">
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="image" width="130px" height="130px" alt="Usuario">
+                            @else
+                            <img src="{{ asset('img/user.png') }}" class="image" width="130px" height="130px" alt="Usuario">
                             @endif
                             <div class="media-body" >
 
