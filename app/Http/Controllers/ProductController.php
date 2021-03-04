@@ -21,6 +21,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
     }
     /**
      * Display a listing of the resource.
@@ -178,7 +179,7 @@ class ProductController extends Controller
         $pivote_mark = pivote_mark::with('product')->with('marks')->get();
         $pivote_family = pivote_family::with('families')->with('products')->get();
         $products = Product::with('company')->find($id);
-        return view('product.show', ['products' => $products ,  'pivote_family' => $pivote_family, 'pivote_mark' => $pivote_mark ]);
+        return view('product.show', ['products' => $products,  'pivote_family' => $pivote_family, 'pivote_mark' => $pivote_mark]);
     }
     /**
      * Show the form for editing the specified resource.
@@ -190,20 +191,20 @@ class ProductController extends Controller
     {
         $rol = Auth::user()->role_id;
 
-        $products = Product::where('id',$id)->with('pivotMark')->with('pivotFamily')->first();
-        $family = Family::whereNotIn('id',($products->pivotFamily->pluck('family_id')))->get(); //Selecciona todos los datos de la tabla families
-        $mark = mark::whereNotIn('id',$products->pivotMark->pluck('mark_id'))->get(); //Selecciona todos los datos de la tabla marks
+        $products = Product::where('id', $id)->with('pivotMark')->with('pivotFamily')->first();
+        $family = Family::whereNotIn('id', ($products->pivotFamily->pluck('family_id')))->get(); //Selecciona todos los datos de la tabla families
+        $mark = mark::whereNotIn('id', $products->pivotMark->pluck('mark_id'))->get(); //Selecciona todos los datos de la tabla marks
         $companies = Company::all(); //Selecciona todos los datos de la tabla compañia
         if ($rol == 1) {
-            $family = Family::whereNotIn('id',($products->pivotFamily->pluck('family_id')))->get(); //Selecciona todos los datos de la tabla families
-            $mark = mark::whereNotIn('id',$products->pivotMark->pluck('mark_id'))->get(); //Selecciona todos los datos de la tabla marks
+            $family = Family::whereNotIn('id', ($products->pivotFamily->pluck('family_id')))->get(); //Selecciona todos los datos de la tabla families
+            $mark = mark::whereNotIn('id', $products->pivotMark->pluck('mark_id'))->get(); //Selecciona todos los datos de la tabla marks
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-            $family = Family::whereNotIn('id',($products->pivotFamily->pluck('family_id')))->where('company_id',$company)->get(); //Selecciona todos los datos de la tabla families
-            $mark = mark::whereNotIn('id',$products->pivotMark->pluck('mark_id'))->where('company_id',$company)->get(); //Selecciona todos los datos de la tabla marks
+            $family = Family::whereNotIn('id', ($products->pivotFamily->pluck('family_id')))->where('company_id', $company)->get(); //Selecciona todos los datos de la tabla families
+            $mark = mark::whereNotIn('id', $products->pivotMark->pluck('mark_id'))->where('company_id', $company)->get(); //Selecciona todos los datos de la tabla marks
         }
 
-        return view('product.edit', ['companies' => $companies, 'products' => $products ,'family' => $family, 'mark' => $mark, 'pivote_mark' => $products->pivotMark, 'pivote_family' => $products->pivotFamily]);//retorna vista con los datos correspondientes
+        return view('product.edit', ['companies' => $companies, 'products' => $products, 'family' => $family, 'mark' => $mark, 'pivote_mark' => $products->pivotMark, 'pivote_family' => $products->pivotFamily]); //retorna vista con los datos correspondientes
     }
     /**
      * Update the specified resource in storage.
@@ -273,19 +274,19 @@ class ProductController extends Controller
                 //Buscamos los items de pivote_families relacionados con un solo post
                 $productDB = DB::table('pivote_families')->where('product_id', $products->id)->get();
                 //si todo sale bien, si lo que entra coincide con lo que sale entonces realizar lo siguiente
-                if(sizeof($request->family_id) >= sizeof($productDB)){
+                if (sizeof($request->family_id) >= sizeof($productDB)) {
                     DB::table('pivote_families')->where('product_id', $products->id)->delete();
                     //repite el ciclo for para actualizar datos
-                    for ($i=0; $i < sizeof($request->family_id); $i++) {
+                    for ($i = 0; $i < sizeof($request->family_id); $i++) {
                         $request->family_id[$i];
                         DB::table('pivote_families')->insert(
                             ['family_id' => $request->family_id[$i], 'product_id' => $products->id]
                         );
-                }
-                }else{
+                    }
+                } else {
                     //sino estan incluidos guardar nuevos registros
                     DB::table('pivote_families')->where('product_id', $products->id)->delete();
-                    for ($i=0; $i < sizeof($request->family_id); $i++) {
+                    for ($i = 0; $i < sizeof($request->family_id); $i++) {
                         $request->family_id[$i];
                         DB::table('pivote_families')->insert(
                             ['family_id' => $request->family_id[$i], 'product_id' => $products->id]
@@ -299,19 +300,19 @@ class ProductController extends Controller
                 //Buscamos los items de pivote_marks relacionados con un solo post
                 $productDB = DB::table('pivote_marks')->where('product_id', $products->id)->get();
                 //si todo sale bien, si lo que entra coincide con lo que sale entonces realizar lo siguiente
-                if(sizeof($request->mark_id) >= sizeof($productDB)){
+                if (sizeof($request->mark_id) >= sizeof($productDB)) {
                     DB::table('pivote_marks')->where('product_id', $products->id)->delete();
                     //repite el ciclo for para actualizar datos
-                    for ($i=0; $i < sizeof($request->mark_id); $i++) {
+                    for ($i = 0; $i < sizeof($request->mark_id); $i++) {
                         $request->mark_id[$i];
                         DB::table('pivote_marks')->insert(
                             ['mark_id' => $request->mark_id[$i], 'product_id' => $products->id]
                         );
-                }
-                }else{
+                    }
+                } else {
                     //sino estan incluidos guardar nuevos registros
                     DB::table('pivote_marks')->where('product_id', $products->id)->delete();
-                    for ($i=0; $i < sizeof($request->mark_id); $i++) {
+                    for ($i = 0; $i < sizeof($request->mark_id); $i++) {
                         $request->mark_id[$i];
                         DB::table('pivote_marks')->insert(
                             ['mark_id' => $request->mark_id[$i], 'product_id' => $products->id]
@@ -320,7 +321,7 @@ class ProductController extends Controller
                 }
             }
 
-           //***carga de imagen***//
+            //***carga de imagen***//
             if ($request->file) {
                 //***carga de imagen***//
                 if ($request->hasFile('file')) {

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class MarkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,13 +26,12 @@ class MarkController extends Controller
         if ($rol == 1) {
             $mark = mark::with('company')->get();
             $company = Company::all();
-            return view("mark.index", ['mark' => $mark,'company' => $company]); //generala vista
+            return view("mark.index", ['mark' => $mark, 'company' => $company]); //generala vista
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $mark = mark::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
             return view("mark.index", ['mark' => $mark]); //generala vista
         }
-
     }
 
     /**

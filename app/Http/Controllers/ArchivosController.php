@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\DB;
 
 class ArchivosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
+    }
 
     //Productos
     public function exportProductPDF()
