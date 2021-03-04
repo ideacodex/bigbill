@@ -56,11 +56,87 @@
         -webkit-transform: rotate(360deg);
     }
 
+
+
+
+
+
+
+    .headerwaves {
+        position: auto;
+        text-align: center;
+        background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+        color: white;
+    }
+
+    .inner-headerwaves {
+        margin: 0;
+        padding: 0;
+    }
+
+    .waves {
+        width: 100%;
+        height: 70px;
+        /*Fix for safari gap*/
+        min-height: 50px;
+        max-height: 230px;
+    }
+
+    /* Animation */
+    .parallax>use {
+        animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+    }
+
+    .parallax>use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 7s;
+    }
+
+    .parallax>use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 10s;
+    }
+
+    .parallax>use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 13s;
+    }
+
+    .parallax>use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 20s;
+    }
+
+    @keyframes move-forever {
+        0% {
+            transform: translate3d(-90px, 0, 0);
+        }
+
+        100% {
+            transform: translate3d(85px, 0, 0);
+        }
+    }
+
+    /*Shrinking for mobile*/
+    @media (max-width: 768px) {
+        .waves {
+            height: 40px;
+            min-height: 40px;
+        }
+
+        .content {
+            height: 30vh;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+    }
+
 </style>
 
 <body>
     <!-- Left Panel -->
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
 
@@ -99,87 +175,87 @@
 
                     <h3 class="menu-title">Gestiones</h3>{{-- <!-- /.menu-title --> --}}
                     @if (Auth::user()->company_id)
-                        @if (Auth::user()->work_permits == 1)
-                            <li class="menu-item">
-                                <a href="{{ url('Personal') }}">
-                                    <i class="menu-icon fas fa-users"></i>Usuarios
-                                </a>
+                    @if (Auth::user()->work_permits == 1)
+                    <li class="menu-item">
+                        <a href="{{ url('Personal') }}">
+                            <i class="menu-icon fas fa-users"></i>Usuarios
+                        </a>
+                    </li>
+                    <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
+                    <li class="menu-item">
+                        <a href="{{ url('clientes') }}">
+                            <i class="menu-icon fas fa-user-friends"></i>Clientes
+                        </a>
+                        <a href="{{ route('sucursales.index') }}">
+                            <i class="menu-icon fas fa-building"></i>Sucursales
+                        </a>
+                    </li>
+                    <!--Productos -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('productos.index') }}">Listado de Productos</a>
                             </li>
-                            <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
-                            <li class="menu-item">
-                                <a href="{{ url('clientes') }}">
-                                    <i class="menu-icon fas fa-user-friends"></i>Clientes
-                                </a>
-                                <a href="{{ route('sucursales.index') }}">
-                                    <i class="menu-icon fas fa-building"></i>Sucursales
-                                </a>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('familias.index') }}">Familias</a>
                             </li>
-                            <!--Productos -->
-                            <li class="menu-item-has-children dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ route('productos.index') }}">Listado de Productos</a>
-                                    </li>
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ route('familias.index') }}">Familias</a>
-                                    </li>
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ route('marcas.index') }}">Marcas</a>
-                                    </li>
-                                </ul>
+                            <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ route('marcas.index') }}">Marcas</a>
                             </li>
-                            <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-                            <li class="menu-item-has-children dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li>
-                                        <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
-                                            Ver Facturas</a>
-                                    </li>
-                                    @if (Auth::user()->suscriptions->type_plan == 1)
-                                    <li>
-                                        <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
-                                            Cotizaciones</a>
-                                    </li>
-                                    @endif
-                                </ul>
+                        </ul>
+                    </li>
+                    <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li>
+                                <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
+                                    Ver Facturas</a>
                             </li>
-                            <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
-                            <li class="menu-item-has-children dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ url('/doc-Customer') }}">Clientes</a></li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
-                                    </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
-                                    </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
-                                            Cuentas</a>
-                                    </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Companies') }}">Companias</a>
-                                    </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
-                                    </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
-                                    </li>
-                                </ul>
+                            @if (Auth::user()->suscriptions->type_plan == 1)
+                            <li>
+                                <i class="menu-icon fas fa-file-alt"></i>
+                                <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                    Cotizaciones</a>
                             </li>
-                            <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-                        @else
-                            <!--Ups no tienes permisos -->
-                            <li class="menu-item">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="menu-icon fas fa-exclamation-triangle" style="color:yellow;" title="Atencion : Permisos faltantes"></i>
-                                    <div style="font-family:Comic Sans">
-                                        ¡¡ Atencion !!
-                                    </div>
-                                    <hr style="background-color: red;"> Ya cuentas con una empresa asignada, pero no tienes permisos de tu superior para poder trabajar, solicita que te habiliten los permisos para trabajar
-                                </a>
+                            @endif
+                        </ul>
+                    </li>
+                    <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ url('/doc-Customer') }}">Clientes</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
                             </li>
-                        @endif
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
+                                    Cuentas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Companies') }}">Companias</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                    @else
+                    <!--Ups no tienes permisos -->
+                    <li class="menu-item">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="menu-icon fas fa-exclamation-triangle" style="color:yellow;" title="Atencion : Permisos faltantes"></i>
+                            <div style="font-family:Comic Sans">
+                                ¡¡ Atencion !!
+                            </div>
+                            <hr style="background-color: red;"> Ya cuentas con una empresa asignada, pero no tienes permisos de tu superior para poder trabajar, solicita que te habiliten los permisos para trabajar
+                        </a>
+                    </li>
+                    @endif
                     @else
                     <script style="background: black; color white">
                         alert("Bienvenido\n Usted aun no cuenta con una compañia");
@@ -271,8 +347,11 @@
                             </a>
                             <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
                                 Ajustes</a>
-                            {{-- <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
-                            Ajustes</a> --}}
+                            @if (Auth::user()->work_permits == 1)
+                            <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
+                                <i class="fas fa-street-view"></i> Empresa
+                            </a>
+                            @endif
                             @endif
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
@@ -296,22 +375,34 @@
 
         </header><!-- /header -->
         <!-- Header-->
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Facturador</h1>
-                    </div>
-                </div>
-            </div>
+        <div id="ParteDeOndas">
+            <h1>Facturador </h1>
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
 
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+
+                    <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="3" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="25" y="6" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="10" y="12" fill="#fbb4a9" />
+                    <use xlink:href="#gentle-wave" x="48" y="9" fill="#a9dcfb" />
+                </g>
+            </svg>
         </div>
         {{-- ------------------------- --}}
-
         @yield('content')
-
     </div><!-- /#right-panel -->
     <!-- Right Panel -->
+
+
+
+
+
+
+
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -339,7 +430,6 @@
 
     </script>
     <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
-
     @yield('js')
 </body>
 
