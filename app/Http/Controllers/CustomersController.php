@@ -24,10 +24,17 @@ class CustomersController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $customers = Customer::get(); //Obtener los valores de la compañia asignada
-        return view("customers.index", ["customers" => $customers]); //generala vista   
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
+            $customers = Customer::get(); //Obtener los valores de la compañia asignada
+            return view("customers.index", ["customers" => $customers]); //generala vista   
+        } else {
+            $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $customers = Customer::where('company_id', Auth()->user()->company_id)->get(); //Obtener los valores de la compañia asignada
+            return view("customers.index", ["customers" => $customers]); //generala vista   
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -53,9 +60,10 @@ class CustomersController extends Controller
         request()->validate([
             'name' => 'required',
             'lastname' => 'required',
-            'phone' => 'required|unique:customers,phone|max:9|min:8',
+            'phone' => 'required',
             'email' => 'required',
-            'nit' => 'required|unique:customers,nit|min:6|max:11'
+            'nit' => 'required',
+            'company_id' => 'required'
         ]);
         DB::beginTransaction();
         try {
@@ -65,6 +73,7 @@ class CustomersController extends Controller
             $customers->phone = $request->phone;
             $customers->email = $request->email;
             $customers->nit = $request->nit;
+            $customers->company_id = $request->company_id;
 
             $customers->save();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -73,7 +82,7 @@ class CustomersController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return view("customers.index")->with('datosAgregados', 'Registro Guardado');
+        return view("customers.create")->with('datosAgregados', 'Registro Guardado');
     }
 
     /**
