@@ -16,7 +16,7 @@ class CustomersController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-    */
+     */
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
@@ -68,7 +68,7 @@ class CustomersController extends Controller
             return response()->json($response, 500);
         }
         DB::commit();
-        return back()->with('datosAgregados', 'Registro Guardado');
+        return view("customers.index")->with('datosAgregados', 'Registro Guardado');
     }
 
     /**

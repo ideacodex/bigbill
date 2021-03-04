@@ -19,6 +19,7 @@ class UsuarioEmpresaController extends Controller
     public function __construct()
     {
         $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
     }
 
     /**

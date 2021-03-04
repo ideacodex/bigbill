@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('inicio');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::resource('home', 'HomeController')->middleware('auth');
 

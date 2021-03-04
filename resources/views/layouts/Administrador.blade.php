@@ -56,8 +56,8 @@
 <body>
     <!-- Left Panel -->
 
-    <aside id="left-panel" class="left-panel" style="background: rgb(5, 32, 119)">
-        <nav class="navbar navbar-expand-sm navbar-default" style="background: rgb(5, 32, 119)">
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
