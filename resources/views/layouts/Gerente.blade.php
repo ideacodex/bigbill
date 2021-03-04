@@ -57,11 +57,6 @@
     }
 
 
-
-
-
-
-
     .headerwaves {
         position: auto;
         text-align: center;
@@ -131,6 +126,11 @@
         h1 {
             font-size: 24px;
         }
+    }
+
+    .FondoParteDeOndas {
+        color: white;
+        background: linear-gradient(70deg, rgb(79, 53, 185) 0%, rgb(0, 182, 206) 100%);
     }
 
 </style>
@@ -375,8 +375,9 @@
 
         </header><!-- /header -->
         <!-- Header-->
-        <div id="ParteDeOndas">
-            <h1>Facturador </h1>
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            
+            <strong style="font-size: 45px"> <strong style="color:transparent;">......</strong> Big Bill </strong>
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
 
