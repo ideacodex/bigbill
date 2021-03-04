@@ -382,6 +382,9 @@
                     <form method="POST" action="{{ route('clientes.store') }}" onsubmit="return checkSubmit();">
                         @csrf
 
+                        {{-- Company_id --}}
+                        <input type="hidden" value="{{ auth()->user()->id }}" name="company_id" id="company_id">
+
                         {{-- Nombre --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
