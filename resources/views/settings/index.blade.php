@@ -319,9 +319,9 @@
 
                                         </div>
 
-                                        <label for="favcolor">Seleccione un color de sistema:</label>
+                                        {{-- <label for="favcolor">Seleccione un color de sistema:</label>
                                         <input type="color" id="favcolor" name="favcolor" value="#ff0000">
-                                        <input type="submit">
+                                        <input type="submit"> --}}
 
                                         {{-- <!--Button--> --}}
                                         <div class="container mt-4">

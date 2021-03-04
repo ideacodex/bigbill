@@ -36,7 +36,8 @@
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 
 <style>
@@ -124,28 +125,37 @@
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 {{-- Logo de la Empresa --}}
                 @if (Auth::user()->company_id)
-                @if (Auth::user()->company->file != null)
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px" height="70px" alt="Facturador"></a>
+                    @if (Auth::user()->company->file != null)
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px"
+                                height="70px" alt="Facturador"></a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png"
+                                alt="Facturador"></a>
+                    @endif
                 @else
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
-                @endif
-                @else
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/bill.png"
+                            alt="Facturador"></a>
                 @endif
                 {{-- Logo Cuando la barra se minimiza --}}
                 @if (Auth::user()->company_id)
-                @if (Auth::user()->company->file != null)
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px" height="40px" alt="Facturador"></a>
+                    @if (Auth::user()->company->file != null)
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px"
+                                height="40px" alt="Facturador"></a>
+                    @else
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
+                                alt="Facturador"></a>
+                    @endif
                 @else
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
-                @endif
-                @else
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png" alt="Facturador"></a>
+                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
+                            alt="Facturador"></a>
                 @endif
             </div>
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -168,7 +178,8 @@
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     <!--Contabilidad -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Cuentas contables</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Cuentas contables</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('TipodeCuenta.index') }}">
                                     Tipos</a></li>
@@ -178,11 +189,13 @@
                     </li>
                     <!--Companías -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-building"></i>Companías</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-book"></i><a href="{{ route('empresas.index') }}"> Empresas</a>
                             </li>
-                            <li><i class="fa fa-id-badge"></i><a href="{{ route('sucursales.index') }}">Sucursales</a></li>
+                            <li><i class="fa fa-id-badge"></i><a
+                                    href="{{ route('sucursales.index') }}">Sucursales</a></li>
                         </ul>
                     </li>
                     <!-- Clientes -->
@@ -193,7 +206,8 @@
                     </li>
                     <!--Productos -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li> <i class="menu-icon fas fa-file-alt"></i>
                                 <a href="{{ route('productos.index') }}">Listado de Productos</a>
@@ -209,7 +223,8 @@
 
                     <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li>
                                 <i class="menu-icon fas fa-file-alt"></i>
@@ -222,20 +237,22 @@
                                     Compras</a>
                             </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                            <li>
-                                <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ url('facturas/create') }}">
-                                    Cotizaciones</a>
-                            </li>
+                                <li>
+                                    <i class="menu-icon fas fa-file-alt"></i>
+                                    <a href="{{ url('facturas/create') }}">
+                                        Cotizaciones</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
 
                     <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Informes</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Informes</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i><a href="{{ url('/doc-Customer') }}">Clientes</a></li>
+                            <li> <i class="menu-icon fas fa-file-alt"></i><a
+                                    href="{{ url('/doc-Customer') }}">Clientes</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
                             </li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
@@ -255,7 +272,8 @@
                     <h3 class="menu-title">Extras</h3>{{-- <!-- /.menu-title --> --}}
                     <li class="menu-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"><i class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
+                                document.getElementById('logout-form').submit();"><i
+                                class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
@@ -278,7 +296,8 @@
                     <div class="header-left">
 
                         <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="user-avatar rounded-circle" src="images/contacts.png" alt="Información">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
@@ -286,30 +305,30 @@
                                 <a class="dropdown-item media bg-flat-color-3" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)
-                                    <strong>Cargo: Administrador.</strong>
+                                        <strong>Cargo: Administrador.</strong>
                                     @else
-                                    @if (Auth::user()->role_id == 2)
-                                    <strong>Cargo: Gerente.</strong>
-                                    @else
-                                    @if (Auth::user()->role_id == 3)
-                                    <strong>Cargo: Contador.</strong>
-                                    @else
-                                    @if (Auth::user()->role_id == 4)
-                                    <strong>Cargo: Ventas.</strong>
-                                    @else
-                                    <strong>Cargo: No tiene</strong>
-                                    @endif
-                                    @endif
-                                    @endif
+                                        @if (Auth::user()->role_id == 2)
+                                            <strong>Cargo: Gerente.</strong>
+                                        @else
+                                            @if (Auth::user()->role_id == 3)
+                                                <strong>Cargo: Contador.</strong>
+                                            @else
+                                                @if (Auth::user()->role_id == 4)
+                                                    <strong>Cargo: Ventas.</strong>
+                                                @else
+                                                    <strong>Cargo: No tiene</strong>
+                                                @endif
+                                            @endif
+                                        @endif
                                     @endif
                                 </a>
                                 <a class="dropdown-item media bg-flat-color-5" href="#">
                                     <i class="fa fa-info"></i>
                                     <strong>Empresa:
                                         @if (Auth::user()->company_id)
-                                        {{ Auth::user()->companies->name }}
+                                            {{ Auth::user()->companies->name }}
                                         @else
-                                        Sin Compañia
+                                            Sin Compañia
                                         @endif
 
                                     </strong>
@@ -320,20 +339,23 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
 
                             @if (Auth::user()->file != null)
-                            {{-- imagen --}}
-                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img" width="50px" height="50px" alt="Compania">
+                                {{-- imagen --}}
+                                <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img"
+                                    width="50px" height="50px" alt="Compania">
                             @else
-                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
+                                <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
                             @endif
                         </a>
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
 
-                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i class="fa fa-users"></i> Usuarios </a>
+                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
+                                    class="fa fa-users"></i> Usuarios </a>
 
                             <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Ajustes</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -347,7 +369,8 @@
                     </div>
 
                     <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
+                            aria-expanded="true">
                             <i class="flag-icon flag-icon-gt"></i>
                         </a>
 
@@ -358,12 +381,14 @@
 
         </header><!-- /header -->
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-            
+
             <strong style="font-size: 45px"> <strong style="color:transparent;">......</strong> Big Bill </strong>
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
 
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
 
@@ -398,7 +423,8 @@
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
 
     {{-- select con etiquetas --}}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>

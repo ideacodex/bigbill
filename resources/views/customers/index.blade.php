@@ -53,6 +53,7 @@
                                                     <th>Apellido</th>
                                                     <th>Teléfono</th>
                                                     <th>Nit</th>
+                                                    <th>Companía</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -64,6 +65,7 @@
                                                         <td>{{ $item->lastname }}</td>
                                                         <td>{{ $item->phone }}</td>
                                                         <td>{{ $item->nit }}</td>
+                                                        <td>{{ $item->company->name }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                                 <a class="btn btn-sm btn-primary"
