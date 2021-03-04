@@ -94,14 +94,22 @@ class UsuarioEmpresaController extends Controller
             $user->nit = $request->nit; //actualizo el nit
             $user->address = $request->address; //actualizo el direccion
             $user->email = $request->email; //actualizo el correo
-            $user->company_id = $request->company_id; //actualizo el Compañia
-            $user->branch_id = $request->branch_id; //actualizo el sucursal
 
-            if ($request->work_permits == 1) {
-                $user->work_permits = $request->work_permits; //actualizo Permisos
+            if ($request->company_id >= 1) {
+                $user->company_id = $request->company_id; //actualizo la Compañia
+                $user->branch_id = $request->branch_id; //actualizo el sucursal
+                if ($request->work_permits == 1) {
+                    $user->work_permits = $request->work_permits; //actualizo Permisos
+                } else {
+                    $user->work_permits = 0; //actualizo Permisos
+                }
             } else {
+                $user->company_id = null; //actualizo Compañia
+                $user->branch_id = null; //actualizo el sucursal
                 $user->work_permits = 0; //actualizo Permisos
             }
+
+
 
             $user->save();
         } catch (\Illuminate\Database\QueryException $e) { //si ocurre algo inesperado en la DB que me de error 500

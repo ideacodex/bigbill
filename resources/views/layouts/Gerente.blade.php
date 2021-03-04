@@ -290,7 +290,7 @@
 
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
+                                <img class="user-avatar rounded-circle" src="{{ asset('images/contacts.png') }}" alt="Información">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">Información</p>

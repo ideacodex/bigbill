@@ -140,7 +140,7 @@
                                             <i title="company" class="far fa-building"></i>
                                         </span>
                                     </div>
-                                    <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror">
+                                    <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror" required>
                                         @if (Auth::user()->company_id)
                                         <option value="{{ Auth::user()->company_id }}" selected>
                                             <p>
@@ -167,7 +167,7 @@
                                             <i title="company" class="far fa-building"></i>
                                         </span>
                                     </div>
-                                    <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror">
+                                    <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror" required>
                                         @if (Auth::user()->company_id)
                                         <option value="{{ Auth::user()->company_id }}" selected>
                                             <p>
@@ -175,9 +175,7 @@
                                             </p>
                                         </option>
                                         @foreach ($company as $item)
-
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
-
                                         @endforeach
                                         @else
                                         @foreach ($company as $item)
@@ -185,7 +183,6 @@
                                         @endforeach
                                         @endif
                                     </select>
-
                                 </div>
                                 @else
                                 {{-- company_id --}}
