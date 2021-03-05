@@ -181,4 +181,28 @@ class ShoppingsController extends Controller
     {
         //
     }
+
+    public function xml(Request $request)
+    {
+        $path = public_path('files/xml/1.xml') ;
+        $xmlfile = file_get_contents($path);
+
+        $document = new \DOMDocument();
+        $document->loadXML($xmlfile);
+        $xpath = new \DOMXpath($document);
+
+        $items = [];
+        //dd('documentos ',  $xpath->evaluate('*'));
+        // iterate the Table nodes
+        foreach ($xpath->evaluate('//dte:Items/dte:Item') as $tableNode) {
+            //dd('tableNode: ',  $tableNode);
+            $items[] = [
+                // read CMan_Code as string 
+                'code' => trim($xpath->evaluate('string(dte:Descripcion)', $tableNode)),
+                // read CMan_Name as string 
+                'name' => trim($xpath->evaluate('string(dte:PrecioUnitario)', $tableNode))
+            ];
+        }
+        dd('item ',  $items);
+    }
 }

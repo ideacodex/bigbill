@@ -39,6 +39,7 @@ Route::patch('/update/{id}', 'InvoiceBillsController@update')->name('update'); /
 
 /** Shopping Route */
 Route::resource('compras', 'ShoppingsController')->middleware('auth');
+Route::post('textoXml', 'ShoppingsController@xml')->middleware('auth');
 /** Shopping Route */
 
 /**Companies Route */
