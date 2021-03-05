@@ -57,7 +57,7 @@ class InvoiceBillsController extends Controller
         } else {
             $product = Product::where('active', 1)->where('company_id', Auth()->user()->company_id)->where('kind_product', '!=', 2)->get();
             $company = Company::all();
-            $customer = Customer::all();
+            $customer = Customer::where('company_id', Auth()->user()->company_id)->get();
             return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
         }
     }
