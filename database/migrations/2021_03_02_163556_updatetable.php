@@ -36,16 +36,15 @@ class Updatetable extends Migration
     public function down()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->unsignedBigInteger('company_id')->nullable();
-            $table->foreign('company_id')
-                ->references('id')->on('companies');
+            $table->dropColumn('company_id');
+           
         });
 
         Schema::table('users', function (Blueprint $table) {
             //Imagen del usuario
             $table->dropColumn('file');
             //Permisos de Trabajo
-            $table->string('work_permits');
+            $table->dropColumn('work_permits');
         });
     }
 }

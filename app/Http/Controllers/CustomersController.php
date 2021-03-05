@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use DB;
 use App\Customer;
 use Illuminate\Http\Request;
@@ -44,10 +45,9 @@ class CustomersController extends Controller
     public function create(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
-        $customers = Customer::all();
-        return view("customers.create", ['customers' => $customers]);
+        $companies = Company::all();
+        return view("customers.create", ['companies' => $companies]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -56,7 +56,6 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-
         request()->validate([
             'name' => 'required',
             'lastname' => 'required',
@@ -79,29 +78,11 @@ class CustomersController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
-            return response()->json($response, 500);
+            return response()->json($e, 500);
         }
         DB::commit();
-        return view("customers.create")->with('datosAgregados', 'Registro Guardado');
+        return redirect()->action('CustomersController@index')->with('MENSAJE', 'Registro Guardado');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']);
-        /**si existe la columna company_id realizar: Filtrado de inforcion*/
-        if (!empty($request->company_id)) {
-            $customers = Customer::where('company_id', $request->company_id)->with('company')->get(); //Obtener los valores de tu request:
-            $pdf = PDF::loadView('CompanyInformation.customer', compact('customers')); //genera el PDF la vista
-            return $pdf->download('Clientes-Compañia.pdf'); // descarga el pdf
-        }
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -111,8 +92,9 @@ class CustomersController extends Controller
     public function edit($id, Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
+        $companies = Company::all();
         $customers = Customer::findOrFail($id);
-        return view('customers.edit', compact('customers'));
+        return view('customers.edit', compact('customers'), ['companies' => $companies]);
     }
 
     /**
@@ -124,11 +106,32 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $customers = request()->except((['_token', '_method']));
-        Customer::where('id', '=', $id)->update($customers);
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'nit' => 'required',
+            'company_id' => 'required'
+        ]);
+        DB::beginTransaction();
+        try {
+            $customers = new Customer;
+            $customers->name = $request->name;
+            $customers->lastname = $request->lastname;
+            $customers->phone = $request->phone;
+            $customers->email = $request->email;
+            $customers->nit = $request->nit;
+            $customers->company_id = $request->company_id;
 
-        return redirect()->action('CustomersController@index')
-            ->with('datosModificados', 'Regitro Modificado');
+            $customers->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($e, 500);
+        }
+        DB::commit();
+        return redirect()->action('CustomersController@index')->with('MENSAJE', 'Registro Guardado');
     }
 
     /**
@@ -141,36 +144,5 @@ class CustomersController extends Controller
     {
         $record = Customer::destroy($id);
         return back()->with('datosEliminados', 'Cliente Eliminado');
-    }
-
-    public function save(Request $request)
-    {
-
-        request()->validate([
-            'name' => 'required',
-            'lastname' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'nit' => 'required',
-            'company_id'
-        ]);
-        DB::beginTransaction();
-        try {
-            $customers = new Customer;
-            $customers->name = $request->name;
-            $customers->lastname = $request->lastname;
-            $customers->phone = $request->phone;
-            $customers->email = $request->email;
-            $customers->nit = $request->nit;
-            $customers->company_id = $request->company_id;
-            $customers->save();
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback();
-            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
-            return response()->json($response, 500);
-        }
-        DB::commit();
-        return redirect()->action('InvoiceBillsController@create')
-            ->with('datosAgregados', 'Registro exitoso');
     }
 }

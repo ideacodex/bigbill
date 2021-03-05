@@ -16,6 +16,12 @@
         <div class="alert alert-danger">
             {{ session('datosEliminados') }}
         </div>
+        @else
+        @if (session('MENSAJE'))
+        <div class="alert alert-success">
+            {{ session('MENSAJE') }}
+        </div>
+        @endif
     @endif
     <!--Mensaje flash-->
 

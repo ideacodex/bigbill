@@ -32,7 +32,7 @@ class Updateuser extends Migration
         
         Schema::table('companies', function (Blueprint $table) {
             $table->dropColumn('file')->nullable();
-            $table->integer('user')->nullable();
+            $table->dropColumn('user')->nullable();
         });
        
     }
