@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><dte:GTDocumento xmlns:dte="http://www.sat.gob.gt/dte/fel/0.2.0" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="0.1" xsi:schemaLocation="http://www.sat.gob.gt/dte/fel/0.2.0 GT_Documento-0.2.1.xsd"><dte:SAT ClaseDocumento="dte"><dte:DTE ID="DatosCertificados"><dte:DatosEmision ID="DatosEmision"><dte:DatosGenerales CodigoMoneda="GTQ" FechaHoraEmision="2021-01-07T19:35:56.294-06:00" Tipo="FACT" /><dte:Emisor AfiliacionIVA="GEN" CodigoEstablecimiento="11" CorreoEmisor="" NITEmisor="7378106" NombreComercial="WALMART ROOSEVELT" NombreEmisor="OPERADORA DE TIENDAS, SOCIEDAD ANONIMA"><dte:DireccionEmisor><dte:Direccion>CALZADA ROOSEVELT 26-95  Z.11  , GUATEMALA, GUATEMALA</dte:Direccion><dte:CodigoPostal>01000</dte:CodigoPostal><dte:Municipio> </dte:Municipio><dte:Departamento> </dte:Departamento><dte:Pais>GT</dte:Pais></dte:DireccionEmisor></dte:Emisor><dte:Receptor CorreoReceptor="" IDReceptor="102328420" NombreReceptor="CORPORACION PC TECHNOLOGY, SOCIEDAD ANONIMA"><dte:DireccionReceptor><dte:Direccion>.</dte:Direccion><dte:CodigoPostal>00100</dte:CodigoPostal><dte:Municipio> </dte:Municipio><dte:Departamento> </dte:Departamento><dte:Pais>GT</dte:Pais></dte:DireccionReceptor></dte:Receptor><dte:Frases><dte:Frase CodigoEscenario="1" TipoFrase="1" /> <dte:Frase CodigoEscenario="1" TipoFrase="2" /> </dte:Frases><dte:Items><dte:Item BienOServicio="B" NumeroLinea="1"><dte:Cantidad>1</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>COSTA VIZZIO</dte:Descripcion><dte:PrecioUnitario>15</dte:PrecioUnitario><dte:Precio>15</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>13.39</dte:MontoGravable><dte:MontoImpuesto>1.61</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>15</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="2"><dte:Cantidad>2</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>CHOCO BARRA</dte:Descripcion><dte:PrecioUnitario>11.75</dte:PrecioUnitario><dte:Precio>23.5</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>20.98</dte:MontoGravable><dte:MontoImpuesto>2.52</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>23.5</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="3"><dte:Cantidad>1</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>PAN EUROPA</dte:Descripcion><dte:PrecioUnitario>23.4</dte:PrecioUnitario><dte:Precio>23.4</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>20.89</dte:MontoGravable><dte:MontoImpuesto>2.51</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>23.4</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="4"><dte:Cantidad>2</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>PASTA ROMA</dte:Descripcion><dte:PrecioUnitario>3.35</dte:PrecioUnitario><dte:Precio>6.7</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>5.98</dte:MontoGravable><dte:MontoImpuesto>.72</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>6.7</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="5"><dte:Cantidad>1</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>ALPO SNAPS</dte:Descripcion><dte:PrecioUnitario>30</dte:PrecioUnitario><dte:Precio>30</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>26.79</dte:MontoGravable><dte:MontoImpuesto>3.21</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>30</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="6"><dte:Cantidad>2</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>BOQUITA SENO</dte:Descripcion><dte:PrecioUnitario>4.5</dte:PrecioUnitario><dte:Precio>9</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>8.04</dte:MontoGravable><dte:MontoImpuesto>.96</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>9</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="7"><dte:Cantidad>1</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>YOGURT CIRUE</dte:Descripcion><dte:PrecioUnitario>9.3</dte:PrecioUnitario><dte:Precio>9.3</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>8.3</dte:MontoGravable><dte:MontoImpuesto>1</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>9.3</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="8"><dte:Cantidad>1</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>DOVE SHAMPOO</dte:Descripcion><dte:PrecioUnitario>50</dte:PrecioUnitario><dte:Precio>50</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>44.64</dte:MontoGravable><dte:MontoImpuesto>5.36</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>50</dte:Total></dte:Item><dte:Item BienOServicio="B" NumeroLinea="9"><dte:Cantidad>1</dte:Cantidad><dte:UnidadMedida>UNI</dte:UnidadMedida><dte:Descripcion>ALPO 15KG</dte:Descripcion><dte:PrecioUnitario>180</dte:PrecioUnitario><dte:Precio>180</dte:Precio><dte:Descuento>0</dte:Descuento><dte:Impuestos><dte:Impuesto><dte:NombreCorto>IVA</dte:NombreCorto><dte:CodigoUnidadGravable>1</dte:CodigoUnidadGravable><dte:MontoGravable>160.71</dte:MontoGravable><dte:MontoImpuesto>19.29</dte:MontoImpuesto></dte:Impuesto></dte:Impuestos><dte:Total>180</dte:Total></dte:Item></dte:Items><dte:Totales><dte:TotalImpuestos><dte:TotalImpuesto NombreCorto="IVA" TotalMontoImpuesto="37.18" /></dte:TotalImpuestos><dte:GranTotal>346.9</dte:GranTotal></dte:Totales> </dte:DatosEmision><dte:Certificacion><dte:NITCertificador>56407734</dte:NITCertificador><dte:NombreCertificador>GUATEFACTURAS, SOCIEDAD ANONIMA</dte:NombreCertificador><dte:NumeroAutorizacion Numero="25707085" Serie="5CE9C8D2">5CE9C8D2-0188-424D-90D0-1DA5633A6E20</dte:NumeroAutorizacion><dte:FechaHoraCertificacion>2021-01-07T19:36:07</dte:FechaHoraCertificacion></dte:Certificacion></dte:DTE></dte:SAT><ds:Signature Id="xmldsig-28f27d00-bb69-4d85-801c-344bd95405ef">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+<ds:Reference Id="xmldsig-28f27d00-bb69-4d85-801c-344bd95405ef-ref0" URI="#DatosEmision">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+<ds:DigestValue>/hC1hWcowfZc0q5hZyEXKhhBOXUgZKR9BtAjEzxbCv4=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xmldsig-28f27d00-bb69-4d85-801c-344bd95405ef-signedprops">
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+<ds:DigestValue>+Qi/ZuHlkFCTQ3EyH0bt3XOvWl/qQM4P9YLRW2hjqeU=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="xmldsig-28f27d00-bb69-4d85-801c-344bd95405ef-sigvalue">
+bC+zsi9YQZmtFNmia7Z2ceWVQejv2BQhKqxb3W6tAr8bHik/uFM0jbwdj5T2gDNIOaBV9BU54S8G
+XF7p2CN95NTpvA97bK3s6v3rYrQXNdw8wuXY1QwdeuiS/E/IRYvfPhimQLxY++lkP6v0w/cmiDH5
+KdOTTdqFrSvgCx2kl6q46zrKcwJV6gYmlKNVJkFKLuJva/dnyOf2vjX88jpX2VnP8sFnhZY1Los+
+uuwEm2r904KnY/kBfLwNKdWIYU3DC9lq9XibYRNGhRtl8jL+ytdXuTdmFDGtydcJi56dxU3o18RF
+Yns7sXaJYyCZo8OJDSkeGVMzw7AzwQXkOmNL/Q==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIDUTCCAjmgAwIBAgIIOa1FSuMiWSMwDQYJKoZIhvcNAQELBQAwKTEMMAoGA1UEAwwDRkVMMQww
+CgYDVQQKDANTQVQxCzAJBgNVBAYTAkdUMB4XDTE5MDkxNzE2MTQzMloXDTIxMDkxNjE2MTQzMlow
+JzEQMA4GA1UEAwwHNzM3ODEwNjETMBEGA1UECgwKc2F0LmdvYi5ndDCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAM5L1bgexe/k0cVmSPjN7XSytEMTP+PujPRMRqG+ll/dRW5aq8FUt6bk
+3rg6YWTrq848bOOz2d0AsnWBxucpqijsxGKwNDhBWZuNKwjsmfJPxjLATBjai6Jz7mvo+YlqLwjf
+0Tnw5Eo/zzIAzzia6zRY+yDTZ+vg+UoAagDgg6ATUqJXLuq97wH4ow5t5nlA8reQ3Hy4MOEbm7bb
+zHe4yJ644absT9ptglY1khRf7kamKPV6vUNDR5Yzbc8RU3dShruts27mvEbkKJ0R9CULkWWwdDU6
+sjfEEfuh7SgFRrDRJDetlErt3JN41+5ujjYE8zMF0y4Bshdn8mwoEsyShoECAwEAAaN/MH0wDAYD
+VR0TAQH/BAIwADAfBgNVHSMEGDAWgBRzvfOKUmwzmFnX99CtsXOMtFBKCjAdBgNVHSUEFjAUBggr
+BgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFLFF4BeyuKc8Or3F0OoAuMhAMgkcMA4GA1UdDwEB
+/wQEAwIF4DANBgkqhkiG9w0BAQsFAAOCAQEAOy4PcJXYqGMmyZaxZ3VDAPbPb0hW1dQ5a8nQlOeH
+EArlG9ct+FPQ1rumH3MsH6VHUcUXX1X2DnFBZxkFqNAvhlQb8u8Vb/2/oyYLP6BtyXc44Az8mPJR
+uEc7ZF5IgNiEfnwgAlPqaa/X7IKFSO5U73WNFQo1Dg58/oSCaZUKk3cI/PE8BaXq+oASANcaP6k+
+auh+tnTRlpLtOSjNi6I1v41j2J6V7WFwXvG7XuIeJ8hV4THebrlRq2jGSSHqWsHk3lZNlv7aJnpv
+MbiKGLFZNADTqRO+DXRgCmDuTlGLpvxn8ncOEuZNcVFXYf4LckF60AkI4/GBXz6ziufFyyDqVA==
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+<ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#" Target="#xmldsig-28f27d00-bb69-4d85-801c-344bd95405ef"><xades:SignedProperties Id="xmldsig-28f27d00-bb69-4d85-801c-344bd95405ef-signedprops"><xades:SignedSignatureProperties><xades:SigningTime>2021-01-07T19:36:07.250-06:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><ds:DigestValue>scE7QHT3jng2S/m2/MDqtb8ytF9pFOH/l1Ln+hXHALo=</ds:DigestValue></xades:CertDigest><xades:IssuerSerial><ds:X509IssuerName>C=GT,O=SAT,CN=FEL</ds:X509IssuerName><ds:X509SerialNumber>4156054219073411363</ds:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object>
+</ds:Signature><ds:Signature Id="xmldsig-1a4c8962-3808-43a9-85e0-af317c3c1e1b">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+<ds:Reference Id="xmldsig-1a4c8962-3808-43a9-85e0-af317c3c1e1b-ref0" URI="#DatosCertificados">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+<ds:DigestValue>8S5kGJzQzLTTu83O7jaMOGymNrK5Mqhkaap30I8G348=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xmldsig-1a4c8962-3808-43a9-85e0-af317c3c1e1b-signedprops">
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+<ds:DigestValue>GqdC3Z2yYAcElI1Ul/D6OnEzgNhsqRc7tMwNnfY3hZc=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="xmldsig-1a4c8962-3808-43a9-85e0-af317c3c1e1b-sigvalue">
+RJv8Q2cz8JHMK8ZZ1xsUfZhi7PLAF2XKQ8ESlPjrE4uTikUdhpmBnvscPNWrXfz45oZ3Nn6gl8bF
+x+LSTvIsnA7fyScjWl8oJjlwjb9oXGbhqguh8fBnnv0hEUefaxJpXuMhU4aiEisU9ozNlsDjP/8t
+bSQGFboVwZB6yv613nVLUruHDS+TDcqQrpc//Udzk9sOpJE3iUWXCplJ6RL/z2CWUB7nZl4qsCF4
+4xlQoBS3Iv5AUQwl3G5OS/yVHxE4RSihuxaIcfwwC71OClJbLrJzwVxyVZUvhCf0v3ZljwuA/5JZ
+X7flALyWWHMtGilA5E54hQd3+yXK8Xkz5zqpZw==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIIsDCCB5igAwIBAgIQEhlsw+vbXJZb1x28HdyaljANBgkqhkiG9w0BAQUFADCBqDEcMBoGA1UE
+CQwTd3d3LmNlcnRpY2FtYXJhLmNvbTEPMA0GA1UEBwwGQk9HT1RBMRkwFwYDVQQIDBBESVNUUklU
+TyBDQVBJVEFMMQswCQYDVQQGEwJDTzEYMBYGA1UECwwPTklUIDgzMDA4NDQzMy03MRgwFgYDVQQK
+DA9DRVJUSUNBTUFSQSBTLkExGzAZBgNVBAMMEkFDIFNVQiBDRVJUSUNBTUFSQTAgFw0xODEwMjkx
+NDQ4MjhaGA8yMDIxMTAyODE0NDgyN1owggE6MTEwLwYDVQQJDChWaWEgNSA1IDM0IFpvbmEgNCBD
+ZW50cm8gRmluYW5jaWVybyBCSSBUMRIwEAYDVQQIDAlHVUFURU1BTEExJzAlBgNVBAsMHkdVQVRF
+RkFDVFVSQVMgU09DSUVEQUQgQU5PTklNQTEOMAwGA1UEBRMFMTUyMTUxIDAeBgorBgEEAYG1YwID
+ExBOSVQgRU5UIDU2NDA3NzM0MScwJQYDVQQKDB5HVUFURUZBQ1RVUkFTIFNPQ0lFREFEIEFOT05J
+TUExEjAQBgNVBAcMCUdVQVRFTUFMQTEjMCEGCSqGSIb3DQEJARYUcmNAZ3VhdGVmYWN0dXJhcy5j
+b20xCzAJBgNVBAYTAkdUMScwJQYDVQQDDB5HVUFURUZBQ1RVUkFTIFNPQ0lFREFEIEFOT05JTUEw
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCuZaZKBqRU1dulAcoRUtne/tKxm7fh5crT
+Kf8u4szPKtBqH413mpAwL8Ppg4d4qGUDdzxvMtKEEZGrJd3hOyUJzFPv4g8im5Y2zV5x5K48KD8v
+kkM4qDci3c6/16kn6oafJaKyHgnJjUyRK0DqbEEkJYqGSODTv6LdZP0LzDdlRr6yaIbBGiSNFkm5
+xsIC2U2vHTF6hx4yhaqHaXuuPJ9w4wTFwgFofJobNhgA2enmyG5Erg/udpRpmdDbi8w3AuERgjNQ
+iDh4bZcV0B9v4WcIY+/cVdWaS8mfunBVJhoDNAODO0Uy36C0Ydqn/y4OgY0sNHwsuEMFs5IDxfjR
+KGQzAgMBAAGjggQ9MIIEOTA2BggrBgEFBQcBAQQqMCgwJgYIKwYBBQUHMAGGGmh0dHA6Ly9vY3Nw
+LmNlcnRpY2FtYXJhLmNvMB8GA1UdEQQYMBaBFHJjQGd1YXRlZmFjdHVyYXMuY29tMIICaAYDVR0g
+BIICXzCCAlswgekGCysGAQQBgbVjMgEIMIHZMHsGCCsGAQUFBwIBFm9odHRwOi8vd3d3LmZpcm1h
+LWUuY29tLmd0L2RvY3MvRVQtRkUtMDFfVjNfRVNQRUNJRklDQUNJT05fVEVDTklDQV9ERUNMQVJB
+Q0lPTl9ERV9QUkFDVElDQVNfREVfQ0VSVElGSUNBQ0lPTi5wZGYwWgYIKwYBBQUHAgIwThpMTGlt
+aXRhY2lvbmVzIGRlIGdhcmFudO1hcyBkZSBlc3RlIGNlcnRpZmljYWRvIHNlIHB1ZWRlbiBlbmNv
+bnRyYXIgZW4gbGEgRFBDLjA+BgsrBgEEAYG1YwoKATAvMC0GCCsGAQUFBwICMCEaH0Rpc3Bvc2l0
+aXZvIGRlIGhhcmR3YXJlIChUb2tlbikwggErBgsrBgEEAYG1YzJleDCCARowggEWBggrBgEFBQcC
+AjCCAQgaggEEQ0FNQVJBIERFIENPTUVSQ0lPIERFIEdVQVRFTUFMQSBOSVQgMzUxNTktOCwgaW5m
+b0BmaXJtYS1lLmNvbS5ndCwgQXV0b3JpemFkbyBzZWf6biByZXNvbHVjafNuIE5vLiBQU0MtMDEt
+MjAxMiBkZWwgUmVnaXN0cm8gZGUgUHJlc3RhZG9yZXMgZGUgU2VydmljaW9zIGRlIENlcnRpZmlj
+YWNp824gZGVsIE1pbmlzdGVyaW8gZGUgRWNvbm9t7WEgZGUgbGEgUmVw+mJsaWNhIGRlIEd1YXRl
+bWFsYSBlbWl0aWRhIGVsIDIzIGRlIGVuZXJvIGRlbCBh8W8gMjAxMi4wDAYDVR0TAQH/BAIwADAO
+BgNVHQ8BAf8EBAMCA/gwJwYDVR0lBCAwHgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDBDAd
+BgNVHQ4EFgQUtTGBPUGpL4uIBB/cXj37woesH0QwHwYDVR0jBBgwFoAUgHHMMpJYdfQDITqrvhzT
+j/IgFe0wEQYJYIZIAYb4QgEBBAQDAgWgMIHXBgNVHR8Egc8wgcwwgcmggcaggcOGXmh0dHA6Ly93
+d3cuY2VydGljYW1hcmEuY29tL3JlcG9zaXRvcmlvcmV2b2NhY2lvbmVzL2FjX3N1Ym9yZGluYWRh
+X2NlcnRpY2FtYXJhXzIwMTQuY3JsP2NybD1jcmyGYWh0dHA6Ly9taXJyb3IuY2VydGljYW1hcmEu
+Y29tL3JlcG9zaXRvcmlvcmV2b2NhY2lvbmVzL2FjX3N1Ym9yZGluYWRhX2NlcnRpY2FtYXJhXzIw
+MTQuY3JsP2NybD1jcmwwDQYJKoZIhvcNAQEFBQADggEBAF4FxC5Y3oOU0aZ1IXpePjfo57GE7Qec
+rt0knQAsQWlol/qZfOqtDY3JQ8I/5yp3kVXekLjXHIi3YIx8QWuKLWQAPUBa1mYHIbblCCsfuKqc
+MgzxBmG6/QNyvpjF0vZHSWVQc8jj/RSyO3M9NjCqC3NQ5o1Rqw/iKCSNMEOGpCMbhfK1wRlEJcWa
+BUivMArsamhY5XNs9Ik/QBmF+OPcKdf3z8eeX9quoaQ36gUDoQcc7sos8HhwXfwX9RxqoNDX3PT9
+DPVGvTeyfQM0+xoqZId8oMwBWzGDVmnC38Jk+n+v6w+kKmBC9THVU6+3g02O/v9WFxgDkfkeB0Y3
+VZ1d8dA=
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+<ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#" Target="#xmldsig-1a4c8962-3808-43a9-85e0-af317c3c1e1b"><xades:SignedProperties Id="xmldsig-1a4c8962-3808-43a9-85e0-af317c3c1e1b-signedprops"><xades:SignedSignatureProperties><xades:SigningTime>2021-01-07T19:36:07.271-06:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><ds:DigestValue>O8ZDB3HguMjGIXYEG76VHJuEOPRsuPVInNxNjubcPOM=</ds:DigestValue></xades:CertDigest><xades:IssuerSerial><ds:X509IssuerName>CN=AC SUB CERTICAMARA,O=CERTICAMARA S.A,OU=NIT 830084433-7,C=CO,ST=DISTRITO CAPITAL,L=BOGOTA,STREET=www.certicamara.com</ds:X509IssuerName><ds:X509SerialNumber>24058117368314910358790927412098800278</ds:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object>
+</ds:Signature></dte:GTDocumento>
