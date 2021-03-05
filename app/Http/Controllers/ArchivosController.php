@@ -23,6 +23,59 @@ class ArchivosController extends Controller
         $this->middleware('auth'); //autentificacion del usuario
         $this->middleware('verified');
     }
+    //User
+    public function exportUserPDF()
+    {
+        $rol = Auth::user()->role_id;
+        $company_id = Auth::user()->company_id;
+        if ($rol == 1 && $company_id == null) {
+            $User = User::all();
+            $companies =  User::with('companies')->get();
+            $pdf = PDF::loadView('PDF.Userpdf', compact('User'));
+            return $pdf->download('User.pdf', ["companies" => $companies]);
+        } else {
+            if ($rol == 2 || $rol == 3 || ($rol == 1 && $company_id != null)) {
+                $User = User::where('company_id', $company_id)->with('company')->get(); //Obtener los valores de tu request:
+                $pdf = PDF::loadView('PDF.Userpdf', ["User" => $User]); //genera el PDF la vista
+                return $pdf->download('User.pdf'); // descarga el pdf
+            } else {
+                return back();
+            }
+        }
+    }
+    //clientes
+    public function exportCustomerPDF()
+    {
+        $rol = Auth::user()->role_id;
+        $company_id = Auth::user()->company_id;
+        if ($rol == 1 && $company_id == null) {
+            $Customer = Customer::get();
+            $pdf = PDF::loadView('PDF.Customerpdf', compact('Customer'));
+            return $pdf->download('Customer.pdf');
+        } else {
+            if ($rol == 2 || $rol == 4 || ($rol == 1 && $company_id != null)) {
+                $Customer = Customer::where('company_id', $company_id)->with('company')->get();
+                $pdf = PDF::loadView('PDF.Customerpdf', ["Customer" => $Customer]);
+                return $pdf->download('Customer.pdf');
+            } else {
+                return back();
+            }
+        }
+    }
+    //Account
+    public function exportAccountPDF()
+    {
+        $account_types = Account::with('account_types')->get();
+        $pdf = PDF::loadView('PDF.Accountpdf', ["Account" => $account_types]);
+        return $pdf->download('Account.pdf', ["account_types" => $account_types]);
+    }
+    //Company
+    public function exportCompanyPDF()
+    {
+        $Company = Company::all();
+        $pdf = PDF::loadView('PDF.Companypdf', ["Company" => $Company]);
+        return $pdf->download('Company.pdf');
+    }
 
     //Productos
     public function exportProductPDF()
@@ -40,27 +93,11 @@ class ArchivosController extends Controller
             return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
         }
     }
-    //Company
-    public function exportCompanyPDF()
-    {
-        $Company = Company::get();
-        $pdf = PDF::loadView('PDF.Companypdf', ["Company" => $Company]);
-        return $pdf->download('Company.pdf');
-    }
-    //clientes
-    public function exportCustomerPDF()
-    {
-        $Customer = Customer::get();
-        $pdf = PDF::loadView('PDF.Customerpdf', compact('Customer'));
-        return $pdf->download('Customer.pdf');
-    }
-    //Account
-    public function exportAccountPDF()
-    {
-        $account_types = Account::with('account_types')->get();
-        $pdf = PDF::loadView('PDF.Accountpdf', ["Account" => $account_types]);
-        return $pdf->download('Account.pdf', ["account_types" => $account_types]);
-    }
+
+
+
+
+
     //Reporte facturas
     public function exportfacturatPDF()
     {
@@ -80,18 +117,9 @@ class ArchivosController extends Controller
             return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
         }
     }
-    //User
-    public function exportUserPDF()
-    {
-        $User = User::all();
-        $companies =  User::with('companies')->get();
-        $pdf = PDF::loadView('PDF.Userpdf', compact('User'));
-        return $pdf->download('User.pdf', ["companies" => $companies]);
-    }
     //home 2.0 PERFIL
     public function Perfil()
     {
-
         $company_id = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
         $branch_id = Auth::user()->branch_id; //guardo la variable de Sucursal del ususario autentificado
         $branch_offices =  BranchOffice::where('id', $branch_id)->get(); //realiza consulta mysql
@@ -101,11 +129,16 @@ class ArchivosController extends Controller
     //usuarios de una empresa
     public function Personal(Request $request)
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
-        $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-        $branch_office = BranchOffice::all();
-        $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
-        return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
+        $rol = Auth::user()->role_id;
+        if ($rol == 1 || $rol == 2  || $rol == 3) {
+            $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $branch_office = BranchOffice::all();
+            $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
+            return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
+        } else {
+            return back();
+        }
     }
     //Vista de ajustes
     public function settings(Request $request)
@@ -159,11 +192,33 @@ class ArchivosController extends Controller
         DB::commit();
         return redirect()->action('ArchivosController@Personal')->with('MENSAJEEXITOSO', 'Acaba de eliminar el usuario de su empresa'); //redirecciono a mi pagina de inicio
     }
-
-
-    // Vista de Asignarse Compania
-    public function Companyassignment(Request $request)
+    public function customersave(Request $request)
     {
-        return view('companies.Companyassignment');
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'nit' => 'required',
+            'company_id'
+        ]);
+        DB::beginTransaction();
+        try {
+            $customers = new Customer;
+            $customers->name = $request->name;
+            $customers->lastname = $request->lastname;
+            $customers->phone = $request->phone;
+            $customers->email = $request->email;
+            $customers->nit = $request->nit;
+            $customers->company_id = $request->company_id;
+            $customers->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($e, 500);
+        }
+        DB::commit();
+        return redirect()->action('InvoiceBillsController@create')
+            ->with('datosAgregados', 'Registro exitoso');
     }
 }

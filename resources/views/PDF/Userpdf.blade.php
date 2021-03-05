@@ -11,12 +11,9 @@
                     <div style="background: white;padding: 10px;">
                         <h2 style="color: #00096d; font: Arial; ">Informe de USUARIOS</h2>
                         <br>
-                        <strong style="color: #00096d">Ultima Actualizacion: {{ Auth::user()->updated_at }}  </strong>
+                        <strong style="color: #00096d">Ultima Actualizacion: {{ Auth::user()->updated_at }} </strong>
                         <br>
             </td>
-
-            
-
             </div>
             </div>
             </td>
@@ -59,7 +56,7 @@
         </tr>
         <!-- Nota: detalle -->
         <tr>
-            <td colspan="10">
+            <td @if(Auth::user()->role_id == 1)colspan="10" @else colspan="9" @endif>
                 <br>
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #d1cfcbd0; 
                 border-radius: 35px 35px 0px 0px ; 
@@ -69,11 +66,13 @@
                 </div>
             </td>
         </tr>
-        <!-- Encabezado Detalle -->
-
+        
+        {{-- <!-- Encabezado Detalle --> --}}
         <tr>
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col">#</th>
+            @if(Auth::user()->role_id == 1)
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col">Id</th>
+            @endif
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col" scope="col">Rol</th>
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col" scope="col">Nombre</th>
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col" scope="col">Apellido</th>
@@ -82,18 +81,14 @@
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col" scope="col">Direccion </th>
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col" scope="col">Correo</th>
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black;" scope="col" scope="col">Compañia</th>
-
-
-
-            < </tr>
-
-
-                <!-- Detalle -->
-
-                @foreach ($User as $item)
+        </tr>
+        <!-- Detalle -->
+        @foreach ($User as $item)
         <tr>
-        <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black" scope="row">{{ $loop->index + 1 }}</th>
+            <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black" scope="row">{{ $loop->index + 1 }}</th>
+            @if(Auth::user()->role_id == 1)
             <th class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">{{ $item->id }}</th>
+            @endif
             <td class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black"><b> {{ $item->role_id }}</b></td>
             <td class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">{{ $item->name }}</td>
             <td class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">{{ $item->lastname }}</td>
@@ -110,10 +105,9 @@
             @endif
         </tr>
         @endforeach
-
         <!-- responsable -->
         <tr>
-            <td colspan="10">
+            <td @if(Auth::user()->role_id == 1)colspan="10" @else colspan="9" @endif>
                 <br>
                 <br>
                 <br>
@@ -131,6 +125,15 @@
 
 
     </table>
+    <!-- Nota: detalle -->
+    <p style="color: black;text-align:center">
+       Areas de trabajo
+    </p>
+    <p style="color: black;text-align:center">
+        <b> Gerente </b>= 2
+        <b> Contador</b> = 3
+        <b> vendedor</b> = 4
+    </p>
 </body>
 
 </html>

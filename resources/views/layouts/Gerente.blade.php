@@ -337,7 +337,7 @@
                             {{-- imagen --}}
                             <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img" width="50px" height="50px" alt="Compania">
                             @else
-                            <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
+                            <img class="user-avatar rounded-circle" src="{{ asset('images/setting.png') }}" alt="Más...">
                             @endif
                         </a>
                         <div class="user-menu dropdown-menu">
@@ -376,7 +376,7 @@
         </header><!-- /header -->
         <!-- Header-->
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-            
+
             <strong style="font-size: 45px"> <strong style="color:transparent;">......</strong> Big Bill </strong>
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>

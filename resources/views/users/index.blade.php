@@ -35,15 +35,18 @@
                         @endif
 
                     </div>
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+                            href="{{ route('User.pdf') }}">Reporte de usuarios <i class="fas fa-file-alt"></i>
+                        </a>
+                    </div>
                     @if (Auth::user()->role_id ==1 )
                     @if (Auth::user()->company_id )
                     <p style="text-align: center" class="card-title">Vista de Administrador - Se filtro los usuarios a la compania asignada </p>
                     @else
-                    <p style="text-align: center" class="card-title">Vista de Administrador - No se ha podido filtrar ususarios porque no cuenta con compania </p>
+                    <p style="text-align: center" class="card-title">Vista de Administrador - Se filtro los ususarios que no cuentan con compania </p>
                     @endif
-
                     @endif
-
                     <div class="card-body">
                         <div class="row table-responsive">
                             <div class="col-12">
