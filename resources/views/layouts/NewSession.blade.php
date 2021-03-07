@@ -25,7 +25,7 @@
     /*Tamano de ondas*/
     .wavesNormal {
         width: 100%;
-        height: 90%;
+        height: 97%;
         /*Fix for safari gap*/
         /* min-height: 50px;
         max-height: 230px; */
@@ -74,7 +74,7 @@
     }
 
     .FondoParteDeOndasNormal {
-        height: 20%;
+        height: 18%;
         width: 100%;
         position: absolute;
         bottom: 0%;
