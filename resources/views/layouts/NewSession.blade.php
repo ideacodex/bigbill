@@ -105,7 +105,6 @@
             font-size: 24px;
         }
     }
-   
 
 </style>
 
@@ -126,8 +125,15 @@
             </g>
         </svg>
     </div>
+<div class="row">
+    <div class="col-6 col-md-6 col-sm-12 col-xs-12 ">
+        @yield('contentr')
+    </div>
+    <div class="col-6 col-md-6 col-sm-12 col-xs-12 ">
+        @yield('contentl')
+    </div>
+</div>
 
-        @yield('content')
 
     <div id="FondoParteDeOndasNormal" class="FondoParteDeOndasNormal">
         <svg class="wavesNormal" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
