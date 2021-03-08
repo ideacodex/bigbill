@@ -119,7 +119,7 @@
 
 </style>
 
-<body>
+<body style="background-color: white">
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel" style="background: black">
@@ -298,15 +298,16 @@
         <!-- Header-->
         <header id="header" class="header"
             style="background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);">
-
             <div class="header-menu">
-
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left" style="background: rgb(16, 158, 214)"><i
                             class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
                         <img style="width: 25%" class="user-avatar" src="images/logoBB.svg" alt="Información">
-
+                        <hr style="background-color:rgb(5, 116, 180); height: 3px">
+                        </hr>
+                        <p style="color: white"><b>{{ config('app.name', 'Laravel') }} |
+                                {{ substr(request()->getRequestUri(), 1) }}</b></p>
                         {{-- <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -350,30 +351,52 @@
                         </div> --}}
                     </div>
                 </div>
+
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}"
-                                alt="Usuario">  
+                                alt="Usuario">
+                        </a>
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Empresa:
+                            </a>
 
+                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
+                                    class="fa fa-users"></i> Cargo: </a>
+                        </div>
+                    </div>
+                    <div class="language-select dropdown" id="language-select">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
+                            aria-expanded="true">
+                            <img src="{{ asset('images/ajustes.svg') }}">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             @if (Auth::user()->file != null)
                                 {{-- imagen --}}
-                                <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img"
-                                    width="50px" height="50px" alt="Compania">
+                                <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}"
+                                    class="user-avatar rounded-circle" width="15px" height="32px" alt="Compania">
                             @else
                                 <img class="user-avatar rounded-circle" src="{{ asset('images/ajustes.svg') }}"
                                     alt="Más...">
                             @endif
                         </a>
-
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
+                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi
+                                Perfil</a>
 
                             <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
                                     class="fa fa-users"></i> Usuarios </a>
 
-                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i> Ajustes</a>
+                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
+                                Ajustes</a>
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
                                 {{ __('salir') }}
@@ -383,7 +406,6 @@
                             </form>
                         </div>
                     </div>
-
                     <div class="language-select dropdown" id="language-select">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
                             aria-expanded="true">
@@ -393,25 +415,22 @@
                     </div>
 
                 </div>
+
             </div>
-
         </header><!-- /header -->
-        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
 
-            <strong style="font-size: 45px"> <strong style="color:transparent;">......</strong> Big Bill </strong>
+        <div id="FondoParteDeOndas" class="">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-
                     <path id="gentle-wave"
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
-
                     <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(86,174,249,0.7" />
-                    <use xlink:href="#gentle-wave" x="35" y="3" fill="rgba(50,120,250,0.5)" />
-                    <use xlink:href="#gentle-wave" x="25" y="6" fill="rgba(255,255,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="10" y="12" fill="#fbb4a9" />
+                    <use xlink:href="#gentle-wave" x="35" y="3" fill="#c9dded" />
+                    <use xlink:href="#gentle-wave" x="25" y="6" fill="#bcddf9" />
+                    <use xlink:href="#gentle-wave" x="10" y="12" fill="#a9dcfb" />
                     <use xlink:href="#gentle-wave" x="48" y="9" fill="#a9dcfb" />
                 </g>
             </svg>
@@ -419,6 +438,24 @@
         {{-- ------------------------- --}}
 
         @yield('content')
+
+
+        <div id="FondoParteDeOndas" class="">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="3" fill="#c9dded" />
+                    <use xlink:href="#gentle-wave" x="25" y="6" fill="#bcddf9" />
+                    <use xlink:href="#gentle-wave" x="10" y="12" fill="#a9dcfb" />
+                    <use xlink:href="#gentle-wave" x="48" y="9" fill="#a9dcfb" />
+                </g>
+            </svg>
+        </div>
 
     </div><!-- /#right-panel -->
     <!-- Right Panel -->
