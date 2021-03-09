@@ -200,6 +200,16 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
     }
 
+    /* Rubik-SemiBold */
+    @font-face {
+        font-family: 'Rubik-SemiBold';
+        src: url("{{ asset('/fonts/fonts/Rubik-SemiBold.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+
     /* fin de  estilo texto */
 
 
@@ -231,6 +241,52 @@
 
         margin-left: 29.5%;
         margin-right: 29.5%;
+    }
+
+    .titulologYreg {
+        font-family: 'Rubik-SemiBold';
+        color: #3766ff;
+        font-size: 30px;
+    }
+
+    /* cajatexto LOGIN */
+    .cajatexto {
+        /* borde del input */
+        border: none;
+        font-family: 'Rubik-Regular';
+        border-left: #3766ff 7px solid;
+        border-radius: 0px 15px 15px 0px;
+        -moz-border-radius: 0px 15px 15px 0px;
+        -webkit-border-radius: 0px 15px 15px 0px;
+        /* fondo del input */
+        background: #dddddd;
+        padding: 10px;
+        /* efectos del texto */
+        text-align: left;
+        font-size: 20px;
+        color: #ffffff;
+        font-weight: bold;
+        /* ancho del input */
+        width: 104%;
+    }
+
+    /* cajatexto 2 REGISTRAR */
+    .cajatexto2 {
+        /* borde del input */
+        border: none;
+        font-family: 'Rubik-Regular';
+        border-left: #3766ff 7px solid;
+        border-radius: 0px 15px 15px 0px;
+        -moz-border-radius: 0px 15px 15px 0px;
+        -webkit-border-radius: 0px 15px 15px 0px;
+        /* fondo del input */
+        background: #dddddd;
+        font-size: 20px;
+        color: #3766ff;
+        font-weight: bold;
+        /* ancho del input */
+        width: 100%;
+        margin-bottom: 5%;
     }
 
 
@@ -280,27 +336,6 @@
 
     }
 
-
-
-
-    /* REGISTRAR */
-    .cajatexto2 {
-        /* borde del input */
-        border: none;
-        border-left: #3766ff 7px solid;
-        border-radius: 0px 15px 15px 0px;
-        -moz-border-radius: 0px 15px 15px 0px;
-        -webkit-border-radius: 0px 15px 15px 0px;
-        /* fondo del input */
-        background: #dddddd;
-        font-size: 20px;
-        color: #3766ff;
-        font-weight: bold;
-        /* ancho del input */
-        width: 100%;
-        margin-bottom: 5%;
-    }
-
     /* REGISTRAR */
     .cuerpo2 {
         margin-top: 12.5%;
@@ -316,7 +351,7 @@
     /*  Checked REGISTRAR */
     .checkreg {
         /* efectos del texto */
-        font-size: 18px;
+        font-size: 15px;
         color: rgb(163, 163, 202);
         /* font-weight: bold; */
         /*Negrita*/
@@ -325,6 +360,7 @@
         /* posicion del input */
         margin-top: 3%;
         margin-bottom: 2%;
+        font-family: 'Rubik-Regular';
     }
 
     /*  Checked LOGIN */
@@ -339,20 +375,23 @@
         /* posicion del input */
         margin-top: 3%;
         margin-bottom: 2%;
+        font-family: 'Rubik-Regular';
     }
 
     /* link y texto REGISTRAR */
     .linkssesion2 {
         margin-top: 3%;
-        margin-bottom: 5% color: #747474;
-        font-size: 15px;
+        margin-bottom: 5% ;
+        color: #747474;
+        font-size: 14px;
+        font-family: 'Rubik-Regular';
     }
 
     /* link y texto LOGIN */
     .linkssesion {
         text-align: center;
         /* efectos del texto */
-        font-size: 18px;
+        font-size: 16px;
         /* font-weight: bold; */
         /*Negrita*/
         /* ancho del input */
@@ -360,27 +399,9 @@
         /* posicion del input */
         margin-top: 1%;
         margin-bottom: 0%;
+        font-family: 'Rubik-Regular';
     }
 
-    /* LOGIN */
-    .cajatexto {
-        /* borde del input */
-        border: none;
-        border-left: #3766ff 7px solid;
-        border-radius: 0px 15px 15px 0px;
-        -moz-border-radius: 0px 15px 15px 0px;
-        -webkit-border-radius: 0px 15px 15px 0px;
-        /* fondo del input */
-        background: #dddddd;
-        padding: 13px;
-        /* efectos del texto */
-        text-align: left;
-        font-size: 20px;
-        color: #ffffff;
-        font-weight: bold;
-        /* ancho del input */
-        width: 100%;
-    }
 
     /* Boton LOGIN */
     .botonlogin {
@@ -392,10 +413,10 @@
         color: #ffffff;
         text-align: center;
         font-weight: bold;
-        font-family: Arial;
         font-size: 20px;
         margin: 2px;
         padding: 12px;
+        font-family: 'Rubik-Medium';
         width: 100%;
     }
 
@@ -409,7 +430,7 @@
         color: #ffffff;
         text-align: center;
         font-weight: bold;
-        font-family: Arial;
+        font-family: 'Rubik-Medium';s
         font-size: 20px;
         margin: 2px;
         margin-top: -1.5%;

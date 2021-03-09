@@ -50,16 +50,16 @@
         </div>
 
 
-    
+
 
         {{-- formulario --}}
         <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 justify-content-center">
             <div class="cuerpo justify-content-center">
-                <div class="text-center" style="margin-bottom: 2%;">
-                    <a href="login">
-                        <strong style=" color: #3766ff; font-size:30px; font-family: Arial;">
+                <div class="text-center titulologYreg" style="margin-bottom: 2%;">
+                    <a href="{{ url('login') }}">
+                        <span>
                             ¡Bienvenido!
-                        </strong>
+                        </span>
                     </a>
                 </div>
                 <div class="input-group m-0 d-flex justify-content-center">
@@ -69,7 +69,7 @@
                         <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="email" name="email" type="email"
                                 class="cajatexto @error('email') is-invalid @enderror" value="{{ old('email') }}"
-                                placeholder="Correo electrónico" required autocomplete="email" autofocus>
+                                placeholder=" Correo electrónico" required autocomplete="email" autofocus>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -81,7 +81,7 @@
                         <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="password" name="password" type="password"
                                 class=" cajatexto @error('password') is-invalid @enderror" value="{{ old('password') }}"
-                                placeholder="Contraseña" required autocomplete="password" autofocus>
+                                placeholder=" Contraseña" required autocomplete="password" autofocus>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -109,11 +109,9 @@
                         <div class="linkssesion">
                             <!-- restaura contraseña -->
                             @if (Route::has('password.request'))
-                                <b>
-                                    <a href="{{ route('password.request') }}" style="color: rgb(163, 163, 202); ">
-                                        {{ __('Olvidaste tu contraseña?') }}
-                                    </a>
-                                </b>
+                                <a href="{{ route('password.request') }}" style="color: rgb(163, 163, 202); ">
+                                    {{ __('¿Olvidaste tu contraseña?') }}
+                                </a>
                             @endif
                         </div>
                     </div>
@@ -121,7 +119,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="linkssesion">
                             <p style="margin-top: 0%;">
-                                <a href="register" style="color: #0059ff; ">
+                                <a href="register" >
                                     Registrarme
                                 </a>
                             </p>

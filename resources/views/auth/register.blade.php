@@ -24,11 +24,11 @@
         {{-- formulario --}}
         <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-lg-6">
             <div class="cuerpo2" style="text-align: center;">
-                <div class="text-center" style="margin-bottom: 2%;">
-                    <a href="login">
-                        <strong style=" color: #3766ff; font-size:30px; font-family: Arial;">
+                <div class="text-center titulologYreg" style="margin-bottom: 2%;">
+                    <a href="{{ url('register') }}">
+                        <span>
                             ¡Bienvenido!
-                        </strong>
+                        </span>
                     </a>
                 </div>
                 <div class="input-group m-0 d-flex justify-content-center">
@@ -37,7 +37,7 @@
                         {{-- <!--Name --> --}}
                         <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                             <input id="name" type="text" class="cajatexto2 @error('name') is-invalid @enderror" name="name"
-                                value="{{ old('name') }}" required autocomplete="name" placeholder="Nombre" autofocus>
+                                value="{{ old('name') }}" required autocomplete="name" placeholder=" Nombre" autofocus>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -48,7 +48,7 @@
                         <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="lastname" type="text" class="cajatexto2 @error('lastname') is-invalid @enderror"
                                 name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname"
-                                placeholder="Apellido">
+                                placeholder=" Apellido">
                             @error('lastname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -59,7 +59,7 @@
                         <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="phone" type="text" class="cajatexto2 @error('phone') is-invalid @enderror"
                                 name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7"
-                                pattern="[0-9]{7,13}" placeholder="No. Celular">
+                                pattern="[0-9]{7,13}" placeholder=" No. Celular">
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -70,7 +70,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="nit" type="text" class="cajatexto2 @error('nit') is-invalid @enderror" name="nit"
                                 minlength="5" value="{{ old('nit') }}" minlength="8" pattern="[0-9]{6,15}" required
-                                placeholder="NIT" autocomplete="nit">
+                                placeholder=" NIT" autocomplete="nit">
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -81,7 +81,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="address" type="text" class="cajatexto2 @error('address') is-invalid @enderror"
                                 name="address" value="{{ old('address') }}" required autocomplete="address"
-                                placeholder="Dirección">
+                                placeholder=" Dirección">
 
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -93,7 +93,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="email" type="email" class="cajatexto2 @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" required autocomplete="email"
-                                placeholder="Correo Electrónico">
+                                placeholder=" Correo Electrónico">
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -104,7 +104,8 @@
                         {{-- <!--Password --> --}}
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="password" type="password" class="cajatexto2 @error('password') is-invalid @enderror"
-                                name="password" required autocomplete="new-password" minlength="8" placeholder="Contraseña">
+                                name="password" required autocomplete="new-password" minlength="8"
+                                placeholder=" Contraseña">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -114,14 +115,14 @@
                         {{-- <!--Password confirm --> --}}
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="password-confirm" type="password" class="cajatexto2" name="password_confirmation"
-                                placeholder="Confirmar Contraseña" required autocomplete="new-password" minlength="8">
+                                placeholder=" Confirmar Contraseña" required autocomplete="new-password" minlength="8">
                         </div>
                         {{-- <!--terminos y condiciones --> --}}
                         <div class="col-lg-12 col-md-122 col-sm-12 col-xs-12">
                             <div class="checkreg">
                                 <p>
                                     <input type="checkbox" required>
-                                    Acepto los terminos y politicas de uso
+                                    Acepto los términos y políticas de uso
                                 </p>
                             </div>
 
@@ -137,7 +138,7 @@
                     {{-- <!--Ya tienes cuenta? Inicia sesion --> --}}
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="linkssesion2">
-                            <p>¿Ya tienes cuenta? <a href="login"> Inicia sesion</a></p>
+                            <p>¿Ya tienes cuenta? <a href="login"> Inicia Sesión</a></p>
                         </div>
                     </div>
                 </div>
