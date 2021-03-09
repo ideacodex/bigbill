@@ -41,23 +41,21 @@
         </li>
     </ul>
 
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <a href="{{ route('compras.create') }}" style="border-radius: 95px;" class="btn btn-success btn-sm">&nbsp;
+            + REGISTRAR COMPRA
+        </a>
+        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+            href="{{ route('Factura.pdf') }}">REPORTE PDF
+        </a>
+    </div>
     <div class="accordion" id="accordionExample">
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Compras registradas</strong>
-                        </div>
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <a href="{{ route('compras.create') }}" style="border-radius: 95px;"
-                                class="btn btn-success btn-sm">&nbsp;
-                                Registrar compra
-                                <i class=" fas fa-plus-square"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-                                href="{{ route('Factura.pdf') }}">Reporte pdf <i class="fas fa-file-alt"></i>
-                            </a>
+                        <div class="card-header" style="background-color: black; border-radius: 15px">
+                            <strong style="color: white" class="card-title">Compras registradas</strong>
                         </div>
                         <div class="card-body">
                             <div class="row table-responsive">
@@ -66,7 +64,7 @@
                                         class="table table-striped table-bordered dataTable no-footer" role="grid"
                                         aria-describedby="bootstrap-data-table_info">
 
-                                        <thead>
+                                        <thead style="border-radius: 15px; background-color: black; color:white">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Registrado por</th>
@@ -80,11 +78,12 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody style="background-color: rgba(224, 220, 220, 0.993); ">
                                             @if ($records)
                                                 @foreach ($records as $item)
                                                     <tr>
-                                                        <th scope="row"> {{ $item->id }} </th>
+                                                        <th style="border-left: #325ff5 7px solid;" scope="row">
+                                                            {{ $item->id }} </th>
                                                         <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
                                                         <td>{{ $item->company->name }}</td>
                                                         @if ($item->branch_id != null)

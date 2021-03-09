@@ -12,17 +12,17 @@
     @endif
     <!--Validación de errores-->
 
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+            href="{{ route('User.pdf') }}">REPORTE PDF
+        </a>
+    </div>
     <div class="content mt-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title">Usuarios Registrados</strong>
-                    </div>
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-                            href="{{ route('User.pdf') }}">Reporte de usuarios <i class="fas fa-file-alt"></i>
-                        </a>
+                <div class="card" style="border-radius: 15px">
+                    <div class="card-header" style="background-color: black; border-radius: 15px">
+                        <strong style="color: white" class="card-title">Usuarios Registrados</strong>
                     </div>
                     <div class="card-body">
                         <div class="row table-responsive">
@@ -30,9 +30,9 @@
                                 <table id="bootstrap-data-table"
                                     class="table table-striped table-bordered dataTable no-footer" role="grid"
                                     aria-describedby="bootstrap-data-table_info">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
+                                    <thead style="border-radius: 15px; background-color: black; color:white">
+                                        <tr style="border-radius: 15px">
+                                            <th>No. </th>
                                             <th>Cargo</th>
                                             <th>Nombre</th>
                                             <th>Teléfono</th>
@@ -45,10 +45,10 @@
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="mt-2" style="background-color: rgba(224, 220, 220, 0.993); ">
                                         @foreach ($user as $item)
-                                            <tr>
-                                                <th> {{ $loop->index + 1 }} </th>
+                                            <tr class="mt-2">
+                                                <th style="border-left: #325ff5 7px solid;"> {{ $loop->index + 1 }} </th>
                                                 @if ($item->role_id == 1)
                                                     <td> <strong>Administrador</strong> </td>
                                                 @else
@@ -87,8 +87,8 @@
                                                 @if ($item->suscriptions)
                                                     @if ($item->suscriptions->active == 0)
                                                         <td>
-                                                            <a class="btn btn-sm btn-danger" title="Suscripción inactiva"
-                                                                data-toggle="modal"
+                                                            <a class="btn btn-sm btn-danger rounded-circle"
+                                                                title="Suscripción inactiva" data-toggle="modal"
                                                                 data-target="#largeModalUser{{ $item->id }}">
                                                                 <span class="text-light"> <i title="Suscripción inactiva"
                                                                         class="text-light fas fa-window-close"></i></span>
@@ -96,30 +96,31 @@
                                                         </td>
                                                     @elseif($item->suscriptions->active == 1)
                                                         <td>
-                                                            <a class="btn btn-sm btn-success" title="Suscripción activa"
-                                                                data-toggle="modal"
+                                                            <a class="btn btn-sm btn-success rounded-circle"
+                                                                title="Suscripción activa" data-toggle="modal"
                                                                 data-target="#largeModalUser{{ $item->id }}"
                                                                 {{-- onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();" --}}>
                                                                 <span class="text-light"> <i title="Suscripción activa"
                                                                         class="text-light fas fa-check-circle"></i></span>
                                                             </a>
-                                                        </td>
+                                                        </td>d
                                                     @endif
                                                 @endif
-                                                <td>
+                                                <td style="border-bottom-right-radius: 15px">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a class="btn btn-sm btn-secondary" href="" title="Ver Detalles">
-                                                            <span><i class="fas fa-eye"></i></span>
+                                                        <a class="btn btn-sm rounded-circle"
+                                                            style="background-color: #f55d00;" href="" title="Ver Detalles">
+                                                            <span><i class="fas fa-eye text-light"></i></span>
                                                         </a>
-                                                        <a class="btn btn-sm btn-primary"
+                                                        <a class="btn btn-sm btn-primary rounded-circle"
                                                             href="{{ url('UsuariosEmpresa/' . $item->id . '/edit') }}"
                                                             title="Editar">
                                                             <span><i class="fas fa-edit"></i></span>
                                                         </a>
                                                         @if (Auth::user()->id != $item->id)
-                                                            <a class="btn btn-sm btn-danger" title="Eliminar"
+                                                            <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -269,7 +270,8 @@
 
                                                                 {{-- Comentarios --}}
                                                                 <textarea class="form-control" rows="5" id="comments"
-                                                                    placeholder="Comentarios" name="comments" required></textarea>
+                                                                    placeholder="Comentarios" name="comments"
+                                                                    required></textarea>
 
                                                                 <div class="container mt-4">
                                                                     <div class="col-12">

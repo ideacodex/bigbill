@@ -21,21 +21,19 @@
     <!--Mensaje flash-->
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <a href="{{ route('facturas.create') }}" style="border-radius: 95px;" class="btn btn-success btn-sm">&nbsp;
+            + CREAR FACTURA
+        </a>
+        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+            href="{{ route('Factura.pdf') }}">REPORTE PDF
+        </a>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <strong class="card-title">Facturas registradas</strong>
-                </div>
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <a href="{{ route('facturas.create') }}" style="border-radius: 95px;"
-                        class="btn btn-success btn-sm">&nbsp;
-                        Crear Factura
-                        <i class=" fas fa-plus-square"></i>
-                    </a>
-                    <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-                        href="{{ route('Factura.pdf') }}">Reporte pdf <i class="fas fa-file-alt"></i>
-                    </a>
+                <div class="card-header" style="background-color: black; border-radius: 15px">
+                    <strong style="color: white" class="card-title">Facturas registradas</strong>
                 </div>
                 <div class="card-body">
                     <div class="row table-responsive">
@@ -43,7 +41,7 @@
                             <table id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer"
                                 role="grid" aria-describedby="bootstrap-data-table_info">
 
-                                <thead>
+                                <thead style="border-radius: 15px; background-color: black; color:white">
                                     <tr>
                                         <th>No</th>
                                         <th>Facturador</th>
@@ -59,13 +57,14 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody style="background-color: rgba(224, 220, 220, 0.993);">
                                     @if ($records)
                                         @foreach ($records as $item)
 
                                             @if ($item->active == 1)
                                                 <tr>
-                                                    <th scope="row"> {{ $loop->index + 1 }} </th>
+                                                    <th style="border-left: #325ff5 7px solid;" scope="row">
+                                                        {{ $loop->index + 1 }} </th>
                                                     <td>{{ $item->user->name }} {{ $item->user->lastname }}
                                                     </td>
                                                     <td>{{ $item->company->name }}</td>
@@ -103,27 +102,29 @@
                                                         <td>
                                                             <h6 class="text-primary"
                                                                 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
-                                                                Factura</h6>
+                                                                <b>Factura</b>
+                                                            </h6>
                                                         </td>
                                                     @elseif($item->document_type == 0)
                                                         <td>
                                                             <h6 class="text-danger"
                                                                 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
-                                                                Cotización</h6>
+                                                                <b>Cotización</b>
+                                                            </h6>
                                                         </td>
                                                     @endif
 
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             @if ($item->customer_id)
-                                                                <a class="btn btn-sm btn-warning"
+                                                                <a class="btn btn-sm btn-warning rounded-circle"
                                                                     href="{{ url('facturas/' . $item->id . '/edit') }}"
                                                                     title="Enviar correo">
                                                                     <span><i
                                                                             class="text-light fas fa-paper-plane"></i></span>
                                                                 </a>
                                                             @elseif($item->customer_email)
-                                                                <a class="btn btn-sm btn-warning"
+                                                                <a class="btn btn-sm btn-warning rounded-circle"
                                                                     href="{{ url('facturas/' . $item->id . '/edit') }}"
                                                                     title="Enviar correo">
                                                                     <span><i
@@ -131,20 +132,21 @@
                                                                 </a>
                                                             @endif
 
-                                                            <a class="btn btn-sm btn-secondary"
+                                                            <a class="btn btn-sm btn-secondary rounded-circle"
                                                                 href="{{ url('facturas/' . $item->id) }}"
                                                                 title="Ver factura">
                                                                 <span><i class="text-light fas fa-eye"></i></span>
                                                             </a>
 
-                                                            <a class="btn btn-sm btn-danger" title="Eliminar"
+                                                            <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
                                                                 data-toggle="modal" data-target="#largeModal"
                                                                 onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
                                                             @if ($item->document_type == 0)
-                                                                <a class="btn btn-sm btn-info" title="Facturar"
+                                                                <a class="btn btn-sm btn-info rounded-circle"
+                                                                    title="Facturar"
                                                                     href="{{ url('editar', $item->id) }}">
                                                                     <span><i class="text-light fas fa-edit"></i></span>
                                                                 </a>

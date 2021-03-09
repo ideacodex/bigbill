@@ -25,65 +25,62 @@
     @endif
     <!--Mensaje flash-->
 
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2" data-toggle="modal"
+            data-target="#largeModal">
+            + AGREGAR CUENTA
+        </button>
+        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+            href="{{ route('Account.pdf') }}">REPORTE PDF
+        </a>
+    </div>
     <div class="content mt-3">
-        <div class="animated fadeIn">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Cuentas Registradas</strong>
-                        </div>
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <button type="button" style="border-radius: 95px;" class="btn btn-success mb-1 ml-2 mt-2"
-                                data-toggle="modal" data-target="#largeModal">
-                                Agregar Cuenta
-                                <i class="fas fa-plus-square"></i>
-                            </button>
-                            <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-                                href="{{ route('Account.pdf') }}">Reporte pdf <i class="fas fa-file-alt"></i>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <div class="row table-responsive">
-                                <div class="col-12">
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                        <thead>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: black; color: white; border-radius: 15px">
+                        <strong class="card-title">Cuentas Registradas</strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="row table-responsive">
+                            <div class="col-12">
+                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <thead style="border-radius: 15px; background-color: black; color:white">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nombre de la cuenta</th>
+                                            <th>Estado de cuenta </th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color: rgba(224, 220, 220, 0.993);">
+                                        @foreach ($account as $item)
                                             <tr>
-                                                <th>No.</th>
-                                                <th>Nombre de la cuenta</th>
-                                                <th>Estado de cuenta </th>
-                                                <th>Acciones</th>
+                                                <th style="border-left: #325ff5 7px solid;"
+                                                    title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
+                                                <td title="{{ $item->name }}">{{ $item->name }}</td>
+                                                <td title="{{ $item->account_types->status }}">
+                                                    {{ $item->account_types->status }}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <a class="btn btn-sm btn-primary rounded-circle"
+                                                            href="{{ url('cuentas/' . $item->id . '/edit') }}"
+                                                            title="Editar Cuenta">
+                                                            <span><i class="fas fa-edit"></i></span>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($account as $item)
-                                                <tr>
-                                                    <th title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
-                                                    <td title="{{ $item->name }}">{{ $item->name }}</td>
-                                                    <td title="{{ $item->account_types->status }}">
-                                                        {{ $item->account_types->status }}</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a class="btn btn-sm btn-primary"
-                                                                href="{{ url('cuentas/' . $item->id . '/edit') }}"
-                                                                title="Editar Cuenta">
-                                                                <span><i class="fas fa-edit"></i></span>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><!-- .animated -->
-    </div>
-    <!-- .content -->
+        </div>
+    </div><!-- .animated -->
 
     <!--Modal create-->
     <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
@@ -130,8 +127,7 @@
                                     <i title="accounttype" class="fas fa-calculator"></i>
                                 </span>
                             </div>
-                            <select class="form-control" class="selectpicker form-control" id="status_id"
-                                name="status_id">
+                            <select class="form-control" class="selectpicker form-control" id="status_id" name="status_id">
                                 <option disabled selected>Tipo de cuenta</option>
                                 @foreach ($account_type as $item)
                                     <option value="{{ $item->id }}">{{ $item->status }}</option>
@@ -158,6 +154,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
