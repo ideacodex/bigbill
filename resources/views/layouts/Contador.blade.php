@@ -121,6 +121,19 @@
         width: 100%;
         top: 0%;
         margin-right: -1%;
+        z-index: -1;
+    }
+
+    .FondoParteDeOndasabajo {
+        background: transparent;
+        position: absolute;
+        height: 20%;
+        margin: 0%;
+        width: 100%;
+        bottom: 0%;
+        margin-bottom: 0%;
+        margin-right: -1%;
+        z-index: -1;
     }
 
 
@@ -139,12 +152,14 @@
         /* Opera, Chrome, and Safari */
     }
 
+
+
 </style>
 
-<body>
+<body style="background-color: white">
     <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
+    <aside id="left-panel" class="left-panel" style="background: black">
+        <nav class="navbar navbar-expand-sm navbar-default" style="background: black">
 
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
@@ -158,11 +173,11 @@
                                 src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px"
                                 height="70px" alt="Facturador"></a>
                     @else
-                        <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('images/card.png') }}"
                                 alt="Facturador"></a>
                     @endif
                 @else
-                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"
+                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('images/card.png') }}"
                             alt="Facturador"></a>
                 @endif
                 {{-- Logo Cuando la barra se minimiza --}}
@@ -172,11 +187,11 @@
                                 src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px"
                                 height="40px" alt="Facturador"></a>
                     @else
-                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="{{ asset('images/card.png') }}"
                                 alt="Facturador"></a>
                     @endif
                 @else
-                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="{{ asset('images/card.png') }}"
                             alt="Facturador"></a>
                 @endif
             </div>
@@ -186,50 +201,54 @@
                         <a href="{{ url('Personal') }}"> <i class="menu-icon fas fa-toolbox"></i>Contador:
                             {{ Auth::user()->name }}</a>
                     </li>
-                    <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
+                    <h3 class="menu-title text-light">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
                         @if (Auth::user()->work_permits == 1)
                             <!--Tipos de Cuentas -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"> <i class="menu-icon fas fa-calculator"></i>Cuentas
+                                    aria-expanded="false"> <i class="menu-icon fas fa-calculator text-light"></i>Cuentas
                                     contables</a>
                                 <ul class="sub-menu children dropdown-menu">
-                                    <li><i class="fa fa-book"></i><a href="{{ route('TipodeCuenta.index') }}">
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ route('TipodeCuenta.index') }}">
                                             Tipos</a></li>
-                                    <li><i class="fa fa-book"></i><a href="{{ route('cuentas.index') }}"> Cuentas</a>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ route('cuentas.index') }}"> Cuentas</a>
                                     </li>
                                 </ul>
                             </li>
                             <!--Productos -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
+                                    aria-expanded="false"> <i
+                                        class="menu-icon fas fa-cubes text-light"></i>Productos</a>
                                 <ul class="sub-menu children dropdown-menu">
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                    <li> <i class="text-primary fas fa-check"></i>
                                         <a href="{{ route('productos.index') }}">Listado de Productos</a>
                                     </li>
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                    <li> <i class="text-primary fas fa-check"></i>
                                         <a href="{{ route('familias.index') }}">Familias</a>
                                     </li>
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                    <li> <i class="text-primary fas fa-check"></i>
                                         <a href="{{ route('marcas.index') }}">Marcas</a>
                                     </li>
                                 </ul>
                             </li>
-                            <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                            <h3 class="menu-title text-light">Facturar</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                                    aria-expanded="false"> <i
+                                        class=" text-light menu-icon fas fa-file-medical-alt"></i>Facturar</a>
                                 <ul class="sub-menu children dropdown-menu">
                                     <li>
-                                        <i class="menu-icon fas fa-file-alt"></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
                                             Ver Facturas</a>
                                     </li>
                                     @if (Auth::user()->suscriptions->type_plan == 1)
                                         <li>
-                                            <i class="menu-icon fas fa-file-alt"></i>
+                                            <i class="text-primary fas fa-check"></i>
                                             <a
                                                 href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
                                                 Cotizaciones</a>
@@ -238,25 +257,38 @@
                                 </ul>
                             </li>
                             <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
+
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"> <i class="menu-icon fas fa-file-excel"></i>Inventarios</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li> <i class="menu-icon fas fa-file-alt"></i><a
-                                            href="{{ url('/doc-Customer') }}">Clientes</a></li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc') }}">Productos</a>
+                                    aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Inventarios</a>
+                                <ul class="sub-menu children dropdown-menu"    style="background: black">
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc-Customer') }}">Clientes</a>
                                     </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-Account') }}">Cuentas</a>
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc') }}">Productos</a>
                                     </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-AccountType') }}">Tipo
-                                            Cuentas</a>
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc-Account') }}">Cuentas</a>
                                     </li>
-                                    <li><i class="fa fa-id-badge"></i><a
-                                            href="{{ url('/doc-Companies') }}">Companias</a>
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc-AccountType') }}">Tipo Cuentas</a>
                                     </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-bills') }}">Facturas</a>
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc-Companies') }}">Companias</a>
                                     </li>
-                                    <li><i class="fa fa-id-badge"></i><a href="{{ url('/doc-User') }}">Usuarios</a>
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc-bills') }}">Facturas</a>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-file-excel text-success "></i>
+                                        <a href="{{ url('/doc-User') }}">Usuarios</a>
                                     </li>
                                 </ul>
                             </li>
@@ -286,7 +318,7 @@
                     <li class="menu-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"><i
-                                class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
+                                class=" text-danger menu-icon fas fa-power-off"></i> Cerrar sesión</a>
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
@@ -305,14 +337,14 @@
             <div class="header-menu">
 
                 <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <a id="menuToggle" style="background: rgb(16, 158, 214)" class="menutoggle pull-left"><i style="background: rgb(16, 158, 214)" class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
 
 
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="images/contacts.png" alt="User Avatar">
+                                <img  src="{{asset('images/ajustes.png') }}" width="25px" height="25px" alt="User Avatar">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">Información</p>
@@ -360,7 +392,7 @@
                                 <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img"
                                     width="50px" height="50px" alt="Compania">
                             @else
-                                <img class="user-avatar rounded-circle" src="images/setting.png" alt="Más...">
+                                <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}" alt="Más...">
                             @endif
                         </a>
                         <div class="user-menu dropdown-menu">
@@ -408,7 +440,7 @@
 
 
         {{-- ---------------------- --}}
-        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+        <div id="FondoParteDeOndasabajo" class="FondoParteDeOndasabajo">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
