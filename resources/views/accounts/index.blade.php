@@ -86,24 +86,26 @@
     <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="largeModalLabel">Agregar Cuenta</h5>
+            <div class="modal-content" style="border-radius: 20px">
+                <div class="modal-header" style="background-color: black;"">
+                        <h5 class=" modal-title" id="largeModalLabel" style="color: white">Agregar Cuenta</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="color: red">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body"
+                    style="background: linear-gradient(0deg, rgb(25, 198, 221)0%, rgb(205, 231, 235) 100%);">
                     <form method="POST" action="{{ route('cuentas.store') }}" onsubmit="return checkSubmit();">
                         @csrf
                         {{-- Nombre de la cuenta --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nombre de la cuenta" class="text-dark fas fa-lira-sign"></i>
+                                <span style="border-left: #325ff5 7px solid; background-color: rgba(214, 254, 255, 0.993);" class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="Nombre de la cuenta" class="text-primary fas fa-lira-sign"></i>
                                 </span>
                             </div>
-                            <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
+                            <input style="background-color: rgba(214, 254, 255, 0.993);"
+                                id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
                                 name="name" value="{{ old('name') }}" placeholder="Nombre de la cuenta" required
                                 autocomplete="name" autofocus>
 
@@ -123,11 +125,11 @@
                         {{-- Tipos de Cuentas --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="accounttype" class="fas fa-calculator"></i>
+                                <span style="border-left: #325ff5 7px solid; background-color: rgba(214, 254, 255, 0.993);" class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                    <i title="accounttype" class="text-primary fas fa-calculator"></i>
                                 </span>
                             </div>
-                            <select class="form-control" class="selectpicker form-control" id="status_id" name="status_id">
+                            <select style="background-color: rgba(214, 254, 255, 0.993);" class="form-control" class="selectpicker form-control" id="status_id" name="status_id">
                                 <option disabled selected>Tipo de cuenta</option>
                                 @foreach ($account_type as $item)
                                     <option value="{{ $item->id }}">{{ $item->status }}</option>
@@ -135,22 +137,17 @@
                             </select>
                         </div>
 
-                        <div class="container mt-4">
-                            <div class="col-12">
-                                <div class="col text-center">
-                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                        <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger mt-3"  style="border-radius: 50px; height: 35px"
+                                data-dismiss="modal">CERRAR
+                                <i class="fas fa-window-close"></i>
+                            </button>
+                            <button type="submit"  style="border-radius: 50px; height: 35px" class="btn btn-primary mt-3">
+                                <i class="far fa-save"></i>
+                                {{ __('GUARDAR') }}
+                            </button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" style="border-radius: 10px" data-dismiss="modal">Cancelar
-                        <i class="fas fa-window-close"></i>
-                    </button>
                 </div>
             </div>
         </div>

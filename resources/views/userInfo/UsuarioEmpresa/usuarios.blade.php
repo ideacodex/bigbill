@@ -103,7 +103,7 @@
                                                                 <span class="text-light"> <i title="Suscripción activa"
                                                                         class="text-light fas fa-check-circle"></i></span>
                                                             </a>
-                                                        </td>d
+                                                        </td>
                                                     @endif
                                                 @endif
                                                 <td style="border-bottom-right-radius: 15px">

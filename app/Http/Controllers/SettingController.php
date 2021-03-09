@@ -46,7 +46,6 @@ class SettingController extends Controller
             'tax' => 'required',
             'exchange_rate' => 'required',
             'company_id' => 'required',
-            'favcolor' => 'required'
         ]);
         DB::beginTransaction();
         try {
