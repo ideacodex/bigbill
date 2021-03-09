@@ -126,5 +126,6 @@
                 </aside>
             </div>
         </div>
+        <img style="float: right" class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div>
 @endsection

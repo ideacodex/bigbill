@@ -79,6 +79,7 @@
                 </div>
             </div>
         </div><!-- .animated -->
+        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div><!-- .content -->
 
     <!-- Modal -->
@@ -92,12 +93,12 @@
                         <span style="color: red" aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body bg-form" >
+                <div class="modal-body bg-frm" >
                     <form method="POST" action="{{ route('TipodeCuenta.store') }}" onsubmit="return checkSubmit();">
                         @csrf
                         <div class="form-group">
                             <input id="status" type="text" style="border-left: #325ff5 7px solid; background-color: rgba(214, 254, 255, 0.993);"
-                                class="text-primary form-control @error('status') is-invalid @enderror" name="status"
+                                class="text-dark form-control @error('status') is-invalid @enderror" name="status"
                                 value="{{ old('status') }}" placeholder="Estado financiero" required autocomplete="status"
                                 autofocus>
                         </div>

@@ -419,7 +419,7 @@
                                         {{-- <!--Button--> --}}
                                         <div class="container mt-4">
                                             <div class="col-12">
-                                                <div class="col ml-1">
+                                                <div class="col text-center">
                                                     <button type="submit" style="border-radius: 50px"
                                                         class="btn btn-primary mt-3" name="enviar">
                                                         <i class="far fa-save"></i>
@@ -444,6 +444,8 @@
                 </div>
             </div>
         </div>
+
+        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div>
 
     {{-- este script es el primer Selec dinamico que despliega los sigueintes 3 --}}

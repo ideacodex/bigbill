@@ -34,7 +34,7 @@
             href="{{ route('Company.pdf') }}">REPORTE PDF <i class="fas fa-file-alt"></i>
         </a>
     </div>
-    <div class="content mt-3">
+    <div class="content mt-5">
         <div class="animated fadeIn">
             <div class="row">
                 <div class="col-md-12">
@@ -127,6 +127,7 @@
                 </div>
 
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div><!-- .animated -->
     </div><!-- .content -->
 @endsection

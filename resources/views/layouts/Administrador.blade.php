@@ -61,10 +61,14 @@
     /*Tamano de ondas*/
     .waves {
         width: 100%;
-        height: 70px;
+        height: 150px;
+        position: right;
         /*Fix for safari gap*/
         min-height: 50px;
         max-height: 230px;
+        bottom: 0;
+        z-index: -1;
+        float: right;
     }
 
     /* Animation */
@@ -125,18 +129,37 @@
     }
 
     .FondoParteDeOndas {
-        height: 50px;
+        background: transparent;
+        height: 20%;
+        margin: 0%;
+        width: 100%;
+        top: 0%;
+        margin-right: -1%;
     }
 
     .FondoParteDeOndasNormal {
-        width: 50%;
+        width: 100%;
         bottom: 0%;
         float: right;
     }
 
     img.derecha {
         float: right;
-        width: 10%;
+        width: 7%;
+    }
+    .wavesdecabeza {
+        width: 100%;
+        height: 150px;
+        /*Fix for safari gap*/
+        min-height: 50px;
+        max-height: 230px;
+
+
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        /* IE 9 */
+        -webkit-transform: rotate(180deg);
+        /* Opera, Chrome, and Safari */
     }
 
 </style>
@@ -441,41 +464,41 @@
             </div>
         </header><!-- /header -->
 
-        <div id="FondoParteDeOndas" class="">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(133,184,255,0.5)" />
-                    <use xlink:href="#gentle-wave" x="25" y="-6" fill="rgba(124,198,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="25" y="-6" fill="rgba(124,198,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="35" y="-3" fill="rgba(140,210,253,0.7" />
-                    <use xlink:href="#gentle-wave" x="48" y="-9" fill="rgba(255,255,255,0.3)" />
+
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="#a9dcfb" />
                 </g>
             </svg>
-        </div> 
+        </div>
+        {{-- ------------------------- --}}
 
         @yield('content')
-
-        <div id="FondoParteDeOndasNormal" class="FondoParteDeOndasNormal">
-            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
-            <svg class="wavesNormal" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        
+        {{-- ---------------------- --}}
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas" >
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(133,184,255,0.5)" />
-                    <use xlink:href="#gentle-wave" x="25" y="6" fill="rgba(124,198,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="25" y="6" fill="rgba(124,198,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="35" y="3" fill="rgba(140,210,253,0.7" />
-                    <use xlink:href="#gentle-wave" x="48" y="9" fill="rgba(255,255,255,0.3)" />
+    
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="#a9dcfb" />
                 </g>
             </svg>
         </div>
+
 
     </div><!-- /#right-panel -->
     <!-- Right Panel -->

@@ -59,7 +59,7 @@
                 <aside class="profile-nav alt">
                     <!-- Tabla iva -->
                     <div class="col-ml-6 col-md-6 col-ms-12   col-xs-12 ">
-                        <div style="background-color: #2b364f; color: white; border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;"
+                        <div style="background-color: black; color: white; border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;"
                             class="col-ml-12 col-md-12 col-ms-12   col-xs-12 ">
                             <div class="titulo">Ver Datos</div>
                         </div>

@@ -80,6 +80,7 @@
                 </div>
             </div>
         </div>
+        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div><!-- .animated -->
 
     <!--Modal create-->
@@ -93,8 +94,7 @@
                         <span aria-hidden="true" style="color: red">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body"
-                    style="background: linear-gradient(0deg, rgb(25, 198, 221)0%, rgb(205, 231, 235) 100%);">
+                <div class="modal-body bg-frm">
                     <form method="POST" action="{{ route('cuentas.store') }}" onsubmit="return checkSubmit();">
                         @csrf
                         {{-- Nombre de la cuenta --}}
