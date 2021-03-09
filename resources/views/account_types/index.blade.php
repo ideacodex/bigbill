@@ -85,40 +85,34 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nuevo tipo de cuenta</h5>
+            <div class="modal-content" style="border-radius: 15px" >
+                <div class="modal-header" style="background-color: black; ">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white"><b>Nuevo tipo de cuenta</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span style="color: red" aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body bg-form" >
                     <form method="POST" action="{{ route('TipodeCuenta.store') }}" onsubmit="return checkSubmit();">
                         @csrf
                         <div class="form-group">
-                            <input id="status" type="text"
-                                class="text-dark form-control @error('status') is-invalid @enderror" name="status"
+                            <input id="status" type="text" style="border-left: #325ff5 7px solid; background-color: rgba(214, 254, 255, 0.993);"
+                                class="text-primary form-control @error('status') is-invalid @enderror" name="status"
                                 value="{{ old('status') }}" placeholder="Estado financiero" required autocomplete="status"
                                 autofocus>
                         </div>
 
-
-                        <div class="container mt-4">
-                            <div class="col-12">
-                                <div class="col text-center">
-                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
-                                        <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="modal-footer">
+                            <button style="border-radius: 50px; height: 35px" type="button" class="btn btn-danger mt-3" data-dismiss="modal"><i
+                                    class="fas fa-times-circle"></i> CERRAR
+                            </button>
+                            <button type="submit" style="border-radius: 50px; height: 35px" class="btn btn-primary mt-3">
+                                <i class="far fa-save"></i>
+                                {{ __('GUARDAR') }}
+                            </button>
                         </div>
+                        
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button style="border-radius: 20%" type="button" class="btn btn-danger" data-dismiss="modal"><i
-                            class="fas fa-times-circle"></i> Cerrar
-                    </button>
                 </div>
             </div>
         </div>

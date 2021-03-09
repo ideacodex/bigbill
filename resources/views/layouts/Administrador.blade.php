@@ -41,6 +41,13 @@
 </head>
 
 <style>
+    .bg-form {
+        background: linear-gradient(0deg, rgb(10, 134, 184)0%, rgb(205, 231, 235) 100%);
+    }
+
+    .bg-frm{
+        background: linear-gradient(0deg, rgb(121, 209, 250)0%, rgb(205, 231, 235) 100%);
+    }
     /*buscar select */
     .select2-container .select2-selection--single {
         height: 46px !important;
@@ -134,7 +141,7 @@
 
 </style>
 
-<body style="background-color: white">
+<body>
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel" style="background: black">
@@ -434,7 +441,7 @@
             </div>
         </header><!-- /header -->
 
-        <div id="FondoParteDeOndas" class="">
+        {{-- <div id="FondoParteDeOndas" class="">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
@@ -449,11 +456,11 @@
                     <use xlink:href="#gentle-wave" x="48" y="-9" fill="rgba(255,255,255,0.3)" />
                 </g>
             </svg>
-        </div>
+        </div> --}}
         {{-- ------------------------- --}}
 
         @yield('content')
-        
+
         <img class="derecha" src="{{ asset('images/ideacode.png') }}">
 
         {{-- <div id="FondoParteDeOndasNormal" class="FondoParteDeOndasNormal">
