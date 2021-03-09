@@ -40,7 +40,8 @@
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 
 <style>
@@ -114,50 +115,81 @@
         }
     }
 
-    .FondoParteDeOndas {
-        color: white;
-        background: linear-gradient(70deg, rgb(79, 53, 185) 0%, rgb(0, 182, 206) 100%);
-    }
-    /*Tamano de ondas*/
     .waves {
         width: 100%;
         height: 70px;
         /*Fix for safari gap*/
         min-height: 50px;
         max-height: 230px;
+        margin-top: -1.5%;
+        z-index: -1;
+    }
+
+    .FondoParteDeOndas {
+        background: transparent;
+        height: 20%;
+        margin: 0%;
+        width: 100%;
+        top: 0%;
+        margin-right: -1%;
+    }
+
+
+    .wavesdecabeza {
+        width: 100%;
+        height: 70px;
+        /*Fix for safari gap*/
+        min-height: 50px;
+        max-height: 230px;
+
+
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        /* IE 9 */
+        -webkit-transform: rotate(180deg);
+        /* Opera, Chrome, and Safari */
     }
 
 </style>
 
-<body>
+<body  style="background-color: white">
     <!-- Left Panel -->
 
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
+    <aside id="left-panel" class="left-panel" style="background: black">
+        <nav class="navbar navbar-expand-sm navbar-default" style="background: black">
 
             <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+                    aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 {{-- Logo de la Empresa --}}
                 @if (Auth::user()->company_id)
-                @if (Auth::user()->company->file != null)
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px" height="70px" alt="Facturador"></a>
+                    @if (Auth::user()->company->file != null)
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px"
+                                height="70px" alt="Facturador"></a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"
+                                alt="Facturador"></a>
+                    @endif
                 @else
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
-                @endif
-                @else
-                <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
+                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"
+                            alt="Facturador"></a>
                 @endif
                 {{-- Logo Cuando la barra se minimiza --}}
                 @if (Auth::user()->company_id)
-                @if (Auth::user()->company->file != null)
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px" height="40px" alt="Facturador"></a>
+                    @if (Auth::user()->company->file != null)
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px"
+                                height="40px" alt="Facturador"></a>
+                    @else
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                                alt="Facturador"></a>
+                    @endif
                 @else
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
-                @endif
-                @else
-                <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png" alt="Facturador"></a>
+                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                            alt="Facturador"></a>
                 @endif
             </div>
 
@@ -169,77 +201,83 @@
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
                     @if (Auth::user()->company_id)
-                    @if (Auth::user()->work_permits == 1)
-                    <!--Clientes -->
-                    <li class="menu-item">
-                        <a href="{{ url('clientes') }}">
-                            <i class="menu-icon fas fa-user-friends"></i>Clientes
-                        </a>
-                        
-                    </li>
-                    {{-- <!--Productos --> --}}
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li> <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ route('productos.index') }}">Listado de Productos</a>
-                            </li>
-                            <li> <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ route('familias.index') }}">Familias</a>
-                            </li>
-                            <li> <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ route('marcas.index') }}">Marcas</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!--Facturar -->
-                    <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li>
-                                <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ route('facturas.index') }}">Ver
-                                    Facturas</a>
-                            </li>
-                            @if (Auth::user()->suscriptions->type_plan == 1)
-                            <li>
-                                <i class="menu-icon fas fa-file-alt"></i>
-                                <a href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
-                                    Cotizaciones</a>
-                            </li>
-                            @endif
-                        </ul>
-                    </li>
-                    <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-                    @else
-                    <!--Ups no tienes permisos -->
-                    <li class="menu-item">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="menu-icon fas fa-exclamation-triangle" style="color:yellow;" title="Atencion : Permisos faltantes"></i>
-                            <div style="font-family:Comic Sans">
-                                ¡¡ Atencion !!
-                            </div>
-                            <hr style="background-color: red;"> Ya cuentas con una empresa asignada, pero no
-                            tienes permisos de tu superior para poder trabajar, solicita que te habiliten los
-                            permisos para trabajar
-                        </a>
-                    </li>
-                    @endif
-                    @else
-                    <script>
-                        alert("cargando informacion... \n No tiene compañia");
+                        @if (Auth::user()->work_permits == 1)
+                            <!--Clientes -->
+                            <li class="menu-item">
+                                <a href="{{ url('clientes') }}">
+                                    <i class="menu-icon fas fa-user-friends"></i>Clientes
+                                </a>
 
-                    </script>
-                    <li class="menu-item">
-                        <a href="{{ url('home') }}" class="nav-link" aria-haspopup="true" aria-expanded="false">
-                            <i class="menu-icon fas fa-flag"></i> Empieza a Trabajar
-                        </a>
-                    </li>
+                            </li>
+                            {{-- <!--Productos --> --}}
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                        <a href="{{ route('productos.index') }}">Listado de Productos</a>
+                                    </li>
+                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                        <a href="{{ route('familias.index') }}">Familias</a>
+                                    </li>
+                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                        <a href="{{ route('marcas.index') }}">Marcas</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--Facturar -->
+                            <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                                <ul class="sub-menu children dropdown-menu">
+                                    <li>
+                                        <i class="menu-icon fas fa-file-alt"></i>
+                                        <a href="{{ route('facturas.index') }}">Ver
+                                            Facturas</a>
+                                    </li>
+                                    @if (Auth::user()->suscriptions->type_plan == 1)
+                                        <li>
+                                            <i class="menu-icon fas fa-file-alt"></i>
+                                            <a
+                                                href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                                Cotizaciones</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </li>
+                            <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                        @else
+                            <!--Ups no tienes permisos -->
+                            <li class="menu-item">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="menu-icon fas fa-exclamation-triangle" style="color:yellow;"
+                                        title="Atencion : Permisos faltantes"></i>
+                                    <div style="font-family:Comic Sans">
+                                        ¡¡ Atencion !!
+                                    </div>
+                                    <hr style="background-color: red;"> Ya cuentas con una empresa asignada, pero no
+                                    tienes permisos de tu superior para poder trabajar, solicita que te habiliten los
+                                    permisos para trabajar
+                                </a>
+                            </li>
+                        @endif
+                    @else
+                        <script>
+                            alert("cargando informacion... \n No tiene compañia");
+
+                        </script>
+                        <li class="menu-item">
+                            <a href="{{ url('home') }}" class="nav-link" aria-haspopup="true" aria-expanded="false">
+                                <i class="menu-icon fas fa-flag"></i> Empieza a Trabajar
+                            </a>
+                        </li>
                     @endif
                     <li class="menu-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"><i class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
+                                document.getElementById('logout-form').submit();"><i
+                                class="menu-icon fas fa-power-off"></i> Cerrar sesión</a>
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
@@ -261,38 +299,40 @@
                     <div class="header-left">
 
                         <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="{{ asset('images/contacts.png') }}" alt="Información">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="user-avatar rounded-circle" src="{{ asset('images/contacts.png') }}"
+                                    alt="Información">
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">Información</p>
                                 <a class="dropdown-item media bg-flat-color-3" href="#">
                                     <i class="fa fa-check"></i>
                                     @if (Auth::user()->role_id == 1)
-                                    <strong>Cargo: Administrador.</strong>
+                                        <strong>Cargo: Administrador.</strong>
                                     @else
-                                    @if (Auth::user()->role_id == 2)
-                                    <strong>Cargo: Gerente.</strong>
-                                    @else
-                                    @if (Auth::user()->role_id == 3)
-                                    <strong>Cargo: Contador.</strong>
-                                    @else
-                                    @if (Auth::user()->role_id == 4)
-                                    <strong>Cargo: Ventas.</strong>
-                                    @else
-                                    <strong>Cargo: No tiene</strong>
-                                    @endif
-                                    @endif
-                                    @endif
+                                        @if (Auth::user()->role_id == 2)
+                                            <strong>Cargo: Gerente.</strong>
+                                        @else
+                                            @if (Auth::user()->role_id == 3)
+                                                <strong>Cargo: Contador.</strong>
+                                            @else
+                                                @if (Auth::user()->role_id == 4)
+                                                    <strong>Cargo: Ventas.</strong>
+                                                @else
+                                                    <strong>Cargo: No tiene</strong>
+                                                @endif
+                                            @endif
+                                        @endif
                                     @endif
                                 </a>
                                 <a class="dropdown-item media bg-flat-color-5" href="#">
                                     <i class="fa fa-info"></i>
                                     <strong>Empresa:
                                         @if (Auth::user()->company_id)
-                                        {{ Auth::user()->companies->name }}
+                                            {{ Auth::user()->companies->name }}
                                         @else
-                                        Sin Compañia
+                                            Sin Compañia
                                         @endif
 
                                     </strong>
@@ -304,12 +344,15 @@
 
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             @if (Auth::user()->file != null)
-                            {{-- imagen --}}
-                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img" width="50px" height="50px" alt="Compania">
+                                {{-- imagen --}}
+                                <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img"
+                                    width="50px" height="50px" alt="Compania">
                             @else
-                            <img class="user-avatar rounded-circle" src="{{ asset('images/setting.png') }}" alt="Más...">
+                                <img class="user-avatar rounded-circle" src="{{ asset('images/setting.png') }}"
+                                    alt="Más...">
                             @endif
 
 
@@ -328,7 +371,8 @@
                     </div>
 
                     <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
+                            aria-expanded="true">
                             <i class="flag-icon flag-icon-gt"></i>
                         </a>
 
@@ -340,26 +384,41 @@
         </header><!-- /header -->
         <!-- Header-->
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-
-            <strong style="font-size: 45px"> <strong style="color:transparent;">......</strong> Big Bill </strong>
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
 
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
 
-                    <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(86,174,249,0.7" />
-                    <use xlink:href="#gentle-wave" x="35" y="3" fill="rgba(50,120,250,0.5)" />
-                    <use xlink:href="#gentle-wave" x="25" y="6" fill="rgba(255,255,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="10" y="12" fill="#fbb4a9" />
-                    <use xlink:href="#gentle-wave" x="48" y="9" fill="#a9dcfb" />
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="#a9dcfb" />
                 </g>
             </svg>
         </div>
         {{-- ------------------------- --}}
-
         @yield('content')
+
+
+
+        {{-- ---------------------- --}}
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+    
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+    
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="#a9dcfb" />
+                </g>
+            </svg>
+        </div>
 
     </div><!-- /#right-panel -->
 
@@ -383,11 +442,13 @@
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     {{-- select con etiquetas --}}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>

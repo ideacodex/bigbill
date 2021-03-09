@@ -48,8 +48,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <ul class="list-group list-group-flush">
                             <strong class="list-group-item mt-2 border-top-0 border-bottom-0"
                                 style="background-color: rgba(224, 220, 220, 0.993); border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-left: #1e4ce4 7px solid;">
@@ -118,7 +116,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item border-0">
-                                <a class="btn btn-sm btn-primary" style="border-radius: 15px"
+                                <a class="btn btn-sm btn-primary" style="border-radius: 15px ; "
                                     href="{{ url('home/' . Auth::user()->id . '/edit') }}" title="Editar">
                                     <span><b>ACTUALIZAR INFORMACIÓN</b></span>
                                 </a>
