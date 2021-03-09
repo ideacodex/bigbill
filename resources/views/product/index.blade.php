@@ -20,10 +20,20 @@
             </button>
         </div>
     @endif
+
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <a href="{{ url('productos/create') }}" style="border-radius: 95px;" class="btn btn-success btn-sm">&nbsp;
+            + AGREGAR PRODUCTO
+        </a>
+
+        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+            href="{{ route('Product.pdf') }}">REPORTE PDF
+        </a>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background-color: black; border-radius: 15px; color: white">
                     <strong class="card-title">Productos Registrados</strong>
                 </div>
                 <div class="card-body">
@@ -39,45 +49,13 @@
                 </div>
 
                 @if (Auth::user()->role_id == 1 || Auth::user()->company_id)
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <a href="{{ url('productos/create') }}" style="border-radius: 95px;"
-                            class="btn btn-success btn-sm">&nbsp;
-                            Agrregar Producto
-                            <i class=" fas fa-plus-square"></i>
-                        </a>
-
-                        {{-- ingresar csv --}}
-                        {{-- <form action="{{ route('products.import.excel') }}" method="POST"
-enctype="multipart/form-data">
-@csrf
-@if (session('message'))
-    <div
-        class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-        <span class="badge badge-pill badge-success">Atención</span>
-        {{ session('datosEliminados') }}
-        <button type="button" class="close" data-dismiss="alert"
-            aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-@endif
-
-<input type="file" name="file">
-<button>Importar Productos</button>
-</form> --}}
-                        {{-- FIN ingresar csv --}}
-
-                        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-                            href="{{ route('Product.pdf') }}">Reporte pdf <i class="fas fa-file-alt"></i>
-                        </a>
-                    </div>
                     <div class="card-body">
                         <div class="row table-responsive">
                             <div class="col-sm-12">
                                 <table id="bootstrap-data-table"
                                     class="table table-striped table-bordered dataTable no-footer" role="grid"
                                     aria-describedby="bootstrap-data-table_info">
-                                    <thead>
+                                    <thead style="border-radius: 15px; background-color: black; color:white">
                                         <tr>
                                             @if (Auth::user()->role_id == 1)
                                                 <th>Id</th>
@@ -96,14 +74,14 @@ enctype="multipart/form-data">
                                         </tr>
                                     </thead>
 
-                                    <tbody>
+                                    <tbody style="background-color: rgba(224, 220, 220, 0.993); ">
                                         @foreach ($products as $item)
                                             <tr>
                                                 @if (Auth::user()->role_id == 1)
 
-                                                    <th>{{ $item->id }}</th>
+                                                    <th style="border-left: #325ff5 7px solid;">{{ $item->id }}</th>
                                                 @else
-                                                    <th> {{ $loop->index + 1 }}</th>
+                                                    <th style="border-left: #325ff5 7px solid;"> {{ $loop->index + 1 }}</th>
                                                 @endif
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->description }}</td>
@@ -127,10 +105,12 @@ enctype="multipart/form-data">
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
 
-                                                        <a  href="{{ url('productos/' . $item->id ) }}" class="btn btn-sm btn-secondary" title="Ver Detalles">
+                                                        <a href="{{ url('productos/' . $item->id) }}"
+                                                            class="btn btn-sm btn-secondary rounded-circle"
+                                                            title="Ver Detalles">
                                                             <span><i class="fas fa-eye"></i></span>
                                                         </a>
-                                                        <a class="btn btn-sm btn-primary"
+                                                        <a class="btn btn-sm btn-primary rounded-circle"
                                                             href="{{ url('productos/' . $item->id . '/edit') }}"
                                                             title="Editar">
                                                             <span><i class="fas fa-edit"></i></span>
