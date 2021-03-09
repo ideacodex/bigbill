@@ -148,13 +148,16 @@
         {{-- Tarjeta con diseño y logo --}}
         <div class="m-0 col-6 col-md-6 col-sm-12 col-xs-12 d-none d-md-block d-lg-block">
             <div class="tarjeta">
-                <div class="textotarjeta">
-                    <img src="{{ asset('/img/lgo.svg') }}" width="80px" height="60px" alt="BB">
-                    <br>
-                    <span style="font-size: 30px ">SISTEMA DE</span>
-                    <br>
-                    <b> <strong style="font-size: 50px ">FACTURACIÓN DIGITAL</strong></b>
-                </div>
+
+                <img src="{{ asset('/img/logo_tageta.png') }}" class="imglogotarjeta" alt="BB">
+                <br>
+                <span class="SisDe">SISTEMA DE</span>
+                <br>
+                <label class="FacDig">FACTURACIÓN DIGITAL</label>
+                <br>
+                <label class="PlaPro">Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear
+                    facturas, podrás llevar el control de tu stock de productos.</label>
+
             </div>
         </div>
     </div>
