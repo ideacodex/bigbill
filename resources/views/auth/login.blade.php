@@ -33,75 +33,79 @@
 @endsection
 {{-- login --}}
 @section('content')
-    <div class="col-6 col-md-6 col-sm-12 col-xs-12 ">
+    <div class="row">
         {{-- Tarjeta con diseño y logo --}}
-        <div class="tarjetal">
-            <div class="textotarjeta">
-                <img src="{{ asset('/img/lgo.svg') }}" width="80px" height="60px" alt="">
-                <br>
-                <span style="font-size: 30px ">SISTEMA DE</span>
-                <br>
-                <b> <strong style="font-size: 50px ">FACTURACIÓN DIGITAL</strong></b>
+        <div class="m-0 col-6 col-md-6 col-sm-12 col-xs-12 d-none d-md-block d-lg-block">
+            {{-- Tarjeta con diseño y logo --}}
+            <div class="tarjetalog">
+                <div class="textotarjeta">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <img src="{{ asset('/img/lgo.svg') }}" width="80px" height="60px" alt="BB">
+                    <br>
+                    <span style="font-size: 30px ">SISTEMA DE</span>
+                    <br>
+                    <b> <strong style="font-size: 50px ">FACTURACIÓN DIGITAL</strong></b>
+                </div>
             </div>
         </div>
-    </div>
 
 
 
-
-    <div class="col-6 col-md-6 col-sm-12 col-xs-12 ">
-        <div class="cuerpo">
-            <div class="titulolog">
-                <a href="login">
-                    <strong style=" color: #3766ff; font-size:30px; font-family: Arial;">
-                        ¡Bienvenido!
-                    </strong>
-                </a>
-            </div>
-
-
-            <div class="row">
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    {{-- <!-- correo Electronico --> --}}
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <input id="email" name="email" type="email" class="cajatexto @error('email') is-invalid @enderror"
-                            value="{{ old('email') }}" placeholder="Correo electrónico" required autocomplete="email"
-                            autofocus>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <br>
-                    {{-- <!--Contraseña--> --}}
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <input id="password" name="password" type="password"
-                            class=" cajatexto @error('password') is-invalid @enderror" value="{{ old('password') }}"
-                            placeholder="Contraseña" required autocomplete="password" autofocus>
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    {{-- Guardar sesion --}}
-                    <div class="checklog">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label style="color: rgb(163, 163, 202); font-size:16px; "> Mantener Sesión</label>
+        {{-- formulario --}}
+        <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 justify-content-center">
+            <div class="cuerpo justify-content-center">
+                <div class="text-center" style="margin-bottom: 2%;">
+                    <a href="login">
+                        <strong style=" color: #3766ff; font-size:30px; font-family: Arial;">
+                            ¡Bienvenido!
+                        </strong>
+                    </a>
+                </div>
+                <div class="input-group m-0 d-flex justify-content-center">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        {{-- <!-- correo Electronico --> --}}
+                        <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input id="email" name="email" type="email"
+                                class="cajatexto @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                                placeholder="Correo electrónico" required autocomplete="email" autofocus>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                    </div>
-                    {{-- Enviar formulario para logearte --}}
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button type="submit" class="botonlogin">
-                            {{ __('INICIAR SESIÓN') }}
-                        </button>
-                    </div>
+                        <br>
+                        {{-- <!--Contraseña--> --}}
+                        <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input id="password" name="password" type="password"
+                                class=" cajatexto @error('password') is-invalid @enderror" value="{{ old('password') }}"
+                                placeholder="Contraseña" required autocomplete="password" autofocus>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        {{-- Guardar sesion --}}
+                        <div class="checklog">
+                            <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <input type="checkbox" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
+                                <label style="color: rgb(163, 163, 202); font-size:16px; "> Mantener Sesión</label>
+                            </div>
+                        </div>
+                        {{-- Enviar formulario para logearte --}}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="botonlogin">
+                                {{ __('INICIAR SESIÓN') }}
+                            </button>
+                        </div>
 
-
-
+                    </form>
                     {{-- ¿Olvidó tu contraseña? --}}
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="linkssesion">
@@ -109,7 +113,7 @@
                             @if (Route::has('password.request'))
                                 <b>
                                     <a href="{{ route('password.request') }}" style="color: rgb(163, 163, 202); ">
-                                        {{ __('¿Olvidó tu contraseña?') }}
+                                        {{ __('Olvidaste tu contraseña?') }}
                                     </a>
                                 </b>
                             @endif
@@ -118,14 +122,14 @@
                     {{-- Registrarme --}}
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="linkssesion">
-                            <p style="margin-top: 3%;">
+                            <p style="margin-top: 0%;">
                                 <a href="register" style="color: #0059ff; ">
                                     Registrarme
                                 </a>
                             </p>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
