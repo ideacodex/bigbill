@@ -23,14 +23,15 @@
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Agregar sucursal a la companía</strong>
+                    <div class="card" style=" border-radius: 35px; box-shadow: 8px 8px 10px 0 #0883ad">
+                        <div class="card-header"
+                            style="background-color: black; border-top-right-radius: 25px; border-top-left-radius: 25px;">
+                            <strong class="card-title" style="color: white">Agregar sucursal a la companía</strong>
                         </div>
                         @if (Auth::user()->role_id == 1 || Auth::user()->company_id)
-                            <div class="card-body">
+                            <div class="card-body bg-frm"
+                                style="border-bottom-right-radius: 15px; border-bottom-left-radius: 15px">
                                 <form method="POST" action="{{ route('sucursales.store') }}"
                                     onsubmit="return checkSubmit();">
                                     @csrf
@@ -38,12 +39,14 @@
                                     {{-- Nombre de la sucursal --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Nombre de sucursal" class="text-dark far fa-building"></i>
+                                            <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Nombre de sucursal" class="text-primary far fa-building"></i>
                                             </span>
                                         </div>
-                                        <input id="name" placeholder="Nombre de sucursal" type="text"
-                                            class="text-dark form-control @error('name') is-invalid @enderror" name="name"
+                                        <input style="background: transparent" id="name" placeholder="Nombre de sucursal" type="text"
+                                            class="text-dark form-control border-0  @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                         @error('name')
@@ -62,12 +65,14 @@
                                     {{-- Teléfono --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Teléfono" class="text-dark fas fa-phone-square"></i>
+                                            <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Teléfono" class="text-primary fas fa-phone-square"></i>
                                             </span>
                                         </div>
-                                        <input id="phone" placeholder="Teléfono" type="number"
-                                            class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
+                                        <input style="background: transparent" id="phone" placeholder="Teléfono" type="number"
+                                            class="text-dark form-control border-0  @error('phone') is-invalid @enderror" name="phone"
                                             value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
                                         @error('phone')
@@ -86,12 +91,14 @@
                                     {{-- PBX --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="PBX" class="text-dark fas fa-phone-volume"></i>
+                                            <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="PBX" class="text-primary fas fa-phone-volume"></i>
                                             </span>
                                         </div>
-                                        <input id="pbx" placeholder="PBX" type="number"
-                                            class="text-dark form-control @error('pbx') is-invalid @enderror" name="pbx"
+                                        <input style="background: transparent" id="pbx" placeholder="PBX" type="number"
+                                            class="text-dark form-control border-0  @error('pbx') is-invalid @enderror" name="pbx"
                                             value="{{ old('pbx') }}" required autocomplete="pbx" autofocus>
 
                                         @error('pbx')
@@ -110,12 +117,14 @@
                                     {{-- Dirección --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Dirección" class="text-dark fas fa-map-marker"></i>
+                                            <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Dirección" class="text-primary fas fa-map-marker"></i>
                                             </span>
                                         </div>
-                                        <input id="address" placeholder="Dirección" type="text"
-                                            class="text-dark form-control @error('address') is-invalid @enderror"
+                                        <input style="background: transparent" id="address" placeholder="Dirección" type="text"
+                                            class="text-dark form-control border-0  @error('address') is-invalid @enderror"
                                             name="address" value="{{ old('address') }}" required autocomplete="address"
                                             autofocus>
 
@@ -136,12 +145,14 @@
                                         {{-- company --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="company" class="far fa-building"></i>
+                                                <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                    class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="company" class="text-primary far fa-building"></i>
                                                 </span>
                                             </div>
-                                            <select name="company_id" id="company_id"
-                                                class="form-control @error('company_id') is-invalid @enderror">
+                                            <select style="background: transparent" name="company_id" id="company_id"
+                                                class="form-control border-0  @error('company_id') is-invalid @enderror">
 
                                                 @if (Auth::user()->company_id)
                                                     <option value="{{ Auth::user()->company_id }}" selected disabled>
@@ -168,10 +179,10 @@
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">
-                                                <button type="submit" style="border-radius: 10px"
-                                                    class="btn btn-lg btn-primary mt-3">
+                                                <button type="submit" style="border-radius: 50px"
+                                                    class="btn btn-primary mt-3">
                                                     <i class="far fa-save"></i>
-                                                    {{ __('Guardar') }}
+                                                    {{ __('GUARDAR') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -192,6 +203,7 @@
                     </div>
                 </div>
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div><!-- .animated -->
     </div><!-- .content -->
 
