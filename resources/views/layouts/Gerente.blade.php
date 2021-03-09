@@ -69,14 +69,7 @@
         padding: 0;
     }
 
-    .waves {
-        width: 100%;
-        height: 70px;
-        /*Fix for safari gap*/
-        min-height: 50px;
-        max-height: 230px;
-    }
-
+   
     /* Animation */
     .parallax>use {
         animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
@@ -127,12 +120,40 @@
             font-size: 24px;
         }
     }
-
-    .FondoParteDeOndas {
-        color: white;
-        background: linear-gradient(70deg, rgb(79, 53, 185) 0%, rgb(0, 182, 206) 100%);
+    .waves {
+        width: 100%;
+        height: 70px;
+        /*Fix for safari gap*/
+        min-height: 50px;
+        max-height: 230px;
+        margin-top: -1.5%;
+        z-index: -1;
     }
 
+    .FondoParteDeOndas {
+        background: transparent;
+        height: 20%;
+        margin: 0%;
+        width: 100%;
+        top: 0%;
+        margin-right: -1%;
+    }
+
+
+    .wavesdecabeza {
+        width: 100%;
+        height: 70px;
+        /*Fix for safari gap*/
+        min-height: 50px;
+        max-height: 230px;
+
+
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        /* IE 9 */
+        -webkit-transform: rotate(180deg);
+        /* Opera, Chrome, and Safari */
+    }
 </style>
 
 <body>
@@ -376,28 +397,44 @@
         </header><!-- /header -->
         <!-- Header-->
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-
-            <strong style="font-size: 45px"> <strong style="color:transparent;">......</strong> Big Bill </strong>
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
 
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
 
-                    <use xlink:href="#gentle-wave" x="40" y="0" fill="rgba(86,174,249,0.7" />
-                    <use xlink:href="#gentle-wave" x="35" y="3" fill="rgba(50,120,250,0.5)" />
-                    <use xlink:href="#gentle-wave" x="25" y="6" fill="rgba(255,255,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="10" y="12" fill="#fbb4a9" />
-                    <use xlink:href="#gentle-wave" x="48" y="9" fill="#a9dcfb" />
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="#a9dcfb" />
                 </g>
             </svg>
         </div>
         {{-- ------------------------- --}}
         @yield('content')
+
+
+
+        {{-- ---------------------- --}}
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+    
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+    
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="#a9dcfb" />
+                </g>
+            </svg>
+        </div>
     </div><!-- /#right-panel -->
     <!-- Right Panel -->
-
+   
 
 
 
