@@ -441,7 +441,7 @@
             </div>
         </header><!-- /header -->
 
-        {{-- <div id="FondoParteDeOndas" class="">
+        <div id="FondoParteDeOndas" class="">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
@@ -456,14 +456,12 @@
                     <use xlink:href="#gentle-wave" x="48" y="-9" fill="rgba(255,255,255,0.3)" />
                 </g>
             </svg>
-        </div> --}}
-        {{-- ------------------------- --}}
+        </div> 
 
         @yield('content')
 
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
-
-        {{-- <div id="FondoParteDeOndasNormal" class="FondoParteDeOndasNormal">
+        <div id="FondoParteDeOndasNormal" class="FondoParteDeOndasNormal">
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
             <svg class="wavesNormal" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
@@ -477,7 +475,7 @@
                     <use xlink:href="#gentle-wave" x="48" y="9" fill="rgba(255,255,255,0.3)" />
                 </g>
             </svg>
-        </div> --}}
+        </div>
 
     </div><!-- /#right-panel -->
     <!-- Right Panel -->
