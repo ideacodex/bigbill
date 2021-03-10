@@ -100,12 +100,11 @@
                                                             <td>Artículo de compra y venta</td>
                                                         @endif
                                                         <td>
-                                                            <a class="btn btn-sm btn-secondary rounded-circle"
+                                                            <a class="btn btn-sm rounded-circle"
                                                                 href="{{ url('facturas/' . $item->id) }}"
-                                                                title="Ver factura">
+                                                                title="Ver factura" style="background-color: #f55d00">
                                                                 <span><i class="text-light fas fa-eye"></i></span>
                                                             </a>
-
                                                             <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
                                                                 data-toggle="modal" data-target="#largeModal"
                                                                 onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
@@ -215,8 +214,6 @@
             }
 
         </script>
-
-
         <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     @endsection
     @section('js')

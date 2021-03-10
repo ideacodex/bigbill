@@ -23,40 +23,40 @@
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Editar sucursal</strong>
+                    <div class="card bg-card">
+                        <div class="card-header bg-cardheader"
+                            style="border-top-right-radius: 25px; border-top-left-radius: 25px;"">
+                                <strong class=" card-title text-light">Ver sucursal</strong>
                         </div>
-                        <div class="card-body">
-
-
+                        <div class="card-body bg-frm">
                             {{-- <!--Company_id--> --}}
 
                             {{-- company --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
-                                        <i title="company" class="far fa-building"></i>
+                                    <span
+                                        class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                        id="inputGroup-sizing-sm">
+                                        <i title="company" class="text-primary far fa-building"></i>
                                     </span>
                                 </div>
-                                <span class="form-control">
+                                <span class="border-0 bg-input form-control">
                                     Compania Asignada:
                                     {{ $branch_office->company->name }}
                                 </span>
-
                             </div>
-
 
                             {{-- Nombre de la sucursal --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
-                                        <i title="Nombre de sucursal" class="far fa-building"></i>
+                                    <span
+                                        class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                        id="inputGroup-sizing-sm">
+                                        <i title="Nombre de sucursal" class="text-primary far fa-building"></i>
                                     </span>
                                 </div>
-                                <span class="form-control">
+                                <span class="border-0 bg-input form-control">
                                     Nombre de sucursal:
                                     {{ $branch_office->name }}
                                 </span>
@@ -65,11 +65,13 @@
                             {{-- Teléfono --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
-                                        <i title="Teléfono" class="fas fa-phone-square"></i>
+                                    <span
+                                        class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                        id="inputGroup-sizing-sm">
+                                        <i title="Teléfono" class="text-primary fas fa-phone-square"></i>
                                     </span>
                                 </div>
-                                <span class="form-control">
+                                <span class="border-0 bg-input form-control">
                                     Teléfono:
                                     {{ $branch_office->company->name }}
                                 </span>
@@ -78,11 +80,13 @@
                             {{-- PBX --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
-                                        <i title="PBX" class="fas fa-phone-volume"></i>
+                                    <span
+                                        class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                        id="inputGroup-sizing-sm">
+                                        <i title="PBX" class="text-primary fas fa-phone-volume"></i>
                                     </span>
                                 </div>
-                                <span class="form-control">
+                                <span class="border-0 bg-input form-control">
                                     PBX:
                                     {{ $branch_office->pbx }}
                                 </span>
@@ -91,12 +95,14 @@
                             {{-- Dirección --}}
                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text transparent" style="color: blue" id="inputGroup-sizing-sm">
-                                        <i title="Dirección" class="fas fa-map-marker"></i>
+                                    <span
+                                        class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                        id="inputGroup-sizing-sm">
+                                        <i title="Dirección" class="text-primary fas fa-map-marker"></i>
                                     </span>
                                 </div>
 
-                                <span class="form-control">
+                                <span class="border-0 bg-input form-control">
                                     Dirección:
                                     {{ $branch_office->address }}
                                 </span>
@@ -107,10 +113,9 @@
                                 <div class="container mt-4">
                                     <div class="col-12">
                                         <div class="col text-center">
-                                            <button type="submit" style="border-radius: 10px"
-                                                class="btn btn-lg btn-success mt-3">
+                                            <button type="submit" style="border-radius: 50px" class="btn btn-primary mt-3">
                                                 <i class="fas fa-undo"></i>
-                                                {{ __('Regresar') }}
+                                                {{ __('VOLVER') }}
                                             </button>
                                         </div>
                                     </div>
@@ -120,6 +125,7 @@
                     </div>
                 </div>
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div><!-- .animated -->
     </div><!-- .content -->
 

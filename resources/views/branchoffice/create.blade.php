@@ -45,9 +45,10 @@
                                                 <i title="Nombre de sucursal" class="text-primary far fa-building"></i>
                                             </span>
                                         </div>
-                                        <input style="background: transparent" id="name" placeholder="Nombre de sucursal" type="text"
-                                            class="text-dark form-control border-0  @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        <input style="background: transparent" id="name" placeholder="Nombre de sucursal"
+                                            type="text"
+                                            class="text-dark form-control border-0  @error('name') is-invalid @enderror"
+                                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -71,9 +72,11 @@
                                                 <i title="Teléfono" class="text-primary fas fa-phone-square"></i>
                                             </span>
                                         </div>
-                                        <input style="background: transparent" id="phone" placeholder="Teléfono" type="number"
-                                            class="text-dark form-control border-0  @error('phone') is-invalid @enderror" name="phone"
-                                            value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                        <input style="background: transparent" id="phone" placeholder="Teléfono"
+                                            type="number"
+                                            class="text-dark form-control border-0  @error('phone') is-invalid @enderror"
+                                            name="phone" value="{{ old('phone') }}" required autocomplete="phone"
+                                            autofocus>
 
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
@@ -98,8 +101,8 @@
                                             </span>
                                         </div>
                                         <input style="background: transparent" id="pbx" placeholder="PBX" type="number"
-                                            class="text-dark form-control border-0  @error('pbx') is-invalid @enderror" name="pbx"
-                                            value="{{ old('pbx') }}" required autocomplete="pbx" autofocus>
+                                            class="text-dark form-control border-0  @error('pbx') is-invalid @enderror"
+                                            name="pbx" value="{{ old('pbx') }}" required autocomplete="pbx" autofocus>
 
                                         @error('pbx')
                                             <span class="invalid-feedback" role="alert">
@@ -123,7 +126,8 @@
                                                 <i title="Dirección" class="text-primary fas fa-map-marker"></i>
                                             </span>
                                         </div>
-                                        <input style="background: transparent" id="address" placeholder="Dirección" type="text"
+                                        <input style="background: transparent" id="address" placeholder="Dirección"
+                                            type="text"
                                             class="text-dark form-control border-0  @error('address') is-invalid @enderror"
                                             name="address" value="{{ old('address') }}" required autocomplete="address"
                                             autofocus>
@@ -175,7 +179,6 @@
                                         </span>
                                     @enderror
 
-
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">
@@ -187,7 +190,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         @else

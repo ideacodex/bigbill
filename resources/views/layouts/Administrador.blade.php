@@ -192,7 +192,7 @@
 
 </style>
 
-<body>
+<body style="background-color: white">
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel" style="background: black">
