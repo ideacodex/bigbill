@@ -23,13 +23,13 @@
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Editar sucursal</strong>
+                    <div class="card bg-card">
+                        <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
+                        border-top-left-radius: 25px;">
+                            <strong class="card-title text-light">Editar sucursal</strong>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body bg-frm">
                             <form action="{{ url('sucursales/' . $branch_office->id) }}" method="POST"
                                 enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                 @csrf @method('PATCH')
@@ -39,12 +39,12 @@
                                     {{-- company --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="company" class="far fa-building"></i>
+                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <i title="company" class="text-primary far fa-building"></i>
                                             </span>
                                         </div>
                                         <select name="company_id" id="company_id"
-                                            class="form-control @error('company_id') is-invalid @enderror">
+                                            class="form-control border-0 bg-input @error('company_id') is-invalid @enderror">
                                             <option selected value="{{ $branch_office->company_id }}">Compania Asignada:
                                                 {{ $branch_office->company->name }}</option>
                                             @if (auth()->user()->company_id)
@@ -80,12 +80,12 @@
                                 {{-- Nombre de la sucursal --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Nombre de sucursal" class="text-dark far fa-building"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Nombre de sucursal" class="text-primary far fa-building"></i>
                                         </span>
                                     </div>
                                     <input id="name" placeholder="Nombre de sucursal" type="text"
-                                        class="text-dark form-control @error('name') is-invalid @enderror" name="name"
+                                        class="text-dark form-control border-0 bg-input @error('name') is-invalid @enderror" name="name"
                                         value="{{ $branch_office->name }}" required autocomplete="name" autofocus>
 
                                     @error('name')
@@ -104,12 +104,12 @@
                                 {{-- Teléfono --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Teléfono" class="text-dark fas fa-phone-square"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Teléfono" class="text-primary fas fa-phone-square"></i>
                                         </span>
                                     </div>
                                     <input id="phone" placeholder="Teléfono" type="number"
-                                        class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
+                                        class="text-dark form-control border-0 bg-input @error('phone') is-invalid @enderror" name="phone"
                                         value="{{ $branch_office->phone }}" required autocomplete="phone" autofocus>
 
                                     @error('phone')
@@ -128,12 +128,12 @@
                                 {{-- PBX --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="PBX" class="text-dark fas fa-phone-volume"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="PBX" class="text-primary fas fa-phone-volume"></i>
                                         </span>
                                     </div>
                                     <input id="pbx" placeholder="PBX" type="number"
-                                        class="text-dark form-control @error('pbx') is-invalid @enderror" name="pbx"
+                                        class="text-dark form-control border-0 bg-input @error('pbx') is-invalid @enderror" name="pbx"
                                         value="{{ $branch_office->pbx }}" required autocomplete="pbx" autofocus>
 
                                     @error('pbx')
@@ -152,12 +152,12 @@
                                 {{-- Dirección --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Dirección" class="text-dark fas fa-map-marker"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Dirección" class="text-primary fas fa-map-marker"></i>
                                         </span>
                                     </div>
                                     <input id="address" placeholder="Dirección" type="text"
-                                        class="text-dark form-control @error('address') is-invalid @enderror" name="address"
+                                        class="text-dark form-control border-0 bg-input @error('address') is-invalid @enderror" name="address"
                                         value="{{ $branch_office->address }}" required autocomplete="address" autofocus>
 
                                     @error('address')
@@ -176,10 +176,10 @@
                                 <div class="container mt-4">
                                     <div class="col-12">
                                         <div class="col text-center">
-                                            <button type="submit" style="border-radius: 10px"
-                                                class="btn btn-lg btn-primary mt-3">
+                                            <button type="submit" style="border-radius: 50px"
+                                                class="btn btn-primary mt-3">
                                                 <i class="far fa-save"></i>
-                                                {{ __('Guardar') }}
+                                                {{ __('GUARDAR') }}
                                             </button>
                                         </div>
                                     </div>
@@ -189,6 +189,7 @@
                     </div>
                 </div>
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div><!-- .animated -->
     </div><!-- .content -->
 
