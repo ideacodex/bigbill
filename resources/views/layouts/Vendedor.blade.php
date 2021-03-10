@@ -45,6 +45,11 @@
 </head>
 
 <style>
+    img.derecha {
+        float: right;
+        width: 7%;
+    }
+
     /*buscar select */
     .select2-container .select2-selection--single {
         height: 46px !important;
@@ -55,13 +60,15 @@
         border-radius: 0px !important;
     }
 
-    .img:hover {
+    /* imagen de a la par de ajustes - parte superior derecha */
+    .imgperfil {
         border-radius: 50%;
-        d -webkit-border-radius: 50%;
-        box-shadow: 0px 0px 15px 15px #36d800;
-        -webkit-box-shadow: 0px 0px 5px 5px #238a01;
-        transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
+        -webkit-border-radius: 50%;
+    }
+
+    .imgperfil:hover {
+        box-shadow: 0px 0px 15px 15px #00e6ff;
+        -webkit-box-shadow: 0px 0px 5px 5px #00e6ff;
     }
 
     /* Animation */
@@ -152,7 +159,7 @@
 
 </style>
 
-<body  style="background-color: white">
+<body style="background-color: white">
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel" style="background: black">
@@ -290,104 +297,86 @@
 
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
-        <!-- Header-->
-        <header id="header" class="header">
-
+        {{-- <!-- Encabezado  con logo y fondo azul degradado --> --}}
+        <header id="header" class="header"
+            style="background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);">
             <div class="header-menu">
+
                 <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <a id="menuToggle" class="menutoggle pull-left" style="background: rgb(16, 158, 214)"><i
+                            class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
+                        <img style="width: 25%" class="user-avatar" src="{{ asset('images/logoBB.svg') }}"
+                            alt="Información">
+                        <hr style="background-color:rgb(5, 116, 180); height: 3px">
 
-                        <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="{{ asset('images/contacts.png') }}"
-                                    alt="Información">
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Información</p>
-                                <a class="dropdown-item media bg-flat-color-3" href="#">
-                                    <i class="fa fa-check"></i>
-                                    @if (Auth::user()->role_id == 1)
-                                        <strong>Cargo: Administrador.</strong>
-                                    @else
-                                        @if (Auth::user()->role_id == 2)
-                                            <strong>Cargo: Gerente.</strong>
-                                        @else
-                                            @if (Auth::user()->role_id == 3)
-                                                <strong>Cargo: Contador.</strong>
-                                            @else
-                                                @if (Auth::user()->role_id == 4)
-                                                    <strong>Cargo: Ventas.</strong>
-                                                @else
-                                                    <strong>Cargo: No tiene</strong>
-                                                @endif
-                                            @endif
-                                        @endif
+                        <p style="color: white"><b>{{ config('app.name', 'Laravel') }} |
+                                {{ substr(request()->getRequestUri(), 1) }}</b></p>
+                    </div>
+                </div>
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        @if (Auth::user()->file != null)
+                            {{-- imagen --}}
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="imgperfil"
+                                width="50px" height="50px" alt="Compania">
+                        @else
+                            <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}"
+                                alt="Más...">
+                        @endif
+                    </a>
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="{{ url('/perfil') }}">
+                            <i class="fa fa-user"></i> Cargo
+                        @if (Auth::user()->role_id == 1) Administrador @else
+                            @if (Auth::user()->role_id == 2) Gerente @else
+                                @if (Auth::user()->role_id == 3) Contador @else
+                                        @if (Auth::user()->role_id == 4) Ventas
+                                        @else No tiene @endif
                                     @endif
-                                </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="#">
-                                    <i class="fa fa-info"></i>
-                                    <strong>Empresa:
-                                        @if (Auth::user()->company_id)
-                                            {{ Auth::user()->companies->name }}
-                                        @else
-                                            Sin Compañia
-                                        @endif
-
-                                    </strong>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-5">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            @if (Auth::user()->file != null)
-                                {{-- imagen --}}
-                                <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="img"
-                                    width="50px" height="50px" alt="Compania">
-                            @else
-                                <img class="user-avatar rounded-circle" src="{{ asset('images/setting.png') }}"
-                                    alt="Más...">
+                                @endif
                             @endif
-
-
                         </a>
-
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi Perfil</a>
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
-                                {{ __('Salir') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
-                            aria-expanded="true">
-                            <i class="flag-icon flag-icon-gt"></i>
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-users"></i> Empresa:
+                            @if (Auth::user()->company_id)
+                                {{ Auth::user()->companies->name }}
+                            @else
+                                Sin Compañia
+                            @endif
                         </a>
-
                     </div>
-
                 </div>
-            </div>
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img class="user-avatar rounded-circle" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
+                    </a>
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="{{ url('/perfil') }}">
+                            <i class="fa fa-user"></i> Mi Perfil</a>
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                class="fa fa-power-off"></i>
+                            {{ __('salir') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
 
-        </header><!-- /header -->
-        <!-- Header-->
+            </div>
+        </header>
+        {{-- <!-- Encabezado  con logo y fondo azul degradado --> --}}
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
 
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
 
@@ -405,13 +394,15 @@
 
         {{-- ---------------------- --}}
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-    
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
-    
+
                     <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
                     <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
                     <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />

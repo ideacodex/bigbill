@@ -1,6 +1,5 @@
 @extends('layouts.sesion')
 
-</head>
 
 <body>
     <!-- NAVIGATION -->
