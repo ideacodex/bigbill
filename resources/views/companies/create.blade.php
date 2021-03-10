@@ -23,7 +23,6 @@
     <div class="content mt-5">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
                     <div class="card" style=" border-radius: 35px; box-shadow: 8px 8px 10px 0 #0883ad">
                         <div class="card-header"
@@ -151,20 +150,17 @@
                                 <div class="container mt-4">
                                     <div class="col-12">
                                         <div class="col text-center">
-                                            <button type="submit" style="border-radius: 50px"
-                                                class="btn btn-primary mt-3">
+                                            <button type="submit" style="border-radius: 50px" class="btn btn-primary mt-3">
                                                 <i class="far fa-save"></i>
                                                 {{ __('GUARDAR') }}
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                     </div>
                 </div>
-
             </div>
             <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div><!-- .animated -->

@@ -39,14 +39,13 @@
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Editar Productos</strong>
+                    <div class="card bg-card">
+                        <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
+                                                border-top-left-radius: 25px;">
+                            <strong class="card-title text-light">Editar Productos</strong>
                         </div>
-                        <div class="card-body">
-
+                        <div class="card-body bg-frm">
                             <div>
                                 <form name="calculadora" action="{{ url('productos/' . $products->id) }}" method="POST"
                                     file="true" enctype="multipart/form-data" onsubmit="return checkSubmit();">
@@ -54,12 +53,14 @@
                                     {{-- <!--Nombre--> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Nombre" class="fas fa-people-carry"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Nombre" class="text-primary fas fa-people-carry"></i>
                                             </span>
                                         </div>
                                         <input id="name" name="name" type="text"
-                                            class="text-dark form-control @error('name') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('name') is-invalid @enderror"
                                             value="{{ $products->name }}"
                                             placeholder="Nombre del Producto: ej. computadora" required autocomplete="name"
                                             autofocus>
@@ -72,12 +73,14 @@
                                     {{-- <!-- descripcion --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Descripción" class="fas fa-book"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Descripción" class="text-primary fas fa-book"></i>
                                             </span>
                                         </div>
                                         <input id="description" name="description" type="text"
-                                            class="text-dark form-control @error('name') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('name') is-invalid @enderror"
                                             value="{{ $products->description }}"
                                             placeholder="Descripcion del Producto: ej. especificaciones" required
                                             autocomplete="description" autofocus>
@@ -90,12 +93,15 @@
                                     {{-- Tipo de producto --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-user"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-user"></i>
                                             </span>
                                         </div>
                                         <select name="kind_product" id="kind_product" onchange="mostrarInput();"
-                                            class="form-control @error('kind_product') is-invalid @enderror" required>
+                                            class="border-0 bg-input form-control @error('kind_product') is-invalid @enderror"
+                                            required>
 
                                             @if ($products->kind_product == 1)
                                                 <option value="{{ $products->kind_product }}" selected>Artículo de venta
@@ -129,14 +135,16 @@
                                     {{-- <!-- precio --> --}}
                                     <div id="d" @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Precio" class="fas fa-hand-holding-usd"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Precio" class="text-primary fas fa-hand-holding-usd"></i>
                                             </span>
                                         </div>
                                         <input id="price" name="price" type="text"
-                                            class="text-dark form-control @error('price') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('price') is-invalid @enderror"
                                             value="{{ $products->price }}" placeholder="Precio del Producto" required
                                             autocomplete="price" autofocus>
                                         @error('price')
@@ -148,14 +156,16 @@
                                     <!--Precio especial-->
                                     <div id="b" @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-star"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-star"></i>
                                             </span>
                                         </div>
                                         <input id="special_price" name="special_price" type="number" step="0.01"
-                                            class="text-dark form-control special_price  @error('special_price') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control special_price  @error('special_price') is-invalid @enderror"
                                             value="{{ $products->special_price }}" placeholder="Precio especial"
                                             autocomplete="special_price" autofocus>
                                         @error('special_price')
@@ -167,14 +177,16 @@
                                     <!--Precio crédito-->
                                     <div id="c" @if ($products->kind_product == 1 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                                                                                        class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                                                                                class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-credit-card"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-credit-card"></i>
                                             </span>
                                         </div>
                                         <input id="credit_price" name="credit_price" type="number" step="0.01"
-                                            class="text-dark form-control credit_price  @error('credit_price') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control credit_price  @error('credit_price') is-invalid @enderror"
                                             value="{{ $products->credit_price }}" placeholder="Precio al crédito"
                                             autocomplete="credit_price" autofocus>
                                         @error('credit_price')
@@ -186,15 +198,16 @@
                                     {{-- <!--costos--> --}}
                                     <div id="a" @if ($products->kind_product == 2 || $products->kind_product == 3) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                             @else
-                                                                                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
+                                                                                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif>
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent">
-                                                <i class="fas fa-coins"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent">
+                                                <i class="text-primary fas fa-coins"></i>
                                             </span>
                                         </div>
                                         <input value="{{ $products->cost }}" id="cost" name="cost" type="text"
                                             onchange="mostrarInput();"
-                                            class="text-dark form-control @error('cost') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('cost') is-invalid @enderror"
                                             placeholder="Precio de compra" autocomplete="cost" autofocus>
                                         @error('cost')
                                             <span class="invalid-feedback" role="alert">
@@ -207,12 +220,14 @@
                                         {{-- company --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="company" class="far fa-building"></i>
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="company" class="text-primary far fa-building"></i>
                                                 </span>
                                             </div>
                                             <select name="company_id" id="company_id"
-                                                class="form-control @error('company_id') is-invalid @enderror">
+                                                class="border-0 bg-input form-control @error('company_id') is-invalid @enderror">
                                                 @if (auth()->user()->company_id)
                                                     <option value="{{ auth()->user()->company_id }}" selected>
                                                         <p>
@@ -239,13 +254,15 @@
                                     <!--Nuevos ingresos-->
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title=" Nuevos ingresos" class="fas fa-plus-square"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title=" Nuevos ingresos" class="text-primary fas fa-plus-square"></i>
                                             </span>
                                         </div>
                                         <input type="number" value="" id="txt_campo_2" name="new_income"
-                                            class="monto form-control" onchange="sumar();" placeholder="Nuevos ingresos"
-                                            required />
+                                            class="border-0 bg-input monto form-control" onchange="sumar();"
+                                            placeholder="Nuevos ingresos" required />
                                         @error('quantity_values')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -255,12 +272,14 @@
                                     {{-- ¿Agregar dimensiones? --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-balance-scale"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-balance-scale"></i>
                                             </span>
                                         </div>
                                         <select name="dimensiones" id="dimensiones" onchange="MostrarDimensiones();"
-                                            class="form-control" required>
+                                            class="border-0 bg-input form-control" required>
                                             @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1)
                                                 <option value="0" selected>Contiene dimensiones</option>
                                                 <option value="1">¿Quitar dimensiones?</option>
@@ -273,14 +292,16 @@
                                     {{-- <!--Peso--> --}}
                                     <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Peso">
+                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Peso">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-shopping-bag"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-shopping-bag"></i>
                                             </span>
                                         </div>
                                         <input id="weight" name="weight" type="text" value="{{ $products->weight }}"
-                                            class="text-dark form-control @error('weight') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('weight') is-invalid @enderror"
                                             placeholder="Peso lbs ó kgs" autocomplete="weight" autofocus>
                                         @error('weight')
                                             <span class="invalid-feedback" role="alert">
@@ -291,14 +312,16 @@
                                     {{-- <!--Altura --> --}}
                                     <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Altura">
+                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Altura">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-ruler-vertical"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-ruler-vertical"></i>
                                             </span>
                                         </div>
                                         <input id="tall" name="tall" type="text" value="{{ $products->tall }}"
-                                            class="text-dark form-control @error('tall') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('tall') is-invalid @enderror"
                                             placeholder="Altura" autocomplete="tall" autofocus>
                                         @error('tall')
                                             <span class="invalid-feedback" role="alert">
@@ -309,14 +332,16 @@
                                     {{-- <!--Ancho --> --}}
                                     <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Ancho">
+                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Ancho">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-ruler-horizontal"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-ruler-horizontal"></i>
                                             </span>
                                         </div>
                                         <input id="broad" name="broad" type="text" value="{{ $products->broad }}"
-                                            class="text-dark form-control @error('broad') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('broad') is-invalid @enderror"
                                             placeholder="Ancho" autocomplete="broad" autofocus>
                                         @error('broad')
                                             <span class="invalid-feedback" role="alert">
@@ -327,14 +352,16 @@
                                     {{-- <!--Profundidad --> --}}
                                     <div @if ($products->weight >= 1 || $products->tall >= 1 || $products->broad >= 1 || $products->depth >= 1) class=" col-12 col-md-6 input-group input-group-lg mb-3"
                                         @else
-                                                                            class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Profundidad">
+                                                                                                    class="d-none col-12 col-md-6 input-group input-group-lg mb-3" @endif id="Profundidad">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i class="fas fa-ruler"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i class="text-primary fas fa-ruler"></i>
                                             </span>
                                         </div>
                                         <input id="depth" name="depth" type="text" value="{{ $products->depth }}"
-                                            class="text-dark form-control @error('depth') is-invalid @enderror"
+                                            class="border-0 bg-input text-dark form-control @error('depth') is-invalid @enderror"
                                             placeholder="Profundidad" autocomplete="depth" autofocus>
                                         @error('depth')
                                             <span class="invalid-feedback" role="alert">
@@ -349,7 +376,7 @@
                                         <Strong> Actualizar <i class="fas fa-arrow-circle-right"></i> <br> imagen <div
                                                 class=""></div></Strong>
                                         <input type="file" id="file" name="file" accept="image/*"
-                                            class=" @error('file') is-invalid @enderror">
+                                            class="border-0 bg-input @error('file') is-invalid @enderror">
                                         @error('file')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -359,12 +386,14 @@
                                     {{-- select etiquetas FAMILIA --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text text-primary"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="fas fa-users"></i>
                                             </span>
                                         </div>
                                         <select
-                                            class="js-example-basic-multiple js-states form-control @error('family_id') is-invalid @enderror"
+                                            class="border-0 bg-input js-example-basic-multiple js-states form-control @error('family_id') is-invalid @enderror"
                                             name="family_id[]" id="family_id" multiple="multiple" required>
                                             <option disabled>Categorias Seleccionadas:</option>
                                             @foreach ($products->pivotFamily as $datos)
@@ -389,12 +418,14 @@
                                     {{-- select etiquetas MARCAS --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text text-primary" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text text-primary"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="fas fa-users"></i>
                                             </span>
                                         </div>
                                         <select
-                                            class="js-example-basic-multiple js-states form-control @error('mark_id') is-invalid @enderror"
+                                            class="border-0 bg-input js-example-basic-multiple js-states form-control @error('mark_id') is-invalid @enderror"
                                             name="mark_id[]" id="mark_id" multiple="multiple" required>
                                             <option disabled>Marcas Seleccionadas:</option>
 
@@ -435,25 +466,27 @@
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">
-                                                <button type="submit" style="border-radius: 10px"
-                                                    class="btn btn-lg btn-primary mt-3">
+                                                <button type="submit" style="border-radius: 50px"
+                                                    class="btn btn-primary mt-3">
                                                     <i class="far fa-save"></i>
-                                                    {{ __('Guardar') }}
+                                                    {{ __('GUARDAR') }}
                                                 </button>
                                             </div>
+                                        </div>
 
-                                            <!-- Ingresos registrados -->
-                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                <input value="{{ $products->total_revenue }}" type="hidden"
-                                                    id="txt_campo_1" class="monto" onchange="sumar();" name="income_amount"
-                                                    readonly />
-                                            </div>
+                                        <!-- Ingresos registrados -->
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <input value="{{ $products->total_revenue }}" type="hidden" id="txt_campo_1"
+                                                class="monto" onchange="sumar();" name="income_amount" readonly />
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div>
     </div>
 

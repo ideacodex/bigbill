@@ -17,14 +17,13 @@
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Editar Familias de categorias</strong>
+                    <div class="card bg-card">
+                        <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
+                                    border-top-left-radius: 25px;">
+                            <strong class="card-title text-light">Editar marca</strong>
                         </div>
-                        <div class="card-body">
-
+                        <div class="card-body bg-frm">
                             <div>
                                 <form action="{{ url('marcas/' . $mark->id) }}" method="POST" file="true"
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
@@ -32,12 +31,14 @@
                                     {{-- <!--Nombre--> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                <i title="Nombre" class="fas fa-people-carry"></i>
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Nombre" class="text-primary fas fa-people-carry"></i>
                                             </span>
                                         </div>
                                         <input id="name" name="name" type="text"
-                                            class="text-dark form-control @error('name') is-invalid @enderror"
+                                            class="text-dark form-control border-0 bg-input @error('name') is-invalid @enderror"
                                             value="{{ $mark->name }}" placeholder="Nombre del Producto: ej. computadora"
                                             required autocomplete="name" autofocus>
                                         @error('name')
@@ -52,12 +53,14 @@
                                         {{-- company --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                                    <i title="company" class="far fa-building"></i>
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="company" class="text-primary far fa-building"></i>
                                                 </span>
                                             </div>
                                             <select name="company_id" id="company_id"
-                                                class="form-control @error('company_id') is-invalid @enderror">
+                                                class="form-control border-0 bg-input @error('company_id') is-invalid @enderror">
                                                 @if (auth()->user()->company_id)
                                                     <option value="{{ auth()->user()->company_id }}" selected>
                                                         <p>
@@ -85,21 +88,22 @@
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">
-                                                <button type="submit" style="border-radius: 10px"
-                                                    class="btn btn-lg btn-primary mt-3">
+                                                <button type="submit" style="border-radius: 50px"
+                                                    class="btn btn-primary mt-3">
                                                     <i class="far fa-save"></i>
-                                                    {{ __('Guardar') }}
+                                                    {{ __('GUARDAR') }}
                                                 </button>
                                             </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div>
     </div>
-
-
 
 @endsection

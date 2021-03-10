@@ -100,13 +100,12 @@
                                                             <td>Artículo de compra y venta</td>
                                                         @endif
                                                         <td>
-                                                            <a class="btn btn-sm btn-secondary"
+                                                            <a class="btn btn-sm rounded-circle"
                                                                 href="{{ url('facturas/' . $item->id) }}"
-                                                                title="Ver factura">
+                                                                title="Ver factura" style="background-color: #f55d00">
                                                                 <span><i class="text-light fas fa-eye"></i></span>
                                                             </a>
-
-                                                            <a class="btn btn-sm btn-danger" title="Eliminar"
+                                                            <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
                                                                 data-toggle="modal" data-target="#largeModal"
                                                                 onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
@@ -152,9 +151,9 @@
                         <div class="container mt-4">
                             <div class="col-12">
                                 <div class="col text-center">
-                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                    <button type="submit" style="border-radius: 50px" class="btn btn-primary mt-3">
                                         <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
+                                        {{ __('GUARDAR') }}
                                     </button>
                                 </div>
                             </div>
@@ -215,7 +214,7 @@
             }
 
         </script>
-
+        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     @endsection
     @section('js')
         <!-- Menu Toggle Script -->

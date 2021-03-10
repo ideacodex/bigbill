@@ -31,11 +31,12 @@
         <div class="animated fadeIn">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Registrar compra</strong>
+                    <div class="card bg-card">
+                        <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
+                                border-top-left-radius: 25px;">
+                            <strong class="card-title text-light">Registrar compra</strong>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body bg-frm">
                             <form method="POST" action="{{ route('compras.store') }}" onsubmit="return checkSubmit();">
                                 @csrf
 
@@ -45,12 +46,14 @@
                                 {{-- Fecha de emisión --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Fecha de emisión" class="fas fa-calendar-alt"></i>
+                                        <span
+                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                            id="inputGroup-sizing-sm">
+                                            <i title="Fecha de emisión" class="text-primary fas fa-calendar-alt"></i>
                                         </span>
                                     </div>
                                     <input id="date_issue" name="date_issue" type="date"
-                                        class="text-dark form-control @error('date_issue') is-invalid @enderror"
+                                        class="text-dark form-control border-0 bg-input @error('date_issue') is-invalid @enderror"
                                         value="<?php echo date('y/m/d'); ?>" required
                                         autocomplete="date_issue" autofocus>
                                     @error('date_issue')
@@ -69,12 +72,15 @@
                                 {{-- Tipo de producto --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-file-word"></i>
+                                        <span
+                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                            id="inputGroup-sizing-sm">
+                                            <i class="text-primary fas fa-file-word"></i>
                                         </span>
                                     </div>
                                     <select name="type_product" id="type_product"
-                                        class="form-control @error('type_product') is-invalid @enderror" required>
+                                        class="form-control border-0 bg-input @error('type_product') is-invalid @enderror"
+                                        required>
                                         <option selected disabled>Tipo de producto</option>
                                         <option value="1">Compra</option>
                                         <option value="2">Compra y venta</option>
@@ -95,12 +101,15 @@
                                 {{-- Elije si es nuevo o existente --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-file-word"></i>
+                                        <span
+                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                            id="inputGroup-sizing-sm">
+                                            <i class="text-primary fas fa-file-word"></i>
                                         </span>
                                     </div>
                                     <select name="new_existing" id="new_existing"
-                                        class="form-control @error('new_existing') is-invalid @enderror" required>
+                                        class="form-control border-0 bg-input @error('new_existing') is-invalid @enderror"
+                                        required>
                                         <option selected disabled>Compra en:</option>
                                         <option value="1">Producto nuevo</option>
                                         <option value="2">Producto existente</option>
@@ -121,12 +130,14 @@
                                 {{-- Proveedor --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i class="fas fa-receipt"></i>
+                                        <span
+                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                            id="inputGroup-sizing-sm">
+                                            <i class="text-primary fas fa-receipt"></i>
                                         </span>
                                     </div>
-                                    <input class="text-dark form-control" name="supplier" placeholder="Proveedor"
-                                        id="supplier" type="text">
+                                    <input class="text-dark form-control border-0 bg-input" name="supplier"
+                                        placeholder="Proveedor" id="supplier" type="text">
                                     @error('supplier')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -141,7 +152,9 @@
                                 </div>
 
                                 {{-- Descripción --}}
-                                <textarea class="form-control" rows="5" id="description" placeholder="Descripción"
+                                <textarea class="border-0 bg-span form-control" rows="5" id="description"
+                                    placeholder="Descripción"
+                                    style="border-radius: 35px; box-shadow: 8px 8px 10px 0 #0883ad"
                                     name="description"></textarea>
 
                                 <input type="hidden" name="date" id="date">
@@ -149,15 +162,15 @@
 
                                 <!-- Trigger the modal with a button -->
                                 <button type="button" onclick="agregarProducto()" style="border-radius: 95px;"
-                                    class="btn btn-success text-light" data-dismiss="modal">Agregar Producto<i
-                                        class="fas fa-cart-plus text-light"></i>
+                                    class="btn btn-success text-light" data-dismiss="modal">+ AGREGAR PRODUCTO
                                 </button>
 
                                 <input type="hidden" id="ListaPro" name="ListaPro" value="" />
 
-                                <div class="row table-responsive">
+                                <div style="border-radius: 35px; box-shadow: 8px 8px 10px 0 #0883ad"
+                                    class="row table-responsive">
                                     <table id="TablaPro" class="table table-striped table-bordered dataTable no-footer">
-                                        <thead>
+                                        <thead class="bg-cardheader text-light">
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
@@ -184,17 +197,19 @@
                                     </table>
                                 </div>
 
+                                <br>
                                 {{-- Total --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
+                                        <span style="background: transparent" class="border-0 input-group-text transparent"
+                                            id="inputGroup-sizing-sm">
                                             <label>Total</label>
                                         </span>
                                     </div>
 
                                     <input id="spTotal" onchange="numbersToText()"
-                                        class="text-dark form-control @error('spTotal') is-invalid @enderror" name="spTotal"
-                                        readonly>
+                                        class="text-dark form-control border-0 @error('spTotal') is-invalid @enderror" name="spTotal"
+                                        style="background: transparent" readonly>
 
                                     @error('spTotal')
                                         <span class="invalid-feedback" role="alert">
@@ -206,8 +221,8 @@
                                 {{-- totalletras --}}
                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                     <input id="totalletras"
-                                        class="text-dark form-control @error('totalletras') is-invalid @enderror"
-                                        name="totalletras" autofocus value="total letras" readonly>
+                                        class="text-dark form-control border-0 @error('totalletras') is-invalid @enderror"
+                                        style="background: transparent" name="totalletras" autofocus value="total letras" readonly>
                                     @error('totalletras')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -219,10 +234,9 @@
                                 <div class="container">
                                     <div class="col-12">
                                         <div class="col text-center">
-                                            <button type="submit" style="border-radius: 10px"
-                                                class="btn btn-lg btn-primary mt-3">
+                                            <button type="submit" style="border-radius: 50px" class="btn btn-primary mt-3">
                                                 <i class="far fa-save"></i>
-                                                {{ __('Guardar') }}
+                                                {{ __('GUARDAR') }}
                                             </button>
                                         </div>
                                     </div>
@@ -235,6 +249,7 @@
                     </div>
                 </div>
             </div>
+            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div>
     </div>
     <!--Compra-->
@@ -295,16 +310,16 @@
             if (selectedProduct == 1) {
                 console.error("Producto existente");
                 newtr = newtr +
-                    `<td><input class="form-control" placeholder="Producto" type="text" id="product" name="product[]" value="" /><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    `<td><input class="border-top-0 border-bottom-0 border-right-0 bg-span form-control" placeholder="Producto" type="text" id="product" name="product[]" value="" /><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
                 newtr = newtr +
-                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
             }
             if (selectedProduct == 2) {
                 console.error("Producto existente");
                 newtr = newtr +
-                    `<td><select onchange="mostrarprecio()" class="select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                    `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="bg-input border-0 form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
                 newtr = newtr +
-                    '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
             }
 
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected

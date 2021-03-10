@@ -41,13 +41,40 @@
 </head>
 
 <style>
+    /* Formularios */
+    .bg-card {
+        border-radius: 35px;
+        box-shadow: 8px 8px 10px 0 #0883ad
+    }
+
+    .bg-cardheader {
+        background-color: black;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+    }
+
+    .bg-table {
+        background-color: rgba(224, 220, 220, 0.993);
+    }
+
+    .bg-span {
+        background: transparent;
+        border-left: #325ff5 7px solid;
+    }
+
+    .bg-input {
+        background: transparent
+    }
+
     .bg-form {
         background: linear-gradient(0deg, rgb(10, 134, 184)0%, rgb(205, 231, 235) 100%);
     }
 
-    .bg-frm{
+    .bg-frm {
         background: linear-gradient(0deg, rgb(121, 209, 250)0%, rgb(205, 231, 235) 100%);
     }
+    /* Formularios */
+
     /*buscar select */
     .select2-container .select2-selection--single {
         height: 46px !important;
@@ -147,6 +174,7 @@
         float: right;
         width: 7%;
     }
+
     .wavesdecabeza {
         width: 100%;
         height: 150px;
@@ -164,7 +192,7 @@
 
 </style>
 
-<body>
+<body style="background-color: white">
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel" style="background: black">
@@ -465,10 +493,12 @@
         </header><!-- /header -->
 
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
-            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
 
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
 
@@ -482,15 +512,17 @@
         {{-- ------------------------- --}}
 
         @yield('content')
-        
+
         {{-- ---------------------- --}}
-        <div id="FondoParteDeOndas" class="FondoParteDeOndas" >
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>
                 <g class="parallax">
-    
+
                     <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
                     <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
                     <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />

@@ -81,7 +81,8 @@
 
                                                     <th style="border-left: #325ff5 7px solid;">{{ $item->id }}</th>
                                                 @else
-                                                    <th style="border-left: #325ff5 7px solid;"> {{ $loop->index + 1 }}</th>
+                                                    <th style="border-left: #325ff5 7px solid;"> {{ $loop->index + 1 }}
+                                                    </th>
                                                 @endif
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->description }}</td>
@@ -106,9 +107,9 @@
                                                     <div class="btn-group" role="group" aria-label="Basic example">
 
                                                         <a href="{{ url('productos/' . $item->id) }}"
-                                                            class="btn btn-sm btn-secondary rounded-circle"
-                                                            title="Ver Detalles">
-                                                            <span><i class="fas fa-eye"></i></span>
+                                                            class="btn btn-sm rounded-circle"
+                                                            style="background-color: #f55d00" title="Ver Detalles">
+                                                            <span><i class="text-light fas fa-eye"></i></span>
                                                         </a>
                                                         <a class="btn btn-sm btn-primary rounded-circle"
                                                             href="{{ url('productos/' . $item->id . '/edit') }}"

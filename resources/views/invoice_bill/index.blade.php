@@ -132,9 +132,9 @@
                                                                 </a>
                                                             @endif
 
-                                                            <a class="btn btn-sm btn-secondary rounded-circle"
+                                                            <a class="btn btn-sm rounded-circle"
                                                                 href="{{ url('facturas/' . $item->id) }}"
-                                                                title="Ver factura">
+                                                                title="Ver factura" style="background-color: #f55d00">
                                                                 <span><i class="text-light fas fa-eye"></i></span>
                                                             </a>
 
@@ -155,12 +155,7 @@
                                                     </td>
                                                 </tr>
                                             @else
-
                                             @endif
-
-
-
-
                                             <!--Modal-->
                                             <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
                                                 aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -206,7 +201,7 @@
             </div>
         </div>
     </div>
-
+    <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     <script>
         window.dataLayer = window.dataLayer || [];
 
