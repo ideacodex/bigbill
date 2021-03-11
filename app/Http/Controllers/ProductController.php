@@ -28,6 +28,8 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos

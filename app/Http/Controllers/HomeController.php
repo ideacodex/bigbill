@@ -7,13 +7,17 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 use App\Company;
+use App\Product;
 use App\Post;
 use App\Reaction;
 use App\Question;
 use App\Category;
 use App\Award;
+use App\Customer;
+use App\InvoiceBill;
 use App\User;
 use App\Score;
+use App\Shopping;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -42,7 +46,11 @@ class HomeController extends Controller
             auth()->user()->syncRoles('Vendedor');
         }
         $company = Company::all();
-        return view('PrimerIngreso.PrimerIngreso', ['company' => $company]);
+        $products = Product::all();
+        $invoice = InvoiceBill::all();
+        $bill = InvoiceBill::count();
+        $shopping = Shopping::count();
+        return view('PrimerIngreso.PrimerIngreso', ['company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
     }
 
     /**
