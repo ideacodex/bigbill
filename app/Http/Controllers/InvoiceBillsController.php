@@ -26,19 +26,11 @@ class InvoiceBillsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
-        $rol = Auth::user()->role_id;
-        if ($rol == 1) {
-            $records = InvoiceBill::with('user')->with('company')->with('customer')->get(); //busca todas las facturas
-            return view("invoice_bill.index", ["records" => $records]); //generala vista
-        } else {
-
-            $company = Auth::user()->company_id; //guardo la variable de companía del ususario autentificado
-            $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autentificacion
-            return view("invoice_bill.index", ["records" => $records]);
-        }
+        $company = Auth::user()->company_id; //guardo la variable de companía del ususario autentificado
+        $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autentificacion
+        return view("invoice_bill.index", ["records" => $records]);
     }
 
     /**
@@ -70,6 +62,7 @@ class InvoiceBillsController extends Controller
      */
     public function store(Request $request)
     {
+        dd('Entra');
         /**Factura */
         request()->validate([
             'user_id',
