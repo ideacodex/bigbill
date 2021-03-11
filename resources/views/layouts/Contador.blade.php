@@ -34,6 +34,40 @@
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <style>
+    /* Formularios */
+    .bg-card {
+        border-radius: 35px;
+        box-shadow: 8px 8px 10px 0 #0883ad
+    }
+
+    .bg-cardheader {
+        background-color: black;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+    }
+
+    .bg-table {
+        background-color: rgba(224, 220, 220, 0.993);
+    }
+
+    .bg-span {
+        background: transparent;
+        border-left: #325ff5 7px solid;
+    }
+
+    .bg-input {
+        background: transparent
+    }
+
+    .bg-form {
+        background: linear-gradient(0deg, rgb(10, 134, 184)0%, rgb(205, 231, 235) 100%);
+    }
+
+    .bg-frm {
+        background: linear-gradient(0deg, rgb(121, 209, 250)0%, rgb(205, 231, 235) 100%);
+    }
+
+    /* Formularios */
     img.derecha {
         float: right;
         width: 7%;
@@ -113,11 +147,20 @@
 
     .waves {
         width: 100%;
-        height: 70px;
+        height: 150px;
+        position: right;
         /*Fix for safari gap*/
         min-height: 50px;
         max-height: 230px;
+        bottom: 0;
         z-index: -1;
+        float: right;
+    }
+
+    .FondoParteDeOndasDecabeza {
+        width: 100%;
+        position: absolute;
+        top: 0%;
     }
 
     .FondoParteDeOndas {
@@ -127,25 +170,18 @@
         width: 100%;
         top: 0%;
         margin-right: -1%;
-        z-index: -1;
     }
 
-    .FondoParteDeOndasabajo {
-        background: transparent;
-        position: absolute;
-        height: 20%;
-        margin: 0%;
+    .FondoParteDeOndasNormal {
         width: 100%;
         bottom: 0%;
-        margin-bottom: 0%;
-        margin-right: -1%;
-        z-index: -1;
+        float: right;
     }
 
 
     .wavesdecabeza {
         width: 100%;
-        height: 70px;
+        height: 150px;
         /*Fix for safari gap*/
         min-height: 50px;
         max-height: 230px;
@@ -199,6 +235,7 @@
                             src="{{ asset('images/card.png') }}" alt="Facturador"></a>
                 @endif
             </div>
+
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
@@ -213,7 +250,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i class="menu-icon fas fa-calculator text-light"></i>Cuentas
                                     contables</a>
-                                <ul class="sub-menu children dropdown-menu">
+                                <ul class="sub-menu children dropdown-menu" style="background-color: black">
                                     <li><i class="text-primary fas fa-check"></i><a
                                             href="{{ route('TipodeCuenta.index') }}">
                                             Tipos</a></li>
@@ -227,15 +264,15 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class="menu-icon fas fa-cubes text-light"></i>Productos</a>
-                                <ul class="sub-menu children dropdown-menu">
+                                <ul class="sub-menu children dropdown-menu" style="background-color: black">
                                     <li> <i class="text-primary fas fa-check"></i>
-                                        <a href="{{ route('productos.index') }}">Listado de Productos</a>
+                                        <a href="{{ route('marcas.index') }}">Marcas</a>
                                     </li>
                                     <li> <i class="text-primary fas fa-check"></i>
                                         <a href="{{ route('familias.index') }}">Familias</a>
                                     </li>
                                     <li> <i class="text-primary fas fa-check"></i>
-                                        <a href="{{ route('marcas.index') }}">Marcas</a>
+                                        <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
                             </li>
@@ -244,11 +281,16 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class=" text-light menu-icon fas fa-file-medical-alt"></i>Facturar</a>
-                                <ul class="sub-menu children dropdown-menu">
+                                <ul class="sub-menu children dropdown-menu" style="background-color: black">
                                     <li>
                                         <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
                                             Ver Facturas</a>
+                                    </li>
+                                    <li>
+                                        <i class="text-primary menu-icon fas fa-check"></i>
+                                        <a href="{{ url('compras') }}">
+                                            Compras</a>
                                     </li>
                                     @if (Auth::user()->suscriptions->type_plan == 1)
                                         <li>
@@ -268,31 +310,31 @@
                                         class="text-light menu-icon fas fa-file-excel"></i>Inventarios</a>
                                 <ul class="sub-menu children dropdown-menu" style="background: black">
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc-Customer') }}">Clientes</a>
                                     </li>
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc') }}">Productos</a>
                                     </li>
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc-Account') }}">Cuentas</a>
                                     </li>
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc-AccountType') }}">Tipo Cuentas</a>
                                     </li>
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc-Companies') }}">Companias</a>
                                     </li>
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc-bills') }}">Facturas</a>
                                     </li>
                                     <li>
-                                        <i class="fas fa-file-excel text-success "></i>
+                                        <i class="text-primary fas fa-check"></i>
                                         <a href="{{ url('/doc-User') }}">Usuarios</a>
                                     </li>
                                 </ul>
@@ -358,10 +400,10 @@
                         aria-expanded="false">
                         @if (Auth::user()->file != null)
                             {{-- imagen --}}
-                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="imgperfil"
-                                width="50px" height="50px" alt="Compania">
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}"
+                                class="user-avatar rounded-circle mt-5 imgperfil" alt="Compania">
                         @else
-                            <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}"
+                            <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/usuario.svg') }}"
                                 alt="Más...">
                         @endif
                     </a>
@@ -390,7 +432,7 @@
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
+                        <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
                     </a>
                     <div class="user-menu dropdown-menu">
                         <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi
@@ -436,11 +478,10 @@
         {{-- ------------------------- --}}
         @yield('content')
         {{-- ---------------------- --}}
-        <div id="FondoParteDeOndasabajo" class="FondoParteDeOndasabajo">
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-
                     <path id="gentle-wave"
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>

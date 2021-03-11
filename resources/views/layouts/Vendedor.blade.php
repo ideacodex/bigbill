@@ -45,6 +45,40 @@
 </head>
 
 <style>
+    /* Formularios */
+    .bg-card {
+        border-radius: 35px;
+        box-shadow: 8px 8px 10px 0 #0883ad
+    }
+
+    .bg-cardheader {
+        background-color: black;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+    }
+
+    .bg-table {
+        background-color: rgba(224, 220, 220, 0.993);
+    }
+
+    .bg-span {
+        background: transparent;
+        border-left: #325ff5 7px solid;
+    }
+
+    .bg-input {
+        background: transparent
+    }
+
+    .bg-form {
+        background: linear-gradient(0deg, rgb(10, 134, 184)0%, rgb(205, 231, 235) 100%);
+    }
+
+    .bg-frm {
+        background: linear-gradient(0deg, rgb(121, 209, 250)0%, rgb(205, 231, 235) 100%);
+    }
+
+    /* Formularios */
     img.derecha {
         float: right;
         width: 7%;
@@ -124,12 +158,20 @@
 
     .waves {
         width: 100%;
-        height: 70px;
+        height: 150px;
+        position: right;
         /*Fix for safari gap*/
         min-height: 50px;
         max-height: 230px;
-        margin-top: -1.5%;
+        bottom: 0;
         z-index: -1;
+        float: right;
+    }
+
+    .FondoParteDeOndasDecabeza {
+        width: 100%;
+        position: absolute;
+        top: 0%;
     }
 
     .FondoParteDeOndas {
@@ -141,10 +183,16 @@
         margin-right: -1%;
     }
 
+    .FondoParteDeOndasNormal {
+        width: 100%;
+        bottom: 0%;
+        float: right;
+    }
+
 
     .wavesdecabeza {
         width: 100%;
-        height: 70px;
+        height: 150px;
         /*Fix for safari gap*/
         min-height: 50px;
         max-height: 230px;
@@ -220,15 +268,15 @@
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ route('productos.index') }}">Listado de Productos</a>
-                                    </li>
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
-                                        <a href="{{ route('familias.index') }}">Familias</a>
-                                    </li>
-                                    <li> <i class="menu-icon fas fa-file-alt"></i>
+                                <ul class="sub-menu children dropdown-menu" style="background-color: black">
+                                    <li> <i class="text-primary menu-icon fas fa-check"></i>
                                         <a href="{{ route('marcas.index') }}">Marcas</a>
+                                    </li>
+                                    <li> <i class="text-primary menu-icon fas fa-check"></i>
+                                        <a href="{{ route('familias.index') }}">Categorías</a>
+                                    </li>
+                                    <li> <i class="text-primary menu-icon fas fa-check"></i>
+                                        <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
                             </li>
@@ -237,15 +285,15 @@
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
-                                <ul class="sub-menu children dropdown-menu">
+                                <ul class="sub-menu children dropdown-menu" style="background-color: black">
                                     <li>
-                                        <i class="menu-icon fas fa-file-alt"></i>
+                                        <i class="text-primary menu-icon fas fa-check"></i>
                                         <a href="{{ route('facturas.index') }}">Ver
                                             Facturas</a>
                                     </li>
                                     @if (Auth::user()->suscriptions->type_plan == 1)
                                         <li>
-                                            <i class="menu-icon fas fa-file-alt"></i>
+                                            <i class="text-primary menu-icon fas fa-check"></i>
                                             <a
                                                 href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
                                                 Cotizaciones</a>
@@ -319,10 +367,10 @@
                         aria-expanded="false">
                         @if (Auth::user()->file != null)
                             {{-- imagen --}}
-                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="imgperfil"
-                                width="50px" height="50px" alt="Compania">
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="user-avatar rounded-circle mt-5 imgperfil"
+                                alt="Compania">
                         @else
-                            <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}"
+                            <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/usuario.svg') }}"
                                 alt="Más...">
                         @endif
                     </a>
@@ -351,7 +399,7 @@
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img class="user-avatar rounded-circle" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
+                        <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
                     </a>
                     <div class="user-menu dropdown-menu">
                         <a class="nav-link" href="{{ url('/perfil') }}">
@@ -359,7 +407,7 @@
                         <a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                                 class="fa fa-power-off"></i>
-                            {{ __('salir') }}
+                            {{ __('Salir') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
@@ -388,16 +436,14 @@
             </svg>
         </div>
         {{-- ------------------------- --}}
+
         @yield('content')
-
-
 
         {{-- ---------------------- --}}
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
-
                     <path id="gentle-wave"
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
                 </defs>

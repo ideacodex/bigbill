@@ -41,6 +41,29 @@
 </head>
 
 <style>
+    /* imagen de a la par de ajustes - parte superior derecha */
+    .imgperfil {
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .imgperfil:hover {
+        box-shadow: 0px 0px 15px 15px #00e6ff;
+        -webkit-box-shadow: 0px 0px 5px 5px #00e6ff;
+    }
+
+    .headerwaves {
+        position: auto;
+        text-align: center;
+        background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+        color: white;
+    }
+
+    .inner-headerwaves {
+        margin: 0;
+        padding: 0;
+    }
+
     /* Formularios */
     .bg-card {
         border-radius: 35px;
@@ -73,6 +96,7 @@
     .bg-frm {
         background: linear-gradient(0deg, rgb(121, 209, 250)0%, rgb(205, 231, 235) 100%);
     }
+
     /* Formularios */
 
     /*buscar select */
@@ -376,9 +400,9 @@
                     <a id="menuToggle" class="menutoggle pull-left" style="background: rgb(16, 158, 214)"><i
                             class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
-                        <img style="width: 25%" class="user-avatar" src="images/logoBB.svg" alt="Información">
+                        <img style="width: 25%" class="user-avatar" src="{{ asset('images/logoBB.svg') }}"
+                            alt="Información">
                         <hr style="background-color:rgb(5, 116, 180); height: 3px">
-                        </hr>
                         <p style="color: white"><b>{{ config('app.name', 'Laravel') }} |
                                 {{ substr(request()->getRequestUri(), 1) }}</b></p>
                         {{-- <div class="dropdown for-notification">
@@ -425,68 +449,70 @@
                     </div>
                 </div>
 
-                <div class="col-sm-5">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}"
-                                alt="Usuario">
+                {{-- foto de perfil --}}
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        @if (Auth::user()->file != null)
+                            {{-- imagen --}}
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}"
+                                class="user-avatar rounded-circle imgperfil mt-5" alt="Compania">
+                        @else
+                            <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/usuario.svg') }}"
+                                alt="Más...">
+                        @endif
+                    </a>
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="{{ url('/perfil') }}">
+                            <i class="fa fa-user"></i> Cargo
+                        @if (Auth::user()->role_id == 1) Administrador @else
+                            @if (Auth::user()->role_id == 2) Gerente @else
+                                @if (Auth::user()->role_id == 3) Contador @else
+                                        @if (Auth::user()->role_id == 4) Ventas
+                                        @else No tiene @endif
+                                    @endif
+                                @endif
+                            @endif
                         </a>
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Empresa:
-                            </a>
-
-                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
-                                    class="fa fa-users"></i> Cargo: </a>
-                        </div>
-                    </div>
-                    <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
-                            aria-expanded="true">
-                            <img src="{{ asset('images/ajustes.svg') }}">
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-users"></i> Empresa:
+                            @if (Auth::user()->company_id)
+                                {{ Auth::user()->companies->name }}
+                            @else
+                                Sin Compañia
+                            @endif
                         </a>
                     </div>
                 </div>
+                {{-- ajustes --}}
+                <div class="user-area dropdown float-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
+                    </a>
+                    <div class="user-menu dropdown-menu">
+                        <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi
+                            Perfil</a>
 
-                <div class="col-sm-5">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            @if (Auth::user()->file != null)
-                                {{-- imagen --}}
-                                <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}"
-                                    class="user-avatar rounded-circle" width="15px" height="32px" alt="Compania">
-                            @else
-                                <img class="user-avatar rounded-circle" src="{{ asset('images/ajustes.svg') }}"
-                                    alt="Más...">
-                            @endif
-                        </a>
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="{{ url('/perfil') }}"><i class="fa fa-user"></i> Mi
-                                Perfil</a>
+                        <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-users"></i>
+                            Usuarios </a>
 
-                            <a class="nav-link" href="{{ route('UsuariosEmpresa.index') }}"><i
-                                    class="fa fa-users"></i> Usuarios </a>
-
-                            <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
-                                Ajustes</a>
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
-                                {{ __('salir') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
-                    <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true"
-                            aria-expanded="true">
-                            <img src="{{ asset('images/ajustes.svg') }}">
+                        <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
+                            Ajustes</a>
+                        <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
+                            <i class="fas fa-street-view"></i> Empresa
                         </a>
 
-                    </div>
 
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                class="fa fa-power-off"></i>
+                            {{ __('salir') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
                 </div>
 
             </div>
@@ -533,6 +559,7 @@
 
 
     </div><!-- /#right-panel -->
+
     <!-- Right Panel -->
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/popper.js/dist/umd/popper.min.js') }}"></script>
