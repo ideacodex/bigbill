@@ -280,8 +280,11 @@
 
 
         .imgiconossistema_Facturacion {
-            margin-top: 5%;
-            width: 35%;
+
+            margin: 0%;
+            margin-top: 15%;
+            margin-bottom: 0%;
+            width: 20%;
         }
 
         .grup_img_iconos {
@@ -290,6 +293,23 @@
             background: -webkit-linear-gradient(80deg, rgba(0, 24, 132, 1) 26%, rgba(9, 127, 245, 1) 100%);
             background: linear-gradient(80deg, rgba(0, 24, 132, 1) 26%, rgba(9, 127, 245, 1) 100%);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#001884", endColorstr="#097ff5", GradientType=1);
+        }
+       
+        .grup_text_iconos {
+            margin-bottom: -5%;
+            font-family: 'Rubik_Bold';
+            color: white;
+        }
+
+        .border_card_finish {
+            
+            background-color: #ffffff;
+            text-align: center;
+            background: #38f509;
+            border-left: #000 2px solid; 
+            border-radius: 15px 15px 15px 15px;
+            -moz-border-radius: 15px 15px 15px 15px;
+            -webkit-border-radius: 15px 15px 15px 15px;
         }
 
         .team,
