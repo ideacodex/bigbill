@@ -390,25 +390,31 @@
     <!-- Modal para agregar clientes -->
     <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="largeModalLabel">Registrar Cliente</h5>
+            <div class="modal-content bg-card">
+                <div class="modal-header bg-cardheader">
+                    <h5 class="modal-title text-light" id="largeModalLabel">Registrar Cliente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span style="color: red" aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('clientes.store') }}" onsubmit="return checkSubmit();">
+                <div class="modal-body bg-frm">
+                    <form method="POST" action="{{ route('cliente') }}" onsubmit="return checkSubmit();">
                         @csrf
+
+                        {{-- Company_id --}}
+                        <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}">
 
                         {{-- Nombre --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nombre" class="text-dark fas fa-user"></i>
+                                <span
+                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Nombre" class="text-primary fas fa-user"></i>
                                 </span>
                             </div>
-                            <input id="name" type="text" class="text-dark form-control @error('name') is-invalid @enderror"
+                            <input id="name" type="text"
+                                class="border-0 bg-input text-dark form-control @error('name') is-invalid @enderror"
                                 name="name" value="{{ old('name') }}" placeholder="Nombre" required autocomplete="name"
                                 autofocus>
 
@@ -428,13 +434,15 @@
                         {{-- Apellido --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Apellido" class="text-dark fas fa-user"></i>
+                                <span
+                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Apellido" class="text-primary fas fa-user"></i>
                                 </span>
                             </div>
                             <input id="lastname" placeholder="Apellido" type="text"
-                                class="text-dark form-control @error('lastname') is-invalid @enderror" name="lastname"
-                                value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
+                                class="border-0 bg-input text-dark form-control @error('lastname') is-invalid @enderror"
+                                name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
 
                             @error('lastname')
                                 <span class="invalid-feedback" role="alert">
@@ -452,13 +460,15 @@
                         {{-- Teléfono --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
+                                <span
+                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Número de teléfono" class="text-primary fas fa-mobile"></i>
                                 </span>
                             </div>
                             <input id="phone" placeholder="Número de teléfono" type="number"
-                                class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
-                                value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                class="border-0 bg-input text-dark form-control @error('phone') is-invalid @enderror"
+                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
@@ -476,13 +486,15 @@
                         {{-- Email --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Correo electrónico" class="text-dark fas fa-at"></i>
+                                <span
+                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Correo electrónico" class="text-primary fas fa-at"></i>
                                 </span>
                             </div>
                             <input id="email" placeholder="Correo electrónico" type="text"
-                                class="text-dark form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                class="border-0 bg-input text-dark form-control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -500,13 +512,15 @@
                         {{-- Nit --}}
                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                    <i title="Nit" class="text-dark fas fa-sort-amount-down"></i>
+                                <span
+                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Nit" class="text-primary fas fa-sort-amount-down"></i>
                                 </span>
                             </div>
                             <input id="nit" placeholder="Nit" type="number"
-                                class="text-dark form-control @error('nit') is-invalid @enderror" name="nit"
-                                value="{{ old('nit') }}" required autocomplete="nit" autofocus>
+                                class="border-0 bg-input text-dark form-control @error('nit') is-invalid @enderror"
+                                name="nit" value="{{ old('nit') }}" required autocomplete="nit" autofocus>
 
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">
@@ -524,18 +538,16 @@
                         <div class="container mt-4">
                             <div class="col-12">
                                 <div class="col text-center">
-                                    <button type="submit" style="border-radius: 10px" class="btn btn-lg btn-primary mt-3">
+                                    <button type="submit" style="border-radius: 50px" class="btn btn-primary mt-3">
                                         <i class="far fa-save"></i>
-                                        {{ __('Guardar') }}
+                                        {{ __('GUARDAR') }}
                                     </button>
+                                    <button type="button" style="border-radius: 50px" class="btn btn-danger mt-3"
+                                        data-dismiss="modal"><i class="fas fa-times-circle"></i> CERRAR</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="border-radius: 10px" class="btn btn-danger" data-dismiss="modal"><i
-                            class="fas fa-times-circle"></i> Cerrar</button>
                 </div>
             </div>
         </div>

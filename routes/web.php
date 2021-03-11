@@ -29,6 +29,7 @@ Route::resource('sucursales', 'BranchOfficesController')->middleware('auth');
 
 /**Clients Route */
 Route::resource('clientes', 'CustomersController')->middleware('auth');
+Route::post('cliente', 'CustomersController@save')->middleware('auth')->name('cliente');
 /**Clients Route */
 
 /**Bill Route */

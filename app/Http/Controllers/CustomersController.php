@@ -116,6 +116,48 @@ class CustomersController extends Controller
         ]);
         DB::beginTransaction();
         try {
+            $customers = Customer::findOrFail($id);
+            $customers->name = $request->name;
+            $customers->lastname = $request->lastname;
+            $customers->phone = $request->phone;
+            $customers->email = $request->email;
+            $customers->nit = $request->nit;
+            $customers->company_id = $request->company_id;
+
+            $customers->save();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
+            return response()->json($e, 500);
+        }
+        DB::commit();
+        return redirect()->action('CustomersController@index')->with('MENSAJE', 'Registro Modificado');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $record = Customer::destroy($id);
+        return back()->with('datosEliminados', 'Cliente Eliminado');
+    }
+
+    public function save(Request $request)
+    {
+        request()->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'nit' => 'required',
+            'company_id' => 'required'
+        ]);
+        DB::beginTransaction();
+        try {
             $customers = new Customer;
             $customers->name = $request->name;
             $customers->lastname = $request->lastname;
@@ -131,18 +173,6 @@ class CustomersController extends Controller
             return response()->json($e, 500);
         }
         DB::commit();
-        return redirect()->action('CustomersController@index')->with('MENSAJE', 'Registro Guardado');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $record = Customer::destroy($id);
-        return back()->with('datosEliminados', 'Cliente Eliminado');
+        return redirect()->action('InvoiceBillsController@create')->with('MENSAJE', 'Registro Guardado');
     }
 }

@@ -24,9 +24,16 @@ class ShoppingsController extends Controller
      */
     public function index()
     {
-
-        $records = Shopping::with('user')->with('company')->get(); //busca todas las facturas
-        return view("shopping.index", ["records" => $records]); //generala vista
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $records = Shopping::with('user')->with('company')->get(); //busca todas las facturas
+            return view("shopping.index", ["records" => $records]); //generala vista
+        }
+        else {
+            $company = Auth::user()->company_id;
+            $records = Shopping::where('company_id', $company)->with('user')->with('company')->get(); //busca todas las facturas
+            return view("shopping.index", ["records" => $records]); //generala vista
+        }
     }
 
     /**
@@ -191,7 +198,7 @@ class ShoppingsController extends Controller
 
     public function xml(Request $request)
     {
-        $path = public_path('files/xml/1.xml') ;
+        $path = public_path('files/xml/1.xml');
         $xmlfile = file_get_contents($path);
 
         $document = new \DOMDocument();
