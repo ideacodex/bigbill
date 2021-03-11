@@ -24,6 +24,7 @@ class ShoppingsController extends Controller
      */
     public function index()
     {
+
         $records = Shopping::with('user')->with('company')->get(); //busca todas las facturas
         return view("shopping.index", ["records" => $records]); //generala vista
     }
@@ -35,8 +36,14 @@ class ShoppingsController extends Controller
      */
     public function create()
     {
-        $product = Product::all();
-        return view("shopping.create", ['product' => $product]);
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $product = Product::all();
+            return view("shopping.create", ['product' => $product]);
+        } else {
+            $product = Product::where('active', 1)->where('company_id', Auth()->user()->company_id)->get();
+            return view("shopping.create", ['product' => $product]);
+        }
     }
 
     /**

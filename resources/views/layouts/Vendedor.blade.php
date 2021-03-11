@@ -222,28 +222,30 @@
                 @if (Auth::user()->company_id)
                     @if (Auth::user()->company->file != null)
                         <a class="navbar-brand" href="{{ url('perfil') }}"><img
-                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px"
-                                height="70px" alt="Facturador"></a>
-                    @else
-                        <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50%"
+                                style="sizes = (min-width: 576px) 33.3vw, 100vw" display="inline-block"
                                 alt="Facturador"></a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img
+                                src="{{ asset('images/bill.png') }}" alt="Facturador"></a>
                     @endif
                 @else
-                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="images/card.png"
+                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('images/bill.png') }}"
                             alt="Facturador"></a>
                 @endif
                 {{-- Logo Cuando la barra se minimiza --}}
                 @if (Auth::user()->company_id)
                     @if (Auth::user()->company->file != null)
                         <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img
-                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px"
-                                height="40px" alt="Facturador"></a>
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50%"
+                                style="sizes = (min-width: 576px) 33.3vw, 100vw" display="inline-block"
+                                alt="Facturador"></a>
                     @else
-                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
                                 alt="Facturador"></a>
                     @endif
                 @else
-                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/card.png"
+                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
                             alt="Facturador"></a>
                 @endif
             </div>
@@ -367,8 +369,8 @@
                         aria-expanded="false">
                         @if (Auth::user()->file != null)
                             {{-- imagen --}}
-                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}" class="user-avatar rounded-circle mt-5 imgperfil"
-                                alt="Compania">
+                            <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}"
+                                class="user-avatar rounded-circle mt-5 imgperfil" alt="Compania">
                         @else
                             <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/usuario.svg') }}"
                                 alt="Más...">
@@ -399,7 +401,8 @@
                 <div class="user-area dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/ajustes.svg') }}" alt="Más...">
+                        <img class="user-avatar rounded-circle mt-5" src="{{ asset('images/ajustes.svg') }}"
+                            alt="Más...">
                     </a>
                     <div class="user-menu dropdown-menu">
                         <a class="nav-link" href="{{ url('/perfil') }}">

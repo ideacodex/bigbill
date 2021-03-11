@@ -227,34 +227,32 @@
                 {{-- Logo de la Empresa --}}
                 @if (Auth::user()->company_id)
                     @if (Auth::user()->company->file != null)
-
-                        <a class="navbar-brand" href="{{ url('perfil') }}">
-                            <img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="90px"
-                                height="70px" alt="Facturador"></a>
-
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50%"
+                                style="sizes = (min-width: 576px) 33.3vw, 100vw" display="inline-block"
+                                alt="Facturador"></a>
                     @else
-                        <a class="navbar-brand" href="{{ url('perfil') }}">
-                            <img src="{{ asset('images/card.png') }}" alt="Facturador">
-                        </a>
+                        <a class="navbar-brand" href="{{ url('perfil') }}"><img
+                                src="{{ asset('images/bill.png') }}" alt="Facturador"></a>
                     @endif
                 @else
-                    <a class="navbar-brand" href="{{ url('perfil') }}">
-                        <img src="{{ asset('images/card.png') }}" alt="Facturador">
-                    </a>
+                    <a class="navbar-brand" href="{{ url('perfil') }}"><img src="{{ asset('images/bill.png') }}"
+                            alt="Facturador"></a>
                 @endif
                 {{-- Logo Cuando la barra se minimiza --}}
                 @if (Auth::user()->company_id)
                     @if (Auth::user()->company->file != null)
-                        <a class="navbar-brand hidden" href="{{ url('perfil') }}">
-                            <img src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50px"
-                                height="40px" alt="Facturador"></a>
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img
+                                src="{{ asset('/storage/companias/' . Auth::user()->company->file) }}" width="50%"
+                                style="sizes = (min-width: 576px) 33.3vw, 100vw" display="inline-block"
+                                alt="Facturador"></a>
                     @else
-                        <a class="navbar-brand hidden" href="{{ url('perfil') }}">
-                            <img src="{{ asset('images/card.png') }}" alt="Facturador"></a>
+                        <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
+                                alt="Facturador"></a>
                     @endif
                 @else
-                    <a class="navbar-brand hidden" href="{{ url('perfil') }}">
-                        <img src="{{ asset('images/card.png') }}" alt="Facturador"></a>
+                    <a class="navbar-brand hidden" href="{{ url('perfil') }}"><img src="images/bill.png"
+                            alt="Facturador"></a>
                 @endif
             </div>
 

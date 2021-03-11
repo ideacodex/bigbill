@@ -62,7 +62,6 @@ class InvoiceBillsController extends Controller
      */
     public function store(Request $request)
     {
-        dd('Entra');
         /**Factura */
         request()->validate([
             'user_id',
