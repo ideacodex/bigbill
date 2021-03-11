@@ -111,42 +111,32 @@
             </div>
         </div>
     </div>
-
-
-
-
-
     {{-- iconos --}}
-    <div class="row pb-5 justify-content-center grup_img_iconos" >
-        <div class="col-6 col-md-3 col-lg-3  justify-content-center text-center">
+    <div class="row pb-5 justify-content-center grup_img_iconos ">
+        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
             <img src="{{ asset('img/ICONO_FACTURACIÓN.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <strong>
-                <h4 class="text-light mt-3">Gastos</h4>
-            </strong>
+            <br> <br>
+            <h4 class="grup_text_iconos  mt-3">Facturación</h4>
         </div>
-        <div class="col-6 col-md-3 col-lg-3  justify-content-center text-center">
+        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
             <img src="{{ asset('img/ICONO_GASTOS.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <strong>
-                <h4 class="text-light mt-3">Reportes</h4>
-            </strong>
+            <br> <br>
+            <h4 class="grup_text_iconos  mt-3">Gastos</h4>
         </div>
-        <div class="col-6 col-md-3 col-lg-3  justify-content-center text-center">
+        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
             <img src="{{ asset('img/ICONO_REPORTES.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <strong>
-                <h4 class="text-light mt-3">Inventarios</h4>
-            </strong>
+            <br> <br>
+            <h4 class="grup_text_iconos  mt-3">Reportes</h4>
         </div>
-        <div class="col-6 col-md-3 col-lg-3  justify-content-center text-center">
+        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
             <img src="{{ asset('img/ICONO_INVENTARIOS.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <strong>
-                <h4 class="text-light mt-3">Múltiples <br> Usuarios</h4>
-            </strong>
+            <br> <br>
+            <h4 class="grup_text_iconos  mt-3">Inventarios</h4>
         </div>
-        <div class="col-6 col-md-3 col-lg-3  justify-content-center text-center">
+        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
             <img src="{{ asset('img/ICONO_MULTIPLES_USUARIOS.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <strong>
-                <h4 class="text-light mt-3">Múltiples <br> Usuarios</h4>
-            </strong>
+            <br> <br>
+            <h4 class="grup_text_iconos  mt-3">Múltiples<br> Usuarios</h4>
         </div>
     </div>
 
@@ -157,71 +147,86 @@
             <div
                 class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
                 <h1>
-                    <strong> <span class="text-primary">CONTROLA TU EMPRESA </span> <br> <span>DESDE CUALQUIER LUGAR
-                            <br> CON ESTE SISTEMA</span> </strong>
+                    <label class="text-primary Rubik_Bold">
+                        CONTROLA TU EMPRESA
+                    </label>
+                    <br>
+                    <label class="Rubik-Medium">
+                        DESDE CUALQUIER LUGAR
+                        <br>
+                        CON ESTE SISTEMA
+                    </label>
                 </h1>
                 </a>
                 <div class="card-deck mt-4">
+                    {{-- SEGURIDADEN LA NUBE --}}
                     <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="">
-                            <div class="bg-primary media pt-3 pb-5">
-                                <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mr-2 ml-2 text-light">SEGURIDAD EN LA NUBE</h5>
-                                </div>
-                            </div>
-                            <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                                class="card-text">
-                                <p class="pt-5 ml-4 mr-4">Solo tú tienes acceso a tus documentos por medio de tu contraseña.
-                                    Toda
-                                    tu información se almacena de forma segura, BIG BILL proporciona alta privacidad y
-                                    seguridad</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="bg-primary media pt-3 pb-5">
+                            <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
+                            <div class="media-body">
+                                <h5 class="mt-0 mr-2 ml-2 text-light ">
+                                    SEGURIDADEN LA NUBE
+                                </h5>
                             </div>
                         </div>
-                    </div>
-                    <div class="card" style="background-color: #ffffff;">
-                        <div class="">
-                            <div class="bg-primary media pt-3 pb-5">
-                                <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mr-2 ml-2 text-light">SEGURIDAD EN LA NUBE</h5>
-                                </div>
-                            </div>
-                            <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                                class="card-text">
-                                <p class="pt-5 ml-4 mr-4">Solo tú tienes acceso a tus documentos por medio de tu contraseña.
-                                    Toda
-                                    tu información se almacena de forma segura, BIG BILL proporciona alta privacidad y
-                                    seguridad</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            </div>
+                        <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                            class="card-text">
+                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
+                                Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
+                                encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
+                            </p>
                         </div>
                     </div>
-                    <div class="card" style="background-color: #ffffff;">
-                        <div class="">
-                            <div class="bg-primary media pt-3 pb-5">
-                                <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mr-2 ml-2 text-light">SEGURIDAD EN LA NUBE</h5>
-                                </div>
-                            </div>
-                            <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                                class="card-text">
-                                <p class="pt-5 ml-4 mr-4">Solo tú tienes acceso a tus documentos por medio de tu contraseña.
-                                    Toda
-                                    tu información se almacena de forma segura, BIG BILL proporciona alta privacidad y
-                                    seguridad</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+                    {{-- MANEJO DE MÚLTIPLESEMPRESAS --}}
+
+                    <div class="card rounded" style="background-color: #ffffff;">
+                        <div class="bg-primary media pt-3 pb-5">
+                            <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
+                            <div class="media-body">
+                                <h5 class="mt-0 mr-2 ml-2 text-light">
+                                    SEGURIDADEN LA NUBE
+                                </h5>
                             </div>
                         </div>
+                        <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                            class="card-text">
+                            <p class="pt-5 ml-4 mr-4">
+                                Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
+                                encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
+                            </p>
+                        </div>
                     </div>
+
+
+                    {{-- EXPERIENCIA INTEGRAL --}}
+                    <div class="card rounded" style="background-color: #ffffff;">
+                        <div class="bg-primary media pt-3 pb-5">
+                            <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
+                            <div class="media-body">
+                                <h5 class="mt-0 mr-2 ml-2 text-light">
+                                    SEGURIDADEN LA NUBE
+                                </h5>
+                            </div>
+                        </div>
+                        <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                            class="card-text">
+                            <p class="pt-5 ml-4 mr-4">
+                                Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
+                                encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
+                            </p>
+                        </div>
+                    </div>
+
+
+
+
                 </div>
             </div>
         </div>
     </div>
 
-
+    <br><br><br><br>
 
 
 
