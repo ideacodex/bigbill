@@ -20,9 +20,9 @@ class Customer extends Model
         return $this->hasOne("App\User", 'id', 'user_id');
     }
 
-    public function detail()
+    public function bills()
     {
-        return $this->hasMany("App\DetailBill", 'invoice_id');
+        return $this->hasMany("App\InvoiceBill",'customer_id');
     }
 
 }

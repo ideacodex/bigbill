@@ -205,7 +205,6 @@
                     </div>
                 </div>
             </div>
-            <img class="derecha" src="{{ asset('images/ideacode.png') }}">
         </div><!-- .animated -->
     </div><!-- .content -->
 

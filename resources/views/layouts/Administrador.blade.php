@@ -200,6 +200,23 @@
         width: 7%;
     }
 
+    .btn-float {
+        position: fixed !important;
+        margin-right: 5px;
+        right: -10px !important;
+        bottom: 40px !important;
+        z-index: 100 !important;
+        display: block;
+    }
+
+    .btn-fl {
+        position: fixed !important;
+        float: left;
+        bottom: 40px !important;
+        z-index: 100 !important;
+        display: block;
+    }
+
     .wavesdecabeza {
         width: 100%;
         height: 150px;
@@ -213,6 +230,11 @@
         /* IE 9 */
         -webkit-transform: rotate(180deg);
         /* Opera, Chrome, and Safari */
+    }
+
+    .estadisticas {
+        border-radius: 35px;
+        box-shadow: 8px 8px 10px 0 #0883ad;
     }
 
 </style>
@@ -500,6 +522,9 @@
                         <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-users"></i>
                             Usuarios </a>
 
+                        <a class="nav-link" href="{{ url('home/') }}"><i class="fas fa-chart-bar"></i> Estadísticas
+                        </a>
+
                         <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>
                             Ajustes</a>
                         <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
@@ -542,6 +567,16 @@
 
         @yield('content')
 
+        <div class="btn-fl">
+            <a href="{{url('https://api.whatsapp.com/send?phone=50233120413')}}" data-toggle="modal" data-target="#exampleModalCenter">
+                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="5%" style="min-width: 50px">
+            </a>
+        </div>
+        <div class="btn-float">
+            <button data-toggle="modal" data-target="#exampleModalCenter">
+                <img href="{{url('https://api.whatsapp.com/send?phone=50233120413')}}" class="btn-float" src="{{ asset('images/ideacode.png') }}" width="10%" style="min-width: 90px">
+            </button>
+        </div>
         {{-- ---------------------- --}}
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

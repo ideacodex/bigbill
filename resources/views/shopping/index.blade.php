@@ -214,7 +214,6 @@
             }
 
         </script>
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     @endsection
     @section('js')
         <!-- Menu Toggle Script -->

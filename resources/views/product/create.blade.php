@@ -444,8 +444,6 @@
                 </div>
             </div>
         </div>
-
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div>
 
     {{-- este script es el primer Selec dinamico que despliega los sigueintes 3 --}}

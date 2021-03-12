@@ -45,12 +45,30 @@ class HomeController extends Controller
         if (!$user->hasAnyRole(['Administrador', 'Gerente', 'Contador', 'Vendedor'])) {
             auth()->user()->syncRoles('Vendedor');
         }
-        $company = Company::all();
-        $products = Product::all();
-        $invoice = InvoiceBill::all();
-        $bill = InvoiceBill::count();
-        $shopping = Shopping::count();
-        return view('PrimerIngreso.PrimerIngreso', ['company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $company = Company::all();
+            $products = Product::all();
+            $invoice = InvoiceBill::all();
+            $idClientes = InvoiceBill::distinct('customer_id')->pluck('customer_id');
+            $customer = Customer::whereIn('id', $idClientes)->with('bills')->get();
+            $bill = InvoiceBill::count();
+            $shopping = Shopping::count();
+            $users = User::count();
+            $ibill = InvoiceBill::get()->sum('total');
+            return view('PrimerIngreso.PrimerIngreso', ['customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+        } else {
+            $company = Auth::user()->company_id;
+            $idClientes = InvoiceBill::where('company_id', $company)->distinct('customer_id')->pluck('customer_id');
+            $customer = Customer::where('company_id', $company)->whereIn('id', $idClientes)->with('bills')->get();
+            $products = Product::where('company_id', $company)->get();
+            $invoice = InvoiceBill::where('company_id', $company)->get();
+            $bill = InvoiceBill::where('company_id', $company)->get()->count();
+            $shopping = Shopping::where('company_id', $company)->get()->count();
+            $users = User::where('company_id', $company)->get()->count();
+            $ibill = InvoiceBill::where('company_id', $company)->get()->sum('total');
+            return view('PrimerIngreso.PrimerIngreso', ['ibill' => $ibill,'customer' => $customer ,'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+        }
     }
 
     /**

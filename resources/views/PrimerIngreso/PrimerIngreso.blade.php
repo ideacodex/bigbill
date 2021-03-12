@@ -15,8 +15,8 @@
                 var data = google.visualization.arrayToDataTable([
                     ['Nombre', 'Ventas'],
                     
-                    @foreach ($invoice as $invoices)
-                        ['{{ $invoices->customer_name }}', {{ $invoices->id}}],
+                    @foreach ($customer as $customers)
+                        ['{{ $customers->name }}', {{ $customers->bills->count()}}],
                     @endforeach
                 ]);
 
@@ -29,7 +29,13 @@
             }
         </script>
 
-        <div id="piechart" class="col-sm-6 col-lg-3" style="width: 500px; height: 500px"></div>
+        <div>
+            <div class="card-header" style="background-color: black; border-radius: 15px; color: white; box-shadow: 8px 8px 10px 0 #0883ad">
+                <strong class="card-title">Estadísticas</strong>
+            </div>
+            <div id="piechart" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px">
+            </div>
+        </div>
 
         {{-- Productos más vendidos --}}
         <script>
@@ -61,11 +67,11 @@
                     }
         </script>
 
-        <div id="chart_div" class="col-sm-6 col-lg-3" style="width: 500px; height: 500px"></div>
+        <div id="chart_div" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px"></div>
         
-        <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-flat-color-2">
-                <div class="card-body pb-0">
+        <div class="col-sm-6 col-lg-3 mt-3">
+            <div class="card text-white bg-flat-color-2 estadisticas">
+                <div class="card-body pb-0 estadisticas">
                     <div class="dropdown float-right">
                         <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
                             id="dropdownMenuButton2" data-toggle="dropdown">
@@ -77,9 +83,9 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-light">Ventas totales</p>
+                    <p class="text-light"><b>Ventas totales</b></p>
                     <h4 class="mb-0">
-                        <span class="count">{{ $bill }}</span>
+                        <span class="count"><b>{{ $bill }}</b></span>
                     </h4>
                     <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/ventas.png') }}"
                             alt="Ventas">
@@ -92,38 +98,9 @@
         </div>
         <!--/.col-->
 
-        <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-flat-color-3">
-                <div class="card-body pb-0">
-                    <div class="dropdown float-right">
-                        <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                            id="dropdownMenuButton3" data-toggle="dropdown">
-                            <i class="fa fa-cog"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                            <div class="dropdown-menu-content">
-                                <a class="dropdown-item" href="{{ url('compras') }}">Ver compras</a>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-light">Compras Totales</p>
-                    <h4 class="mb-0">
-                        <span class="count">{{ $shopping }}</span>
-                    </h4>
-                    <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/compra.png') }}"
-                            alt="Compras">
-                </div>
-
-                <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                    <canvas id="widgetChart3"></canvas>
-                </div>
-            </div>
-        </div>
-        <!--/.col-->
-
-        {{-- <div class="col-sm-6 col-lg-3">
-            <div class="card text-white bg-flat-color-4">
-                <div class="card-body pb-0">
+        <div class="col-sm-6 col-lg-3 mt-3">
+            <div class="card text-white bg-warning estadisticas">
+                <div class="card-body pb-0 estadisticas">
                     <div class="dropdown float-right">
                         <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
                             id="dropdownMenuButton4" data-toggle="dropdown">
@@ -131,16 +108,16 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
                             <div class="dropdown-menu-content">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{ url('compras')}}">Ver compras</a>
                             </div>
                         </div>
                     </div>
+                    <p class="text-light"><b>Compras Totales</b></p>
                     <h4 class="mb-0">
-                        <span class="count">10468</span>
+                        <span class="count"><b>{{ $shopping }}</b></span>
                     </h4>
-                    <p class="text-light">Members online</p>
+                    <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/compra.png') }}"
+                            alt="Compras">
 
                     <div class="chart-wrapper px-3" style="height:70px;" height="70">
                         <canvas id="widgetChart4"></canvas>
@@ -148,7 +125,37 @@
 
                 </div>
             </div>
-        </div> --}}
+        </div>
+        <!--/.col-->
+
+        <div class="col-sm-6 col-lg-3">
+            <div class="card text-white bg-flat-color-4 estadisticas">
+                <div class="card-body pb-0 estadisticas">
+                    <div class="dropdown float-right">
+                        <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
+                            id="dropdownMenuButton4" data-toggle="dropdown">
+                            <i class="fa fa-cog"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                            <div class="dropdown-menu-content">
+                                <a class="dropdown-item" href="{{ url('UsuariosEmpresa')}}">Usuarios registrados</a>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-light"><b>Usuarios del sistema</b></p>
+                    <h4 class="mb-0">
+                        <span class="count"><b>{{ $users }}</b></span>
+                    </h4>
+                    <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/team.png') }}"
+                            alt="Usuarios">
+
+                    <div class="chart-wrapper px-3" style="height:70px;" height="70">
+                        <canvas id="widgetChart4"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <!--/.col-->
 
         {{-- <div class="col-lg-3 col-md-6">
@@ -208,7 +215,7 @@
         <!--/.col-->
 
 
-        {{-- <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6">
             <div class="social-box google-plus">
                 <i class="fa fa-google-plus"></i>
                 <ul>
@@ -223,7 +230,7 @@
                 </ul>
             </div>
             <!--/social-box-->
-        </div> --}}
+        </div>
         <!--/.col-->
 
         {{-- <div class="col-xl-6">
@@ -309,72 +316,22 @@
             </div>
         </div> --}}
 
-        {{-- <div class="col-xl-3 col-lg-6">
-            <section class="card">
-                <div class="twt-feed blue-bg">
-                    <div class="corner-ribon black-ribon">
-                        <i class="fa fa-twitter"></i>
-                    </div>
-                    <div class="fa fa-twitter wtt-mark"></div>
-
-                    <div class="media">
-                        <a href="#">
-                            <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt=""
-                                src="images/admin.jpg">
-                        </a>
-                        <div class="media-body">
-                            <h2 class="text-white display-6">Jim Doe</h2>
-                            <p class="text-light">Project Manager</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="weather-category twt-category">
-                    <ul>
-                        <li class="active">
-                            <h5>750</h5>
-                            Tweets
-                        </li>
-                        <li>
-                            <h5>865</h5>
-                            Following
-                        </li>
-                        <li>
-                            <h5>3645</h5>
-                            Followers
-                        </li>
-                    </ul>
-                </div>
-                <div class="twt-write col-sm-12">
-                    <textarea placeholder="Write your Tweet and Enter" rows="1" class="form-control t-text-area"></textarea>
-                </div>
-                <footer class="twt-footer">
-                    <a href="#"><i class="fa fa-camera"></i></a>
-                    <a href="#"><i class="fa fa-map-marker"></i></a>
-                    New Castle, UK
-                    <span class="pull-right">
-                        32
-                    </span>
-                </footer>
-            </section>
-        </div> --}}
-
-
-        {{-- <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-3 col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-one">
                         <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
                         <div class="stat-content dib">
-                            <div class="stat-text">Total Profit</div>
-                            <div class="stat-digit">1,012</div>
+                            <div class="stat-text">Total en ventas</div>
+                            <div class="stat-digit">{{ $ibill }}</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
 
-        {{-- <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-3 col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-one">
@@ -386,7 +343,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         {{-- <div class="col-xl-3 col-lg-6">
             <div class="card">
@@ -402,18 +359,7 @@
             </div>
         </div> --}}
 
-        {{-- <div class="col-xl-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>World</h4>
-                </div>
-                <div class="Vector-map-js">
-                    <div id="vmap" class="vmap" style="height: 265px;"></div>
-                </div>
-            </div>
-            <!-- /# card -->
-        </div> --}}
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
+        
     @else
 
         <div style="margin: 1rem;  padding: 1rem;">
@@ -709,7 +655,7 @@
                 </div>
             </div>
         </div>
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
+        
     @endif
 
     <script>

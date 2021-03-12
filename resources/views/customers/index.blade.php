@@ -118,7 +118,6 @@
 
             </div>
         </div><!-- .animated -->
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div><!-- .content -->
 
 @endsection

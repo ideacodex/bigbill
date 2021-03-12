@@ -231,6 +231,5 @@
 
             </div>
         </div>
-        <img class="derecha" src="{{ asset('images/ideacode.png') }}">
     </div>
 @endsection
