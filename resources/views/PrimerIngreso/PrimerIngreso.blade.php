@@ -215,8 +215,8 @@
         <!--/.col-->
 
 
-        <div class="col-lg-3 col-md-6">
-            <div class="social-box google-plus">
+        {{-- <div class="col-lg-3 col-md-6">
+            <div class="social-box google-plus estadisticas">
                 <i class="fa fa-google-plus"></i>
                 <ul>
                     <li>
@@ -229,8 +229,7 @@
                     </li>
                 </ul>
             </div>
-            <!--/social-box-->
-        </div>
+        </div> --}}
         <!--/.col-->
 
         {{-- <div class="col-xl-6">
@@ -320,7 +319,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-one">
-                        <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
+                        <div class="stat-icon dib"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/quetzal.png') }}"
+                            alt="Ventas"></div>
                         <div class="stat-content dib">
                             <div class="stat-text">Total en ventas</div>
                             <div class="stat-digit">{{ $ibill }}</div>
@@ -335,10 +335,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-one">
-                        <div class="stat-icon dib"><i class="ti-user text-primary border-primary"></i></div>
+                        <div class="stat-icon dib"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/carts.png') }}"
+                            alt="Compras"></div>
                         <div class="stat-content dib">
-                            <div class="stat-text">New Customer</div>
-                            <div class="stat-digit">961</div>
+                            <div class="stat-text">Gastos en compras</div>
+                            <div class="stat-digit">{{ $ishopping }}</div>
                         </div>
                     </div>
                 </div>

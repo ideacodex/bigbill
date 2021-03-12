@@ -56,18 +56,21 @@ class HomeController extends Controller
             $shopping = Shopping::count();
             $users = User::count();
             $ibill = InvoiceBill::get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            $ishopping = Shopping::get()->sum('total');
+            return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
         } else {
-            $company = Auth::user()->company_id;
-            $idClientes = InvoiceBill::where('company_id', $company)->distinct('customer_id')->pluck('customer_id');
-            $customer = Customer::where('company_id', $company)->whereIn('id', $idClientes)->with('bills')->get();
-            $products = Product::where('company_id', $company)->get();
-            $invoice = InvoiceBill::where('company_id', $company)->get();
-            $bill = InvoiceBill::where('company_id', $company)->get()->count();
-            $shopping = Shopping::where('company_id', $company)->get()->count();
-            $users = User::where('company_id', $company)->get()->count();
-            $ibill = InvoiceBill::where('company_id', $company)->get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['ibill' => $ibill,'customer' => $customer ,'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            $companies = Auth::user()->company_id;
+            $company = Company::all();
+            $idClientes = InvoiceBill::where('company_id', $companies)->distinct('customer_id')->pluck('customer_id');
+            $customer = Customer::where('company_id', $companies)->whereIn('id', $idClientes)->with('bills')->get();
+            $products = Product::where('company_id', $companies)->get();
+            $invoice = InvoiceBill::where('company_id', $companies)->get();
+            $bill = InvoiceBill::where('company_id', $companies)->get()->count();
+            $shopping = Shopping::where('company_id', $companies)->get()->count();
+            $users = User::where('company_id', $companies)->get()->count();
+            $ibill = InvoiceBill::where('company_id', $companies)->get()->sum('total');
+            $ishopping = Shopping::where('company_id', $companies)->get()->sum('total');
+            return view('PrimerIngreso.PrimerIngreso', ['ishopping'=> $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
         }
     }
 
