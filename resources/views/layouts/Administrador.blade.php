@@ -382,7 +382,7 @@
                     </li>
 
                     <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
+                   {{--  <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes
                             excel</a>
@@ -404,7 +404,7 @@
                                     href="{{ url('/doc-User') }}">Usuarios</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes
@@ -558,7 +558,9 @@
                         <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
                             <i class="fas fa-street-view"></i> Empresa
                         </a>
-
+                        <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
+                            <i class="fas fa-newspaper"></i> Anuncios
+                        </a>
 
                         <a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
