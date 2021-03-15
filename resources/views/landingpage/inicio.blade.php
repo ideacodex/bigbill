@@ -25,9 +25,7 @@
                 </button>
                 <div class="collapse navbar-collapse Rubik-Medium" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">INICIO</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="#soluciones">SOLUCIONES</a>
                         </li>

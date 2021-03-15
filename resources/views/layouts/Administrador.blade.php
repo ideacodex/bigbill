@@ -382,29 +382,6 @@
                     </li>
 
                     <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
-                   {{--  <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes
-                            excel</a>
-                        <ul class="sub-menu children dropdown-menu" style="background: black">
-                            <li> <i class="text-primary menu-icon fas fa-check"></i><a
-                                    href="{{ url('/doc-Customer') }}">Clientes</a></li>
-                            <li><i class="text-primary fas fa-check"></i><a href="{{ url('/doc') }}">Productos</a>
-                            </li>
-                            <li><i class="text-primary fas fa-check"></i><a
-                                    href="{{ url('/doc-Account') }}">Cuentas</a>
-                            </li>
-                            <li><i class="text-primary fas fa-check"></i><a href="{{ url('/doc-AccountType') }}">Tipo
-                                    Cuentas</a>
-                            </li>
-                            <li><i class="text-primary fas fa-check"></i><a
-                                    href="{{ url('/doc-Companies') }}">Companias</a>
-                            </li>
-                            <li><i class="text-primary fas fa-check"></i><a
-                                    href="{{ url('/doc-User') }}">Usuarios</a>
-                            </li>
-                        </ul>
-                    </li> --}}
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes
@@ -457,47 +434,6 @@
                         <hr style="background-color:rgb(5, 116, 180); height: 3px">
                         <p style="color: white"><b>{{ config('app.name', 'Laravel') }} |
                                 {{ substr(request()->getRequestUri(), 1) }}</b></p>
-                        {{-- <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="{{ asset('images/usuario.svg') }}"
-                                    alt="Más...">
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">Información</p>
-                                <a class="dropdown-item media bg-flat-color-3" href="#">
-                                    <i class="fa fa-check"></i>
-                                    @if (Auth::user()->role_id == 1)
-                                        <strong>Cargo: Administrador.</strong>
-                                    @else
-                                        @if (Auth::user()->role_id == 2)
-                                            <strong>Cargo: Gerente.</strong>
-                                        @else
-                                            @if (Auth::user()->role_id == 3)
-                                                <strong>Cargo: Contador.</strong>
-                                            @else
-                                                @if (Auth::user()->role_id == 4)
-                                                    <strong>Cargo: Ventas.</strong>
-                                                @else
-                                                    <strong>Cargo: No tiene</strong>
-                                                @endif
-                                            @endif
-                                        @endif
-                                    @endif
-                                </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="#">
-                                    <i class="fa fa-info"></i>
-                                    <strong>Empresa:
-                                        @if (Auth::user()->company_id)
-                                            {{ Auth::user()->companies->name }}
-                                        @else
-                                            Sin Compañia
-                                        @endif
-
-                                    </strong>
-                                </a>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
 
@@ -558,7 +494,7 @@
                         <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
                             <i class="fas fa-street-view"></i> Empresa
                         </a>
-                        <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
+                        <a class="nav-link" href="{{ url('Crear-Anuncios') }}">
                             <i class="fas fa-newspaper"></i> Anuncios
                         </a>
 

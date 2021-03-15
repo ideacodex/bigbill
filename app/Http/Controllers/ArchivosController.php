@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\DB;
 
 class ArchivosController extends Controller
 {
-   
+    public function __construct()
+    {
+        $this->middleware('auth'); //autentificacion del usuario
+        $this->middleware('verified');
+    }
     //User
     public function exportUserPDF()
     {
@@ -216,9 +220,5 @@ class ArchivosController extends Controller
         DB::commit();
         return redirect()->action('InvoiceBillsController@create')
             ->with('datosAgregados', 'Registro exitoso');
-    }
-    // publicaciones
-    public function Publications(){
-        return view('Publications.index');
     }
 }

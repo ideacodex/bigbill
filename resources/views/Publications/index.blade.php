@@ -1,7 +1,345 @@
-@extends('layouts.sesion')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-@section('content')
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ config('app.name', 'Laravel') }} |
+        {{ substr(request()->getRequestUri(), 1) }}</title>
+    @production
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1MEL3W36E9"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+
+
+            gtag('config', 'G-1MEL3W36E9');
+
+        </script>
+    @endproduction
+    <meta name="description" content="{{ config('app.name', 'Laravel') }} |
+    {{ substr(request()->getRequestUri(), 1) }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
+    {{-- estilos de letras --}}
+    <link rel="stylesheet" href="{{ asset('css/EstiloLetras.css') }}" />
+
+
     <style>
+        /* estilo texto */
+
+        /* arial_narrow_7 */
+
+        @font-face {
+            font-family: 'arial_narrow_7';
+            src: url("{{ asset('/fonts/fonts/arial_narrow_7.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik_Bold */
+
+        @font-face {
+            font-family: 'Rubik_Bold';
+            src: url("{{ asset('/fonts/fonts/Rubik_Bold.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-Black */
+
+        @font-face {
+            font-family: 'Rubik-Black';
+            src: url("{{ asset('/fonts/fonts/Rubik-Black.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-BlackItalic */
+
+        @font-face {
+            font-family: 'Rubik-BlackItalic';
+            src: url("{{ asset('/fonts/fonts/Rubik-BlackItalic.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-BoldItalic */
+
+        @font-face {
+            font-family: 'Rubik-BoldItalic';
+            src: url("{{ asset('/fonts/fonts/Rubik-BoldItalic.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-Italic */
+
+        @font-face {
+            font-family: 'Rubik-Italic';
+            src: url("{{ asset('/fonts/fonts/Rubik-Italic.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-Light */
+
+        @font-face {
+            font-family: 'Rubik-Light';
+            src: url("{{ asset('/fonts/fonts/Rubik-Light.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-LightItalic */
+
+        @font-face {
+            font-family: 'Rubik-LightItalic';
+            src: url("{{ asset('/fonts/fonts/Rubik-LightItalic.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-Medium */
+
+        @font-face {
+            font-family: 'Rubik-Medium';
+            src: url("{{ asset('fonts/fonts/Rubik-Medium.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-MediumItalic */
+
+        @font-face {
+            font-family: 'Rubik-MediumItalic';
+            src: url("{{ asset('/fonts/fonts/Rubik-MediumItalic.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-Regular */
+
+        @font-face {
+            font-family: 'Rubik-Regular';
+            src: url("{{ asset('/fonts/fonts/Rubik-Regular.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* Rubik-SemiBold */
+
+        @font-face {
+            font-family: 'Rubik-SemiBold';
+            src: url("{{ asset('/fonts/fonts/Rubik-SemiBold.ttf') }}");
+            font-style: normal;
+            font-weight: 400;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        /* fin de  estilo texto */
+
+        /* clases css para implementar fuentes */
+
+        .arial_narrow_7 {
+            font-family: 'arial_narrow_7';
+        }
+
+        .Rubik_Bold {
+            font-family: 'Rubik_Bold';
+        }
+
+        .Rubik-Black {
+            font-family: 'Rubik-Black';
+        }
+
+        .Rubik-BlackItalic {
+            font-family: 'Rubik-BlackItalic';
+        }
+
+        .Rubik-BoldItalic {
+            font-family: 'Rubik-BoldItalic';
+        }
+
+        .Rubik-Italic {
+            font-family: 'Rubik-Italic';
+        }
+
+        .Rubik-Light {
+            font-family: 'Rubik-Light';
+        }
+
+        .Rubik-LightItalic {
+            font-family: 'Rubik-LightItalic';
+        }
+
+        .Rubik-Medium {
+            font-family: 'Rubik-Medium';
+        }
+
+        .Rubik-MediumItalic {
+            font-family: 'Rubik-MediumItalic';
+        }
+
+        .Rubik-Regular {
+            font-family: 'Rubik-Medium';
+        }
+
+        .Rubik-SemiBold {
+            font-family: 'Rubik-MediumItalic';
+        }
+
+
+
+
+        /**  fin de estilo de letras**/
+
+
+        .navbar {
+            box-shadow: 2px 2px 5px #000;
+            opacity: 0.9;
+        }
+
+        .navbar .nav-item .nav-link {
+            color: #fff;
+        }
+
+        .main-header {
+            position: relative;
+            background: url(../img/fondo.png);
+            background-size: cover;
+            min-height 700px;
+        }
+
+        .background-overlay {
+            background: rgba(48, 51, 107, .7);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .form-control,
+        .btn {
+            border-radius: 0;
+        }
+
+        .sistDe {
+            font-size: 300%;
+            color: white;
+        }
+
+        .factDigi {
+            margin-top: -2%;
+            font-size: 350%;
+            color: white;
+        }
+
+        .platProdu {
+            font-size: 16px;
+            margin-right: 14%;
+            margin-left: 14%;
+            color: white;
+            text-align: center;
+        }
+
+        .btnEmpieza {
+            margin: 10px;
+            box-shadow: 0px 2px 0px 2px rgb(0, 0, 0);
+        }
+
+        .btnEmpieza:hover {
+            background: rgb(0, 21, 115);
+            background: linear-gradient(172deg, rgba(0, 21, 115, 1) 47%, rgba(5, 9, 46, 1) 100%);
+            border: 0px;
+        }
+
+
+        .imgsisdefacin {
+            width: 105%;
+        }
+
+        .txtsisdefacin {
+            color: #000000;
+            font-size: 100%;
+        }
+
+        .integral {
+            color: #097FF5;
+            font-size: 175%;
+        }
+
+
+        .imgiconossistema_Facturacion {
+
+            margin: 0%;
+            margin-top: 15%;
+            margin-bottom: 0%;
+            width: 20%;
+        }
+
+        .grup_img_iconos {
+            background: rgb(0, 24, 132);
+            background: -moz-linear-gradient(80deg, rgba(0, 24, 132, 1) 26%, rgba(9, 127, 245, 1) 100%);
+            background: -webkit-linear-gradient(80deg, rgba(0, 24, 132, 1) 26%, rgba(9, 127, 245, 1) 100%);
+            background: linear-gradient(80deg, rgba(0, 24, 132, 1) 26%, rgba(9, 127, 245, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#001884", endColorstr="#097ff5", GradientType=1);
+        }
+
+        .grup_text_iconos {
+            margin-bottom: -5%;
+            font-family: 'Rubik_Bold';
+            color: white;
+        }
+
+        .border_card_finish {
+
+            background-color: #ffffff;
+            text-align: center;
+            background: #38f509;
+            border-left: #000 2px solid;
+            border-radius: 15px 15px 15px 15px;
+            -moz-border-radius: 15px 15px 15px 15px;
+            -webkit-border-radius: 15px 15px 15px 15px;
+        }
+
+        .team,
+        footer {
+            background: #30336b;
+        }
+
         .test {
             background-image: url("{{ asset('img/bg/bg-blue1.svg') }}");
             background-repeat: no-repeat;
@@ -11,7 +349,30 @@
             background-color: #66999;
         }
 
+        .fondoPublicaciones {
+            background: rgb(1, 19, 99);
+            background: -moz-linear-gradient(63deg, rgba(1, 19, 99, 1) 0%, rgba(0, 24, 132, 1) 42%, rgba(9, 127, 245, 1) 99%);
+            background: -webkit-linear-gradient(63deg, rgba(1, 19, 99, 1) 0%, rgba(0, 24, 132, 1) 42%, rgba(9, 127, 245, 1) 99%);
+            background: linear-gradient(63deg, rgba(1, 19, 99, 1) 0%, rgba(0, 24, 132, 1) 42%, rgba(9, 127, 245, 1) 99%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#011363", endColorstr="#097ff5", GradientType=1);
+        }
+
+        .linkPublicacion {
+            color: gray
+        }
+
+        .linkPublicacion:hover {
+            color: rgb(12, 0, 185)
+        }
+
+        hr {
+            background: #011363;
+        }
+
     </style>
+</head>
+
+<body class="fondoPublicaciones">
     <!-- NAVIGATION -->
     @if (Route::has('login'))
         <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #000000">
@@ -26,17 +387,9 @@
                 <div class="collapse navbar-collapse Rubik-Medium" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">INICIO</a>
+                            <a class="nav-link " href="{{ url('/') }}">INICIO </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#soluciones">SOLUCIONES</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#beneficios">BENEFICIOS</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">PUBLICACIONES</a>
-                        </li>
+
                         @auth
                             <li class="nav-item">
                                 <a class="btn btn-primary nav-link" style="border-radius: 15px;"
@@ -55,189 +408,56 @@
         </nav>
     @endif
 
-    {{-- section top --}}
-    <div class="test pt-5 pb-5">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-4 col-lg-4 offset-md-1 offset-lg-1 text-center justify-content-center mt-5">
-                <br><br>
-                <img src="img/Isotipo-BigBill.svg" width="20%" class="img-fluid mx-auto d-block mt-5">
-                <span class="Rubik-Regular sistDe">
-                    SISTEMA DE
-                </span>
-                <br>
-                <h1 class="Rubik_Bold factDigi">
-                    FACTURACIÓN DIGITAL
-                </h1>
 
-                <label class="Rubik-Medium platProdu">
-                    Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas, podrás
-                    llevar el control de tu stock de productos.
-                </label>
-                <br>
-                <a href="#leer" class="btn btn-light Rubik-Medium btnEmpieza" style="border-radius: 15px;">
-                    <span class="text-primary ">EMPIEZA HOY MISMO</span>
-                </a>
-            </div>
-            <div
-                class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 animate__animated animate__pulse animate__infinite animate__slower">
-                <img src="img/Computadora-Telefono.svg" width="75%" class="img-fluid mx-auto d-block">
-            </div>
-        </div>
-    </div>
-    {{-- sistema de facturacion --}}
-
-    <div class="bg-light pb-5 pt-5" id="beneficios">
-        <div class="row">
-            <div
-                class="col-12 col-sm-12 col-md-6 col-lg-6 offset-md-3 offset-lg-3 text-center justify-content-center mt-5  ">
-                <h1>
-                    <div class="d-lg-none Rubik_Bold">
-                        <label class=" d-lg-none txtsisdefacin">
-                            SISTEMA DE FACTURACIÓN
-                        </label>
-                        <br>
-                        <label class=" integral">
-                            INTEGRAL
-                        </label>
-                    </div>
-                    <div class="d-none d-lg-block">
-                        <img src="{{ asset('/img/sisdefacin.png') }}" class="imgsisdefacin"
-                            alt="Sistema de Facturación Integral" title="Sistema de Facturación Integral">
-                    </div>
-                </h1>
-                <label class="Rubik-Medium">
-                    Al hablar de un sistema de facturación diseñado INTEGRAL para las pequeñas y medianas empresas nos
-                    referimos específicamente a un software capaz de satisfacer el volumen de facturación de estos negocios,
-                    y que al mismo tiempo les ofrece funcionalidades que ayuden a una mejor gestión, sin importar el nivel
-                    de especialización de quien lo use.
-                </label>
-            </div>
-        </div>
-    </div>
-    {{-- iconos --}}
-    <div class="row pb-5 justify-content-center grup_img_iconos ">
-        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
-            <img src="{{ asset('img/ICONO_FACTURACIÓN.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <br> <br>
-            <h4 class="grup_text_iconos  mt-3">Facturación</h4>
-        </div>
-        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
-            <img src="{{ asset('img/ICONO_GASTOS.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <br> <br>
-            <h4 class="grup_text_iconos  mt-3">Gastos</h4>
-        </div>
-        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
-            <img src="{{ asset('img/ICONO_REPORTES.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <br> <br>
-            <h4 class="grup_text_iconos  mt-3">Reportes</h4>
-        </div>
-        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
-            <img src="{{ asset('img/ICONO_INVENTARIOS.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <br> <br>
-            <h4 class="grup_text_iconos  mt-3">Inventarios</h4>
-        </div>
-        <div class="col-6 col-md-3 col-lg-2  justify-content-center text-center">
-            <img src="{{ asset('img/ICONO_MULTIPLES_USUARIOS.svg') }}" width="30%" class="imgiconossistema_Facturacion">
-            <br> <br>
-            <h4 class="grup_text_iconos  mt-3">Múltiples<br> Usuarios</h4>
-        </div>
-    </div>
 
 
     {{-- controla tu empresa --}}
-    <div class="bg-light mt-5" id="soluciones">
-        <div class="mt-5">
-            <div
-                class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
-                <h1>
-                    <label class="text-primary Rubik_Bold">
-                        CONTROLA TU EMPRESA
-                    </label>
-                    <br>
-                    <label class="Rubik-Medium">
-                        DESDE CUALQUIER LUGAR
+    <div class="row">
+        <div
+            class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
+            <h1>
+                <img src="img/Logo-BigBill.svg" height="50px">
+                <label class="text-light Rubik_Bold">
+                    CONTROLA TU EMPRESA
+                </label>
+                <br>
+            </h1>
+            </a>
+            <div class="card-deck mt-4">
+                <div class="row justify-content-center">
+                    {{-- publicacion --}}
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <br>
-                        CON ESTE SISTEMA
-                    </label>
-                </h1>
-                </a>
-                <div class="card-deck mt-4">
-                    {{-- SEGURIDADEN LA NUBE --}}
-                    <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/ICONO_SEGURIDAD_EN_LA_NUBE.svg" class="m-3" height="60px">
-                            <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium ">
-                                    SEGURIDADEN LA NUBE
-                                </h5>
+                        <div class="card rounded" style="background-color: #ffffff;">
+                            <div class="fondoPublicaciones media pt-3 pb-5">
+                                <div class="media-body">
+                                    <h5 class=" mr-1 ml-1 text-light Rubik-Medium ">
+                                       <strong> TITULO  TITULOT ITULOTITULOTITUT ITULO  TITUITULOTIT ULOTITULO LOTITULOTITULOT</strong> 
+                                    </h5>
+                                </div>
                             </div>
-                        </div>
-                        <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                            class="card-text">
-                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
-                                Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
-                                encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
-                            </p>
+                            <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                                class="card-text">
+                                <img src="img/simbolo_logo.png" class="mt-3" width="175px" >
+                                <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                                    Descripcion de anuncio
+                                </p>
+                                <hr>
+                                <p class="linkPublicacion">
+                                    link
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    {{-- MANEJO DE MÚLTIPLES EMPRESAS --}}
-
-                    <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/ICONO_MANEJO_MULTIPLE_EMPRESAS.svg" class="m-3" height="60px">
-                            <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium">
-                                    MANEJO DE MÚLTIPLES EMPRESAS
-                                </h5>
-                            </div>
-                        </div>
-                        <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                            class="card-text">
-                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
-                                Puedes tener trabajando más de una empresa desde la misma cuenta sin ningún problema.
-                            </p>
-                        </div>
-                    </div>
-
-
-                    {{-- EXPERIENCIA INTEGRAL --}}
-                    <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/ICONO_EXPERIENCIA_INTEGRAL.svg" class="m-3" height="60px">
-                            <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium">
-                                    EXPERIENCIA INTEGRAL
-                                </h5>
-                            </div>
-                        </div>
-                        <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                            class="card-text">
-                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
-                                Que la experiencia de navegación de los usuarios sea amena, clara y ordenada, para que todos
-                                puedan poner en marcha casi al instanteusus procesos administrativos.
-                            </p>
-                        </div>
-                    </div>
-                   
                 </div>
-                <br><br><br><br>
+
             </div>
+            <br><br><br><br>
         </div>
     </div>
 
+</body>
 
-
-
-
-    <!-- BOOTSTRAP SCRIPTS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous">
-    </script>
-@endsection
+</html>
