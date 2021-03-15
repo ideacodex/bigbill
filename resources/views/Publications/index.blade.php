@@ -35,7 +35,7 @@
                             <a class="nav-link" href="#beneficios">BENEFICIOS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('Publicaciones') }}">PUBLICACIONES</a>
+                            <a class="nav-link" href="">PUBLICACIONES</a>
                         </li>
                         @auth
                             <li class="nav-item">
@@ -74,17 +74,9 @@
                     llevar el control de tu stock de productos.
                 </label>
                 <br>
-
-                @auth
-                    <a href="{{ url('/perfil') }}" class="btn btn-light Rubik-Medium btnEmpieza" style="border-radius: 15px;">
-                        <span class="text-primary ">TRABAJEMOS</span>
-                    </a>
-                @else
-                    <a href="{{ route('register') }}" class="btn btn-light Rubik-Medium btnEmpieza"
-                        style="border-radius: 15px;">
-                        <span class="text-primary ">EMPIEZA HOY MISMO</span>
-                    </a>
-                @endauth
+                <a href="#leer" class="btn btn-light Rubik-Medium btnEmpieza" style="border-radius: 15px;">
+                    <span class="text-primary ">EMPIEZA HOY MISMO</span>
+                </a>
             </div>
             <div
                 class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 animate__animated animate__pulse animate__infinite animate__slower">
@@ -227,7 +219,7 @@
                             </p>
                         </div>
                     </div>
-
+                   
                 </div>
                 <br><br><br><br>
             </div>

@@ -14,6 +14,10 @@ Route::get('/', function () {
     return view('landingpage.inicio');
 });
 
+// pagina de visualizacion de publicaciones
+Route::get('Publicaciones', 'ArchivosController@Publications')->name('BigBill-Publicaciones');
+// pagina de visualizacion de publicaciones
+
 Auth::routes(['verify' => true]);
 
 Route::resource('home', 'HomeController')->middleware('auth');
@@ -144,3 +148,4 @@ Route::get('AsinateTuCompania', 'ArchivosController@Companyassignment')->middlew
 Route::get('factura/create', 'InvoiceBillsController@createReact')->middleware('auth');
 Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware('auth');
 /* React */
+
