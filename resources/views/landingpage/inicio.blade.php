@@ -29,10 +29,10 @@
                             <a class="nav-link " href="{{ url('/') }}">INICIO</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/soluciones') }}">SOLUCIONES</a>
+                            <a class="nav-link" href="#soluciones">SOLUCIONES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/beneficios') }}">BENEFICIOS</a>
+                            <a class="nav-link" href="#beneficios">BENEFICIOS</a>
                         </li>
                         @auth
                             <li class="nav-item">
@@ -42,7 +42,7 @@
                         @else
                             <li class="nav-item">
                                 <a class="btn btn-primary nav-link" style="border-radius: 15px;"
-                                    href="{{ route('login') }}">Incio de sesion</a>
+                                    href="{{ route('login') }}">INICIO DE SESION de sesion</a>
                             </li>
                         @endauth
 
@@ -83,7 +83,7 @@
     </div>
     {{-- sistema de facturacion --}}
 
-    <div class="bg-light pb-5 pt-5">
+    <div class="bg-light pb-5 pt-5" id="beneficios">
         <div class="row">
             <div
                 class="col-12 col-sm-12 col-md-6 col-lg-6 offset-md-3 offset-lg-3 text-center justify-content-center mt-5  ">
@@ -142,7 +142,7 @@
 
 
     {{-- controla tu empresa --}}
-    <div class="bg-light mt-5">
+    <div class="bg-light mt-5" id="soluciones">
         <div class="mt-5">
             <div
                 class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
