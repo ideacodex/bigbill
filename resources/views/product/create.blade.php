@@ -79,8 +79,8 @@
                                                     <i title="Descripción" class="text-primary fas fa-book"></i>
                                                 </span>
                                             </div>
-                                            <input style="background: transparent" id="description" name="description"
-                                                type="text"
+                                            <input style="background: transparent" maxlength="50" id="description"
+                                                name="description" type="text"
                                                 class="border-0 text-dark form-control @error('name') is-invalid @enderror"
                                                 value="{{ old('description') }}" placeholder="Descripción del producto"
                                                 required autocomplete="description" autofocus>
@@ -90,30 +90,55 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        {{-- Tipo de producto --}}
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span style="border-left: #325ff5 7px solid; background: transparent"
-                                                    class="input-group-text transparent border-top-0 border-bottom-0 border-right-0"
-                                                    id="inputGroup-sizing-sm">
-                                                    <i class="text-primary fas fa-user"></i>
-                                                </span>
+                                        @if (Auth::user()->role_id == 4)
+                                            {{-- Tipo de producto --}}
+                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span style="border-left: #325ff5 7px solid; background: transparent"
+                                                        class="input-group-text transparent border-top-0 border-bottom-0 border-right-0"
+                                                        id="inputGroup-sizing-sm">
+                                                        <i class="text-primary fas fa-user"></i>
+                                                    </span>
+                                                </div>
+                                                <select style="background: transparent" name="kind_product"
+                                                    id="kind_product" onchange="mostrarInput();"
+                                                    class="border-0 form-control @error('kind_product') is-invalid @enderror"
+                                                    required>
+                                                    <option selected disabled>Tipo de producto</option>
+                                                    <option value="1">Artículo de venta</option>
+                                                </select>
+                                                @error('kind_product')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
-                                            <select style="background: transparent" name="kind_product" id="kind_product"
-                                                onchange="mostrarInput();"
-                                                class="border-0 form-control @error('kind_product') is-invalid @enderror"
-                                                required>
-                                                <option selected disabled>Tipo de producto</option>
-                                                <option value="1">Artículo de venta</option>
-                                                <option value="2">Artículo de compra</option>
-                                                <option value="3">Artículo de compra y venta</option>
-                                            </select>
-                                            @error('kind_product')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                        @else
+                                            {{-- Tipo de producto --}}
+                                            <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span style="border-left: #325ff5 7px solid; background: transparent"
+                                                        class="input-group-text transparent border-top-0 border-bottom-0 border-right-0"
+                                                        id="inputGroup-sizing-sm">
+                                                        <i class="text-primary fas fa-user"></i>
+                                                    </span>
+                                                </div>
+                                                <select style="background: transparent" name="kind_product"
+                                                    id="kind_product" onchange="mostrarInput();"
+                                                    class="border-0 form-control @error('kind_product') is-invalid @enderror"
+                                                    required>
+                                                    <option selected disabled>Tipo de producto</option>
+                                                    <option value="1">Artículo de venta</option>
+                                                    <option value="2">Artículo de compra</option>
+                                                    <option value="3">Artículo de compra y venta</option>
+                                                </select>
+                                                @error('kind_product')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        @endif
                                         {{-- <!--costos--> --}}
                                         <div class="d-none col-12 col-md-6 input-group input-group-lg mb-3" id="a">
                                             <div class="input-group-prepend">
@@ -247,25 +272,9 @@
                                             @enderror
                                         </div>
                                         {{-- <!--cantidad ingreso--> --}}
-                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                            <div class="input-group-prepend">
-                                                <span style="border-left: #325ff5 7px solid; background: transparent"
-                                                    class="input-group-text transparent border-top-0 border-bottom-0 border-right-0"
-                                                    id="inputGroup-sizing-sm">
-                                                    <i title="Ingresos" class="text-primary fas fa-box-open"></i>
-                                                </span>
-                                            </div>
-                                            <input style="background: transparent" id="quantity_values"
-                                                name="quantity_values" type="number"
-                                                class="border-0 text-dark form-control quantity_values  @error('quantity_values') is-invalid @enderror"
-                                                onchange="sumar();" value="" placeholder="Cantidad a Ingresar" required
-                                                autocomplete="quantity_values" autofocus>
-                                            @error('quantity_values')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                        <input id="quantity_values" name="quantity_values" type="hidden"
+                                            class="border-0 text-dark form-control quantity_values  @error('quantity_values') is-invalid @enderror"
+                                            onchange="sumar();" value="0" autocomplete="quantity_values" autofocus>
                                         {{-- ¿Agregar dimensiones? --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
@@ -446,7 +455,7 @@
         </div>
     </div>
 
-    {{-- este script es el primer Selec dinamico que despliega los sigueintes 3 --}}
+    {{-- este script es el primer Selec dinamico que despliega los siguientes 3 --}}
     <script>
         //seleccionando elementos
         function mostrarInput() {
@@ -514,6 +523,7 @@
             varBody.className = "bg-form"
             console.log("body:", varBody);
         }
+
     </script>
 
 @endsection

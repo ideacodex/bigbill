@@ -338,62 +338,86 @@
                                     </li>
                                 </ul>
                             </li>
-                            <h3 class="text-light menu-title"> Facturar</h3><!-- /.menu-title -->
+                            <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
-                                        class=" text-light menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                                        class="text-light menu-icon fas fa-file-medical-alt"></i>Ventas</a>
                                 <ul class="sub-menu children dropdown-menu" style="background: black">
                                     <li>
                                         <i class="text-primary menu-icon fas fa-check"></i>
-                                        <a href="{{ url('facturas?company_id=' . Auth::user()->company_id) }}">
-                                            Ver Facturas</a>
-                                    </li>
-                                    <li>
-                                        <i class="text-primary menu-icon fas fa-check"></i>
-                                        <a href="{{ url('compras') }}">
-                                            Compras</a>
+                                        <a href="{{ url('facturas') }}">
+                                            Ver Ventas</a>
                                     </li>
                                     @if (Auth::user()->suscriptions->type_plan == 1)
                                         <li>
-                                            <i class=" text-light menu-icon fas fa-file-alt"></i>
-                                            <a
-                                                href="{{ url('facturas/create?company_id=' . Auth::user()->company_id) }}">
+                                            <i class="text-primary menu-icon fas fa-check"></i>
+                                            <a href="{{ url('facturas/create') }}">
                                                 Cotizaciones</a>
                                         </li>
                                     @endif
                                 </ul>
                             </li>
-                            <h3 class="menu-title">Documentos</h3><!-- /.menu-title -->
 
+                            <h3 class="menu-title text-light">Gastos</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
-                                        class="text-light menu-icon fas fa-file-excel"></i>Inventarios</a>
+                                        class="text-light menu-icon fas fa-file-medical-alt"></i>Compras</a>
                                 <ul class="sub-menu children dropdown-menu" style="background: black">
                                     <li>
-                                        <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc-Customer') }}">Clientes</a>
+                                        <i class="text-primary menu-icon fas fa-check"></i>
+                                        <a href="{{ url('compras') }}">
+                                            Ver Compras</a>
                                     </li>
-                                    <li>
-                                        <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc') }}">Productos</a>
+                                </ul>
+                            </li>
+                            <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"> <i
+                                        class="text-light menu-icon fas fa-file-excel"></i>Informes
+                                    excel</a>
+                                <ul class="sub-menu children dropdown-menu" style="background: black">
+                                    <li> <i class="text-primary menu-icon fas fa-check"></i><a
+                                            href="{{ url('/doc-Customer') }}">Clientes</a></li>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ url('/doc') }}">Productos</a>
                                     </li>
-                                    <li>
-                                        <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc-Account') }}">Cuentas</a>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ url('/doc-Account') }}">Cuentas</a>
                                     </li>
-                                    <li>
-                                        <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc-AccountType') }}">Tipo Cuentas</a>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ url('/doc-AccountType') }}">Tipo
+                                            Cuentas</a>
                                     </li>
-                                    <li>
-                                        <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc-Companies') }}">Companias</a>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ url('/doc-Companies') }}">Companias</a>
                                     </li>
-                                    <li>
-                                        <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc-User') }}">Usuarios</a>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ url('/doc-User') }}">Usuarios</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"> <i
+                                        class="text-light menu-icon fas fa-file-excel"></i>Informes
+                                    pdf</a>
+                                <ul class="sub-menu children dropdown-menu" style="background: black">
+                                    <li> <i class="text-primary menu-icon fas fa-check"></i><a
+                                            href="{{ route('Customer.pdf') }}">Clientes</a></li>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ route('Product.pdf') }}">Productos</a>
+                                    </li>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ route('Company.pdf') }}">Companias</a>
+                                    </li>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ route('User.pdf') }}">Usuarios</a>
+                                    </li>
+                                    <li><i class="text-primary fas fa-check"></i><a
+                                            href="{{ route('Factura.pdf') }}">Ventas</a>
                                     </li>
                                 </ul>
                             </li>
@@ -549,13 +573,13 @@
         <div class="btn-fl">
             <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" data-toggle="modal"
                 data-target="#exampleModalCenter">
-                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="5%" style="min-width: 50px">
+                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
         <div class="btn-float">
             <button data-toggle="modal" data-target="#exampleModalCenter">
                 <img href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" class="btn-float"
-                    src="{{ asset('images/ideacode.png') }}" width="10%" style="min-width: 90px">
+                    src="{{ asset('images/ideacode.png') }}" width="6%" style="min-width: 90px">
             </button>
         </div>
         {{-- ---------------------- --}}

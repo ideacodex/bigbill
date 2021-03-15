@@ -56,6 +56,8 @@
                                                     <th>Apellido</th>
                                                     <th>Teléfono</th>
                                                     <th>Nit</th>
+                                                    <th>Dirección</th>
+                                                    <th>Dirección de entrega</th>
                                                     <th>Companía</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -69,6 +71,16 @@
                                                         <td>{{ $item->lastname }}</td>
                                                         <td>{{ $item->phone }}</td>
                                                         <td>{{ $item->nit }}</td>
+                                                        @if ($item->address)
+                                                            <td>{{ $item->address }}</td>
+                                                        @else
+                                                            <td>Sin registro</td>
+                                                        @endif
+                                                        @if ($item->delivery_address)
+                                                            <td>{{ $item->delivery_address }}</td>
+                                                        @else
+                                                            <td>Sin registro</td>
+                                                        @endif
                                                         <td>{{ $item->company->name }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">

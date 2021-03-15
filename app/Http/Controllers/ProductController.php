@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     
 
-    public function index(Request $request)
+    public function index(Request $request) 
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $rol = Auth::user()->role_id;
@@ -74,7 +74,7 @@ class ProductController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:50',
             'kind_product' => 'required',
             'company_id' => 'required',
             'quantity_values' => 'required',
@@ -161,7 +161,6 @@ class ProductController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
 
             DB::rollback();
-            dd($e);
             // dd($e);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);

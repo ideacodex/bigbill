@@ -56,7 +56,6 @@ class TaxController extends Controller
             $pricelists->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
-            dd($e);
             abort(500, $e->errorInfo[2]);
             return response()->json($response, 500);
         }

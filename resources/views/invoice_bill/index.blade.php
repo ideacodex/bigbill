@@ -51,7 +51,8 @@
                                         <th>Nit</th>
                                         <th>Descripción</th>
                                         <th>Total</th>
-                                        <th>Tipo de factura</th>
+                                        <th>Tipo de venta</th>
+                                        <th>Actividad</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -60,8 +61,6 @@
                                 <tbody style="background-color: rgba(224, 220, 220, 0.993);">
                                     @if ($records)
                                         @foreach ($records as $item)
-
-                                            @if ($item->active == 1)
                                                 <tr>
                                                     <th style="border-left: #325ff5 7px solid;" scope="row">
                                                         {{ $loop->index + 1 }} </th>
@@ -93,9 +92,15 @@
                                                     <td>{{ $item->total }}</td>
 
                                                     @if ($item->invoice_type == 1)
-                                                        <td>Factura con iva</td>
+                                                        <td>Venta con iva</td>
                                                     @elseif($item->invoice_type == 0)
-                                                        <td>Factura sin iva</td>
+                                                        <td>Venta sin iva</td>
+                                                    @endif
+                                                    
+                                                    @if ($item->active == 0)
+                                                        <td class="text-danger"><b>Venta cancelada</b></td>
+                                                    @elseif($item->active == 1)
+                                                        <td class="text-success"><b>Venta emitida</b></td>
                                                     @endif
 
                                                     @if ($item->document_type == 1)
@@ -154,8 +159,6 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            @else
-                                            @endif
                                             <!--Modal-->
                                             <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
                                                 aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -171,7 +174,7 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="alert alert-danger">
-                                                                ¿Desea eliminar la factura?
+                                                                ¿Desea cancelar la venta?
                                                             </div>
                                                             <form id="formDel"
                                                                 action="{{ url('facturas/' . $item->id) }}" method="POST"

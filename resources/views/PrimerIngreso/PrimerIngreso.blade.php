@@ -68,7 +68,33 @@
         </script>
 
         <div id="chart_div" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px"></div>
-        
+
+        {{-- Montos de facturas --}}
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart(){
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Nombre', 'Monto'],
+                    
+                    @foreach ($invoice as $invoices)
+                        ['{{ $invoices->id }}', {{ $invoices->total}}],
+                    @endforeach
+                ]);
+
+                var options = {
+                    title: 'Monto de facturas'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('facturas'));
+                chart.draw(data, options);
+            }
+        </script>
+
+        <div id="facturas" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px">
+        </div>
+
         <div class="col-sm-6 col-lg-3 mt-3">
             <div class="card text-white bg-flat-color-2 estadisticas">
                 <div class="card-body pb-0 estadisticas">
