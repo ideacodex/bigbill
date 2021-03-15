@@ -8,9 +8,31 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Iniciar Sesión</title>
+    <title>{{ config('app.name', 'Laravel') }} |
+        {{ substr(request()->getRequestUri(), 1) }}</title>
+    @production
+        <!-- Global site tag (gtag.js) - Google Analytics -->
 
-    <!-- BOOTSTRAP CSS -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1MEL3W36E9"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+
+
+            gtag('config', 'G-1MEL3W36E9');
+
+        </script>
+    @endproduction
+    <meta name="description" content="{{ config('app.name', 'Laravel') }} |
+    {{ substr(request()->getRequestUri(), 1) }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 

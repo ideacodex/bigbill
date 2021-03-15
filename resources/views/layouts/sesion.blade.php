@@ -5,8 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('diseñologin.name', 'Bienvenido') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} |
+        {{ substr(request()->getRequestUri(), 1) }}</title>
+    @production
+        <!-- Global site tag (gtag.js) - Google Analytics -->
 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1MEL3W36E9"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+
+
+            gtag('config', 'G-1MEL3W36E9');
+
+        </script>
+    @endproduction
+    <meta name="description" content="{{ config('app.name', 'Laravel') }} |
+    {{ substr(request()->getRequestUri(), 1) }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
@@ -294,7 +317,7 @@
             background: linear-gradient(80deg, rgba(0, 24, 132, 1) 26%, rgba(9, 127, 245, 1) 100%);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#001884", endColorstr="#097ff5", GradientType=1);
         }
-       
+
         .grup_text_iconos {
             margin-bottom: -5%;
             font-family: 'Rubik_Bold';
@@ -302,11 +325,11 @@
         }
 
         .border_card_finish {
-            
+
             background-color: #ffffff;
             text-align: center;
             background: #38f509;
-            border-left: #000 2px solid; 
+            border-left: #000 2px solid;
             border-radius: 15px 15px 15px 15px;
             -moz-border-radius: 15px 15px 15px 15px;
             -webkit-border-radius: 15px 15px 15px 15px;

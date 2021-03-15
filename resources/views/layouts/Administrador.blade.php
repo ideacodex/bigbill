@@ -9,8 +9,31 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Inicio</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>{{ config('app.name', 'Laravel') }} |
+        {{ substr(request()->getRequestUri(), 1) }}</title>
+    @production
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1MEL3W36E9"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+
+
+            gtag('config', 'G-1MEL3W36E9');
+
+        </script>
+    @endproduction
+    <meta name="description" content="{{ config('app.name', 'Laravel') }} |
+    {{ substr(request()->getRequestUri(), 1) }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
