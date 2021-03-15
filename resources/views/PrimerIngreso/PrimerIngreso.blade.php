@@ -365,26 +365,26 @@
 
         <div style="margin: 1rem;  padding: 1rem;">
             <!-- Button trigger modal -->
-            <button style="margin: 1rem;  padding: 1rem;" type="button" class="btn btn-primary" data-toggle="modal"
+            <button style="margin: 1rem;  padding: 1rem; border-radius: 50px" type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#company">
                 Crear Empresa
             </button>
             <!-- Button trigger modal -->
-            <a style="margin: 1rem;  padding: 1rem;" type="button" class="btn btn-primary" href="{{ url('perfil') }}">
+            <a style="margin: 1rem;  padding: 1rem; border-radius: 50px" type="button" class="btn btn-primary" href="{{ url('perfil') }}">
                 Asignarse una empresa
             </a>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="company" tabindex="-1" aria-labelledby="companyLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="companyLabel">Agregar información de mi empresa</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-content bg-card">
+                    <div class="modal-header bg-cardheader">
+                        <h5 class="modal-title text-light" id="companyLabel">Agregar información de mi empresa</h5>
+                        <button type="button" style="color: red" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body bg-frm">
                         <div>
                             <form method="POST" action="{{ route('empresas.store') }}" onsubmit="return checkSubmit();"
                                 enctype="multipart/form-data" file="true">
@@ -392,12 +392,12 @@
                                 {{-- Nombre de la companía --}}
                                 <div class="col-12 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Nombre de la companía" class="text-dark fas fa-building"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Nombre de la companía" class="text-primary fas fa-building"></i>
                                         </span>
                                     </div>
                                     <input id="name" type="text"
-                                        class="text-dark form-control @error('name') is-invalid @enderror" name="name"
+                                        class="border-0 bg-input text-dark form-control @error('name') is-invalid @enderror" name="name"
                                         value="{{ old('name') }}" placeholder="Nombre de la companía" required
                                         autocomplete="name" autofocus>
 
@@ -411,12 +411,12 @@
                                 {{-- Nit --}}
                                 <div class="col-12 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Nit" class="text-dark fas fa-sort-amount-down"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Nit" class="text-primary fas fa-sort-amount-down"></i>
                                         </span>
                                     </div>
                                     <input id="nit" placeholder="Nit" type="number"
-                                        class="text-dark form-control @error('nit') is-invalid @enderror" name="nit"
+                                        class="border-0 bg-input text-dark form-control @error('nit') is-invalid @enderror" name="nit"
                                         value="{{ old('nit') }}" required autocomplete="nit" autofocus>
 
                                     @error('nit')
@@ -429,12 +429,12 @@
                                 {{-- Dirección --}}
                                 <div class="col-12 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Dirección" class="text-dark fas fa-map-marker-alt"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Dirección" class="text-primary fas fa-map-marker-alt"></i>
                                         </span>
                                     </div>
                                     <input id="address" placeholder="Dirección" type="text"
-                                        class="text-dark form-control @error('address') is-invalid @enderror" name="address"
+                                        class="border-0 bg-input text-dark form-control @error('address') is-invalid @enderror" name="address"
                                         value="{{ old('address') }}" autocomplete="address" autofocus>
 
                                     @error('address')
@@ -447,12 +447,12 @@
                                 {{-- Teléfono --}}
                                 <div class="col-12 input-group input-group-lg mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text transparent" id="inputGroup-sizing-sm">
-                                            <i title="Número de teléfono" class="text-dark fas fa-mobile"></i>
+                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <i title="Número de teléfono" class="text-primary fas fa-mobile"></i>
                                         </span>
                                     </div>
                                     <input id="phone" type="text" maxlength="8" placeholder="Número de teléfono"
-                                        class="text-dark form-control @error('phone') is-invalid @enderror" name="phone"
+                                        class="border-0 bg-input text-dark form-control @error('phone') is-invalid @enderror" name="phone"
                                         value="{{ old('phone') }}" autocomplete="phone" autofocus>
 
                                     @error('phone')
@@ -465,7 +465,7 @@
                                 {{-- imagen --}}
                                 <div class="col-12 input-group input-group-lg mb-3">
                                     <input type="file" id="file" name="file" accept="image/*"
-                                        class="text-dark form-control @error('file') is-invalid @enderror">
+                                        class="border-0 bg-input text-dark form-control @error('file') is-invalid @enderror">
                                     @error('file')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -518,17 +518,17 @@
                                             @csrf @method('PATCH')
 
                                             {{-- <!--Nombre--> --}}
-                                            <input name="name" type="hidden" value="{{ Auth::user()->name }}">
+                                            <input name="name" class="border-0 bg-input" type="hidden" value="{{ Auth::user()->name }}">
                                             {{-- <!-- lastname --> --}}
-                                            <input name="lastname" type="hidden" value="{{ Auth::user()->lastname }}">
+                                            <input name="lastname" class="border-0 bg-input" type="hidden" value="{{ Auth::user()->lastname }}">
                                             {{-- <!-- phone --> --}}
-                                            <input name="phone" type="hidden" value="{{ Auth::user()->phone }}">
+                                            <input name="phone" class="border-0 bg-input" type="hidden" value="{{ Auth::user()->phone }}">
                                             {{-- <!--  nit --> --}}
-                                            <input name="nit" type="hidden" value="{{ Auth::user()->nit }}">
+                                            <input name="nit" class="border-0 bg-input" type="hidden" value="{{ Auth::user()->nit }}">
                                             {{-- <!--  address --> --}}
-                                            <input name="address" type="hidden" value="{{ Auth::user()->address }}">
+                                            <input name="address" class="border-0 bg-input" type="hidden" value="{{ Auth::user()->address }}">
                                             {{-- <!-- email  --> --}}
-                                            <input name="email" type="hidden" value="{{ Auth::user()->email }}">
+                                            <input name="email" class="border-0 bg-input" type="hidden" value="{{ Auth::user()->email }}">
                                             {{-- imagen --}}
                                             <div class="col-12 col-md-6 input-group input-group-lg mb-3 ">
                                                 <img src="{{ asset('/storage/usuarios/' . Auth::user()->file) }}"
@@ -542,13 +542,13 @@
                                             @if (Auth::user()->role_id == 2)
                                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text transparent"
+                                                        <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
                                                             id="inputGroup-sizing-sm">
                                                             <i title="company" class="far fa-building"></i>
                                                         </span>
                                                     </div>
                                                     <select name="customer_id" id="cifrado" onchange="mostrarInput();"
-                                                        class="select2 form-control @error('customer_id') is-invalid @enderror">
+                                                        class="border-0 bg-input select2 form-control @error('customer_id') is-invalid @enderror">
                                                         <option selected disabled>Companía</option>
                                                         <option selected value="0">Asignarse Companía</option>
                                                         @if (Auth::user()->company_id)
@@ -574,13 +574,13 @@
                                                 @if (Auth::user()->role_id == 1)
                                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text transparent"
+                                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
                                                                 id="inputGroup-sizing-sm">
                                                                 <i title="company" class="far fa-building"></i>
                                                             </span>
                                                         </div>
                                                         <select name="company_id" id="company_id"
-                                                            class="form-control @error('company_id') is-invalid @enderror">
+                                                            class="border-0 bg-input form-control @error('company_id') is-invalid @enderror">
                                                             @if (Auth::user()->company_id)
                                                                 <option value="{{ Auth::user()->company_id }}" selected>
                                                                     <p>
@@ -606,7 +606,7 @@
                                                     {{-- company_id --}}
                                                     @if (!Auth::user()->company_id)
                                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                            <select class="form-control select2" id="company_id"
+                                                            <select class="border-0 bg-input form-control select2" id="company_id"
                                                                 name="company_id">
                                                                 <option selected disabled>Companía</option>
                                                                 <option selected value="0">Asígnate a la companía</option>
@@ -634,10 +634,12 @@
                                             <div class="container mt-4">
                                                 <div class="col-12">
                                                     <div class="col text-center">
-                                                        <button type="submit" style="border-radius: 10px"
+                                                        <button type="submit" style="border-radius: 50px"
                                                             class="btn btn-primary">
                                                             <i class="fas fa-clipboard-check"></i>
-                                                            {{ __('Asignarme') }}
+                                                            {{ __('ASIGNARME') }}
+                                                        </button>
+                                                        <button type="button" style="border-radius: 50px" class="btn btn-secondary" data-dismiss="modal">CERRAR
                                                         </button>
                                                     </div>
                                                 </div>
@@ -648,10 +650,6 @@
 
                             </div>
                         </div> <!-- .card -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-
                     </div>
                 </div>
             </div>

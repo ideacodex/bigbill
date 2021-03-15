@@ -371,10 +371,6 @@
                                     </li>
                                     <li>
                                         <i class="fas fa-check text-primary"></i>
-                                        <a href="{{ url('/doc-bills') }}">Facturas</a>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check text-primary"></i>
                                         <a href="{{ url('/doc-User') }}">Usuarios</a>
                                     </li>
                                 </ul>
