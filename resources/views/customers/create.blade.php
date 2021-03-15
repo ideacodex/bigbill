@@ -32,7 +32,7 @@
                             <strong style="color: white" class="card-title">Agregar Cliente</strong>
                         </div>
                         <div class="card-body bg-frm" style=" border-bottom-right-radius: 15px; border-bottom-left-radius:
-                                    15px">
+                                        15px">
 
                             @if (Auth::user()->role_id == 1 || Auth::user()->company_id)
                                 <form method="POST" action="{{ route('clientes.store') }}"
@@ -210,6 +210,58 @@
                                         @enderror
                                     </div>
 
+                                    {{-- Dirección --}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Dirección" class="text-primary fas fa-sort-amount-down"></i>
+                                            </span>
+                                        </div>
+                                        <input id="address" placeholder="Dirección" type="text" style="background: transparent"
+                                            class="text-dark form-control border-0 @error('address') is-invalid @enderror"
+                                            name="address" value="{{ old('address') }}" autocomplete="address" autofocus>
+
+                                        @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Dirección de entrega--}}
+                                    <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                        <div class="input-group-prepend">
+                                            <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                                class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
+                                                <i title="Dirección de entrega" class="text-primary fas fa-sort-amount-down"></i>
+                                            </span>
+                                        </div>
+                                        <input id="delivery_address" placeholder="Dirección de entrega" type="text" style="background: transparent"
+                                            class="text-dark form-control border-0 @error('delivery_address') is-invalid @enderror"
+                                            name="delivery_address" value="{{ old('delivery_address') }}" autocomplete="delivery_address" autofocus>
+
+                                        @error('delivery_address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+                                        @error('delivery_address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <div class="container mt-4">
                                         <div class="col-12">
                                             <div class="col text-center">
@@ -233,10 +285,8 @@
                             @endif
 
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->

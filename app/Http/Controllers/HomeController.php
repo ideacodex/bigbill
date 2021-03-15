@@ -55,7 +55,7 @@ class HomeController extends Controller
             $bill = InvoiceBill::count();
             $shopping = Shopping::count();
             $users = User::count();
-            $ibill = InvoiceBill::get()->sum('total');
+            $ibill = InvoiceBill::get()->where('active', 1)->sum('total');
             $ishopping = Shopping::get()->sum('total');
             return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
         } else {
@@ -68,7 +68,7 @@ class HomeController extends Controller
             $bill = InvoiceBill::where('company_id', $companies)->get()->count();
             $shopping = Shopping::where('company_id', $companies)->get()->count();
             $users = User::where('company_id', $companies)->get()->count();
-            $ibill = InvoiceBill::where('company_id', $companies)->get()->sum('total');
+            $ibill = InvoiceBill::where('company_id', $companies)->where('active', 1)->get()->sum('total');
             $ishopping = Shopping::where('company_id', $companies)->get()->sum('total');
             return view('PrimerIngreso.PrimerIngreso', ['ishopping'=> $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
         }
@@ -163,6 +163,6 @@ class HomeController extends Controller
         }
         DB::commit();
         return redirect()->action('ArchivosController@Perfil')
-            ->with('MENSAJEEXITOSO', 'Registro xdxfdx modificado');
+            ->with('MENSAJEEXITOSO', 'Registro modificado');
     }
 }

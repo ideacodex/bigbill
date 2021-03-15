@@ -9,31 +9,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name', 'Laravel') }} |
-        {{ substr(request()->getRequestUri(), 1) }}</title>
-    @production
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1MEL3W36E9"></script>
-
-        <script>
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-
-
-
-            gtag('config', 'G-1MEL3W36E9');
-
-        </script>
-    @endproduction
-    <meta name="description" content="{{ config('app.name', 'Laravel') }} |
-    {{ substr(request()->getRequestUri(), 1) }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
@@ -369,21 +346,16 @@
                         </ul>
                     </li>
 
-                    <h3 class="menu-title text-light">Facturar</h3><!-- /.menu-title -->
+                    <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i
-                                class="text-light menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                                class="text-light menu-icon fas fa-file-medical-alt"></i>Ventas</a>
                         <ul class="sub-menu children dropdown-menu" style="background: black">
                             <li>
                                 <i class="text-primary menu-icon fas fa-check"></i>
                                 <a href="{{ url('facturas') }}">
-                                    Ver Facturas</a>
-                            </li>
-                            <li>
-                                <i class="text-primary menu-icon fas fa-check"></i>
-                                <a href="{{ url('compras') }}">
-                                    Compras</a>
+                                    Ver Ventas</a>
                             </li>
                             @if (Auth::user()->suscriptions->type_plan == 1)
                                 <li>
@@ -395,10 +367,25 @@
                         </ul>
                     </li>
 
-                    <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
+                    <h3 class="menu-title text-light">Gastos</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes</a>
+                            aria-expanded="false"> <i
+                                class="text-light menu-icon fas fa-file-medical-alt"></i>Compras</a>
+                        <ul class="sub-menu children dropdown-menu" style="background: black">
+                            <li>
+                                <i class="text-primary menu-icon fas fa-check"></i>
+                                <a href="{{ url('compras') }}">
+                                    Ver Compras</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
+                   {{--  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes
+                            excel</a>
                         <ul class="sub-menu children dropdown-menu" style="background: black">
                             <li> <i class="text-primary menu-icon fas fa-check"></i><a
                                     href="{{ url('/doc-Customer') }}">Clientes</a></li>
@@ -415,6 +402,27 @@
                             </li>
                             <li><i class="text-primary fas fa-check"></i><a
                                     href="{{ url('/doc-User') }}">Usuarios</a>
+                            </li>
+                        </ul>
+                    </li> --}}
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> <i class="text-light menu-icon fas fa-file-excel"></i>Informes
+                            pdf</a>
+                        <ul class="sub-menu children dropdown-menu" style="background: black">
+                            <li> <i class="text-primary menu-icon fas fa-check"></i><a
+                                    href="{{ route('Customer.pdf') }}">Clientes</a></li>
+                            <li><i class="text-primary fas fa-check"></i><a
+                                    href="{{ route('Product.pdf') }}">Productos</a>
+                            </li>
+                            <li><i class="text-primary fas fa-check"></i><a
+                                    href="{{ route('Company.pdf') }}">Companias</a>
+                            </li>
+                            <li><i class="text-primary fas fa-check"></i><a
+                                    href="{{ route('User.pdf') }}">Usuarios</a>
+                            </li>
+                            <li><i class="text-primary fas fa-check"></i><a
+                                    href="{{ route('Factura.pdf') }}">Ventas</a>
                             </li>
                         </ul>
                     </li>
@@ -550,7 +558,9 @@
                         <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
                             <i class="fas fa-street-view"></i> Empresa
                         </a>
-
+                        <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
+                            <i class="fas fa-newspaper"></i> Anuncios
+                        </a>
 
                         <a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
@@ -588,13 +598,15 @@
         @yield('content')
 
         <div class="btn-fl">
-            <a href="{{url('https://api.whatsapp.com/send?phone=50233120413')}}" data-toggle="modal" data-target="#exampleModalCenter">
-                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="5%" style="min-width: 50px">
+            <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" data-toggle="modal"
+                data-target="#exampleModalCenter">
+                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
         <div class="btn-float">
             <button data-toggle="modal" data-target="#exampleModalCenter">
-                <img href="{{url('https://api.whatsapp.com/send?phone=50233120413')}}" class="btn-float" src="{{ asset('images/ideacode.png') }}" width="10%" style="min-width: 90px">
+                <img href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" class="btn-float"
+                    src="{{ asset('images/ideacode.png') }}" width="6%" style="min-width: 90px">
             </button>
         </div>
         {{-- ---------------------- --}}

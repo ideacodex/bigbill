@@ -53,7 +53,6 @@ class FamilyController extends Controller
             $family->save();
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
-            dd($e);
             abort(500, $e->errorInfo[2]);
             return response()->json($e, 500);
         }

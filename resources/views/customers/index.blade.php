@@ -56,6 +56,8 @@
                                                     <th>Apellido</th>
                                                     <th>Teléfono</th>
                                                     <th>Nit</th>
+                                                    <th>Dirección</th>
+                                                    <th>Dirección de entrega</th>
                                                     <th>Companía</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -69,6 +71,16 @@
                                                         <td>{{ $item->lastname }}</td>
                                                         <td>{{ $item->phone }}</td>
                                                         <td>{{ $item->nit }}</td>
+                                                        @if ($item->address)
+                                                            <td>{{ $item->address }}</td>
+                                                        @else
+                                                            <td>Sin registro</td>
+                                                        @endif
+                                                        @if ($item->delivery_address)
+                                                            <td>{{ $item->delivery_address }}</td>
+                                                        @else
+                                                            <td>Sin registro</td>
+                                                        @endif
                                                         <td>{{ $item->company->name }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -120,4 +132,15 @@
         </div><!-- .animated -->
     </div><!-- .content -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"
+        integrity="sha512-UNbeFrHORGTzMn3HTt00fvdojBYHLPxJbLChmtoyDwB6P9hX5mah3kMKm0HHNx/EvSPJt14b+SlD8xhuZ4w9Lg=="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        new TableExport(document.getElementsByTagName("table"));
+        // OR simply
+        /* TableExport(document.getElementsByTagName("table")); */
+        // OR using jQuery
+    </script>
 @endsection

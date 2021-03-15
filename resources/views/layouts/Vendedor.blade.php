@@ -322,15 +322,15 @@
                                 </ul>
                             </li>
                             <!--Facturar -->
-                            <h3 class="menu-title">Facturar</h3><!-- /.menu-title -->
+                            <h3 class="menu-title">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Facturar</a>
+                                    aria-expanded="false"> <i class="menu-icon fas fa-file-medical-alt"></i>Ventas</a>
                                 <ul class="sub-menu children dropdown-menu" style="background-color: black">
                                     <li>
                                         <i class="text-primary menu-icon fas fa-check"></i>
                                         <a href="{{ route('facturas.index') }}">Ver
-                                            Facturas</a>
+                                            Ventas</a>
                                     </li>
                                     @if (Auth::user()->suscriptions->type_plan == 1)
                                         <li>
@@ -483,13 +483,13 @@
         <div class="btn-fl">
             <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" data-toggle="modal"
                 data-target="#exampleModalCenter">
-                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="5%" style="min-width: 50px">
+                <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
         <div class="btn-float">
             <button data-toggle="modal" data-target="#exampleModalCenter">
                 <img href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" class="btn-float"
-                    src="{{ asset('images/ideacode.png') }}" width="10%" style="min-width: 90px">
+                    src="{{ asset('images/ideacode.png') }}" width="6%" style="min-width: 90px">
             </button>
         </div>
         {{-- ---------------------- --}}

@@ -29,7 +29,7 @@ class InvoiceBillsController extends Controller
     public function index()
     {
         $company = Auth::user()->company_id; //guardo la variable de companía del ususario autentificado
-        $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autentificacion
+        $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autenticación
         return view("invoice_bill.index", ["records" => $records]);
     }
 
@@ -132,7 +132,6 @@ class InvoiceBillsController extends Controller
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
-            dd($e);
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
         }

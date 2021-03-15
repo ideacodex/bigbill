@@ -79,7 +79,7 @@
                                                 <i title="Descripción" class="text-primary fas fa-book"></i>
                                             </span>
                                         </div>
-                                        <input id="description" name="description" type="text"
+                                        <input id="description" maxlength="50" name="description" type="text"
                                             class="border-0 bg-input text-dark form-control @error('name') is-invalid @enderror"
                                             value="{{ $products->description }}"
                                             placeholder="Descripcion del Producto: ej. especificaciones" required
