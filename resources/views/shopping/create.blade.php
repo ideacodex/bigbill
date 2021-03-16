@@ -111,8 +111,7 @@
                                         class="form-control border-0 bg-input @error('new_existing') is-invalid @enderror"
                                         required>
                                         <option selected disabled>Compra en:</option>
-                                        <option value="1">Producto nuevo</option>
-                                        <option value="2">Producto existente</option>
+                                        <option value="1">Producto existente</option>
                                     </select>
                                     @error('new_existing')
                                         <span class="invalid-feedback" role="alert">
@@ -306,14 +305,14 @@
             var newtr = '<tr class="item"  data-id="' + sel + '">';
             var newtr = '<tr class=""  data-id="' + sel + '">';
 
-            if (selectedProduct == 1) {
+/*             if (selectedProduct == 1) {
                 console.error("Producto existente");
                 newtr = newtr +
                     `<td><input class="border-top-0 border-bottom-0 border-right-0 bg-span form-control" placeholder="Producto" type="text" id="product" name="product[]" value="" /><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1"/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
                 newtr = newtr +
                     '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-            }
-            if (selectedProduct == 2) {
+            } */
+            if (selectedProduct == 1) {
                 console.error("Producto existente");
                 newtr = newtr +
                     `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 5)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="bg-input border-0 form-control" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`

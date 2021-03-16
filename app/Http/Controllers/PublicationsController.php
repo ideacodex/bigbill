@@ -21,12 +21,7 @@ class PublicationsController extends Controller
         return view('Publications.preview', ['records' => $records]);
     }
 
-    public function viewPublication() //vista publica
-    {
-        // Vista ususarios
-        $records = Adds::all();
-        return view('Publications.index', ['records' => $records]);
-    }
+  
 
     /**
      * Store a newly created resource in storage.

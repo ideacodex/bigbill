@@ -12,6 +12,99 @@
         }
 
     </style>
+
+    {{-- Anuncios --}}
+    <input type="checkbox" id="cerrar">
+    <label for="cerrar" id="btn-cerrar"> <b>X</b></label>
+    <div class="modals">
+        @if ($records)
+            <div class="contenido">
+                @foreach ($records as $item)
+                    @if ($item != null)
+                        <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
+                            <strong> {{ $item->title }}</strong>
+                        </h2>
+                        <br>
+                        <br>
+                        <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                            class="card-text">
+                            @if ($item->file != null)
+                                <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3" height="180px"
+                                    width="175px">
+                            @else
+                                <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                            @endif
+
+                            <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                                {{ $item->description }}
+                            </p>
+                            @if ($item->link != null)
+                                <hr>
+                                <a href=" {{ $item->link }}">
+                                    <button class="bttn-unite bttn-md bttn-primary">
+                                        ¡Conoce más!
+                                    </button>
+                                </a>
+                                <br>
+                            @endif
+                            <br>
+                        </div>
+
+                    @else
+                        <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
+                            <strong> Bienvenido a Big Bill</strong>
+                        </h2>
+                        <br>
+                        <br>
+                        <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                            class="card-text">
+                            <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                            <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                                Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas,
+                                podrás llevar el control de tu stock de productos.
+                            </p>
+
+                            <hr>
+                            <a href="{{ url('/register') }}">
+                                <button class="bttn-unite bttn-md bttn-primary">
+                                    ¡Unete y prueba la diferencia!
+                                </button>
+                            </a>
+                            <br>
+                            <br>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @else
+            <div class="contenido">
+                <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
+                    <strong> Bienvenido a Big Bill</strong>
+                </h2>
+                <br>
+                <br>
+                <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                    class="card-text">
+                    <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                    <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                        Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas,
+                        podrás llevar el control de tu stock de productos.
+                    </p>
+
+                    <hr>
+                    <a href="{{ url('/register') }}">
+                        <button class="bttn-unite bttn-md bttn-primary">
+                            ¡Unete y prueba la diferencia!
+                        </button>
+                    </a>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        @endif
+    </div>
+    {{-- fin de anuncios --}}
+
     <!-- NAVIGATION -->
     @if (Route::has('login'))
         <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #000000">
@@ -25,16 +118,16 @@
                 </button>
                 <div class="collapse navbar-collapse Rubik-Medium" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                       
+
                         <li class="nav-item">
                             <a class="nav-link" href="#soluciones">SOLUCIONES</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#beneficios">BENEFICIOS</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('Ver_Publicaciones') }}">PUBLICACIONES</a>
-                        </li>
+                        </li> --}}
                         @auth
                             <li class="nav-item">
                                 <a class="btn btn-primary nav-link" style="border-radius: 15px;"
@@ -246,4 +339,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous">
     </script>
+
 @endsection

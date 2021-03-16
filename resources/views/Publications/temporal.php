@@ -47,6 +47,113 @@
     {{-- diseño botones --}}
     <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
 
+    {{-- funcion js para cerrar --}}
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
+
+    {{-- diseno de barra de mensaje 
+        <style>
+        #hellobar-bar {
+            font-family: "Open Sans", sans-serif;
+            width: 100%;
+            margin: 0;
+            height: 30px;
+            display: table;
+            font-size: 17px;
+            font-weight: 400;
+            padding: .33em .5em;
+            -webkit-font-smoothing: antialiased;
+            color: #5c5e60;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 1px 3px 2px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+        }
+
+        #hellobar-bar.regular {
+            height: 30px;
+            font-size: 14px;
+            padding: .2em .5em;
+        }
+
+        .hb-content-wrapper {
+            text-align: center;
+            text-align: center;
+            position: relative;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .hb-content-wrapper p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .hb-text-wrapper {
+            margin-right: .67em;
+            display: inline-block;
+            line-height: 1.3;
+        }
+
+        .hb-text-wrapper .hb-headline-text {
+            font-size: 1em;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #hellobar-bar .hb-cta {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 5px 0;
+            color: #ffffff;
+            background-color: #22af73;
+            border-color: #22af73
+        }
+
+        .hb-cta-button {
+            opacity: 1;
+            color: #fff;
+            display: block;
+            cursor: pointer;
+            line-height: 1.5;
+            max-width: 22.5em;
+            text-align: center;
+            position: relative;
+            border-radius: 3px;
+            white-space: nowrap;
+            margin: 1.75em auto 0;
+            text-decoration: none;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .hb-cta-button .hb-text-holder {
+            border-radius: inherit;
+            padding: 5px 15px;
+        }
+
+        .hb-close-wrapper {
+            display: table-cell;
+            width: 1.6em;
+        }
+
+        .hb-close-wrapper .icon-close {
+            font-size: 14px;
+            top: 15px;
+            right: 25px;
+            width: 15px;
+            height: 15px;
+            opacity: .3;
+            color: #000;
+            cursor: pointer;
+            position: absolute;
+            text-align: center;
+            line-height: 15px;
+            z-index: 1;
+            text-decoration: none;
+        }
+
+    </style> --}}
+
 
     <style>
         /* estilo texto */
@@ -368,65 +475,13 @@
     </style>
 
 
-    <style>
-        .overlay {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            transition: opacity 500ms;
-            visibility: hidden;
-            opacity: 0;
-        }
-
-        .overlay:target {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .popup {
-            margin: 70px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 5px;
-            width: 30%;
-            position: relative;
-            transition: all 5s ease-in-out;
-        }
-
-        .popup h2 {
-            margin-top: 0;
-            color: #333;
-            font-family: Tahoma, Arial, sans-serif;
-        }
-
-        .popup .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            transition: all 200ms;
-            font-size: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .popup .close:hover {
-            color: #06D85F;
-        }
-
-        .popup .content {
-            max-height: 30%;
-            overflow: auto;
-        }
-
-    </style>
 
 </head>
 
 <body class="fondoPublicaciones">
+
+
+
 
     <!-- NAVIGATION -->
     @if (Route::has('login'))
@@ -462,6 +517,38 @@
             </div>
         </nav>
     @endif
+
+    {{-- mensajes de barra superiores 
+        <div id="hellobar-bar" class="regular closable">
+        <div class="hb-content-wrapper">
+            <div class="hb-text-wrapper">
+                <div class="hb-headline-text">
+                    <a href="javascript:onClick=window.close()"><br>
+                        Cerrar</a>
+                    <p><span>Regístrate ya en
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos
+                            <br> programacion.net y accederas a multitud de tutoriales gratuitos</span></p>
+
+                </div>
+            </div>
+            <a href="http://www.programacion.net" target="_blank" class="hb-cta hb-cta-button">
+                <div class="hb-text-holder">
+                    <p>Regístrate</p>
+                </div>
+            </a>
+        </div>
+        <div class="hb-close-wrapper">
+            <a href="javascript:void(0);" class="icon-close" onclick="$('#hellobar-bar').fadeOut()">✖</a>
+        </div>
+    </div> --}}
+
+
     {{-- controla tu empresa --}}
     <div class="row">
         <div
@@ -526,6 +613,9 @@
         </div>
     </div>
 
+
+
+
     {{-- <div id="popup1" class="overlay">
         <div class="popup">
             <h2>Here i am</h2>
@@ -539,15 +629,17 @@
         ventana secundaria</a>
     <a href="http://0.0.0.0:3000/Ver_Publicaciones#" target="_blank">Abre el enlace en una nueva ventana</a> --}}
 </body>
-<script language=javascript>
+
+
+{{-- <script language=javascript>
     function ventanaSecundaria(URL) {
         window.open(URL, "ventana1", "width=500,height=300,scrollbars=NO")
     }
 
     ventanaSecundaria("https://www.facebook.com/ideacodex");
 
-</script>
-<script language=javascript>
+</script> --}}
+{{-- <script language=javascript>
     function ventanaSecundaria1(URL) {
         window.open(URL, "ventana2", "width=500,height=300,scrollbars=NO")
     }
@@ -578,7 +670,7 @@
 
     ventanaSecundaria4("https://www.facebook.com/ideacodex");
 
-</script>
+</script> --}}
 {{-- <script>
     function ventanaSecundaria(URL) {
         window.open(URL, "ventana1", "width=120,height=300,scrollbars=NO")

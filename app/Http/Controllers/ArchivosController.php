@@ -9,6 +9,7 @@ use App\Product;
 use App\Company;
 use App\Customer;
 use App\Account;
+use App\Adds;
 use App\BranchOffice;
 use App\InvoiceBill;
 use App\Shopping;
@@ -94,7 +95,6 @@ class ArchivosController extends Controller
             return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
         }
     }
-
     //Reporte facturas
     public function exportfacturatPDF()
     {
@@ -142,7 +142,12 @@ class ArchivosController extends Controller
         $branch_id = Auth::user()->branch_id; //guardo la variable de Sucursal del ususario autentificado
         $branch_offices =  BranchOffice::where('id', $branch_id)->get(); //realiza consulta mysql
         $company =  Company::where('id', $company_id)->get(); //realiza consulta mysql
-        return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company]);
+        $records = Adds::all();
+        if ($records->first()) {
+            return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'records' => $records->random(1)]);
+        } else {
+            return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'records' => null]);
+        }
     }
     //usuarios de una empresa
     public function Personal(Request $request)
