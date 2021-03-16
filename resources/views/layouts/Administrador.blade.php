@@ -38,7 +38,8 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-
+     {{-- diseño botones --}}
+     <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
 </head>
 
 <style>
@@ -494,7 +495,7 @@
                         <a class="nav-link" href="{{ url('empresas/' . Auth::user()->company_id . '/edit') }}">
                             <i class="fas fa-street-view"></i> Empresa
                         </a>
-                        <a class="nav-link" href="{{ url('Crear-Anuncios') }}">
+                        <a class="nav-link" href="{{ url('Publicaciones') }}">
                             <i class="fas fa-newspaper"></i> Anuncios
                         </a>
 

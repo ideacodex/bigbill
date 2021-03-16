@@ -33,7 +33,7 @@
                             <a class="nav-link" href="#beneficios">BENEFICIOS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('Publicaciones') }}">PUBLICACIONES</a>
+                            <a class="nav-link" href="{{ url('Ver_Publicaciones') }}">PUBLICACIONES</a>
                         </li>
                         @auth
                             <li class="nav-item">

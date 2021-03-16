@@ -43,7 +43,9 @@
 
 
     {{-- estilos de letras --}}
-    <link rel="stylesheet" href="{{ asset('css/EstiloLetras.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/EstiloLetras.css') }}">
+    {{-- diseño botones --}}
+    <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
 
 
     <style>
@@ -357,13 +359,7 @@
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#011363", endColorstr="#097ff5", GradientType=1);
         }
 
-        .linkPublicacion {
-            color: gray
-        }
-
-        .linkPublicacion:hover {
-            color: rgb(12, 0, 185)
-        }
+       
 
         hr {
             background: #011363;
@@ -408,11 +404,9 @@
         </nav>
     @endif
 
-
-
-
     {{-- controla tu empresa --}}
     <div class="row">
+
         <div
             class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
             <h1>
@@ -426,36 +420,51 @@
             <div class="card-deck mt-4">
                 <div class="row justify-content-center">
                     {{-- publicacion --}}
+                    @foreach ($records as $item)
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <br>
+                            <div class="card rounded" style="background-color: #ffffff;">
+                                <div class="fondoPublicaciones media pt-3 pb-5">
+                                    <div class="media-body">
+                                        <h5 class=" mr-1 ml-1 text-light Rubik-Medium ">
+                                            <strong> {{ $item->title }}</strong>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                                    class="card-text">
+                                    @if ($item->file != null)
+                                        <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3"
+                                           height="180px" width="175px" >
+                                    @else
+                                        <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                                    @endif
+                                    
+                                    <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                                        {{ $item->description }}
+                                    </p>
+                                    @if ($item->link != null)
+                                        <hr>
+                                        <a href=" {{ $item->link }}">
+                                            <button class="bttn-unite bttn-md bttn-primary"> 
+                                                ¡Conoce más!
+                                            </button>
+                                        </a>
+                                        <br>
+                                    @endif
+                                    <br>
 
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <br>
-                        <div class="card rounded" style="background-color: #ffffff;">
-                            <div class="fondoPublicaciones media pt-3 pb-5">
-                                <div class="media-body">
-                                    <h5 class=" mr-1 ml-1 text-light Rubik-Medium ">
-                                       <strong> TITULO  TITULOT ITULOTITULOTITUT ITULO  TITUITULOTIT ULOTITULO LOTITULOTITULOT</strong> 
-                                    </h5>
                                 </div>
                             </div>
-                            <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                                class="card-text">
-                                <img src="img/simbolo_logo.png" class="mt-3" width="175px" >
-                                <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                                    Descripcion de anuncio
-                                </p>
-                                <hr>
-                                <p class="linkPublicacion">
-                                    link
-                                </p>
-                            </div>
                         </div>
-                    </div>
-
+                    @endforeach
                 </div>
 
             </div>
             <br><br><br><br>
         </div>
+
+
     </div>
 
 </body>

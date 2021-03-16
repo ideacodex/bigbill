@@ -13,10 +13,10 @@
     @endif
     <!--Validación de errores-->
     <!--Mensaje flash-->
-    @if (session('datosEliminados'))
+    @if (session('Mensaje'))
         <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
             <span class="badge badge-pill badge-danger">Atención</span>
-            {{ session('datosEliminados') }}
+            {{ session('Mensaje') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -59,8 +59,32 @@
                                                         title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
                                                     <td title="{{ $item->title }}">{{ $item->title }}</td>
                                                     <td title="{{ $item->description }}">{{ $item->description }}</td>
-                                                    <td title="{{ $item->link }}">{{ $item->link }}</td>
-                                                    <td title="{{ $item->file }}">{{ $item->file }}</td>
+                                                    @if ($item->link != null)
+                                                        <td title="{{ $item->link }}">
+                                                            <a href=" {{ $item->link }}">
+                                                                <button class="bttn-unite bttn-md bttn-primary">
+                                                                    ¡Conoce más!
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            No cuenta con enlace
+                                                        </td>
+                                                    @endif
+
+                                                    @if ($item->file != null)
+                                                        <td>
+                                                            <img src="{{ asset('/storage/adds/' . $item->file) }}"
+                                                                height="100px" width="100px">
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            si 
+                                                            No Existe
+                                                        </td>
+                                                    @endif
+
                                                     <td>
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a title="Actualizar Tipo de Cuenta"
@@ -99,7 +123,7 @@
                     </button>
                 </div>
                 <div class="modal-body bg-frm">
-                    <form method="POST" action="{{ route('Crear-Anuncios.store') }}" onsubmit="return checkSubmit();"
+                    <form method="POST" action="{{ route('Publicaciones.store') }}" onsubmit="return checkSubmit();"
                         enctype="multipart/form-data" file="true">
                         @csrf
                         <div class="form-group">

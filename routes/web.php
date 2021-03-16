@@ -151,5 +151,7 @@ Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware(
 
 
 // pagina de visualizacion de publicaciones Administrador
-Route::resource('Crear-Anuncios','PublicationsController');
+Route::resource('Publicaciones','PublicationsController');
 // pagina de visualizacion de publicaciones Administrador
+
+Route::get('Ver_Publicaciones','PublicationsController@viewPublication')->name('Ver_Publicaciones');

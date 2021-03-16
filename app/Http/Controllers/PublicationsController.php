@@ -13,22 +13,19 @@ class PublicationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         //Vista Administrador
         $records = Adds::all();
         return view('Publications.preview', ['records' => $records]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function viewPublication()
     {
         // Vista ususarios
-        return view('Publications.index');
+        $records = Adds::all();
+        return view('Publications.index', ['records' => $records]);
     }
 
     /**
@@ -60,7 +57,7 @@ class PublicationsController extends Controller
                 $extension = $request->file('file')->getClientOriginalExtension();
                 $imageNameToStore = $add->id . '.' . $extension;
                 // Upload file //***nombre de carpeta para almacenar**
-                $path = $request->file('file')->storeAs('public/addS', $imageNameToStore);
+                $path = $request->file('file')->storeAs('public/adds', $imageNameToStore);
                 //dd($path);
                 $add->file = $imageNameToStore;
                 $add->save();
