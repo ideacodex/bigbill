@@ -1,5 +1,6 @@
     <?php
 
+use App\Adds;
 use App\Exports\DocsExport;
 use App\Exports\DocsAccount;
 use App\Exports\DocsAccountType;
@@ -11,7 +12,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('landingpage.inicio');
+    $records = Adds::all();
+    if ($records ->first()){
+        
+        return view('landingpage.inicio',  ['records' => $records->random(1)]);
+    }else{
+       
+        return view('landingpage.inicio',  ['records' => null]);
+    }
+    
 });
 Auth::routes(['verify' => true]);
 
@@ -154,4 +163,3 @@ Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware(
 Route::resource('Publicaciones','PublicationsController');
 // pagina de visualizacion de publicaciones Administrador
 
-Route::get('Ver_Publicaciones','PublicationsController@viewPublication')->name('Ver_Publicaciones');

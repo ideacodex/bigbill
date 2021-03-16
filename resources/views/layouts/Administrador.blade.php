@@ -38,10 +38,192 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-     {{-- diseño botones --}}
-     <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
+    {{-- diseño botones --}}
+    <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
+    {{-- diseño anuncios --}}
+    <link rel="stylesheet" href="{{ asset('css/anuncio.css') }}">
+    {{-- estilos de letras --}}
+    <link rel="stylesheet" href="{{ asset('css/estiloLetras.css') }}">
+    {{-- estilos de letras --}}
+    <link rel="stylesheet" href="{{ asset('css/EstiloLetras.css') }}" />
 </head>
+{{-- /* estilo texto */ --}}
+<style>
+    /* estilo texto */
 
+    /* arial_narrow_7 */
+
+    @font-face {
+        font-family: 'arial_narrow_7';
+        src: url("{{ asset('/fonts/fonts/arial_narrow_7.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik_Bold */
+
+    @font-face {
+        font-family: 'Rubik_Bold';
+        src: url("{{ asset('/fonts/fonts/Rubik_Bold.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-Black */
+
+    @font-face {
+        font-family: 'Rubik-Black';
+        src: url("{{ asset('/fonts/fonts/Rubik-Black.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-BlackItalic */
+
+    @font-face {
+        font-family: 'Rubik-BlackItalic';
+        src: url("{{ asset('/fonts/fonts/Rubik-BlackItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-BoldItalic */
+
+    @font-face {
+        font-family: 'Rubik-BoldItalic';
+        src: url("{{ asset('/fonts/fonts/Rubik-BoldItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-Italic */
+
+    @font-face {
+        font-family: 'Rubik-Italic';
+        src: url("{{ asset('/fonts/fonts/Rubik-Italic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-Light */
+
+    @font-face {
+        font-family: 'Rubik-Light';
+        src: url("{{ asset('/fonts/fonts/Rubik-Light.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-LightItalic */
+
+    @font-face {
+        font-family: 'Rubik-LightItalic';
+        src: url("{{ asset('/fonts/fonts/Rubik-LightItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-Medium */
+
+    @font-face {
+        font-family: 'Rubik-Medium';
+        src: url("{{ asset('fonts/fonts/Rubik-Medium.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-MediumItalic */
+
+    @font-face {
+        font-family: 'Rubik-MediumItalic';
+        src: url("{{ asset('/fonts/fonts/Rubik-MediumItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-Regular */
+
+    @font-face {
+        font-family: 'Rubik-Regular';
+        src: url("{{ asset('/fonts/fonts/Rubik-Regular.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* Rubik-SemiBold */
+
+    @font-face {
+        font-family: 'Rubik-SemiBold';
+        src: url("{{ asset('/fonts/fonts/Rubik-SemiBold.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* fin de  estilo texto */
+
+    /* clases css para implementar fuentes */
+
+    .arial_narrow_7 {
+        font-family: 'arial_narrow_7';
+    }
+
+    .Rubik_Bold {
+        font-family: 'Rubik_Bold';
+    }
+
+    .Rubik-Black {
+        font-family: 'Rubik-Black';
+    }
+
+    .Rubik-BlackItalic {
+        font-family: 'Rubik-BlackItalic';
+    }
+
+    .Rubik-BoldItalic {
+        font-family: 'Rubik-BoldItalic';
+    }
+
+    .Rubik-Italic {
+        font-family: 'Rubik-Italic';
+    }
+
+    .Rubik-Light {
+        font-family: 'Rubik-Light';
+    }
+
+    .Rubik-LightItalic {
+        font-family: 'Rubik-LightItalic';
+    }
+
+    .Rubik-Medium {
+        font-family: 'Rubik-Medium';
+    }
+
+    .Rubik-MediumItalic {
+        font-family: 'Rubik-MediumItalic';
+    }
+
+    .Rubik-Regular {
+        font-family: 'Rubik-Medium';
+    }
+
+    .Rubik-SemiBold {
+        font-family: 'Rubik-MediumItalic';
+    }
+
+</style>
 <style>
     /* imagen de a la par de ajustes - parte superior derecha */
     .imgperfil {
