@@ -182,7 +182,7 @@
                                         <input id="address" placeholder="Dirección" type="text"
                                             style="background: transparent"
                                             class="text-dark form-control border-0 @error('address') is-invalid @enderror"
-                                            name="address" value="{{ old('address') }}" autocomplete="address" autofocus>
+                                            name="address" value="{{ $customers->address }}" autocomplete="address" autofocus>
 
                                         @error('address')
                                             <span class="invalid-feedback" role="alert">
@@ -210,7 +210,7 @@
                                         <input id="delivery_address" placeholder="Dirección de entrega" type="text"
                                             style="background: transparent"
                                             class="text-dark form-control border-0 @error('delivery_address') is-invalid @enderror"
-                                            name="delivery_address" value="{{ old('delivery_address') }}"
+                                            name="delivery_address" value="{{ $customers->delivery_address }}"
                                             autocomplete="delivery_address" autofocus>
 
                                         @error('delivery_address')

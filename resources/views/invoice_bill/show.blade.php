@@ -65,9 +65,9 @@
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-8">
                     <br>
                     <br>
-                    <strong style="color : #030303;">Factura</strong>
+                    <strong style="color : #030303;">Venta</strong>
                     <br>
-                    <strong style="color : #0026a7;">Documento Electronico</strong>
+                    <strong style="color : #0026a7;">Comprobante electrónico</strong>
                 </div>
 
                 {{-- <!-- Encabezado --> --}}
@@ -75,7 +75,7 @@
                 {{-- <!-- Datos Empresa --> --}}
                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-5" style="color: #00096d;font-size:20px">
                     <br>
-                    <h2>Factura {{ $records->company->name }}</h2>
+                    <h2>Venta {{ $records->company->name }}</h2>
                     <strong style="color: #00096d;">Dirección:</strong> {{ $records->company->address }}
                     <br>
                     <strong style="color: #00096d">Teléfono:</strong> {{ $records->company->phone }}
@@ -97,7 +97,7 @@
                                         border-radius: 15px 15px 0px 0px ;
                                         -moz-border-radius:  15px 15px 0px 0px ;
                                         -webkit-border-radius:15px 15px 0px 0px">
-                            <strong>DATOS DE LA FACTURA</strong>
+                            <strong>DATOS DE LA VENTA</strong>
                         </div>
                         <br>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="border-radius :3px;border-bottom:  black 2px solid; border-left: black 2px solid;border-right: black 2px solid">
@@ -183,7 +183,7 @@
                         -webkit-border-radius:15px 15px 0px 0px">
                     <h3>
                         <b>
-                            Datos:
+                            Detalle de venta
                         </b>
                     </h3>
                 </div>

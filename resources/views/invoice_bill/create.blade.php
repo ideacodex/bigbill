@@ -41,15 +41,15 @@
                         <div class="card-header bg-cardheader"
                             style="border-top-right-radius: 25px; border-top-left-radius: 25px;">
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                                <strong class="card-title text-light">Emitir factura o cotización</strong>
+                                <strong class="card-title text-light">Emitir venta o cotización</strong>
                             @elseif (Auth::user()->suscriptions->type_plan == 0)
-                                <strong class="card-title text-light">Emitir factura</strong>
+                                <strong class="card-title text-light">Emitir venta</strong>
                             @endif
                         </div>
                         @if (Auth::user()->suscriptions->type_plan == 1)
                             <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
                                 <span class="badge badge-pill badge-warning">¡Atención!</span>
-                                Al momento de estar realizando su factura o cotización.<span
+                                Al momento de estar realizando su venta o cotización.<span
                                     class="badge badge-pill badge-warning">¡No recargue esta página!</span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -58,7 +58,7 @@
                         @elseif (Auth::user()->suscriptions->type_plan == 0)
                             <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
                                 <span class="badge badge-pill badge-warning">¡Atención!</span>
-                                Al momento de estar realizando su factura. <span class="badge badge-pill badge-warning">¡No
+                                Al momento de estar realizando su venta. <span class="badge badge-pill badge-warning">¡No
                                     recargue esta página!</span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -225,7 +225,7 @@
                                             class="border-0 bg-input form-control @error('document_type') is-invalid @enderror"
                                             required>
                                             <option selected disabled>Tipo de gestión</option>
-                                            <option value="1">Factura</option>
+                                            <option value="1">Venta</option>
                                             <option value="0">Cotización</option>
                                         </select>
                                         @error('document_type')
@@ -256,9 +256,9 @@
                                     <select name="invoice_type" id="invoice_type"
                                         class="border-0 bg-input form-control @error('invoice_type') is-invalid @enderror"
                                         required>
-                                        <option selected disabled>Tipo de factura</option>
-                                        <option value="0">Factura sin iva</option>
-                                        <option value="1">Factura con iva</option>
+                                        <option selected disabled>Tipo de venta</option>
+                                        <option value="0">Venta sin iva</option>
+                                        <option value="1">Venta con iva</option>
                                     </select>
                                     @error('invoice_type')
                                         <span class="invalid-feedback" role="alert">
@@ -529,6 +529,60 @@
                             @enderror
 
                             @error('nit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        {{-- Dirección --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                    class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Dirección" class="text-primary fas fa-sort-amount-down"></i>
+                                </span>
+                            </div>
+                            <input id="address" placeholder="Dirección" type="text" style="background: transparent"
+                                class="text-dark form-control border-0 @error('address') is-invalid @enderror"
+                                name="address" value="{{ old('address') }}" autocomplete="address" autofocus>
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        {{-- Dirección de entrega --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                    class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Dirección de entrega" class="text-primary fas fa-sort-amount-down"></i>
+                                </span>
+                            </div>
+                            <input id="delivery_address" placeholder="Dirección de entrega" type="text"
+                                style="background: transparent"
+                                class="text-dark form-control border-0 @error('delivery_address') is-invalid @enderror"
+                                name="delivery_address" value="{{ old('delivery_address') }}"
+                                autocomplete="delivery_address" autofocus>
+
+                            @error('delivery_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('delivery_address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -110,7 +110,7 @@
                                                     </td>
                                                 @else
                                                     <td class="text-danger">
-                                                        <b>Sin vista previa</b> 
+                                                        <b>Sin vista previa</b>
                                                     </td>
                                                 @endif
                                                 <td>
@@ -131,9 +131,7 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -170,9 +168,6 @@
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script>
         new TableExport(document.getElementsByTagName("table"));
-        // OR simply
-        /* TableExport(document.getElementsByTagName("table")); */
-        // OR using jQuery
 
     </script>
 @endsection

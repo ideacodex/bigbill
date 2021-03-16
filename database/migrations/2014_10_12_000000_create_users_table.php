@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
         Schema::create('branch_offices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('phone')->unique();
+            $table->integer('phone')->nullable();
             $table->integer('pbx')->nullable();
             $table->string('address');
             $table->unsignedBigInteger('company_id')->nullable();

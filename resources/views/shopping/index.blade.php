@@ -46,7 +46,7 @@
             + REGISTRAR COMPRA
         </a>
         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-            href="{{ route('Factura.pdf') }}">REPORTE PDF
+            href="{{ route('Compra.pdf') }}">REPORTE PDF
         </a>
     </div>
     <div class="accordion" id="accordionExample">

@@ -23,7 +23,7 @@
 
     <div class="card-body d-flex justify-content-between align-items-center">
         <a href="{{ route('facturas.create') }}" style="border-radius: 95px;" class="btn btn-success btn-sm">&nbsp;
-            + CREAR FACTURA
+            + REGISTRAR VENTA
         </a>
         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
             href="{{ route('Factura.pdf') }}">REPORTE PDF
@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header" style="background-color: black; border-radius: 15px">
-                    <strong style="color: white" class="card-title">Facturas registradas</strong>
+                    <strong style="color: white" class="card-title">Ventas registradas</strong>
                 </div>
                 <div class="card-body">
                     <div class="row table-responsive">
@@ -44,7 +44,7 @@
                                 <thead style="border-radius: 15px; background-color: black; color:white">
                                     <tr>
                                         <th>No</th>
-                                        <th>Facturador</th>
+                                        <th>Encargado de venta</th>
                                         <th>Companía</th>
                                         <th>Sucursal</th>
                                         <th>Cliente</th>
