@@ -17,6 +17,15 @@ class FixBugs extends Migration
             $table->string('address')->nullable();
             $table->string('delivery_address')->nullable();
         });
+
+        Schema::create('adds', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('file')->nullable();
+            $table->string('description')->nullable();
+            $table->string('link')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,6 +35,7 @@ class FixBugs extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('adds');
         Schema::table('customers', function (Blueprint $table) {
             $table->dropColumn('address');
             $table->dropColumn('delivery_address');

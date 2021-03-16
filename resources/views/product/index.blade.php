@@ -70,6 +70,7 @@
                                             <th>Ingresos totales </th>
                                             <th>Egreso</th>
                                             <th>Estado</th>
+                                            <th>Vista previa</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -102,7 +103,16 @@
                                                 @elseif ($item->active == 0)
                                                     <td>Agotado <i class="text-danger fas fa-times-circle"></i></td>
                                                 @endif
-
+                                                @if ($item->file != null)
+                                                    <td>
+                                                        <img src="{{ asset('/storage/productos/' . $item->file) }}"
+                                                            height="50px" width="50px">
+                                                    </td>
+                                                @else
+                                                    <td class="text-danger">
+                                                        <b>Sin vista previa</b> 
+                                                    </td>
+                                                @endif
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
 
@@ -163,6 +173,7 @@
         // OR simply
         /* TableExport(document.getElementsByTagName("table")); */
         // OR using jQuery
+
     </script>
 @endsection
 @section('js')
