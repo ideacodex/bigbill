@@ -130,7 +130,7 @@ class ArchivosController extends Controller
         /**si existe la columna company_id realizar: Filtrado de inforcion*/
         if (!empty($request->company_id)) {
             $records = Shopping::with('user')->with('company')->with('detail.product')->find($request);
-            $pdf = PDF::loadView('CompanyInformation.bills', compact('Shopping', 'DetailBill')); //genera el PDF la vista
+            $pdf = PDF::loadView('CompanyInformation.bills', compact('Shopping', 'DetailShoppings')); //genera el PDF la vista
             return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
         }
     }

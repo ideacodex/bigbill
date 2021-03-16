@@ -195,13 +195,6 @@
         <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
         <script>
-            new TableExport(document.getElementsByTagName("table"));
-            // OR simply
-            /* TableExport(document.getElementsByTagName("table")); */
-            // OR using jQuery
-
-        </script>
-        <script>
             function toggleActive(event) {
                 var target = event.target || event.srcElement;
                 var buttonList = document.querySelectorAll(".nav-link");
@@ -221,10 +214,6 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
         <script>
             new TableExport(document.getElementsByTagName("table"));
-            // OR simply
-            /* TableExport(document.getElementsByTagName("table")); */
-            // OR using jQuery
-
         </script>
     @endsection
     @section('js')

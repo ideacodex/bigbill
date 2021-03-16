@@ -78,8 +78,8 @@
                 var data = google.visualization.arrayToDataTable([
                     ['Nombre', 'Monto'],
                     
-                    @foreach ($invoice as $invoices)
-                        ['{{ $invoices->id }}', {{ $invoices->total}}],
+                    @foreach ($customer as $customers)
+                        ['{{ $customers->name }} {{ $customers->lastname }}', {{ $customers->bills->sum('total')}}],
                     @endforeach
                 ]);
 
