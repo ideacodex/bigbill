@@ -359,16 +359,75 @@
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#011363", endColorstr="#097ff5", GradientType=1);
         }
 
-       
+
 
         hr {
             background: #011363;
         }
 
     </style>
+
+
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .popup .close:hover {
+            color: #06D85F;
+        }
+
+        .popup .content {
+            max-height: 30%;
+            overflow: auto;
+        }
+
+    </style>
+
 </head>
 
-<body class="fondoPublicaciones">
+<body class="fondoPublicaciones"  >
+
     <!-- NAVIGATION -->
     @if (Route::has('login'))
         <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #000000">
@@ -403,10 +462,8 @@
             </div>
         </nav>
     @endif
-
     {{-- controla tu empresa --}}
     <div class="row">
-
         <div
             class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
             <h1>
@@ -416,7 +473,7 @@
                 </label>
                 <br>
             </h1>
-            </a>
+
             <div class="card-deck mt-4">
                 <div class="row justify-content-center">
                     {{-- publicacion --}}
@@ -431,30 +488,34 @@
                                         </h5>
                                     </div>
                                 </div>
-                                <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                                    class="card-text">
-                                    @if ($item->file != null)
-                                        <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3"
-                                           height="180px" width="175px" >
-                                    @else
-                                        <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                                    @endif
+                                {{-- <a href="#popup1"> --}}
                                     
-                                    <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                                        {{ $item->description }}
-                                    </p>
-                                    @if ($item->link != null)
-                                        <hr>
-                                        <a href=" {{ $item->link }}">
-                                            <button class="bttn-unite bttn-md bttn-primary"> 
-                                                ¡Conoce más!
-                                            </button>
-                                        </a>
-                                        <br>
-                                    @endif
-                                    <br>
 
-                                </div>
+                                    <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                                        class="card-text">
+                                        @if ($item->file != null)
+                                            <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3"
+                                                height="180px" width="175px">
+                                        @else
+                                            <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                                        @endif
+
+                                        <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                                            {{ $item->description }}
+                                        </p>
+                                        @if ($item->link != null)
+                                            <hr>
+                                            <a href=" {{ $item->link }}">
+                                                <button class="bttn-unite bttn-md bttn-primary">
+                                                    ¡Conoce más!
+                                                </button>
+                                            </a>
+                                            <br>
+                                        @endif
+                                        <br>
+
+                                    </div>
+                                {{-- </a> --}}
                             </div>
                         </div>
                     @endforeach
@@ -463,10 +524,23 @@
             </div>
             <br><br><br><br>
         </div>
-
-
     </div>
 
+    {{-- <div id="popup1" class="overlay">
+        <div class="popup">
+            <h2>Here i am</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                Thank to pop me out of that button, but now i'm done so you can close this window.
+            </div>
+        </div>
+    </div> --}}
+    <a href="javascript:ventanaSecundaria('https://www.facebook.com/ideacodex') "  > Pincha en este enlace para abrir la ventana secundaria</a>
+    <a href="http://0.0.0.0:3000/Ver_Publicaciones#" target="_blank">Abre el enlace en una nueva ventana</a>
 </body>
-
+<script> 
+    function ventanaSecundaria (URL){ 
+       window.open(URL,"ventana1","width=120,height=300,scrollbars=NO") 
+    } 
+    </script>
 </html>
