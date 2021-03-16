@@ -95,7 +95,6 @@ class ArchivosController extends Controller
             return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
         }
     }
-
     //Reporte facturas
     public function exportfacturatPDF()
     {
