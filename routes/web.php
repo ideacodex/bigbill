@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('landingpage.inicio');
 });
-
 Auth::routes(['verify' => true]);
 
 Route::resource('home', 'HomeController')->middleware('auth');
@@ -144,3 +143,15 @@ Route::get('AsinateTuCompania', 'ArchivosController@Companyassignment')->middlew
 Route::get('factura/create', 'InvoiceBillsController@createReact')->middleware('auth');
 Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware('auth');
 /* React */
+
+// pagina de visualizacion de publicaciones usuario
+// Route::get('Publicaciones', 'publicaciones@Publications');
+// pagina de visualizacion de publicaciones usuario
+
+
+
+// pagina de visualizacion de publicaciones Administrador
+Route::resource('Publicaciones','PublicationsController');
+// pagina de visualizacion de publicaciones Administrador
+
+Route::get('Ver_Publicaciones','PublicationsController@viewPublication')->name('Ver_Publicaciones');

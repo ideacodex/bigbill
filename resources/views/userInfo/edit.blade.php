@@ -220,9 +220,7 @@
                                                         class="border-0 bg-input select2 form-control @error('company_id') is-invalid @enderror">
                                                         <option selected value="0">Asignate a la compania</option>
                                                         @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}">Nombre:
-                                                                {{ $item->name }}
-                                                                {{ $item->lastname }} Nit: {{ $item->nit }}
+                                                            <option value="{{ $item->id }}"> Nit: {{ $item->nit }}
                                                             </option>
                                                         @endforeach
                                                     </select>

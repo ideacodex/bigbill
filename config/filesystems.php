@@ -96,6 +96,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'adds' => [
+            'driver' => 'local',
+            'root' => storage_path('app/adds'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

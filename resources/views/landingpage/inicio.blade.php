@@ -25,14 +25,15 @@
                 </button>
                 <div class="collapse navbar-collapse Rubik-Medium" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">INICIO</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link" href="#soluciones">SOLUCIONES</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#beneficios">BENEFICIOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('Ver_Publicaciones') }}">PUBLICACIONES</a>
                         </li>
                         @auth
                             <li class="nav-item">
@@ -42,7 +43,7 @@
                         @else
                             <li class="nav-item">
                                 <a class="btn btn-primary nav-link" style="border-radius: 15px;"
-                                    href="{{ route('login') }}">INICIO DE SESION de sesion</a>
+                                    href="{{ route('login') }}">INICIO DE SESION</a>
                             </li>
                         @endauth
 
@@ -71,9 +72,17 @@
                     llevar el control de tu stock de productos.
                 </label>
                 <br>
-                <a href="#leer" class="btn btn-light Rubik-Medium btnEmpieza" style="border-radius: 15px;">
-                    <span class="text-primary ">EMPIEZA HOY MISMO</span>
-                </a>
+
+                @auth
+                    <a href="{{ url('/perfil') }}" class="btn btn-light Rubik-Medium btnEmpieza" style="border-radius: 15px;">
+                        <span class="text-primary ">TRABAJEMOS</span>
+                    </a>
+                @else
+                    <a href="{{ route('register') }}" class="btn btn-light Rubik-Medium btnEmpieza"
+                        style="border-radius: 15px;">
+                        <span class="text-primary ">EMPIEZA HOY MISMO</span>
+                    </a>
+                @endauth
             </div>
             <div
                 class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 animate__animated animate__pulse animate__infinite animate__slower">
@@ -162,9 +171,9 @@
                     {{-- SEGURIDADEN LA NUBE --}}
                     <div class="card rounded" style="background-color: #ffffff;">
                         <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
+                            <img src="img/ICONO_SEGURIDAD_EN_LA_NUBE.svg" class="m-3" height="60px">
                             <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light ">
+                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium ">
                                     SEGURIDADEN LA NUBE
                                 </h5>
                             </div>
@@ -178,22 +187,21 @@
                         </div>
                     </div>
 
-                    {{-- MANEJO DE MÚLTIPLESEMPRESAS --}}
+                    {{-- MANEJO DE MÚLTIPLES EMPRESAS --}}
 
                     <div class="card rounded" style="background-color: #ffffff;">
                         <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
+                            <img src="img/ICONO_MANEJO_MULTIPLE_EMPRESAS.svg" class="m-3" height="60px">
                             <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light">
-                                    SEGURIDADEN LA NUBE
+                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium">
+                                    MANEJO DE MÚLTIPLES EMPRESAS
                                 </h5>
                             </div>
                         </div>
                         <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
                             class="card-text">
-                            <p class="pt-5 ml-4 mr-4">
-                                Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
-                                encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
+                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
+                                Puedes tener trabajando más de una empresa desde la misma cuenta sin ningún problema.
                             </p>
                         </div>
                     </div>
@@ -202,31 +210,29 @@
                     {{-- EXPERIENCIA INTEGRAL --}}
                     <div class="card rounded" style="background-color: #ffffff;">
                         <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/Computadora-Telefono.svg" class="m-3" height="60px">
+                            <img src="img/ICONO_EXPERIENCIA_INTEGRAL.svg" class="m-3" height="60px">
                             <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light">
-                                    SEGURIDADEN LA NUBE
+                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium">
+                                    EXPERIENCIA INTEGRAL
                                 </h5>
                             </div>
                         </div>
                         <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
                             class="card-text">
-                            <p class="pt-5 ml-4 mr-4">
-                                Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
-                                encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
+                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
+                                Que la experiencia de navegación de los usuarios sea amena, clara y ordenada, para que todos
+                                puedan poner en marcha casi al instanteusus procesos administrativos.
                             </p>
                         </div>
                     </div>
 
-
-
-
                 </div>
+                <br><br><br><br>
             </div>
         </div>
     </div>
 
-    <br><br><br><br>
+
 
 
 
