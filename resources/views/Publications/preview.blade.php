@@ -89,7 +89,7 @@
                                                         <div class="btn-group" role="group" aria-label="Basic example">
                                                             <a title="Actualizar Tipo de Cuenta"
                                                                 class="btn btn-sm btn-primary rounded-circle"
-                                                                href="{{ url('TipodeCuenta/' . $item->id . '/edit') }}"
+                                                                href="{{ url('Publicaciones/' . $item->id . '/edit') }}"
                                                                 title="Editar">
                                                                 <span><i class="fas fa-edit"></i></span>
                                                             </a>

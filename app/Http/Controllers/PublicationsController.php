@@ -13,7 +13,7 @@ class PublicationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request) //vista de administrador
     {
         $request->user()->authorizeRoles(['Administrador']); //autentificacion y permisos
         //Vista Administrador
@@ -21,7 +21,7 @@ class PublicationsController extends Controller
         return view('Publications.preview', ['records' => $records]);
     }
 
-    public function viewPublication()
+    public function viewPublication() //vista publica
     {
         // Vista ususarios
         $records = Adds::all();
@@ -76,7 +76,67 @@ class PublicationsController extends Controller
         return redirect()->action('PublicationsController@index')
             ->with('Mensaje', 'Se creo con exito la publicacion');
     }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $records = Adds::findOrFail($id);
+        return view('Publications.edit', ['records' => $records]);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public  function update(Request $request, $id)
+    {
+        request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'file' => 'image',
+        ]);
+        DB::beginTransaction();
+        try {
+            $adds = Adds::findOrFail($id);
+            $adds->title = $request->title;
+            $adds->description = $request->description;
+            $adds->link = $request->link;
 
+
+            $adds->save();
+
+            //***carga de imagen***//
+            if ($request->file) {
+                //***carga de imagen***//
+                if ($request->hasFile('file')) {
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $imageNameToStore = $adds->id . '.' . $extension;
+                    // Upload file //***nombre de carpeta para almacenar**
+                    $path = $request->file('file')->storeAs('public/adds', $imageNameToStore);
+                    //dd($path);
+                    $adds->file = $imageNameToStore;
+                    $adds->save();
+                } else {
+                    $imageNameToStore = 'no_image.jpg';
+                }
+            }
+            //***carga de imagen***//
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($e, 500);
+        }
+        DB::commit();
+        return redirect()->action('PublicationsController@index')
+            ->with('Mensaje', 'Registro modificado');
+    }
     /**
      * Display the specified resource.
      *
@@ -88,28 +148,9 @@ class PublicationsController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
+
 
     /**
      * Remove the specified resource from storage.
