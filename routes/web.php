@@ -144,9 +144,12 @@ Route::get('factura/create', 'InvoiceBillsController@createReact')->middleware('
 Route::get('factura/edit/{id}', 'InvoiceBillsController@editReact')->middleware('auth');
 /* React */
 
-// pagina de visualizacion de publicaciones
-Route::get('Publicaciones', 'publicaciones@Publications');
-// pagina de visualizacion de publicaciones
-// pagina de visualizacion de publicaciones
-Route::get('Crear-Anuncios', 'publicaciones@viewPublications');
-// pagina de visualizacion de publicaciones
+// pagina de visualizacion de publicaciones usuario
+// Route::get('Publicaciones', 'publicaciones@Publications');
+// pagina de visualizacion de publicaciones usuario
+
+
+
+// pagina de visualizacion de publicaciones Administrador
+Route::resource('Crear-Anuncios','PublicationsController');
+// pagina de visualizacion de publicaciones Administrador
