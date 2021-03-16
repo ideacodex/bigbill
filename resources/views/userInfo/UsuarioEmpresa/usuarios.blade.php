@@ -317,6 +317,5 @@
         // OR simply
         /* TableExport(document.getElementsByTagName("table")); */
         // OR using jQuery
-
     </script>
 @endsection
