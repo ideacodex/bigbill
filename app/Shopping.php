@@ -27,7 +27,7 @@ class Shopping extends Model
 
     public function detail()
     {
-        return $this->hasMany("App\DetailShopping", 'invoice_id');
+        return $this->hasMany("App\DetailShoppings", 'shopping_id');
     }
     
 }

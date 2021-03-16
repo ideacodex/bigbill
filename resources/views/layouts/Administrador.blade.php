@@ -717,16 +717,15 @@
         @yield('content')
 
         <div class="btn-fl">
-            <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" data-toggle="modal"
-                data-target="#exampleModalCenter">
+            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" >
                 <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
         <div class="btn-float">
-            <button data-toggle="modal" data-target="#exampleModalCenter">
+            <a target="_blank" href="{{ url('http://ideacodex.co') }}">
                 <img href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" class="btn-float"
                     src="{{ asset('images/ideacode.png') }}" width="6%" style="min-width: 90px">
-            </button>
+            </a>
         </div>
         {{-- ---------------------- --}}
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">

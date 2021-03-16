@@ -41,15 +41,15 @@
                         <div class="card-header bg-cardheader"
                             style="border-top-right-radius: 25px; border-top-left-radius: 25px;">
                             @if (Auth::user()->suscriptions->type_plan == 1)
-                                <strong class="card-title text-light">Emitir factura o cotización</strong>
+                                <strong class="card-title text-light">Emitir venta o cotización</strong>
                             @elseif (Auth::user()->suscriptions->type_plan == 0)
-                                <strong class="card-title text-light">Emitir factura</strong>
+                                <strong class="card-title text-light">Emitir venta</strong>
                             @endif
                         </div>
                         @if (Auth::user()->suscriptions->type_plan == 1)
                             <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
                                 <span class="badge badge-pill badge-warning">¡Atención!</span>
-                                Al momento de estar realizando su factura o cotización.<span
+                                Al momento de estar realizando su venta o cotización.<span
                                     class="badge badge-pill badge-warning">¡No recargue esta página!</span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -58,7 +58,7 @@
                         @elseif (Auth::user()->suscriptions->type_plan == 0)
                             <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
                                 <span class="badge badge-pill badge-warning">¡Atención!</span>
-                                Al momento de estar realizando su factura. <span class="badge badge-pill badge-warning">¡No
+                                Al momento de estar realizando su venta. <span class="badge badge-pill badge-warning">¡No
                                     recargue esta página!</span>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
@@ -160,7 +160,7 @@
                                     </div>
                                     <select name="applied_price" id="applied_price"
                                         class="border-0 bg-input form-control @error('applied_price') is-invalid @enderror"
-                                        required onchange="alert('Los precios serán afectados con esta opción.')">
+                                        required autofocus onchange="alert('Los precios serán afectados con esta opción.')">
                                         <option selected disabled>Precio a aplicar</option>
                                         <option value="1">Especial</option>
                                         <option value="2">Contado</option>
@@ -225,7 +225,7 @@
                                             class="border-0 bg-input form-control @error('document_type') is-invalid @enderror"
                                             required>
                                             <option selected disabled>Tipo de gestión</option>
-                                            <option value="1">Factura</option>
+                                            <option value="1">Venta</option>
                                             <option value="0">Cotización</option>
                                         </select>
                                         @error('document_type')
@@ -256,9 +256,9 @@
                                     <select name="invoice_type" id="invoice_type"
                                         class="border-0 bg-input form-control @error('invoice_type') is-invalid @enderror"
                                         required>
-                                        <option selected disabled>Tipo de factura</option>
-                                        <option value="0">Factura sin iva</option>
-                                        <option value="1">Factura con iva</option>
+                                        <option selected disabled>Tipo de venta</option>
+                                        <option value="0">Venta sin iva</option>
+                                        <option value="1">Venta con iva</option>
                                     </select>
                                     @error('invoice_type')
                                         <span class="invalid-feedback" role="alert">
@@ -535,6 +535,60 @@
                             @enderror
                         </div>
 
+                        {{-- Dirección --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                    class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Dirección" class="text-primary fas fa-sort-amount-down"></i>
+                                </span>
+                            </div>
+                            <input id="address" placeholder="Dirección" type="text" style="background: transparent"
+                                class="text-dark form-control border-0 @error('address') is-invalid @enderror"
+                                name="address" value="{{ old('address') }}" autocomplete="address" autofocus>
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        {{-- Dirección de entrega --}}
+                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                            <div class="input-group-prepend">
+                                <span style="background: transparent; border-left: #325ff5 7px solid;"
+                                    class="border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                    id="inputGroup-sizing-sm">
+                                    <i title="Dirección de entrega" class="text-primary fas fa-sort-amount-down"></i>
+                                </span>
+                            </div>
+                            <input id="delivery_address" placeholder="Dirección de entrega" type="text"
+                                style="background: transparent"
+                                class="text-dark form-control border-0 @error('delivery_address') is-invalid @enderror"
+                                name="delivery_address" value="{{ old('delivery_address') }}"
+                                autocomplete="delivery_address" autofocus>
+
+                            @error('delivery_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            @error('delivery_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                         <div class="container mt-4">
                             <div class="col-12">
                                 <div class="col text-center">
@@ -598,66 +652,70 @@
             console.error(selectedInvoice);
             let selectedPrice = document.getElementById('applied_price').value
             console.error(selectedPrice);
-            var tax = 1.12;
-            var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
-            var text = $('#producto_id').find(':selected')
-                .text(); //Capturo el Nombre del Producto- Texto dentro del Select
-            count++;
-            console.log("Presionado : ", count);
-            var sptext = text.split();
-            var newtr = '<tr class="item"  data-id="' + sel + '">';
-            var newtr = '<tr class=""  data-id="' + sel + '">';
+            if (selectedPrice && selectedInvoice ) {
+                var tax = 1.12;
+                var sel = $('#producto_id').find(':selected').val(); //Capturo el Value del Producto
+                var text = $('#producto_id').find(':selected')
+                    .text(); //Capturo el Nombre del Producto- Texto dentro del Select
+                count++;
+                console.log("Presionado : ", count);
+                var sptext = text.split();
+                var newtr = '<tr class="item"  data-id="' + sel + '">';
+                var newtr = '<tr class=""  data-id="' + sel + '">';
 
-            if (selectedInvoice == 1) {
-                console.error("aplica iva");
-                if (selectedPrice == 1) {
-                    console.error("precio espcial");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input  class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+                if (selectedInvoice == 1) {
+                    console.error("aplica iva");
+                    if (selectedPrice == 1) {
+                        console.error("precio espcial");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input  class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
-                if (selectedPrice == 2) {
-                    console.error("precio normal");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
-                if (selectedPrice == 3) {
-                    console.error("precio credito");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+                    if (selectedPrice == 2) {
+                        console.error("precio normal");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price * 1.12 }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
+                    if (selectedPrice == 3) {
+                        console.error("precio credito");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price * 1.12 }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
-            } else if (selectedInvoice == 0) {
-                console.error("exportacion");
-                if (selectedPrice == 1) {
-                    console.error("precio 1");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+                } else if (selectedInvoice == 0) {
+                    console.error("exportacion");
+                    if (selectedPrice == 1) {
+                        console.error("precio 1");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->special_price }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
-                if (selectedPrice == 2) {
-                    console.error("precio 2");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
-                if (selectedPrice == 3) {
-                    console.error("precio 3");
-                    newtr = newtr +
-                        `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
-                    newtr = newtr +
-                        '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
-                }
+                    if (selectedPrice == 2) {
+                        console.error("precio 2");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->price }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
+                    if (selectedPrice == 3) {
+                        console.error("precio 3");
+                        newtr = newtr +
+                            `<td><select onchange="mostrarprecio()" class="border-top-0 border-bottom-0 border-right-0 bg-span select2 form-control" onchange="showStockSelect()" class="selectpicker form-control" id="product_id${count}" name="product_id[]"><option disabled selected>Tus productos</option>@foreach ($product as $item)><option value="{{ $item->id }}" valuestock="{{ $item->credit_price }}">{{ $item->name }}@if ($item->stock < 6)({{ $item->stock }} unidades)@endif</option>@endforeach</select><td><input class="form-control bg-input border-0" type="number" id="cantidad[]" name="quantity[]" onChange="Calcular(this);" value="0" /></td><td><input class="form-control border-0" style="background: transparent" type="number" id="precunit${count}" step="0.01" name="unit_price[]" onChange="Calcular(this);" value="1" readonly/></td><td><input class="form-control border-0" style="background: transparent" type="number" id="totalitem[]" name="subtotal[]" readonly/></td>';`
+                        newtr = newtr +
+                            '<td><button type="button" class="rounded-circle btn btn-danger btn-xs remove-item" ><i class="far fa-trash-alt"></i></button></td></tr>';
+                    }
 
+                } else {
+                    alert('lDebe seleccionar el precio y monto de iva')
+                }
             }
 
 

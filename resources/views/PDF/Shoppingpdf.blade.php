@@ -9,7 +9,7 @@
             <td colspan="4">
                 <div>
                     <div style="background: white;padding: 10px;">
-                        <h2 style="color: #00096d; font: Arial; ">Informe de ventas</h2>
+                        <h2 style="color: #00096d; font: Arial; ">Informe de compras</h2>
                         <br>
                         <strong style="color: #00096d">Última Actualización: <?php echo date('d/m/y');
                             ?>
@@ -71,14 +71,10 @@
         </tr>
         <!-- Encabezado Detalle -->
 
-
         <tr style="background: #2b204b ; color:white">
 
-
             <th scope="col" style="background: #dddbd9; color: black;">No. </th>
-            <th scope="col" style="background: #dddbd9; color: black;">No. Venta</th>
             <th scope="col" style="background: #dddbd9; color: black;">Producto</th>
-            <th scope="col" style="background: #dddbd9; color: black;">Categoría</th>
             <th scope="col" style="background: #dddbd9; color: black;">P/U</th>
             <th scope="col" style="background: #dddbd9; color: black;">Subtotal</th>
             <th scope="col" style="background: #dddbd9; color: black;">No. Vendedor</th>
@@ -88,8 +84,7 @@
             <th scope="col" style="background: #dddbd9; color: black;">Total </th>
         </tr>
 
-        @foreach ($InvoiceBill as $dato)
-
+        @foreach ($shopping as $dato)
             @foreach ($dato->detail as $items)
 
                 <tr style=" color:#2b204b ; border: #2b204b 1px solid">
@@ -99,19 +94,16 @@
                             {{ $loop->index + 1 }}
                         </div>
                     </td>
-                    <th style="background: #ffffff; color: black" scope="row">{{ $items->invoice_id }}
-                    </th>
                     <td style="background: #ffffff; color: black">{{ $items->product->name }}</td>
                     <td style="background: #ffffff; color: black">{{ $items->quantity }}</td>
                     <td style="background: #ffffff; color: black">{{ $items->unit_price }}</td>
                     <td style="background: #ffffff; color: black">{{ $items->subtotal }}</td>
 
-                    <th style="background: #ffffff; color: black" scope="row">{{ $items->invoice_id }}
+                    <th style="background: #ffffff; color: black" scope="row">{{ $items->shopping_id }}
                     </th>
                     <td style="background: #ffffff; color: black">{{ $dato->user->name }} <br>
                         {{ $dato->user->lastname }}</td>
                     <td style="background: #ffffff; color: black">{{ $dato->company->name }}</td>
-                    <td style="background: #ffffff; color: black">{{ $dato->iva }}</td>
                     <td style="background: #ffffff; color: black">{{ $dato->total }}</td>
 
                 </tr>

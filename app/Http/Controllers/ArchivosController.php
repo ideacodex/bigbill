@@ -12,6 +12,7 @@ use App\Account;
 use App\Adds;
 use App\BranchOffice;
 use App\InvoiceBill;
+use App\Shopping;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -94,13 +95,14 @@ class ArchivosController extends Controller
             return $pdf->download('Productos-Compañia.pdf'); // descarga el pdf
         }
     }
+
     //Reporte facturas
     public function exportfacturatPDF()
     {
         $InvoiceBill = InvoiceBill::with('user')->with('company')->with('detail')->get();
         $pdf = PDF::loadView('PDF.Billpdf', ["InvoiceBill" => $InvoiceBill]);
         /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
-        return $pdf->download('Factura.pdf');
+        return $pdf->download('Ventas.pdf');
     }
     //Impresion de Factura
     public function facturaCompañia(Request $request)
@@ -113,6 +115,27 @@ class ArchivosController extends Controller
             return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
         }
     }
+
+    //Reporte compras
+    public function exportCompraPDF()
+    {
+        $shopping = Shopping::with('user')->with('company')->with('detail')->get();
+        $pdf = PDF::loadView('PDF.Shoppingpdf', ["shopping" => $shopping]);
+        /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
+        return $pdf->download('Compras.pdf');
+    }
+    //Impresion de Compras
+    public function comprasCompañia(Request $request)
+    {
+        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
+        /**si existe la columna company_id realizar: Filtrado de inforcion*/
+        if (!empty($request->company_id)) {
+            $records = Shopping::with('user')->with('company')->with('detail.product')->find($request);
+            $pdf = PDF::loadView('CompanyInformation.bills', compact('Shopping', 'DetailShoppings')); //genera el PDF la vista
+            return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
+        }
+    }
+
     //home 2.0 PERFIL
     public function Perfil()
     {

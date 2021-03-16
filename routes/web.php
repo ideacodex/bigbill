@@ -70,10 +70,15 @@ Route::get('Customer-list-pdf', 'ArchivosController@exportCustomerPDF')->name('C
 Route::get('Account-list-pdf', 'ArchivosController@exportAccountPDF')->name('Account.pdf')->middleware('auth');
 Route::get('Factura-list-pdf', 'ArchivosController@exportfacturatPDF')->name('Factura.pdf')->middleware('auth');
 Route::get('User-list-pdf', 'ArchivosController@exportUserPDF')->name('User.pdf')->middleware('auth');
+Route::get('Compra-list-pdf', 'ArchivosController@exportCompraPDF')->name('Compra.pdf')->middleware('auth');
+
 /**Download PDF */
-/** fACTURAS de las empresas*/
+/** Ventas de las empresas*/
 Route::get('facturaCompañia', 'ArchivosController@facturaCompañia')->middleware('auth');
-/** fACTURAS de las empresas*/
+/** Ventas de las empresas*/
+/** Compras de las empresas*/
+Route::get('comprasCompañia', 'ArchivosController@comprasCompañia')->middleware('auth');
+/** Compras de las empresas*/
 
 /** Descargar Excel */
 Route::get('/doc', function () {

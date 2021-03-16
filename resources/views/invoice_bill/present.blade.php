@@ -37,15 +37,15 @@
                 <!-- Nota -->
                 <tr>
                     <td colspan="5" style="background:white; text-align: right;">
-                        <strong style="color : #030303;">Factura</strong>
+                        <strong style="color : #030303;">Venta</strong>
                         <br>
-                        <strong style="color : #0026a7;">Documento Electronico</strong>
+                        <strong style="color : #0026a7;">Comprobante electrónico</strong>
                     </td>
                 </tr>
                 <!-- Encabezado -->
                 <tr>
                     <td colspan="3">
-                        <h1 style="color: #00096d;">Factura {{ $data->company->name }} </h1>
+                        <h1 style="color: #00096d;">Venta {{ $data->company->name }} </h1>
                     </td>
                     <td colspan="2" style="
                     background: #ff7400;
@@ -56,7 +56,7 @@
                     border-radius: 15px 15px 0px 0px ;
                     -moz-border-radius:  15px 15px 0px 0px ;
                     -webkit-border-radius:15px 15px 0px 0px ">
-                        <strong style="color: white">DATOS DE LA FACTURA</strong>
+                        <strong style="color: white">DATOS DE LA VENTA</strong>
 
 
                     </td>
@@ -88,7 +88,7 @@
                         <br>
                         <strong style="color: #00096d">SERIE DE DOCUMENTO:</strong><strong>a</strong>
                         <br>
-                        <strong style="color: #00096d">No. FACTURA: </strong><strong>20<?php echo date('y'); ?>-{{ $data->id }}</strong>
+                        <strong style="color: #00096d">NO VENTA: </strong><strong>20<?php echo date('y'); ?>-{{ $data->id }}</strong>
                         <br>
                         <strong style="color: #00096d">LUGAR DE EMISION: </strong><strong>{{ $data->company->address }}</strong>
                         <br>

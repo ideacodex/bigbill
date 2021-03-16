@@ -74,10 +74,9 @@ class ProductController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'description' => 'required|max:50',
+            'description' => 'required',
             'kind_product' => 'required',
             'company_id' => 'required',
-            'quantity_values' => 'required',
             'quantity_values' => 'required',
             'file' => 'image',
 

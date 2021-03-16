@@ -558,7 +558,7 @@
                                 </ul>
                             </li>
                             <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
-                            <li class="menu-item-has-children dropdown">
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class="text-light menu-icon fas fa-file-excel"></i>Informes
@@ -583,7 +583,7 @@
                                             href="{{ url('/doc-User') }}">Usuarios</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
@@ -756,16 +756,15 @@
         @yield('content')
 
         <div class="btn-fl">
-            <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" data-toggle="modal"
-                data-target="#exampleModalCenter">
+            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" >
                 <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
         <div class="btn-float">
-            <button data-toggle="modal" data-target="#exampleModalCenter">
+            <a target="_blank" href="{{ url('http://ideacodex.co') }}">
                 <img href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" class="btn-float"
                     src="{{ asset('images/ideacode.png') }}" width="6%" style="min-width: 90px">
-            </button>
+            </a>
         </div>
         {{-- ---------------------- --}}
         <div id="FondoParteDeOndas" class="FondoParteDeOndas">

@@ -16,7 +16,7 @@ class CustomersController extends Controller
     {
         $this->middleware('auth'); //autentificacion del usuario
         $this->middleware('verified');
-    } 
+    }
 
     /**
      * Display a listing of the resource.
@@ -168,6 +168,8 @@ class CustomersController extends Controller
             $customers->phone = $request->phone;
             $customers->email = $request->email;
             $customers->nit = $request->nit;
+            $customers->address = $request->address;
+            $customers->delivery_address = $request->delivery_address;
             $customers->company_id = $request->company_id;
 
             $customers->save();

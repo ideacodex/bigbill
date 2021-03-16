@@ -46,7 +46,7 @@
             + REGISTRAR COMPRA
         </a>
         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-            href="{{ route('Factura.pdf') }}">REPORTE PDF
+            href="{{ route('Compra.pdf') }}">REPORTE PDF
         </a>
     </div>
     <div class="accordion" id="accordionExample">
@@ -195,13 +195,6 @@
         <script src="https://unpkg.com/tableexport@5.2.0/dist/js/tableexport.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
         <script>
-            new TableExport(document.getElementsByTagName("table"));
-            // OR simply
-            /* TableExport(document.getElementsByTagName("table")); */
-            // OR using jQuery
-
-        </script>
-        <script>
             function toggleActive(event) {
                 var target = event.target || event.srcElement;
                 var buttonList = document.querySelectorAll(".nav-link");
@@ -221,10 +214,6 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
         <script>
             new TableExport(document.getElementsByTagName("table"));
-            // OR simply
-            /* TableExport(document.getElementsByTagName("table")); */
-            // OR using jQuery
-
         </script>
     @endsection
     @section('js')
