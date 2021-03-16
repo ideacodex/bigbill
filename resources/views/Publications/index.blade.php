@@ -426,7 +426,7 @@
 
 </head>
 
-<body class="fondoPublicaciones"  >
+<body class="fondoPublicaciones">
 
     <!-- NAVIGATION -->
     @if (Route::has('login'))
@@ -489,32 +489,32 @@
                                     </div>
                                 </div>
                                 {{-- <a href="#popup1"> --}}
-                                    
 
-                                    <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                                        class="card-text">
-                                        @if ($item->file != null)
-                                            <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3"
-                                                height="180px" width="175px">
-                                        @else
-                                            <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                                        @endif
 
-                                        <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                                            {{ $item->description }}
-                                        </p>
-                                        @if ($item->link != null)
-                                            <hr>
-                                            <a href=" {{ $item->link }}">
-                                                <button class="bttn-unite bttn-md bttn-primary">
-                                                    ¡Conoce más!
-                                                </button>
-                                            </a>
-                                            <br>
-                                        @endif
+                                <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                                    class="card-text">
+                                    @if ($item->file != null)
+                                        <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3"
+                                            height="180px" width="175px">
+                                    @else
+                                        <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                                    @endif
+
+                                    <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                                        {{ $item->description }}
+                                    </p>
+                                    @if ($item->link != null)
+                                        <hr>
+                                        <a href=" {{ $item->link }}">
+                                            <button class="bttn-unite bttn-md bttn-primary">
+                                                ¡Conoce más!
+                                            </button>
+                                        </a>
                                         <br>
+                                    @endif
+                                    <br>
 
-                                    </div>
+                                </div>
                                 {{-- </a> --}}
                             </div>
                         </div>
@@ -535,12 +535,55 @@
             </div>
         </div>
     </div> --}}
-    <a href="javascript:ventanaSecundaria('https://www.facebook.com/ideacodex') "  > Pincha en este enlace para abrir la ventana secundaria</a>
-    <a href="http://0.0.0.0:3000/Ver_Publicaciones#" target="_blank">Abre el enlace en una nueva ventana</a>
+    {{-- <a href="javascript:ventanaSecundaria('https://www.facebook.com/ideacodex') "> Pincha en este enlace para abrir la
+        ventana secundaria</a>
+    <a href="http://0.0.0.0:3000/Ver_Publicaciones#" target="_blank">Abre el enlace en una nueva ventana</a> --}}
 </body>
-<script> 
-    function ventanaSecundaria (URL){ 
-       window.open(URL,"ventana1","width=120,height=300,scrollbars=NO") 
-    } 
-    </script>
+<script language=javascript>
+    function ventanaSecundaria(URL) {
+        window.open(URL, "ventana1", "width=500,height=300,scrollbars=NO")
+    }
+
+    ventanaSecundaria("https://www.facebook.com/ideacodex");
+
+</script>
+<script language=javascript>
+    function ventanaSecundaria1(URL) {
+        window.open(URL, "ventana2", "width=500,height=300,scrollbars=NO")
+    }
+
+    ventanaSecundaria1("https://www.facebook.com/ideacodex");
+
+</script>
+<script language=javascript>
+    function ventanaSecundaria2(URL) {
+        window.open(URL, "ventana3", "width=500,height=300,scrollbars=NO")
+    }
+
+    ventanaSecundaria2("https://www.facebook.com/ideacodex");
+
+</script>
+<script language=javascript>
+    function ventanaSecundaria3(URL) {
+        window.open(URL, "ventana4", "width=500,height=300,scrollbars=NO")
+    }
+
+    ventanaSecundaria3("https://www.facebook.com/ideacodex");
+
+</script>
+<script language=javascript>
+    function ventanaSecundaria4(URL) {
+        window.open(URL, "ventana5", "width=500,height=300,scrollbars=NO")
+    }
+
+    ventanaSecundaria4("https://www.facebook.com/ideacodex");
+
+</script>
+{{-- <script>
+    function ventanaSecundaria(URL) {
+        window.open(URL, "ventana1", "width=120,height=300,scrollbars=NO")
+    }
+
+</script> --}}
+
 </html>
