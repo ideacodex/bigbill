@@ -70,7 +70,7 @@ class HomeController extends Controller
             $users = User::where('company_id', $companies)->get()->count();
             $ibill = InvoiceBill::where('company_id', $companies)->where('active', 1)->get()->sum('total');
             $ishopping = Shopping::where('company_id', $companies)->get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['ishopping'=> $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
         }
     }
 
@@ -112,8 +112,7 @@ class HomeController extends Controller
             'nit' => 'required',
             'address' => 'required',
             'email' => 'required',
-            'file' => 'image',
-            'company_id' => 'required',
+            'file' => 'image'
         ]);
         DB::beginTransaction();
         try {
@@ -126,11 +125,13 @@ class HomeController extends Controller
             $user->nit = $request->nit;
             $user->address = $request->address;
             $user->email = $request->email;
-            if ($request->company_id == 0) {
-                $user->company_id = null;
-            } else {
+            $request->company_id;
+            $cps = Company::where('nit',$request->company_id)->first();
+            if ($cps->nit == $request->company_id) {
                 //Asignación de empresa por input
-                $user->company_id = $request->company_id;
+                $user->company_id = $cps->id;
+            }else{
+                $user->company_id = null;
             }
             //permisos de accion
             $permisos = Auth::user()->work_permits;

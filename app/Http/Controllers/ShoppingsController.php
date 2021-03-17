@@ -142,7 +142,7 @@ class ShoppingsController extends Controller
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollBack();
-            dd($e);
+            /* dd($e); */
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
             return response()->json($response, 500);
         }

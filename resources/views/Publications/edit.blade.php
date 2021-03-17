@@ -1,5 +1,10 @@
 @extends('layouts.'. auth()->user()->getRoleNames()[0])
 @section('content')
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!--Validación de errores-->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -42,7 +47,7 @@
                 <div class="col-md-12">
                     <div class="card bg-card">
                         <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
-                                                                border-top-left-radius: 25px;">
+                                                                        border-top-left-radius: 25px;">
                             <strong class="card-title text-light">Editar Noticia</strong>
                         </div>
                         <div class="card-body bg-frm">
@@ -79,11 +84,10 @@
                                                 <i title="Descripción" class="text-primary fas fa-book"></i>
                                             </span>
                                         </div>
-                                        <input id="description" maxlength="50" name="description" type="text"
+                                        <input id="description" maxlength="200" name="description" type="text"
                                             class="border-0 bg-input text-dark form-control @error('name') is-invalid @enderror"
-                                            value="{{ $records->description }}"
-                                            placeholder="Descripción del Producto: ej. especificaciones" required
-                                            autocomplete="description" autofocus>
+                                            value="{{ $records->description }}" placeholder="Descripción del Producto"
+                                            required autocomplete="description" autofocus>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

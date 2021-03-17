@@ -285,10 +285,12 @@ class InvoiceBillsController extends Controller
                 $bill->active = 0;
                 foreach ($bill->detail as $record) {
                     /* dd($bill->detail); */
+                    //Variables temporales que obtienen mis campos de productos
                     $temp = $record->product->stock;
                     $temp1 = $record->product->quantity_values;
                     $temp5 = $record->product->amount_expenses;
                     
+                    //Aumenta mi stock al cancelar una factura
                     $record->product->stock = $temp + $record->quantity;
                     /* dd($record->product->stock); */
                     $record->product->quantity_values = $temp1 + $record->quantity;
