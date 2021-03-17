@@ -102,7 +102,7 @@ class InvoiceBillsController extends Controller
 
             /* Detalle */
             for ($i = 0; $i < sizeof($request->product_id); $i++) {
-                $detail_bill = new DetailBill();              
+                $detail_bill = new DetailBill();
                 $detail_bill->product_id = $request->product_id[$i];
                 $detail_bill->quantity = $request->quantity[$i];
                 $detail_bill->unit_price = $request->unit_price[$i];
@@ -280,10 +280,22 @@ class InvoiceBillsController extends Controller
     {
         DB::beginTransaction();
         try {
-            $bill = InvoiceBill::find($id);
-
+            $bill = InvoiceBill::with('detail.product')->where('id', $id)->first();
             if ($bill->active == 1) {
-                $bill->where('id', $id)->update(['active' => 0]);
+                $bill->active = 0;
+                foreach ($bill->detail as $record) {
+                    /* dd($bill->detail); */
+                    $temp = $record->product->stock;
+                    $temp1 = $record->product->quantity_values;
+                    $temp5 = $record->product->amount_expenses;
+                    
+                    $record->product->stock = $temp + $record->quantity;
+                    /* dd($record->product->stock); */
+                    $record->product->quantity_values = $temp1 + $record->quantity;
+                    $record->product->amount_expenses = $temp5 - $record->quantity;
+                    $record->product->save();
+                }
+                $bill->save();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
@@ -293,20 +305,6 @@ class InvoiceBillsController extends Controller
         DB::commit();
         return redirect()->action('InvoiceBillsController@index');
     }
-
-    /* public function getInfoCustomer($nit){
-
-        $customer = Customer::where($nit)->first();
-
-        if(isset($customer))
-        {
-            return response()->json(['customer' => $customer]);
-        }
-        else
-        {
-            return "No se enceontraron resultados";
-        }
-    } */
 
     public function createReact()
     {

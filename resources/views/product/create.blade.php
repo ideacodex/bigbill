@@ -147,7 +147,7 @@
                                                     <i class="text-primary fas fa-coins"></i>
                                                 </span>
                                             </div>
-                                            <input style="background: transparent" id="cost" name="cost" type="number"
+                                            <input style="background: transparent" step="0.01" id="cost" name="cost" type="number"
                                                 class="border-0 text-dark form-control @error('cost') is-invalid @enderror"
                                                 placeholder="Precio de compra" autocomplete="cost" autofocus>
                                             @error('cost')
@@ -165,7 +165,7 @@
                                                     <i title="Precio" class="text-primary fas fa-hand-holding-usd"></i>
                                                 </span>
                                             </div>
-                                            <input style="background: transparent" id="price" name="price" type="number"
+                                            <input style="background: transparent" step="0.01" id="price" name="price" type="number"
                                                 class="border-0 text-dark form-control @error('price') is-invalid @enderror"
                                                 placeholder="Precio de venta" autocomplete="price" autofocus>
                                             @error('price')
@@ -184,9 +184,9 @@
                                                     id="inputGroup-sizing-sm">
                                                     <i class="text-primary fas fa-star"></i>
                                                 </span>
-                                            </div>
-                                            <input style="background: transparent" id="special_price" name="special_price"
-                                                type="number" step="0.01" value="" min="0.01"
+                                            </div> 
+                                            <input style="background: transparent" step="0.01" id="special_price" name="special_price"
+                                                type="number" value=""
                                                 class="border-0 text-dark form-control @error('special_price') is-invalid @enderror"
                                                 placeholder="Precio Especial" autocomplete="special_price" autofocus>
                                             @error('special_price')
@@ -204,8 +204,8 @@
                                                     <i class="text-primary fas fa-credit-card"></i>
                                                 </span>
                                             </div>
-                                            <input style="background: transparent" id="credit_price" name="credit_price"
-                                                type="number" step="0.01" value="" min="0.01"
+                                            <input style="background: transparent" step="0.01" id="credit_price" name="credit_price"
+                                                type="number" value=""
                                                 class="border-0 text-dark form-control @error('credit_price') is-invalid @enderror"
                                                 placeholder="Precio Credito" autocomplete="credit_price" autofocus>
                                             @error('credit_price')

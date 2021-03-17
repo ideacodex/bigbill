@@ -47,8 +47,8 @@ class ShoppingsController extends Controller
         if ($rol == 1) {
             $product = Product::all();
             return view("shopping.create", ['product' => $product]);
-        } else {
-            $product = Product::where('active', 1)->where('company_id', Auth()->user()->company_id)->get();
+        } else { 
+            $product = Product::where('company_id', Auth()->user()->company_id)->get();
             return view("shopping.create", ['product' => $product]);
         }
     }
@@ -86,7 +86,7 @@ class ShoppingsController extends Controller
             $shopping->save();
 
             /**Detalle de compra */
-            if ($request->type_product == 2 && $request->new_existing == 1) {
+            if ($request->type_product == 2 && $request->new_existing == 2) {
                 for ($i = 0; $i < sizeof($request->product); $i++) {
                     /* dd('está llegando aquí'); */
                     $detail_shopping = new DetailShoppings();
@@ -94,7 +94,7 @@ class ShoppingsController extends Controller
                     $detail_shopping->quantity = $request->quantity[$i];
                     $detail_shopping->unit_price = $request->unit_price[$i];
                     $detail_shopping->subtotal = $request->subtotal[$i];
-                    $detail_shopping->shopping_id = $shopping->id;
+                    $detail_shopping->shopping_id = $shopping->id; 
                     $detail_shopping->product_id = $request->product_id[$i];
                     $detail_shopping->save();
 
@@ -117,7 +117,7 @@ class ShoppingsController extends Controller
                     }
                 }
             }
-            if ($request->type_product == 2 && $request->new_existing == 2) {
+            if ($request->type_product == 2 && $request->new_existing == 1) {
                 for ($i = 0; $i < sizeof($request->product_id); $i++) {
                     $product = Product::find($request->product_id[$i]);
                     /**Declaro una variable temporal que sea igual a mi cantidad en stock */

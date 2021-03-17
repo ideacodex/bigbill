@@ -42,7 +42,9 @@
                                     {{-- <!--Nombre--> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="text-primary fas fa-user"></i>
                                             </span>
                                         </div>
@@ -59,7 +61,9 @@
                                     {{-- <!-- lastname --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="text-primary far fa-user"></i>
                                             </span>
                                         </div>
@@ -76,7 +80,9 @@
                                     {{-- <!-- phone --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="text-primary fas fa-phone"></i>
                                             </span>
                                         </div>
@@ -93,7 +99,9 @@
                                     {{-- <!--  nit --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="text-primary fas fa-id-badge"></i>
                                             </span>
                                         </div>
@@ -110,7 +118,9 @@
                                     {{-- <!--  address --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="text-primary fas fa-map-marker-alt"></i>
                                             </span>
                                         </div>
@@ -127,7 +137,9 @@
                                     {{-- <!-- email  --> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                            <span
+                                                class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                id="inputGroup-sizing-sm">
                                                 <i class="text-primary fas fa-envelope"></i>
                                             </span>
                                         </div>
@@ -159,12 +171,15 @@
                                     @if (Auth::user()->role_id == 2)
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
                                                     <i title="company" class="text-primary far fa-building"></i>
                                                 </span>
                                             </div>
                                             <select name="company_id" id="company_id"
-                                                class="border-0 bg-input form-control @error('company_id') is-invalid @enderror" required>
+                                                class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
+                                                required>
                                                 @if (Auth::user()->company_id)
                                                     <option value="{{ Auth::user()->company_id }}" selected>
                                                         <p>
@@ -187,12 +202,15 @@
                                         @if (Auth::user()->role_id == 1)
                                             <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                 <div class="input-group-prepend">
-                                                    <span class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent" id="inputGroup-sizing-sm">
+                                                    <span
+                                                        class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                        id="inputGroup-sizing-sm">
                                                         <i title="company" class="text-primary far fa-building"></i>
                                                     </span>
                                                 </div>
                                                 <select name="company_id" id="company_id"
-                                                    class="border-0 bg-input form-control @error('company_id') is-invalid @enderror" required>
+                                                    class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
+                                                    required>
                                                     @if (Auth::user()->company_id)
                                                         <option value="{{ Auth::user()->company_id }}" selected>
                                                             <p>
@@ -215,10 +233,9 @@
                                             {{-- company_id --}}
                                             @if (!Auth::user()->company_id)
                                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-
                                                     <select name="company_id" id="cifrado" onchange="mostrarInput();"
                                                         class="border-0 bg-input select2 form-control @error('company_id') is-invalid @enderror">
-                                                        <option selected value="0">Asignate a la compania</option>
+                                                        <option selected value="0">Asignate a la compañía</option>
                                                         @foreach ($company as $item)
                                                             <option value="{{ $item->id }}"> Nit: {{ $item->nit }}
                                                             </option>
@@ -236,10 +253,6 @@
                                             @endif
                                         @endif
                                     @endif
-
-
-
-
 
                                     {{-- <!--Button--> --}}
                                     <div class="container mt-4">
