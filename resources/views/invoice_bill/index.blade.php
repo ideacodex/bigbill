@@ -61,111 +61,107 @@
                                 <tbody style="background-color: rgba(224, 220, 220, 0.993);">
                                     @if ($records)
                                         @foreach ($records as $item)
-                                                <tr>
-                                                    <th style="border-left: #325ff5 7px solid;" scope="row">
-                                                        {{ $loop->index + 1 }} </th>
-                                                    <td>{{ $item->user->name }} {{ $item->user->lastname }}
+                                            <tr>
+                                                <th style="border-left: #325ff5 7px solid;" scope="row">
+                                                    {{ $loop->index + 1 }} </th>
+                                                <td>{{ $item->user->name }} {{ $item->user->lastname }}
+                                                </td>
+                                                <td>{{ $item->company->name }}</td>
+
+                                                @if ($item->branch_office)
+                                                    <td>{{ $item->branch_office->name }}</td>
+                                                @else
+                                                    <td>Central</td>
+                                                @endif
+
+                                                @if ($item->customer)
+                                                    <td>{{ $item->customer->name }}
+                                                        {{ $item->customer->lastname }}
                                                     </td>
-                                                    <td>{{ $item->company->name }}</td>
+                                                @else
+                                                    <td>{{ $item->customer_name }}</td>
+                                                @endif
+                                                @if ($item->customer)
+                                                    <td>{{ $item->customer->nit }} </td>
+                                                @else
+                                                    <td>C/F</td>
+                                                @endif
 
-                                                    @if ($item->branch_office)
-                                                        <td>{{ $item->branch_office->name }}</td>
-                                                    @else
-                                                        <td>Central</td>
-                                                    @endif
+                                                <td>{{ $item->description }}</td>
 
-                                                    @if ($item->customer)
-                                                        <td>{{ $item->customer->name }}
-                                                            {{ $item->customer->lastname }}
-                                                        </td>
-                                                    @else
-                                                        <td>{{ $item->customer_name }}</td>
-                                                    @endif
-                                                    @if ($item->customer)
-                                                        <td>{{ $item->customer->nit }} </td>
-                                                    @else
-                                                        <td>C/F</td>
-                                                    @endif
+                                                <td>{{ $item->total }}</td>
 
-                                                    <td>{{ $item->description }}</td>
+                                                @if ($item->invoice_type == 1)
+                                                    <td>Venta con iva</td>
+                                                @elseif($item->invoice_type == 0)
+                                                    <td>Venta sin iva</td>
+                                                @endif
 
-                                                    <td>{{ $item->total }}</td>
+                                                @if ($item->active == 0)
+                                                    <td class="text-danger"><b>Venta cancelada</b></td>
+                                                @elseif($item->active == 1)
+                                                    <td class="text-success"><b>Venta emitida</b></td>
+                                                @endif
 
-                                                    @if ($item->invoice_type == 1)
-                                                        <td>Venta con iva</td>
-                                                    @elseif($item->invoice_type == 0)
-                                                        <td>Venta sin iva</td>
-                                                    @endif
-                                                    
-                                                    @if ($item->active == 0)
-                                                        <td class="text-danger"><b>Venta cancelada</b></td>
-                                                    @elseif($item->active == 1)
-                                                        <td class="text-success"><b>Venta emitida</b></td>
-                                                    @endif
-
-                                                    @if ($item->document_type == 1)
-                                                        <td>
-                                                            <h6 class="text-primary"
-                                                                style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
-                                                                <b>Factura</b>
-                                                            </h6>
-                                                        </td>
-                                                    @elseif($item->document_type == 0)
-                                                        <td>
-                                                            <h6 class="text-danger"
-                                                                style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
-                                                                <b>Cotización</b>
-                                                            </h6>
-                                                        </td>
-                                                    @endif
-
+                                                @if ($item->document_type == 1)
                                                     <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            @if ($item->customer_id)
-                                                                <a class="btn btn-sm btn-warning rounded-circle"
-                                                                    href="{{ url('facturas/' . $item->id . '/edit') }}"
-                                                                    title="Enviar correo">
-                                                                    <span><i
-                                                                            class="text-light fas fa-paper-plane"></i></span>
-                                                                </a>
-                                                            @elseif($item->customer_email)
-                                                                <a class="btn btn-sm btn-warning rounded-circle"
-                                                                    href="{{ url('facturas/' . $item->id . '/edit') }}"
-                                                                    title="Enviar correo">
-                                                                    <span><i
-                                                                            class="text-light fas fa-paper-plane"></i></span>
-                                                                </a>
-                                                            @endif
-
-                                                            <a class="btn btn-sm rounded-circle"
-                                                                href="{{ url('facturas/' . $item->id) }}"
-                                                                title="Ver factura" style="background-color: #f55d00">
-                                                                <span><i class="text-light fas fa-eye"></i></span>
-                                                            </a>
-
-                                                            <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
-                                                                data-toggle="modal" data-target="#largeModal"
-                                                                onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                <span class="text-light"><i
-                                                                        class="fas fa-trash-alt"></i></span>
-                                                            </a>
-                                                            @if ($item->document_type == 0)
-                                                                <a class="btn btn-sm btn-info rounded-circle"
-                                                                    title="Facturar"
-                                                                    href="{{ url('editar', $item->id) }}">
-                                                                    <span><i class="text-light fas fa-edit"></i></span>
-                                                                </a>
-                                                            @endif
-                                                        </div>
+                                                        <h6 class="text-primary"
+                                                            style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <b>Factura</b>
+                                                        </h6>
                                                     </td>
-                                                </tr>
+                                                @elseif($item->document_type == 0)
+                                                    <td>
+                                                        <h6 class="text-danger"
+                                                            style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <b>Cotización</b>
+                                                        </h6>
+                                                    </td>
+                                                @endif
+
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        @if ($item->customer_id)
+                                                            <a class="btn btn-sm btn-warning rounded-circle"
+                                                                href="{{ url('facturas/' . $item->id . '/edit') }}"
+                                                                title="Enviar correo">
+                                                                <span><i class="text-light fas fa-paper-plane"></i></span>
+                                                            </a>
+                                                        @elseif($item->customer_email)
+                                                            <a class="btn btn-sm btn-warning rounded-circle"
+                                                                href="{{ url('facturas/' . $item->id . '/edit') }}"
+                                                                title="Enviar correo">
+                                                                <span><i class="text-light fas fa-paper-plane"></i></span>
+                                                            </a>
+                                                        @endif
+
+                                                        <a class="btn btn-sm rounded-circle"
+                                                            href="{{ url('facturas/' . $item->id) }}" title="Ver factura"
+                                                            style="background-color: #f55d00">
+                                                            <span><i class="text-light fas fa-eye"></i></span>
+                                                        </a>
+
+                                                        <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
+                                                            data-toggle="modal" data-target="#largeModal{{$item->id}}"
+                                                            onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
+                                                            <span class="text-light"><i class="fas fa-trash-alt"></i></span>
+                                                        </a>
+                                                        @if ($item->document_type == 0)
+                                                            <a class="btn btn-sm btn-info rounded-circle" title="Facturar"
+                                                                href="{{ url('editar', $item->id) }}">
+                                                                <span><i class="text-light fas fa-edit"></i></span>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             <!--Modal-->
-                                            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
-                                                aria-labelledby="largeModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="largeModal{{$item->id}}" tabindex="-1" role="dialog"
+                                                aria-labelledby="largeModal{{$item->id}}Label" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="largeModalLabel">
+                                                            <h5 class="modal-title" id="largeModal{{$item->id}}Label">
                                                                 Atención</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">

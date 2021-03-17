@@ -129,6 +129,7 @@ class HomeController extends Controller
             if ($request->company_id == 0) {
                 $user->company_id = null;
             } else {
+                //Asignación de empresa por input
                 $user->company_id = $request->company_id;
             }
             //permisos de accion
