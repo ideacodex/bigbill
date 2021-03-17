@@ -27,7 +27,7 @@
                     <div class="card bg-card">
                         @if ((Auth::user()->work_permits == 1 && Auth::user()->role_id == 2 && Auth::user()->company_id == $companies->id) || Auth::user()->role_id == 1)
                             <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
-                        border-top-left-radius: 25px;">
+                            border-top-left-radius: 25px;">
                                 <strong class="card-title text-light">Editar Companía</strong>
                             </div>
                             <div class="card-body bg-frm">
@@ -177,6 +177,7 @@
                                         setTimeout("updateClock()", 1000);
                                     }
                                 }
+
                             </script>
                         @endif
                     </div>
