@@ -31,7 +31,7 @@
             <i class="fas fa-plus-square"></i>
         </a>
         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-            href="{{ route('Company.pdf') }}">REPORTE PDF <i class="fas fa-file-alt"></i>
+            href="{{ route('Sucursales.pdf') }}">REPORTE PDF <i class="fas fa-file-alt"></i>
         </a>
     </div>
     <div class="content mt-5">

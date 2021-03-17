@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use AccountType;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade  as PDF;
 use App\Product;
@@ -25,7 +24,20 @@ class ArchivosController extends Controller
         $this->middleware('auth'); //autentificacion del usuario
         $this->middleware('verified');
     }
-    //User
+    //Todos los usuarios
+    public function exportUserAllPDF()
+    {
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $User = User::all();
+            $companies =  User::with('companies')->get();
+            $pdf = PDF::loadView('PDF.Userpdf', compact('User'));
+            return $pdf->download('Todos-los-Usuarios.pdf', ["companies" => $companies]);
+        } else {
+            return redirect()->action('ArchivosController@Perfil'); //redirecciono a mi pagina de inicio
+        }
+    }
+    //User  - Usuarios por compania
     public function exportUserPDF()
     {
         $rol = Auth::user()->role_id;
@@ -78,7 +90,25 @@ class ArchivosController extends Controller
         $pdf = PDF::loadView('PDF.Companypdf', ["Company" => $Company]);
         return $pdf->download('Company.pdf');
     }
-
+    //Sucursales
+    public function exportBranchPDF()
+    {
+        $rol = Auth::user()->role_id;
+        $company_id = Auth::user()->company_id;
+        if ($rol == 1 && $company_id == null) {
+            $records =  BranchOffice::with('company')->get();
+            $pdf = PDF::loadView('PDF.Branchpdf', ["records" => $records]);
+            return $pdf->download('Sucursales.pdf');
+        } else {
+            if ($rol == 2 || $rol == 3 || ($rol == 1 && $company_id != null)) {
+                $records = BranchOffice::where('company_id', $company_id)->with('company')->get(); //Obtener los valores de tu request:
+                $pdf = PDF::loadView('PDF.Branchpdf', ["records" => $records]); //genera el PDF la vista
+                return $pdf->download('Sucursales.pdf'); // descarga el pdf
+            } else {
+                return redirect()->action('ArchivosController@Perfil'); //redirecciono a mi pagina de inicio
+            }
+        }
+    }
     //Productos
     public function exportProductPDF()
     {
@@ -160,7 +190,8 @@ class ArchivosController extends Controller
             $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
             return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
         } else {
-            return back();
+            return redirect()->action('ArchivosController@Perfil'); //redirecciono a mi pagina de inicio
+
         }
     }
     //Vista de ajustes

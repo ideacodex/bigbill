@@ -14,7 +14,7 @@
 
     <div class="card-body d-flex justify-content-between align-items-center">
         <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-            href="{{ route('User.pdf') }}">REPORTE PDF
+            href="{{ route('Todos-los-Usuarios.pdf') }}">REPORTE PDF
         </a>
     </div>
     <div class="content mt-3">
