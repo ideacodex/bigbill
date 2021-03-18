@@ -128,22 +128,23 @@ class ArchivosController extends Controller
     //Reporte facturas
     public function exportfacturatPDF()
     {
-        $InvoiceBill = InvoiceBill::with('user')->with('company')->with('detail')->get();
-        $pdf = PDF::loadView('PDF.Billpdf', ["InvoiceBill" => $InvoiceBill]);
-        /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
-        return $pdf->download('Ventas.pdf');
-    }
-    //Impresion de Factura      ----REVISION
-    public function facturaCompañia(Request $request)
-    {
-        $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
-        /**si existe la columna company_id realizar: Filtrado de inforcion*/
-        if (!empty($request->company_id)) {
-            $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($request);
-            $pdf = PDF::loadView('CompanyInformation.bills', compact('InvoiceBill', 'DetailBill')); //genera el PDF la vista
-            return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
+        $infoUser = Auth::user(); //traemos datos del usuario
+        if ($infoUser->role_id == 1) { //si el usuario es ROL 1
+            $InvoiceBill = InvoiceBill::with('user')->with('company')->with('detail')->get(); //RETORNA TODAS LAS FACTURAS
+            $pdf = PDF::loadView('PDF.Billpdf', ["InvoiceBill" => $InvoiceBill]); //GENERA VISTA DE PDF
+            return $pdf->download('Ventas.pdf'); //descarga el Docuemnto PDF
+        } else { //SINO
+            if ($infoUser->company_id != null) { // SI EL USUSARIO TRAE ALGUNA COMPANIA
+                $InvoiceBill = InvoiceBill::where('company_id', $infoUser->company_id)->with('user')->with('company')->with('detail')->get(); //TRAER LAS FACTURAS SEGUN LA EMPRESA QUE TRAE EL USUSAIRO CON TODOS LOS DATOS DE LA FACTURA
+                $pdf = PDF::loadView('PDF.Billpdf', ["InvoiceBill" => $InvoiceBill]); //GENERA VISTA DE PDF
+                return $pdf->download('Ventas.pdf'); //descarga el Docuemnto PDF
+            } else {
+                # code...
+                return back(); //regresa
+            }
         }
     }
+
     //Reporte compras
     public function exportCompraPDF()
     {
@@ -177,9 +178,6 @@ class ArchivosController extends Controller
         } else {
             return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'anuncios' => null]);
         }
-
-
-        
     }
     //usuarios de una empresa
     public function Personal(Request $request)
