@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card bg-card">
-                        @if ((Auth::user()->work_permits == 1 && Auth::user()->role_id == 2 && Auth::user()->company_id == $mark->company_id) || Auth::user()->role_id == 1)
+                        @if ((Auth::user()->work_permits == 1 && (Auth::user()->role_id == 2 || Auth::user()->role_id == 4) && Auth::user()->company_id == $mark->company_id) || Auth::user()->role_id == 1)
                             <div class="card-header bg-cardheader" style="border-top-right-radius: 25px; 
                                         border-top-left-radius: 25px;">
                                 <strong class="card-title text-light">Editar marca</strong>

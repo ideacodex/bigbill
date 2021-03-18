@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -57,7 +58,12 @@ class HomeController extends Controller
             $users = User::count();
             $ibill = InvoiceBill::get()->where('active', 1)->sum('total');
             $ishopping = Shopping::get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+               return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+               return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+            }
         } else {
             $companies = Auth::user()->company_id;
             $company = Company::all();
@@ -70,7 +76,12 @@ class HomeController extends Controller
             $users = User::where('company_id', $companies)->get()->count();
             $ibill = InvoiceBill::where('company_id', $companies)->where('active', 1)->get()->sum('total');
             $ishopping = Shopping::where('company_id', $companies)->get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['ishopping'=> $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+            }
         }
     }
 

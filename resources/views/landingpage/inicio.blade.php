@@ -17,91 +17,93 @@
     <input type="checkbox" id="cerrar">
     <label for="cerrar" id="btn-cerrar"> <b>X</b></label>
     <div class="modals">
-        @if ($records)
-            <div class="contenido">
-                @foreach ($records as $item)
-                    @if ($item != null)
-                        <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
-                            <strong> {{ $item->title }}</strong>
-                        </h2>
-                        <br>
-                        <br>
-                        <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                            class="card-text">
-                            @if ($item->file != null)
-                                <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3" height="180px"
-                                    width="175px">
-                            @else
-                                <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                            @endif
-
-                            <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                                {{ $item->description }}
-                            </p>
-                            @if ($item->link != null)
-                                <hr>
-                                <a href=" {{ $item->link }}">
-                                    <button class="bttn-unite bttn-md bttn-primary">
-                                        ¡Conoce más!
-                                    </button>
-                                </a>
-                                <br>
-                            @endif
-                            <br>
-                        </div>
-
-                    @else
-                        <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
-                            <strong> Bienvenido a Big Bill</strong>
-                        </h2>
-                        <br>
-                        <br>
-                        <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                            class="card-text">
+        {{-- @if ($records) --}}
+        {{-- <div class="contenido">
+            @foreach ($records as $item)
+                @if ($item != null)
+                    <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
+                        <strong> {{ $item->title }}</strong>
+                    </h2>
+                    <br>
+                    <br>
+                    <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                        class="card-text">
+                        @if ($item->file != null)
+                            <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3" height="180px"
+                                width="175px">
+                        @else
                             <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                            <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                                Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas,
-                                podrás llevar el control de tu stock de productos.
-                            </p>
+                        @endif
 
+                        <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                            {{ $item->description }}
+                        </p>
+                        @if ($item->link != null)
                             <hr>
-                            <a href="{{ url('/register') }}">
+                            <a href=" {{ $item->link }}">
                                 <button class="bttn-unite bttn-md bttn-primary">
-                                    ¡Unete y prueba la diferencia!
+                                    ¡Conoce más!
                                 </button>
                             </a>
                             <br>
-                            <br>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-        @else
-            <div class="contenido">
-                <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
-                    <strong> Bienvenido a Big Bill</strong>
-                </h2>
-                <br>
-                <br>
-                <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                    class="card-text">
-                    <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                    <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                        Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas,
-                        podrás llevar el control de tu stock de productos.
-                    </p>
+                        @endif
+                        <br>
+                    </div>
 
-                    <hr>
-                    <a href="{{ url('/register') }}">
-                        <button class="bttn-unite bttn-md bttn-primary">
-                            ¡Unete y prueba la diferencia!
-                        </button>
-                    </a>
+                @else
+                    <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
+                        <strong> Bienvenido a Big Bill</strong>
+                    </h2>
                     <br>
                     <br>
-                </div>
+                    <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                        class="card-text">
+                        <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                        <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                            Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas,
+                            podrás llevar el control de tu stock de productos.
+                        </p>
+
+                        <hr>
+                        <a href="{{ url('/register') }}">
+                            <button class="bttn-unite bttn-md bttn-primary">
+                                ¡Unete y prueba la diferencia!
+                            </button>
+                        </a>
+                        <br>
+                        <br>
+                    </div>
+                @endif
+            @endforeach
+        </div> --}}
+        {{-- @else --}}
+        <div class="contenido">
+            <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
+                <strong> Bienvenido a Big Bill</strong>
+            </h2>
+            <br>
+            <br>
+            <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
+                class="card-text">
+                <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                <p class="pt-1 ml-4 mr-3 Rubik-Medium">
+                    Plataforma en linea que te permite registrar y organizar las ventas y compras de tu empresa , actualmente es una plataforma GRATIS el precio por usuario será un aproximado de Q55 probablemente en Junio 2021
+                </p>
+
+                <hr>
+                <a href="{{ url('/register') }}">
+                    <button class="bttn-unite bttn-md bttn-primary">
+                        ¡Unete y prueba la diferencia!
+                    </button>
+                    <br>
+                </a>
+                <br>
+                <br>
+                <br> <br>
             </div>
-        @endif
+            <br>
+        </div>
+        {{-- @endif --}}
     </div>
     {{-- fin de anuncios --}}
 
@@ -325,7 +327,10 @@
         </div>
     </div>
     {{-- formulario --}}
-    <iframe width="100%" height= "680px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=AU2umS8CRkKGrC3hIbMvK81dCKmVmN9PovbYEIWk9phUMDE5VFdVOUJaVTUzQVVLTDRPUEtCSzgyRi4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+    <iframe width="100%" height="680px"
+        src="https://forms.office.com/Pages/ResponsePage.aspx?id=AU2umS8CRkKGrC3hIbMvK81dCKmVmN9PovbYEIWk9phUMDE5VFdVOUJaVTUzQVVLTDRPUEtCSzgyRi4u&embed=true"
+        frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh"
+        allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
 
 
     <!-- BOOTSTRAP SCRIPTS -->

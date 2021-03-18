@@ -133,7 +133,7 @@ class ArchivosController extends Controller
         /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
         return $pdf->download('Ventas.pdf');
     }
-    //Impresion de Factura
+    //Impresion de Factura      ----REVISION
     public function facturaCompañia(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
@@ -144,7 +144,6 @@ class ArchivosController extends Controller
             return $pdf->download('Cuentas-Compañia.pdf', ['records' => $records]); // descarga el pdf
         }
     }
-
     //Reporte compras
     public function exportCompraPDF()
     {
@@ -153,7 +152,7 @@ class ArchivosController extends Controller
         /* $pdf = PDF::loadView('PDF.Billpdf', compact('DetailBill') , compact('InvoiceBill')); */
         return $pdf->download('Compras.pdf');
     }
-    //Impresion de Compras
+    //Impresion de Compras     ----REVISION
     public function comprasCompañia(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
@@ -172,12 +171,15 @@ class ArchivosController extends Controller
         $branch_id = Auth::user()->branch_id; //guardo la variable de Sucursal del ususario autentificado
         $branch_offices =  BranchOffice::where('id', $branch_id)->get(); //realiza consulta mysql
         $company =  Company::where('id', $company_id)->get(); //realiza consulta mysql
-        $records = Adds::all();
-        if ($records->first()) {
-            return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'records' => $records->random(1)]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'anuncios' => $anuncios->random(1)]);
         } else {
-            return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'records' => null]);
+            return view('userInfo.index', ["branch_offices" => $branch_offices, "company" => $company, 'anuncios' => null]);
         }
+
+
+        
     }
     //usuarios de una empresa
     public function Personal(Request $request)
@@ -188,7 +190,13 @@ class ArchivosController extends Controller
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $branch_office = BranchOffice::all();
             $user = User::where('company_id', $company)->with('company')->get(); //Obtener los valores
-            return view("users.index", ["user" => $user, "branch_office" => $branch_office]); //generala vista
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("users.index", ["user" => $user, "branch_office" => $branch_office, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+            } else {
+                return view("users.index", ["user" => $user, "branch_office" => $branch_office, 'anuncios' => null]); //generala vista
+            }
         } else {
             return redirect()->action('ArchivosController@Perfil'); //redirecciono a mi pagina de inicio
 
@@ -199,14 +207,26 @@ class ArchivosController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente']); //autentificacion y permisos
         $company =  Company::where('id', (Auth::user()->company_id))->get(); //realiza consulta mysql
-        return view('settings.index', ["company" => $company]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('settings.index', ["company" => $company, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+        } else {
+            return view('settings.index', ["company" => $company, 'anuncios' => null]); //generala vista
+        }
     }
     //Eliminar USUSARIO DESDE VISTA GENERENTE
     //El gerente podra eliminar a los ususarios de su empresa: Es decir le quita la compania
     public function eliminar($id)
     {
         $user = User::findOrFail($id) and $companies = Company::all() and  $branch_office = BranchOffice::with('company')->get();
-        return view('users.delete', compact('user'), ["companies" => $companies, "branch_office" => $branch_office]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('users.delete', compact('user'), ["companies" => $companies, "branch_office" => $branch_office, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+        } else {
+            return view('users.delete', compact('user'), ["companies" => $companies, "branch_office" => $branch_office, 'anuncios' => null]); //generala vista
+        }
     }
     //muestra datos del ususario a quitar empresa por el gerente
     public  function deleteuser(Request $request, $id)

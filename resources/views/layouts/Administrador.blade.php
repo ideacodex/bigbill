@@ -423,8 +423,10 @@
 </style>
 
 <body style="background-color: white">
-    <!-- Left Panel -->
+    
 
+
+    <!-- Left Panel -->
     <aside id="left-panel" class="left-panel" style="background: black">
         <nav class="navbar navbar-expand-sm navbar-default" style="background: black">
             <div class="navbar-header">
@@ -717,7 +719,7 @@
         @yield('content')
 
         <div class="btn-fl">
-            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" >
+            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}">
                 <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
