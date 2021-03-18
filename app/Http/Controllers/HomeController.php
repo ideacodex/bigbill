@@ -60,9 +60,9 @@ class HomeController extends Controller
             $ishopping = Shopping::get()->sum('total');
             $anuncios = Adds::all();
             if ($anuncios->first()) {
-               return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
             } else {
-               return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
             }
         } else {
             $companies = Auth::user()->company_id;
@@ -96,12 +96,21 @@ class HomeController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $role_id = Auth::user()->role_id;
         $user = User::findOrFail($id);
+        $anuncios = Adds::all();
         if ($role_id == 2) {
             $companies = Company::where('user', $id)->get();
-            return view('userInfo.edit', ['companies' => $companies, 'user' => $user]);
+            if ($anuncios->first()) {
+                return view('userInfo.edit', ['companies' => $companies, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('userInfo.edit', ['companies' => $companies, 'user' => $user, 'anuncios' => null]); //generala vista
+            }
         } else {
             $company = Company::all();
-            return view('userInfo.edit', ['company' => $company, 'user' => $user]);
+            if ($anuncios->first()) {
+                return view('userInfo.edit', ['company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('userInfo.edit', ['company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
+            }
         }
     }
 
