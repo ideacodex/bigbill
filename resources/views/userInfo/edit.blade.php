@@ -181,7 +181,7 @@
                                                 class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
                                                 required>
 
-                                                <option value="{{ Auth::user()->company_id }}" selected>
+                                                <option value="{{ Auth::user()->companies->nit }}" selected>
                                                     <p>
                                                         Su companía: {{ Auth::user()->companies->name }}
                                                     </p>
@@ -207,18 +207,26 @@
                                                     class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
                                                     required>
                                                     @if (Auth::user()->company_id)
-                                                        <option value="{{ Auth::user()->company_id }}" selected>
+                                                        <option value="{{ Auth::user()->companies->nit }}" selected>
                                                             <p>
                                                                 Su companía: {{ auth::user()->companies->name }}
                                                             </p>
                                                         </option>
+
                                                         @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
+                                                            @if ($item->id != Auth::user()->company_id)
+                                                                <option value="{{ $item->nit }}">{{ $item->name }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     @else
+                                                        <option value="" selected>
+                                                            <p>
+                                                                Elija una Empresa
+                                                            </p>
+                                                        </option>
                                                         @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            <option value="{{ $item->nit }}">{{ $item->name }}
                                                             </option>
                                                         @endforeach
                                                     @endif
@@ -246,7 +254,7 @@
                                                     @enderror
                                                 </div>
                                             @else
-                                                <input type="hidden" value="{{ Auth::user()->company_id }}"
+                                                <input type="hidden" value="{{ Auth::user()->companies->nit }}"
                                                     name="company_id">
                                             @endif
                                         @endif
