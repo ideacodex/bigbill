@@ -69,7 +69,7 @@
                         {{-- <!--Nit --> --}}
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="nit" type="text" class="cajatexto2 @error('nit') is-invalid @enderror" name="nit"
-                                minlength="5" value="{{ old('nit') }}" minlength="8" pattern="[0-9]{6,15}" required
+                                minlength="5" value="{{ old('nit') }}" pattern="[0-9]{6,15}" required
                                 placeholder=" NIT" autocomplete="nit">
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">

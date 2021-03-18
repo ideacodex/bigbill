@@ -47,6 +47,7 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
+        $messege = 'Registro Modificado'; //mensaje
         $usuario = Auth::user()->role_id;
 
         request()->validate([
@@ -78,14 +79,23 @@ class CompaniesController extends Controller
                 $user->nit = $datosususario->nit; //actualizo el nit
                 $user->address = $datosususario->address; //actualizo el direccion
                 $user->email = $datosususario->email; //actualizo el correo
-                $user->company_id = $datosususario->company_id; //actualizo el Compañia
+                if ($datosususario->company_id != null) {
+                    $user->company_id = $datosususario->company_id; //actualizo el Compañia
+                } else {
+                    $cps = Company::where('nit', $request->nit)->first();
+                    if ($cps) {
+                        //Asignación de empresa 
+                        $user->company_id = $cps->id;
+                        $messege = "Se le agrego a la Empresa solicitada, " . $cps->name;
+                    } else {
+                        $user->company_id = null;
+                        $messege = "Error de asignacion de empresa, porfavor vaya a actualizar su informacion manualmente";
+                    }
+                }
                 $user->branch_id = $datosususario->branch_id; //actualizo el sucursal
                 $user->work_permits = 1; //actualizo el sucursal
                 $user->save();
             }
-
-
-
             //***carga de imagen***//
             if ($request->hasFile('file')) {
                 $extension = $request->file('file')->getClientOriginalExtension();
@@ -99,20 +109,18 @@ class CompaniesController extends Controller
                 $imageNameToStore = 'no_image.jpg';
             }
             //***carga de imagen***//
-
-
         } catch (\Illuminate\Database\QueryException $e) {
             DB::rollback();
             abort(500, $e->errorInfo[2]); //en la poscision 2 del array está el mensaje
-            return response()->json($response, 500);
+            return response()->json($e, 500);
         }
         DB::commit();
         if ($usuario == 1) {
             return redirect()->action('CompaniesController@index')
-                ->with('datosAgregados', 'Registro exitoso');
+                ->with('datosAgregados', $messege);
         } else {
             return redirect()->action('ArchivosController@Perfil')
-                ->with('datosAgregados', 'Registro exitoso');
+                ->with('MENSAJEEXITOSO', $messege);
         }
     }
     /**
@@ -192,7 +200,7 @@ class CompaniesController extends Controller
             } catch (\Illuminate\Database\QueryException $e) {
                 DB::rollback();
                 abort(500, $e->errorInfo[2]);
-                return response()->json($response, 500);
+                return response()->json($e, 500);
             }
             DB::commit();
             if ($rol == 1) {

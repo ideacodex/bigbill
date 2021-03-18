@@ -431,7 +431,7 @@
 </style>
 
 <body style="background-color: white">
-    
+
 
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel" style="background: black">
@@ -477,7 +477,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="{{ url('perfil') }}"> <i class="menu-icon fas fa-toolbox"></i>Vendedor:
+                        <a href="{{ url('perfil') }}"> <i class="menu-icon fas fa-toolbox"></i>Verificacion:
                             {{ Auth::user()->name }}</a>
                     </li>
                     <h3 class="menu-title">ACCIONES</h3><!-- /.menu-title -->
@@ -602,18 +602,18 @@
                     </a>
                     <div class="user-menu dropdown-menu">
                         <a class="nav-link" href="{{ url('/perfil') }}">
-                            <i class="fa fa-user"></i> Cargo
-                        @if (Auth::user()->role_id == 1) Administrador @else
-                            @if (Auth::user()->role_id == 2) Gerente @else
-                                @if (Auth::user()->role_id == 3) Contador @else
-                                        @if (Auth::user()->role_id == 4) Ventas
+                            <i class="fa fa-user"></i> Usted necesita
+                        @if (Auth::user()->role_id == 1) Verificación @else
+                            @if (Auth::user()->role_id == 2) Verificación @else
+                                @if (Auth::user()->role_id == 3) Verificación @else
+                                        @if (Auth::user()->role_id == 4) Verificación
                                         @else No tiene @endif
                                     @endif
                                 @endif
                             @endif
                         </a>
                         <a class="nav-link" href="#">
-                            <i class="fa fa-users"></i> Empresa:
+                            <i class="fa fa-users"></i>
                             @if (Auth::user()->company_id)
                                 {{ Auth::user()->companies->name }}
                             @else

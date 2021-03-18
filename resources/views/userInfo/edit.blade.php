@@ -86,7 +86,7 @@
                                                 <i class="text-primary fas fa-phone"></i>
                                             </span>
                                         </div>
-                                        <input id="phone" name="phone" type="text"
+                                        <input id="phone" name="phone" type="text" minlength="6" pattern="[0-9]{6,15}"
                                             class="border-0 bg-input text-dark form-control @error('phone') is-invalid @enderror"
                                             value="{{ $user->phone }}" placeholder="Telefono" required
                                             autocomplete="phone" autofocus>
@@ -168,7 +168,7 @@
                                         @enderror
                                     </div>
                                     {{-- <!--Company_id--> --}}
-                                    @if (Auth::user()->role_id == 2)
+                                    @if (Auth::user()->role_id == 2 && Auth::user()->company_id != null)
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span
@@ -180,17 +180,12 @@
                                             <select name="company_id" id="company_id"
                                                 class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
                                                 required>
-                                                @if (Auth::user()->company_id)
-                                                    <option value="{{ Auth::user()->company_id }}" selected>
-                                                        <p>
-                                                            Su companía: {{ Auth::user()->companies->name }}
-                                                        </p>
-                                                    </option>
-                                                @else
-                                                    @foreach ($companies as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                    @endforeach
-                                                @endif
+
+                                                <option value="{{ Auth::user()->companies->nit }}" selected>
+                                                    <p>
+                                                        Su companía: {{ Auth::user()->companies->name }}
+                                                    </p>
+                                                </option>
                                             </select>
                                             @error('company_id')
                                                 <span class="invalid-feedback" role="alert">
@@ -212,18 +207,26 @@
                                                     class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
                                                     required>
                                                     @if (Auth::user()->company_id)
-                                                        <option value="{{ Auth::user()->company_id }}" selected>
+                                                        <option value="{{ Auth::user()->companies->nit }}" selected>
                                                             <p>
                                                                 Su companía: {{ auth::user()->companies->name }}
                                                             </p>
                                                         </option>
+
                                                         @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
+                                                            @if ($item->id != Auth::user()->company_id)
+                                                                <option value="{{ $item->nit }}">{{ $item->name }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     @else
+                                                        <option value="" selected>
+                                                            <p>
+                                                                Elija una Empresa
+                                                            </p>
+                                                        </option>
                                                         @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            <option value="{{ $item->nit }}">{{ $item->name }}
                                                             </option>
                                                         @endforeach
                                                     @endif
@@ -240,24 +243,18 @@
                                                             <i title="company" class="text-primary far fa-building"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" name="company_id" id="company_id"
-                                                        class="border-0 bg-input form-control" placeholder="Nit de la empresa">
-                                                    {{-- <select name="company_id" id="cifrado" onchange="mostrarInput();"
-                                                        class="border-0 bg-input select2 form-control @error('company_id') is-invalid @enderror">
-                                                        <option selected value="0">Asignate a la compañía</option>
-                                                        @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}"> Nit: {{ $item->nit }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select> --}}
-                                                    @error('company_id') 
+                                                    <input type="text" minlength="8" pattern="[0-9]{6,15}" name="company_id"
+                                                        id="company_id"
+                                                        class="border-0 bg-input form-control  @error('company_id') is-invalid @enderror"
+                                                        placeholder="Nit de la empresa">
+                                                    @error('company_id')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
                                                 </div>
                                             @else
-                                                <input type="hidden" value="{{ Auth::user()->company_id }}"
+                                                <input type="hidden" value="{{ Auth::user()->companies->nit }}"
                                                     name="company_id">
                                             @endif
                                         @endif

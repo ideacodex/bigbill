@@ -161,15 +161,18 @@ class HomeController extends Controller
 
     public  function update(Request $request, $id)
     {
+        $messege = 'Registro Modificado';
         // dd($request);
         request()->validate([
             'name' => 'required',
             'lastname' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|numeric|digits_between:6,11',
             'nit' => 'required',
             'address' => 'required',
             'email' => 'required',
-            'file' => 'image'
+            'file' => 'image',
+
+
         ]);
         DB::beginTransaction();
         try {
@@ -183,12 +186,25 @@ class HomeController extends Controller
             $user->address = $request->address;
             $user->email = $request->email;
             $request->company_id;
-            $cps = Company::where('nit', $request->company_id)->first();
-            if ($cps->nit == $request->company_id) {
-                //Asignación de empresa por input
-                $user->company_id = $cps->id;
-            } else {
+
+
+            if ($request->company_id == null) {
                 $user->company_id = null;
+            } else {
+                $cps = Company::where('nit', $request->company_id)->first();
+                if ($cps) {
+                    if ($cps->nit == $request->company_id) {
+                        //Asignación de empresa por input
+                        $user->company_id = $cps->id;
+                        $messege = "Se le agrego a la Empresa solicitada, " . $cps->name;
+                    } else {
+                        $user->company_id = null;
+                        $messege = "No pudimos encontrar ninguna Empresa con el nit ingresado";
+                    }
+                } else {
+                    $user->company_id = null;
+                    $messege = "No pudimos encontrar ninguna Empresa con el nit ingresado";
+                }
             }
             //permisos de accion
             $permisos = Auth::user()->work_permits;
@@ -222,6 +238,6 @@ class HomeController extends Controller
         }
         DB::commit();
         return redirect()->action('ArchivosController@Perfil')
-            ->with('MENSAJEEXITOSO', 'Registro modificado');
+            ->with('MENSAJEEXITOSO', $messege);
     }
 }

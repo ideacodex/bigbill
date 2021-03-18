@@ -558,32 +558,7 @@
                                 </ul>
                             </li>
                             <h3 class="menu-title text-light">Documentos</h3><!-- /.menu-title -->
-                            {{-- <li class="menu-item-has-children dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false"> <i
-                                        class="text-light menu-icon fas fa-file-excel"></i>Informes
-                                    excel</a>
-                                <ul class="sub-menu children dropdown-menu" style="background: black">
-                                    <li> <i class="text-primary menu-icon fas fa-check"></i><a
-                                            href="{{ url('/doc-Customer') }}">Clientes</a></li>
-                                    <li><i class="text-primary fas fa-check"></i><a
-                                            href="{{ url('/doc') }}">Productos</a>
-                                    </li>
-                                    <li><i class="text-primary fas fa-check"></i><a
-                                            href="{{ url('/doc-Account') }}">Cuentas</a>
-                                    </li>
-                                    <li><i class="text-primary fas fa-check"></i><a
-                                            href="{{ url('/doc-AccountType') }}">Tipo
-                                            Cuentas</a>
-                                    </li>
-                                    <li><i class="text-primary fas fa-check"></i><a
-                                            href="{{ url('/doc-Companies') }}">Companias</a>
-                                    </li>
-                                    <li><i class="text-primary fas fa-check"></i><a
-                                            href="{{ url('/doc-User') }}">Usuarios</a>
-                                    </li>
-                                </ul>
-                            </li> --}}
+
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
@@ -595,9 +570,7 @@
                                     <li><i class="text-primary fas fa-check"></i><a
                                             href="{{ route('Product.pdf') }}">Productos</a>
                                     </li>
-                                    <li><i class="text-primary fas fa-check"></i><a
-                                            href="{{ route('Company.pdf') }}">Companias</a>
-                                    </li>
+                                  
                                     <li><i class="text-primary fas fa-check"></i><a
                                             href="{{ route('User.pdf') }}">Usuarios</a>
                                     </li>
@@ -756,7 +729,7 @@
         @yield('content')
 
         <div class="btn-fl">
-            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" >
+            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}">
                 <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>
