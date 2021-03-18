@@ -22,7 +22,8 @@
 
 
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <img src="{{ asset('pdfestilo/Fondo.png') }}" class="image" width="130px" height="100px" alt="Usuario">
+                <img src="{{ asset('pdfestilo/Fondo.png') }}" class="image" width="130px" height="100px"
+                    alt="Usuario">
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 
@@ -31,7 +32,6 @@
 
             </div>
             <br>
-
 
             <table style="font-family:Helvetica; ">
                 <!-- Nota -->
@@ -45,7 +45,11 @@
                 <!-- Encabezado -->
                 <tr>
                     <td colspan="3">
-                        <h1 style="color: #00096d;">Venta {{ $data->company->name }} </h1>
+                        @if ($data->active == 1)
+                            <h1>Venta {{ $data->company->name }}</h1>
+                        @elseif($data->active == 0)
+                            <h1>Venta cancelada <br> {{ $data->company->name }}</h1>
+                        @endif
                     </td>
                     <td colspan="2" style="
                     background: #ff7400;
@@ -57,8 +61,6 @@
                     -moz-border-radius:  15px 15px 0px 0px ;
                     -webkit-border-radius:15px 15px 0px 0px ">
                         <strong style="color: white">DATOS DE LA VENTA</strong>
-
-
                     </td>
                 </tr>
                 <tr>
@@ -73,7 +75,8 @@
                         <strong style="color: #00096d;">Fecha:</strong>
                     </td>
                     <td style="font-size:16px">
-                        <label> {{ $data->company->address }}<strong style="color:white;"> ------------ </strong> </label>
+                        <label> {{ $data->company->address }}<strong style="color:white;"> ------------ </strong>
+                        </label>
                         <br>
                         <label> {{ $data->company->phone }} </label>
                         <br>
@@ -83,65 +86,71 @@
                         <br>
                     </td>
                     <!-- Datos Factura -->
-                    <td colspan="2" style="border-radius :3px;border-bottom:  black 2px solid; border-left: black 2px solid;border-right: black 2px solid;">
-                        <strong style="color: #00096d;">FECHA DE EMISION:</strong> <strong>{{ $data->created_at }}</strong>
+                    <td colspan="2"
+                        style="border-radius :3px;border-bottom:  black 2px solid; border-left: black 2px solid;border-right: black 2px solid;">
+                        <strong style="color: #00096d;">FECHA DE EMISION:</strong>
+                        <strong>{{ $data->created_at }}</strong>
                         <br>
                         <strong style="color: #00096d">SERIE DE DOCUMENTO:</strong><strong>a</strong>
                         <br>
-                        <strong style="color: #00096d">NO VENTA: </strong><strong>20<?php echo date('y'); ?>-{{ $data->id }}</strong>
+                        <strong style="color: #00096d">NO VENTA: </strong><strong>20<?php echo date('y');
+                            ?>-{{ $data->id }}</strong>
                         <br>
-                        <strong style="color: #00096d">LUGAR DE EMISION: </strong><strong>{{ $data->company->address }}</strong>
+                        <strong style="color: #00096d">LUGAR DE EMISION:
+                        </strong><strong>{{ $data->company->address }}</strong>
                         <br>
-                        <strong style="color: #00096d;">FECHA DE EXPIRACION:</strong><strong>{{ $data->expiration_date }}</strong>
+                        <strong style="color: #00096d;">FECHA DE
+                            EXPIRACION:</strong><strong>{{ $data->expiration_date }}</strong>
                     </td>
                 </tr>
                 <!-- Datos Cliente -->
                 <tr>
                     <td colspan="5">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                            <h3 style="color: white; background: #092863 ; text-align: Center"><b> Datos del Cliente: </b>
+                            <h3 style="color: white; background: #092863 ; text-align: Center"><b> Datos del Cliente:
+                                </b>
                             </h3>
                             <div style="font-family:Courier New;">
 
                                 <Strong style="color: black">Nombre: </Strong>
                                 @if ($data->customer)
-                                <label style="color: black">{{ $data->customer->name }}
-                                    {{ $data->customer->lastname }}</label>
+                                    <label style="color: black">{{ $data->customer->name }}
+                                        {{ $data->customer->lastname }}</label>
                                 @else
-                                @if ($data->customer_name)
-                                <label style="color: black">{{ $data->customer_name }} </label>
-                                @else
-                                <label style="color: black">Consumidor Final</label>
-                                @endif
+                                    @if ($data->customer_name)
+                                        <label style="color: black">{{ $data->customer_name }} </label>
+                                    @else
+                                        <label style="color: black">Consumidor Final</label>
+                                    @endif
                                 @endif
                                 <br>
                                 <Strong style="color: black">Nit: </Strong>
                                 @if ($data->customer)
-                                <label style="color: black">{{ $data->customer->nit }}</label>
+                                    <label style="color: black">{{ $data->customer->nit }}</label>
                                 @else
 
-                                <label style="color: black">C/F</label>
+                                    <label style="color: black">C/F</label>
                                 @endif
                                 <br>
                                 <Strong style="color: black">Tel: </Strong>
                                 @if ($data->customer)
-                                <label style="color: black">{{ $data->customer->phone }}</label>
+                                    <label style="color: black">{{ $data->customer->phone }}</label>
                                 @else
-                                <label style="color: black"> 00000000 </label>
+                                    <label style="color: black"> 00000000 </label>
                                 @endif
                                 <br>
                                 <Strong style="color: black">Direccion: </Strong>
                                 <label style="color: black"> Guatemala</label>
                                 <br>
                                 @if ($data->customer)
-                                <Strong style="color: black">Correo: </Strong>
-                                <label style="color: black">{{ $data->customer->email }}</label>
+                                    <Strong style="color: black">Correo: </Strong>
+                                    <label style="color: black">{{ $data->customer->email }}</label>
                                 @else
-                                @if ($data->customer_email)
-                                <Strong style="color: black">Correo: </Strong>
-                                <label style="color: black">{{ $data->customer_email }} </label>
-                                @else
-                                @endif
+                                    @if ($data->customer_email)
+                                        <Strong style="color: black">Correo: </Strong>
+                                        <label style="color: black">{{ $data->customer_email }} </label>
+                                    @else
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -164,7 +173,8 @@
                         </div>
                     </td>
                     <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #dddbd9; color: black; color: black">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                            style="background: #dddbd9; color: black; color: black">
                             Cantidad
                         </div>
                     </td>
@@ -186,38 +196,36 @@
                 </tr>
                 <!-- Detalle -->
                 @foreach ($data->detail as $item)
-                <tr>
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
-                            {{ $loop->index + 1 }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
-                            {{ $item->quantity }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
-                            {{ $item->product->name }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
-                            {{ $item->unit_price }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
-                            {{ $item->subtotal }}
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                {{ $loop->index + 1 }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                {{ $item->quantity }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                {{ $item->product->name }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                {{ $item->unit_price }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
+                                {{ $item->subtotal }}
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
                 <!-- Operaciones -->
-                <?php
-                $a = $data->total;
-                ?>
+                <?php $a = $data->total; ?>
                 <!-- Subtotal -->
 
                 <!-- Total -->
@@ -231,8 +239,10 @@
                     </td>
                     {{-- aqui esta el total de la factura que se utilizara para pasar en letras --}}
                     <td colspan="1" style="border-bottom:  #092863  double;">
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black; text-align: right">
-                            <input type="text" style="border: none;background:none;text-align:right" id="total" value="{{ $data->total }}">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                            style="background: #ffffff; color: black; text-align: right">
+                            <input type="text" style="border: none;background:none;text-align:right" id="total"
+                                value="{{ $data->total }}">
                         </div>
                     </td>
                 </tr>
@@ -240,12 +250,14 @@
                 <tr>
                     <td colspan="2">
                         <div style="border-radius:7px; background: #092863; color:white; text-align: right">
-                            <strong style="color:#092863">----</strong> <b>Total en letras</b> <strong style="color:#092863">----</strong>
+                            <strong style="color:#092863">----</strong> <b>Total en letras</b> <strong
+                                style="color:#092863">----</strong>
                         </div>
                     </td>
                     {{-- Aqui aparecera como la cantidad en letras --}}
                     <td colspan="3" style="border-bottom:  #092863  double;">
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black; text-align: right">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                            style="background: #ffffff; color: black; text-align: right">
                             <label> {{ $data->totalletras }}</label>
                             {{-- <p id="salida">Aquí aparecerá la cantidad como letras</p> --}}
                         </div>

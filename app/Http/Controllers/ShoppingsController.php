@@ -28,8 +28,7 @@ class ShoppingsController extends Controller
         if ($rol == 1) {
             $records = Shopping::with('user')->with('company')->get(); //busca todas las facturas
             return view("shopping.index", ["records" => $records]); //generala vista
-        }
-        else {
+        } else {
             $company = Auth::user()->company_id;
             $records = Shopping::where('company_id', $company)->with('user')->with('company')->get(); //busca todas las facturas
             return view("shopping.index", ["records" => $records]); //generala vista
@@ -47,7 +46,7 @@ class ShoppingsController extends Controller
         if ($rol == 1) {
             $product = Product::all();
             return view("shopping.create", ['product' => $product]);
-        } else { 
+        } else {
             $product = Product::where('company_id', Auth()->user()->company_id)->get();
             return view("shopping.create", ['product' => $product]);
         }
@@ -83,59 +82,70 @@ class ShoppingsController extends Controller
             $shopping->description = $request->description;
             $shopping->account_id = 2;
             $shopping->new_existing = $request->new_existing;
+            $shopping->active = 1;
             $shopping->save();
 
             /**Detalle de compra */
-            if ($request->type_product == 2 && $request->new_existing == 2) {
-                for ($i = 0; $i < sizeof($request->product); $i++) {
+            if ($request->type_product == 2 && $request->new_existing == 1) {
+                for ($i = 0; $i < sizeof($request->product_id); $i++) {
                     /* dd('está llegando aquí'); */
                     $detail_shopping = new DetailShoppings();
-                    $detail_shopping->product = $request->product[$i];
                     $detail_shopping->quantity = $request->quantity[$i];
                     $detail_shopping->unit_price = $request->unit_price[$i];
                     $detail_shopping->subtotal = $request->subtotal[$i];
-                    $detail_shopping->shopping_id = $shopping->id; 
+                    $detail_shopping->shopping_id = $shopping->id;
                     $detail_shopping->product_id = $request->product_id[$i];
                     $detail_shopping->save();
 
-                    if ($request->type_product == 2) {
-                        if ($request->new_existing == 1) {
-                            $new_product = new Product();
-                            $new_product->name = $request->product[$i];
-                            $new_product->new_income = $request->quantity[$i];
-                            $new_product->quantity_values = $request->quantity[$i];
-                            $new_product->stock = $request->quantity[$i];
-                            $new_product->income_amount = $request->quantity[$i];
-                            $new_product->total_revenue = $request->quantity[$i];
-                            $new_product->cost = $request->unit_price[$i];
-                            $new_product->company_id = auth()->user()->id;
-                            $new_product->price = $request->unit_price[$i];
-                            $new_product->kind_product = 3;
-                            $new_product->active = 1;
-                            $new_product->save();
-                        }
-                    }
-                }
-            }
-            if ($request->type_product == 2 && $request->new_existing == 1) {
-                for ($i = 0; $i < sizeof($request->product_id); $i++) {
                     $product = Product::find($request->product_id[$i]);
                     /**Declaro una variable temporal que sea igual a mi cantidad en stock */
                     $temp = $product->stock;
                     $temporal = $product->quantity_values;
                     $tempo = $product->new_income;
-                    $tempor = $product->income_amount;
-                    $temporales = $product->total_revenue;
+                    $tempo1 = $product->income_amount;
+                    $tempo2 = $product->total_revenue;
                     /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
                     $product->stock = $temp + $request->quantity[$i];
                     $product->quantity_values = $temporal + $request->quantity[$i];
                     $product->new_income = $tempo + $request->quantity[$i];
-                    $product->income_amount = $tempor + $request->quantity[$i];
-                    $product->total_revenue = $temporales + $request->quantity[$i];
-                    if ($product->stock == 0) {
-                        $product->active = 0;
-                    } else {
+                    $product->income_amount = $tempo1 + $request->quantity[$i];
+                    $product->total_revenue = $tempo2 + $request->quantity[$i];
+                    $product->kind_product = 3;
+                    if ($product->active == 0) {
                         $product->active = 1;
+                    } elseif ($product->active == 1) {
+                        $product->active = 1;
+                    }
+                    $product->save();
+                }
+            } elseif ($request->type_product == 1 && $request->new_existing == 1) {
+                for ($i = 0; $i < sizeof($request->product_id); $i++) {
+                    $detail_shopping = new DetailShoppings();
+                    $detail_shopping->quantity = $request->quantity[$i];
+                    $detail_shopping->unit_price = $request->unit_price[$i];
+                    $detail_shopping->subtotal = $request->subtotal[$i];
+                    $detail_shopping->shopping_id = $shopping->id;
+                    $detail_shopping->product_id = $request->product_id[$i];
+                    $detail_shopping->save();
+
+                    $product = Product::find($request->product_id[$i]);
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $product->stock;
+                    $temporal = $product->quantity_values;
+                    $tempo = $product->new_income;
+                    $tempo1 = $product->income_amount;
+                    $tempo2 = $product->total_revenue;
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $product->stock = $temp + $request->quantity[$i];
+                    $product->quantity_values = $temporal + $request->quantity[$i];
+                    $product->new_income = $tempo + $request->quantity[$i];
+                    $product->income_amount = $tempo1 + $request->quantity[$i];
+                    $product->total_revenue = $tempo2 + $request->quantity[$i];
+                    $product->kind_product = 2;
+                    if ($product->active == 0) {
+                        $product->active = 0;
+                    } elseif ($product->active == 1) {
+                        $product->active = 0;
                     }
                     $product->save();
                 }
@@ -193,7 +203,38 @@ class ShoppingsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $detail_shopping = Shopping::with('detail.products')->where('id', $id)->first();
+            
+            if ($detail_shopping->active == 1) {
+                $detail_shopping->active = 0;
+                foreach ($detail_shopping->detail as $record) {
+                    /* dd($record->products); */
+                    /**Declaro una variable temporal que sea igual a mi cantidad en stock */
+                    $temp = $record->products->stock;
+                    $temporal = $record->products->quantity_values;
+                    $tempo = $record->products->new_income;
+                    $tempo1 = $record->products->income_amount;
+                    $tempo2 = $record->products->total_revenue;
+
+                    /**A mi cantidad en stock le resto la cantidad que tengo en la request ej: 9-2 = 7 */
+                    $record->products->stock = $temp - $record->quantity;
+                    $record->products->quantity_values = $temporal - $record->quantity;
+                    $record->products->new_income = $tempo - $record->quantity;
+                    $record->products->income_amount = $tempo1 - $record->quantity;
+                    $record->products->total_revenue = $tempo2 - $record->quantity;
+                    $record->products->save();
+                }
+                $detail_shopping->save();
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            abort(500, $e->errorInfo[2]);
+            return response()->json($response, 500);
+        }
+        DB::commit();
+        return redirect()->action('ShoppingsController@index');
     }
 
     public function xml(Request $request)

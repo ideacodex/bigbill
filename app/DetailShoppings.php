@@ -11,7 +11,7 @@ class DetailShoppings extends Model
         return $this->belongsTo("App\Shopping", 'id', 'shopping_id');
     }
 
-    public function product(){
+    public function products(){
         return $this->hasOne("App\Product", 'id', 'product_id');
     }
 }

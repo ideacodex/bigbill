@@ -75,16 +75,13 @@
         <tr style="background: #2b204b ; color:white">
 
 
-            <th scope="col" style="background: #dddbd9; color: black;">No. </th>
             <th scope="col" style="background: #dddbd9; color: black;">No. Venta</th>
             <th scope="col" style="background: #dddbd9; color: black;">Producto</th>
-            <th scope="col" style="background: #dddbd9; color: black;">Categoría</th>
+            <th scope="col" style="background: #dddbd9; color: black;">Cantidad</th>
             <th scope="col" style="background: #dddbd9; color: black;">P/U</th>
             <th scope="col" style="background: #dddbd9; color: black;">Subtotal</th>
-            <th scope="col" style="background: #dddbd9; color: black;">No. Vendedor</th>
             <th scope="col" style="background: #dddbd9; color: black;">Responsable</th>
             <th scope="col" style="background: #dddbd9; color: black;">Compañía</th>
-            <th scope="col" style="background: #dddbd9; color: black;">Iva </th>
             <th scope="col" style="background: #dddbd9; color: black;">Total </th>
         </tr>
 
@@ -94,24 +91,15 @@
 
                 <tr style=" color:#2b204b ; border: #2b204b 1px solid">
 
-                    <td>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="background: #ffffff; color: black">
-                            {{ $loop->index + 1 }}
-                        </div>
-                    </td>
                     <th style="background: #ffffff; color: black" scope="row">{{ $items->invoice_id }}
                     </th>
                     <td style="background: #ffffff; color: black">{{ $items->product->name }}</td>
                     <td style="background: #ffffff; color: black">{{ $items->quantity }}</td>
                     <td style="background: #ffffff; color: black">{{ $items->unit_price }}</td>
                     <td style="background: #ffffff; color: black">{{ $items->subtotal }}</td>
-
-                    <th style="background: #ffffff; color: black" scope="row">{{ $items->invoice_id }}
-                    </th>
                     <td style="background: #ffffff; color: black">{{ $dato->user->name }} <br>
                         {{ $dato->user->lastname }}</td>
                     <td style="background: #ffffff; color: black">{{ $dato->company->name }}</td>
-                    <td style="background: #ffffff; color: black">{{ $dato->iva }}</td>
                     <td style="background: #ffffff; color: black">{{ $dato->total }}</td>
 
                 </tr>
