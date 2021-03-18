@@ -86,7 +86,7 @@
                                                 <i class="text-primary fas fa-phone"></i>
                                             </span>
                                         </div>
-                                        <input id="phone" name="phone" type="text"
+                                        <input id="phone" name="phone" type="text" minlength="6" pattern="[0-9]{6,15}"
                                             class="border-0 bg-input text-dark form-control @error('phone') is-invalid @enderror"
                                             value="{{ $user->phone }}" placeholder="Telefono" required
                                             autocomplete="phone" autofocus>
@@ -240,16 +240,8 @@
                                                             <i title="company" class="text-primary far fa-building"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" name="company_id" id="company_id"
-                                                        class="border-0 bg-input form-control" placeholder="Nit de la empresa">
-                                                    {{-- <select name="company_id" id="cifrado" onchange="mostrarInput();"
-                                                        class="border-0 bg-input select2 form-control @error('company_id') is-invalid @enderror">
-                                                        <option selected value="0">Asignate a la compañía</option>
-                                                        @foreach ($company as $item)
-                                                            <option value="{{ $item->id }}"> Nit: {{ $item->nit }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select> --}}
+                                                    <input type="text" minlength="8" pattern="[0-9]{6,15}" name="company_id" id="company_id"
+                                                        class="border-0 bg-input form-control  @error('company_id') is-invalid @enderror" placeholder="Nit de la empresa">
                                                     @error('company_id') 
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
