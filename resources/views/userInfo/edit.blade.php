@@ -168,7 +168,7 @@
                                         @enderror
                                     </div>
                                     {{-- <!--Company_id--> --}}
-                                    @if (Auth::user()->role_id == 2)
+                                    @if (Auth::user()->role_id == 2 && Auth::user()->company_id != null)
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                             <div class="input-group-prepend">
                                                 <span
@@ -180,17 +180,12 @@
                                             <select name="company_id" id="company_id"
                                                 class="border-0 bg-input form-control @error('company_id') is-invalid @enderror"
                                                 required>
-                                                @if (Auth::user()->company_id)
-                                                    <option value="{{ Auth::user()->company_id }}" selected>
-                                                        <p>
-                                                            Su companía: {{ Auth::user()->companies->name }}
-                                                        </p>
-                                                    </option>
-                                                @else
-                                                    @foreach ($companies as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                    @endforeach
-                                                @endif
+
+                                                <option value="{{ Auth::user()->company_id }}" selected>
+                                                    <p>
+                                                        Su companía: {{ Auth::user()->companies->name }}
+                                                    </p>
+                                                </option>
                                             </select>
                                             @error('company_id')
                                                 <span class="invalid-feedback" role="alert">
@@ -240,9 +235,11 @@
                                                             <i title="company" class="text-primary far fa-building"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" minlength="8" pattern="[0-9]{6,15}" name="company_id" id="company_id"
-                                                        class="border-0 bg-input form-control  @error('company_id') is-invalid @enderror" placeholder="Nit de la empresa">
-                                                    @error('company_id') 
+                                                    <input type="text" minlength="8" pattern="[0-9]{6,15}" name="company_id"
+                                                        id="company_id"
+                                                        class="border-0 bg-input form-control  @error('company_id') is-invalid @enderror"
+                                                        placeholder="Nit de la empresa">
+                                                    @error('company_id')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
