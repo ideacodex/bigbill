@@ -504,7 +504,7 @@
                 <br>
                 <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
                     class="card-text">
-                    <img src="img/simbolo_logo.png" class="mt-3" width="175px">
+                    <img src="{{ asset('img/simbolo_logo.png') }}" class="mt-3" width="175px">
                     <p class="pt-1 ml-4 mr-3 Rubik-Medium">
                         Plataforma en linea que te permite registrar y organizar las ventas y compras de tu empresa ,
                         actualmente es una plataforma GRATIS el precio por usuario será un aproximado de Q55
