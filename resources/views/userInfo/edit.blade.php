@@ -233,15 +233,24 @@
                                             {{-- company_id --}}
                                             @if (!Auth::user()->company_id)
                                                 <div class="col-12 col-md-6 input-group input-group-lg mb-3">
-                                                    <select name="company_id" id="cifrado" onchange="mostrarInput();"
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                            id="inputGroup-sizing-sm">
+                                                            <i title="company" class="text-primary far fa-building"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" name="company_id" id="company_id"
+                                                        class="border-0 bg-input form-control" placeholder="Nit de la empresa">
+                                                    {{-- <select name="company_id" id="cifrado" onchange="mostrarInput();"
                                                         class="border-0 bg-input select2 form-control @error('company_id') is-invalid @enderror">
                                                         <option selected value="0">Asignate a la compañía</option>
                                                         @foreach ($company as $item)
                                                             <option value="{{ $item->id }}"> Nit: {{ $item->nit }}
                                                             </option>
                                                         @endforeach
-                                                    </select>
-                                                    @error('company_id')
+                                                    </select> --}}
+                                                    @error('company_id') 
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -266,14 +275,11 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->

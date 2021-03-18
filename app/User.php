@@ -12,10 +12,10 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-    use HasRoles;   
+    use HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'lastname', 'role_id', 'status_id', 'score_id', 'check_terms','branch_id'
+        'name', 'email', 'company_id', 'password', 'phone', 'lastname', 'role_id', 'status_id', 'score_id', 'check_terms', 'branch_id'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -23,24 +23,35 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function score(){
+    public function score()
+    {
         return $this->belongsTo("App\Score", 'score_id');
     }
-    public function status(){
+    public function status()
+    {
         return $this->belongsTo("App\Status", 'status_id');
     }
-    public function branch_offices(){
+    public function branch_offices()
+    {
         return $this->belongsTo("App\BranchOffice", 'branch_id');
-    }    
+    }
 
     public function findForPassport($username)
     {
         return User::orWhere('email', $username)->orWhere('phone', $username)->first();
     }
-    public function companies(){
+    public function companies()
+    {
         return $this->belongsTo("App\Company", 'company_id');
     }
-    public function company(){
+
+    public function cp()
+    {
+        return $this->belongsTo('App\Company', 'company_id');
+    }
+
+    public function company()
+    {
         return $this->hasOne("App\Company", 'id', 'company_id');
     }
     public function customer()
@@ -52,7 +63,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany("App\DetailBill", 'invoice_id');
     }
 
-    public function suscriptions(){
+    public function suscriptions()
+    {
         return $this->belongsTo("App\Suscription", 'id', 'user_id');
     }
 
@@ -60,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         abort_unless($this->hasAnyRole($roles), 401);
         return true;
-    }    
+    }
     public function hasAnyRole($roles)
     {
         if (is_array($roles)) {
@@ -71,8 +83,8 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         } else {
             if ($this->hasRole($roles)) {
-                 return true; 
-            }   
+                return true;
+            }
         }
         return false;
     }
