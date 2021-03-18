@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use App\DetailBill;
 use App\Company;
 use Illuminate\Support\Facades\DB;
@@ -30,9 +31,13 @@ class InvoiceBillsController extends Controller
     {
         $company = Auth::user()->company_id; //guardo la variable de companía del ususario autentificado
         $records = InvoiceBill::where('company_id', $company)->with('user')->with('company')->with('customer')->get(); //busca facturas por autenticación
-        return view("invoice_bill.index", ["records" => $records]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view("invoice_bill.index", ["records" => $records, 'anuncios' => $anuncios->random(1)]);
+        } else {
+            return view("invoice_bill.index", ["records" => $records, 'anuncios' => null]);
+        }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -50,10 +55,14 @@ class InvoiceBillsController extends Controller
             $product = Product::where('active', 1)->where('company_id', Auth()->user()->company_id)->where('kind_product', '!=', 2)->get();
             $company = Company::all();
             $customer = Customer::where('company_id', Auth()->user()->company_id)->get();
-            return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer]);
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view("invoice_bill.create", ["product" => $product, "company" => $company, "customer" => $customer, 'anuncios' => null]);
+            }
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -139,7 +148,6 @@ class InvoiceBillsController extends Controller
         return redirect()->action('InvoiceBillsController@index')
             ->with('usuarioGuardado', 'Factura Registrada');
     }
-
     /**
      * Display the specified resource.
      *
@@ -151,7 +159,6 @@ class InvoiceBillsController extends Controller
         $records = InvoiceBill::with('user')->with('company')->with('customer')->with('detail.product')->find($id);
         return view('invoice_bill.show', ['records' => $records]);
     }
-
     public function editar($id)
     {
         $product = Product::where('active', 1)->get();
@@ -159,9 +166,13 @@ class InvoiceBillsController extends Controller
         $customer = Customer::all();
         $invoice = InvoiceBill::with('detail.product')->with('customer')->find($id);
         /* dd($invoice); */
-        return view("invoice_bill.edit", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view("invoice_bill.edit", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer, 'anuncios' => $anuncios->random(1)]);
+        } else {
+            return view("invoice_bill.edit", ["invoice" => $invoice, "product" => $product, "company" => $company, "customer" => $customer, 'anuncios' => null]);
+        }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -269,7 +280,6 @@ class InvoiceBillsController extends Controller
         return redirect()->action('InvoiceBillsController@index')
             ->with('datosEliminados', 'Registro modificado');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -307,7 +317,6 @@ class InvoiceBillsController extends Controller
         DB::commit();
         return redirect()->action('InvoiceBillsController@index');
     }
-
     public function createReact()
     {
         $product = Product::where('active', 1)->get();
@@ -315,7 +324,6 @@ class InvoiceBillsController extends Controller
         $customer = Customer::all();
         return view("invoice_bill.CreateReact", ["product" => $product, "company" => $company, "customer" => $customer]);
     }
-
     public function editReact($id)
     {
         $product = Product::where('active', 1)->get();

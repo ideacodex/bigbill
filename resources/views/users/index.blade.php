@@ -107,7 +107,7 @@
                                                             @endif
                                                             <td>
                                                                 <a class="btn btn-sm btn-primary rounded-circle"
-                                                                    href="{{ url('UsuariosEmpresa/' . $item->id . '/edit') }}"
+                                                                    href="{{ url('home/' . $item->id . '/edit') }}"
                                                                     title="Editar">
                                                                     <span><i class="fas fa-edit"></i></span>
                                                                 </a>

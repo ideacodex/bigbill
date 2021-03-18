@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use App\Company;
 use App\Family;
 use App\mark;
@@ -28,9 +29,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
 
-    public function index(Request $request) 
+
+    public function index(Request $request)
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $rol = Auth::user()->role_id;
@@ -39,8 +40,13 @@ class ProductController extends Controller
             return view("product.index", ['products' => $product]); //generala vista
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
-            $product = Product::where('company_id', $company)->with('companies')->get(); //Obtener los valores de tu request:
-            return view("product.index", ['products' => $product]); //generala vista
+            $product = Product::where('company_id', $company)->with('companies')->get(); //Obtener los valores 
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("product.index", ['products' => $product, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view("product.index", ['products' => $product, 'anuncios' => null]);
+            }
         }
     }
     /**
@@ -61,7 +67,12 @@ class ProductController extends Controller
             $company = Auth::user()->company_id;
             $family = Family::where('company_id', $company)->get(); //Obtener los valores de tu request:
             $mark = mark::where('company_id', $company)->get(); //Obtener los valores de tu request:
-            return view("product.create", ['family' => $family, 'mark' => $mark]); //retorna vista con los datos correspondientes
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("product.create", ['family' => $family, 'mark' => $mark, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view("product.create", ['family' => $family, 'mark' => $mark, 'anuncios' => null]);
+            }
         }
     }
     /**
@@ -179,7 +190,12 @@ class ProductController extends Controller
         $pivote_mark = pivote_mark::with('product')->with('marks')->get();
         $pivote_family = pivote_family::with('families')->with('products')->get();
         $products = Product::with('company')->find($id);
-        return view('product.show', ['products' => $products,  'pivote_family' => $pivote_family, 'pivote_mark' => $pivote_mark]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('product.show', ['products' => $products,  'pivote_family' => $pivote_family, 'pivote_mark' => $pivote_mark, 'anuncios' => $anuncios->random(1)]);
+        } else {
+            return view('product.show', ['products' => $products,  'pivote_family' => $pivote_family, 'pivote_mark' => $pivote_mark, 'anuncios' => null]);
+        }
     }
     /**
      * Show the form for editing the specified resource.
@@ -203,8 +219,12 @@ class ProductController extends Controller
             $family = Family::whereNotIn('id', ($products->pivotFamily->pluck('family_id')))->where('company_id', $company)->get(); //Selecciona todos los datos de la tabla families
             $mark = mark::whereNotIn('id', $products->pivotMark->pluck('mark_id'))->where('company_id', $company)->get(); //Selecciona todos los datos de la tabla marks
         }
-
-        return view('product.edit', ['companies' => $companies, 'products' => $products, 'family' => $family, 'mark' => $mark, 'pivote_mark' => $products->pivotMark, 'pivote_family' => $products->pivotFamily]); //retorna vista con los datos correspondientes
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('product.edit', ['companies' => $companies, 'products' => $products, 'family' => $family, 'mark' => $mark, 'pivote_mark' => $products->pivotMark, 'pivote_family' => $products->pivotFamily,  'anuncios' => $anuncios->random(1)]);
+        } else {
+            return view('product.edit', ['companies' => $companies, 'products' => $products, 'family' => $family, 'mark' => $mark, 'pivote_mark' => $products->pivotMark, 'pivote_family' => $products->pivotFamily,  'anuncios' => null]);
+        }
     }
     /**
      * Update the specified resource in storage.

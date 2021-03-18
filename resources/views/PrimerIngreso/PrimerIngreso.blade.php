@@ -395,7 +395,7 @@
                 Crear Empresa
             </button>
             <!-- Button trigger modal -->
-            <a style="margin: 1rem;  padding: 1rem; border-radius: 50px" type="button" class="btn btn-primary" href="{{ url('perfil') }}">
+            <a style="margin: 1rem;  padding: 1rem; border-radius: 50px" type="button" class="btn btn-primary" href="{{ url('home/'.Auth::user()->id.'/edit') }}">
                 Asignarse una empresa
             </a>
         </div>

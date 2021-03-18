@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use App\Company;
 use App\Family;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class FamilyController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth'); //autentificacion del usuario
@@ -30,7 +32,12 @@ class FamilyController extends Controller
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $family = Family::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
-            return view("family.index", ['family' => $family]); //generala vista
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("family.index", ['family' => $family, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view("family.index", ['family' => $family, 'anuncios' => null]);
+            }
         }
     }
     /**
@@ -73,7 +80,12 @@ class FamilyController extends Controller
             $company = Company::all();
             return view('family.edit', ['company' => $company, 'family' => $family]);
         } else {
-            return view('family.edit', ['family' => $family]);
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view('family.edit', ['family' => $family, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view('family.edit', ['family' => $family, 'anuncios' => null]);
+            }
         }
     }
     /**

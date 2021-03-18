@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use App\Company;
 use App\mark;
 use Illuminate\Http\Request;
@@ -30,10 +31,14 @@ class MarkController extends Controller
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $mark = mark::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
-            return view("mark.index", ['mark' => $mark]); //generala vista
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("mark.index", ['mark' => $mark, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view("mark.index", ['mark' => $mark, 'anuncios' => null]);
+            }
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -73,7 +78,12 @@ class MarkController extends Controller
             $company = Company::all();
             return view('mark.edit', ['company' => $company, 'mark' => $mark]);
         } else {
-            return view('mark.edit', ['mark' => $mark]);
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view('mark.edit', ['mark' => $mark, 'anuncios' => $anuncios->random(1)]);
+            } else {
+                return view('mark.edit', ['mark' => $mark, 'anuncios' => null]);
+            }
         }
     }
     /**

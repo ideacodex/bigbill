@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use App\Company;
 use DB;
 use App\Customer;
@@ -17,7 +18,6 @@ class CustomersController extends Controller
         $this->middleware('auth'); //autentificacion del usuario
         $this->middleware('verified');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -32,9 +32,14 @@ class CustomersController extends Controller
             return view("customers.index", ["customers" => $customers]); //generala vista   
         } else {
             $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']); //autentificacion y permisos
-            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $customers = Customer::where('company_id', Auth()->user()->company_id)->get(); //Obtener los valores de la compañia asignada
-            return view("customers.index", ["customers" => $customers]); //generala vista   
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("customers.index", ["customers" => $customers, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+            } else {
+                return view("customers.index", ["customers" => $customers, 'anuncios' => null]); //generala vista
+            }
         }
     }
     /**
@@ -46,7 +51,13 @@ class CustomersController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
         $companies = Company::all();
-        return view("customers.create", ['companies' => $companies]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view("customers.create", ['companies' => $companies, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+        } else {
+            return view("customers.create", ['companies' => $companies, 'anuncios' => null]); //generala vista
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -96,9 +107,14 @@ class CustomersController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Vendedor']);
         $companies = Company::all();
         $customers = Customer::findOrFail($id);
-        return view('customers.edit', compact('customers'), ['companies' => $companies]);
-    }
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('customers.edit', compact('customers'), ['companies' => $companies, 'anuncios' => $anuncios->random(1)]); //generala vista
 
+        } else {
+            return view('customers.edit', compact('customers'), ['companies' => $companies, 'anuncios' => null]); //generala vista
+        }
+    }
     /**
      * Update the specified resource in storage.
      *

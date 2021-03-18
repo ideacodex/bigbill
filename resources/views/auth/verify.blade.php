@@ -1,4 +1,4 @@
-@extends('layouts.Vendedor')
+@extends('layouts.Verify')
 
 @section('content')
     <div class="container">

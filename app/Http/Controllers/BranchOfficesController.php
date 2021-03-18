@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use App\BranchOffice;
 use App\Company;
 use Illuminate\Http\Request;
@@ -30,7 +31,13 @@ class BranchOfficesController extends Controller
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $branch_office = BranchOffice::where('company_id', $company)->get(); //Obtener los valores relacionados a su compañia
-            return view('branchoffice.index', ['branch_office' => $branch_office]); //retorna vista con los datos correspondientes
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view('branchoffice.index', ['branch_office' => $branch_office, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+            } else {
+                return view('branchoffice.index', ['branch_office' => $branch_office, 'anuncios' => null]); //generala vista
+            }
         }
     }
     /**
@@ -41,7 +48,13 @@ class BranchOfficesController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('branchoffice.create', ['companies' => $companies]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('branchoffice.create', ['companies' => $companies, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+        } else {
+            return view('branchoffice.create', ['companies' => $companies, 'anuncios' => null]); //generala vista
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -85,7 +98,13 @@ class BranchOfficesController extends Controller
     {
         $branch_office = BranchOffice::with('company')->findOrFail($id);
         $companies = Company::all();
-        return view('branchoffice.show', ['branch_office' => $branch_office , 'companies' => $companies ]);
+        $anuncios = Adds::all();
+        if ($anuncios->first()) {
+            return view('branchoffice.show', ['branch_office' => $branch_office, 'companies' => $companies, 'anuncios' => $anuncios->random(1)]); //generala vista
+
+        } else {
+            return view('branchoffice.show', ['branch_office' => $branch_office, 'companies' => $companies, 'anuncios' => null]); //generala vista
+        }
     }
     /**
      * Show the form for editing the specified resource.
@@ -97,7 +116,7 @@ class BranchOfficesController extends Controller
     {
         $branch_office = BranchOffice::with('company')->findOrFail($id);
         $companies = Company::all();
-        return view('branchoffice.edit', ['branch_office' => $branch_office , 'companies' => $companies ]);
+        return view('branchoffice.edit', ['branch_office' => $branch_office, 'companies' => $companies]);
     }
 
     /**

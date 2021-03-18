@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adds;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -46,6 +47,7 @@ class HomeController extends Controller
             auth()->user()->syncRoles('Vendedor');
         }
         $rol = Auth::user()->role_id;
+        $anuncios = Adds::all();
         if ($rol == 1) {
             $company = Company::all();
             $products = Product::all();
@@ -57,7 +59,11 @@ class HomeController extends Controller
             $users = User::count();
             $ibill = InvoiceBill::get()->where('active', 1)->sum('total');
             $ishopping = Shopping::get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            if ($anuncios->first()) {
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'customer' => $customer, 'ibill' => $ibill, 'users' => $users, 'company' => $company, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+            }
         } else {
             $companies = Auth::user()->company_id;
             $company = Company::all();
@@ -70,7 +76,11 @@ class HomeController extends Controller
             $users = User::where('company_id', $companies)->get()->count();
             $ibill = InvoiceBill::where('company_id', $companies)->where('active', 1)->get()->sum('total');
             $ishopping = Shopping::where('company_id', $companies)->get()->sum('total');
-            return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping]);
+            if ($anuncios->first()) {
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('PrimerIngreso.PrimerIngreso', ['ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+            }
         }
     }
 
@@ -85,12 +95,21 @@ class HomeController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $role_id = Auth::user()->role_id;
         $user = User::findOrFail($id);
+        $anuncios = Adds::all();
         if ($role_id == 2) {
             $companies = Company::where('user', $id)->get();
-            return view('userInfo.edit', ['companies' => $companies, 'user' => $user]);
+            if ($anuncios->first()) {
+                return view('userInfo.edit', ['companies' => $companies, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('userInfo.edit', ['companies' => $companies, 'user' => $user, 'anuncios' => null]); //generala vista
+            }
         } else {
             $company = Company::all();
-            return view('userInfo.edit', ['company' => $company, 'user' => $user]);
+            if ($anuncios->first()) {
+                return view('userInfo.edit', ['company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+            } else {
+                return view('userInfo.edit', ['company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
+            }
         }
     }
 
@@ -126,11 +145,11 @@ class HomeController extends Controller
             $user->address = $request->address;
             $user->email = $request->email;
             $request->company_id;
-            $cps = Company::where('nit',$request->company_id)->first();
+            $cps = Company::where('nit', $request->company_id)->first();
             if ($cps->nit == $request->company_id) {
                 //Asignación de empresa por input
                 $user->company_id = $cps->id;
-            }else{
+            } else {
                 $user->company_id = null;
             }
             //permisos de accion

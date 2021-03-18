@@ -12,14 +12,15 @@
     use Illuminate\Support\Facades\Auth;
 
     Route::get('/', function () {
-        $records = Adds::all();
-        if ($records->first()) {
+        // $records = Adds::all();
+        // if ($records->first()) {
 
-            return view('landingpage.inicio',  ['records' => $records->random(1)]);
-        } else {
+        //     return view('landingpage.inicio',  ['records' => $records->random(1)]);
+        // } else {
 
-            return view('landingpage.inicio',  ['records' => null]);
-        }
+        //     return view('landingpage.inicio',  ['records' => null]);
+        // }
+        return view('landingpage.inicio');
     });
     Auth::routes(['verify' => true]);
 

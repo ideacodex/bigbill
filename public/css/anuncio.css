@@ -9,7 +9,7 @@
     top: 0%;
     left: 0%;
     display: flex;
-    animation: modals 3s 15s forwards;
+    animation: modals 3s 45s forwards;
     visibility: hidden;
     opacity: 0;
 }
@@ -39,7 +39,7 @@
     border-radius: 50%;
     right: 10px;
     cursor: pointer;
-    animation: modals 3s 15s forwards;
+    animation: modals 3s 45s forwards;
     visibility: hidden;
     opacity: 0;
 }
