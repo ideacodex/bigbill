@@ -120,7 +120,7 @@
                                                         @if (Auth::user()->id != $item->id)
                                                             <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
                                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -140,16 +140,17 @@
                                                 role="dialog" aria-labelledby="largeModalUser{{ $item->id }}"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="largeModalLabel">Gestión de pagos
+                                                    <div class="modal-content bg-card">
+                                                        <div class="modal-header bg-cardheader">
+                                                            <h5 class="modal-title text-light" id="largeModalLabel">
+                                                                <b>Gestión de pagos</b>
                                                             </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
+                                                                <span aria-hidden="true" class="text-danger">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div class="modal-body bg-frm">
                                                             <form method="POST" action="{{ route('pago.store') }}"
                                                                 onsubmit="return checkSubmit();">
                                                                 @csrf
@@ -170,14 +171,15 @@
                                                                 <div
                                                                     class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                                     <div class="input-group-prepend">
-                                                                        <span class="input-group-text transparent"
+                                                                        <span
+                                                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
                                                                             id="inputGroup-sizing-sm">
                                                                             <i title="Monto"
-                                                                                class="text-dark fas fa-money-bill-wave-alt"></i>
+                                                                                class="text-primary fas fa-money-bill-wave-alt"></i>
                                                                         </span>
                                                                     </div>
                                                                     <input id="amount" placeholder="Monto" type="number"
-                                                                        class="text-dark form-control @error('amount') is-invalid @enderror"
+                                                                        class="text-dark form-control border-0 bg-input @error('amount') is-invalid @enderror"
                                                                         name="amount" value="{{ old('amount') }}"
                                                                         required autocomplete="amount" autofocus>
 
@@ -198,14 +200,15 @@
                                                                 <div
                                                                     class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                                     <div class="input-group-prepend">
-                                                                        <span class="input-group-text transparent"
+                                                                        <span
+                                                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
                                                                             id="inputGroup-sizing-sm">
                                                                             <i title="Tiempo de suscripción"
-                                                                                class="text-dark fas fa-clock"></i>
+                                                                                class="text-primary fas fa-clock"></i>
                                                                         </span>
                                                                     </div>
                                                                     <select name="suscription_time" id="suscription_time"
-                                                                        class="form-control @error('suscription_time') is-invalid @enderror"
+                                                                        class="form-control border-0 bg-input @error('suscription_time') is-invalid @enderror"
                                                                         required>
                                                                         <option selected disabled>Tiempo de suscripción
                                                                         </option>
@@ -240,14 +243,15 @@
                                                                 <div
                                                                     class="col-12 col-md-6 input-group input-group-lg mb-3">
                                                                     <div class="input-group-prepend">
-                                                                        <span class="input-group-text transparent"
+                                                                        <span
+                                                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
                                                                             id="inputGroup-sizing-sm">
                                                                             <i title="Tiempo de suscripción"
-                                                                                class="text-dark fas fa-gem"></i>
+                                                                                class="text-primary fas fa-gem"></i>
                                                                         </span>
                                                                     </div>
                                                                     <select name="type_plan" id="type_plan"
-                                                                        class="form-control @error('type_plan') is-invalid @enderror"
+                                                                        class="form-control border-0 bg-input @error('type_plan') is-invalid @enderror"
                                                                         required>
                                                                         <option selected disabled>Plan a contratar
                                                                         </option>
@@ -269,29 +273,30 @@
                                                                 </div>
 
                                                                 {{-- Comentarios --}}
-                                                                <textarea class="form-control" rows="5" id="comments"
-                                                                    placeholder="Comentarios" name="comments"
-                                                                    required></textarea>
+                                                                <textarea class="form-control border-0 bg-input" rows="5"
+                                                                    id="comments" placeholder="Comentarios" name="comments"
+                                                                    required
+                                                                    style="border-radius: 35px; box-shadow: 8px 8px 10px 0 #0883ad"></textarea>
 
                                                                 <div class="container mt-4">
                                                                     <div class="col-12">
                                                                         <div class="col text-center">
                                                                             <button type="submit"
-                                                                                style="border-radius: 10px"
-                                                                                class="btn btn-lg btn-primary mt-3">
+                                                                                style="border-radius: 50px"
+                                                                                class="btn btn-primary mt-3">
                                                                                 <i class="far fa-save"></i>
-                                                                                {{ __('Guardar') }}
+                                                                                {{ __('GUARDAR') }}
+                                                                            </button>
+                                                                            <button type="button"
+                                                                                style="border-radius: 50px"
+                                                                                class="btn btn-danger mt-3"
+                                                                                data-dismiss="modal"><i
+                                                                                    class="fas fa-times-circle"></i> CERRAR
                                                                             </button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" style="border-radius: 10px"
-                                                                class="btn btn-danger" data-dismiss="modal"><i
-                                                                    class="fas fa-times-circle"></i> Cerrar
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -317,5 +322,6 @@
         // OR simply
         /* TableExport(document.getElementsByTagName("table")); */
         // OR using jQuery
+
     </script>
 @endsection

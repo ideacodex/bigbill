@@ -141,36 +141,45 @@
                                                             <span><i class="text-light fas fa-eye"></i></span>
                                                         </a>
 
-                                                        <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
-                                                            data-toggle="modal" data-target="#largeModal{{$item->id}}"
-                                                            onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
-                                                            <span class="text-light"><i class="fas fa-trash-alt"></i></span>
-                                                        </a>
-                                                        @if ($item->document_type == 0)
-                                                            <a class="btn btn-sm btn-info rounded-circle" title="Facturar"
-                                                                href="{{ url('editar', $item->id) }}">
-                                                                <span><i class="text-light fas fa-edit"></i></span>
+                                                        @if ($item->active == 1)
+                                                            <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
+                                                                data-toggle="modal"
+                                                                data-target="#largeModal{{ $item->id }}"
+                                                                onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                <span class="text-light"><i
+                                                                        class="fas fa-trash-alt"></i></span>
                                                             </a>
+                                                            @if ($item->document_type == 0)
+                                                                <a class="btn btn-sm btn-info rounded-circle"
+                                                                    title="Facturar"
+                                                                    href="{{ url('editar', $item->id) }}">
+                                                                    <span><i class="text-light fas fa-edit"></i></span>
+                                                                </a>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                 </td>
                                             </tr>
                                             <!--Modal-->
-                                            <div class="modal fade" id="largeModal{{$item->id}}" tabindex="-1" role="dialog"
-                                                aria-labelledby="largeModal{{$item->id}}Label" aria-hidden="true">
+                                            <div class="modal fade" id="largeModal{{ $item->id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="largeModal{{ $item->id }}Label"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="largeModal{{$item->id}}Label">
-                                                                Atención</h5>
+                                                    <div class="modal-content bg-card">
+                                                        <div class="modal-header bg-cardheader">
+                                                            <h5 class="modal-title text-light"
+                                                                id="largeModal{{ $item->id }}Label">
+                                                                <b>Atención</b>
+                                                            </h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="text-danger" aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div class="modal-body bg-frm">
                                                             <div class="alert alert-danger">
-                                                                ¿Desea cancelar la venta?
+                                                                <h4>¿Desea cancelar la venta?
+                                                                </h4>
                                                             </div>
                                                             <form id="formDel"
                                                                 action="{{ url('facturas/' . $item->id) }}" method="POST"
@@ -178,9 +187,11 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
+                                                                    <button type="button" style="border-radius: 50px"
+                                                                        class="btn btn-secondary"
                                                                         data-dismiss="modal">Cancelar</button>
-                                                                    <button id="{{ $item->id }}" type="submit"
+                                                                    <button id="{{ $item->id }}"
+                                                                        style="border-radius: 50px" type="submit"
                                                                         class="btn btn-danger">Confirmar</button>
                                                                 </div>
                                                             </form>

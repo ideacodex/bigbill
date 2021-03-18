@@ -8,12 +8,12 @@
 
         {{-- Clientes frecuentes --}}
         <script type="text/javascript">
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart(){
+            google.charts.load('current', {packages:['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawMultSeries);
 
+            function drawMultSeries(){
                 var data = google.visualization.arrayToDataTable([
-                    ['Nombre', 'Ventas'],
+                    ['Nombre', 'Compras realizadas'],
                     
                     @foreach ($customer as $customers)
                         ['{{ $customers->name }}', {{ $customers->bills->count()}}],
@@ -24,7 +24,7 @@
                     title: 'Clientes frecuentes'
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                var chart = new google.visualization.BarChart(document.getElementById('piechart'));
                 chart.draw(data, options);
             }
         </script>
@@ -349,13 +349,12 @@
                             alt="Ventas"></div>
                         <div class="stat-content dib">
                             <div class="stat-text">Total en ventas</div>
-                            <div class="stat-digit">{{ $ibill }}</div>
+                            <div class="stat-digit">{{ 'Q. ' . number_format($ibill, 2, '.', ',') }}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <div class="col-xl-3 col-lg-6">
             <div class="card">
@@ -365,12 +364,12 @@
                             alt="Compras"></div>
                         <div class="stat-content dib">
                             <div class="stat-text">Gastos en compras</div>
-                            <div class="stat-digit">{{ $ishopping }}</div>
+                            <div class="stat-digit">{{ 'Q. ' . number_format($ishopping, 2, '.', ',') }}</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
 
         {{-- <div class="col-xl-3 col-lg-6">
             <div class="card">

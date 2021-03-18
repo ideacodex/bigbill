@@ -74,6 +74,7 @@
                                                 <th>Descripción</th>
                                                 <th>Total</th>
                                                 <th>Tipo de artículo</th>
+                                                <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -83,7 +84,7 @@
                                                 @foreach ($records as $item)
                                                     <tr>
                                                         <th style="border-left: #325ff5 7px solid;" scope="row">
-                                                            {{ $item->id }} </th>
+                                                            {{ $loop->index + 1 }} </th>
                                                         <td>{{ $item->user->name }} {{ $item->user->lastname }}</td>
                                                         <td>{{ $item->company->name }}</td>
                                                         @if ($item->branch_id != null)
@@ -99,20 +100,72 @@
                                                         @elseif($item->type_product == 2)
                                                             <td>Artículo de compra y venta</td>
                                                         @endif
+                                                        @if ($item->active == 0)
+                                                            <td class="text-danger">Compra cancelada</td>
+                                                        @elseif($item->active == 1)
+                                                            <td class="text-success">Compra emitida</td>
+                                                        @endif
                                                         <td>
                                                             <a class="btn btn-sm rounded-circle"
                                                                 href="{{ url('facturas/' . $item->id) }}"
                                                                 title="Ver factura" style="background-color: #f55d00">
                                                                 <span><i class="text-light fas fa-eye"></i></span>
                                                             </a>
-                                                            <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
-                                                                data-toggle="modal" data-target="#largeModal"
-                                                                onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                <span class="text-light"><i
-                                                                        class="fas fa-trash-alt"></i></span>
-                                                            </a>
+                                                            @if ($item->active == 1)
+                                                                <a class="btn btn-sm btn-danger rounded-circle"
+                                                                    title="Eliminar" data-toggle="modal"
+                                                                    data-target="#largeModal{{ $item->id }}"
+                                                                    onclick="event.preventDefault(); document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                    <span class="text-light"><i
+                                                                            class="fas fa-trash-alt"></i></span>
+                                                                </a>
+                                                            @endif
                                                         </td>
                                                     </tr>
+                                                    <!--Modal-->
+                                                    <div class="modal fade" id="largeModal{{ $item->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="largeModal{{ $item->id }}Label"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content bg-card">
+                                                                <div class="modal-header bg-cardheader">
+                                                                    <h5 class="modal-title text-light"
+                                                                        id="largeModal{{ $item->id }}Label">
+                                                                        <b>Atención</b>
+                                                                    </h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                        <span class="text-danger"
+                                                                            aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body bg-frm">
+                                                                    <div class="alert alert-danger">
+                                                                        <h4>¿Desea cancelar la compra?
+                                                                        </h4>
+                                                                    </div>
+                                                                    <form id="formDel"
+                                                                        action="{{ url('compras/' . $item->id) }}"
+                                                                        method="POST" style="display: none;">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                style="border-radius: 50px"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Cancelar</button>
+                                                                            <button id="{{ $item->id }}"
+                                                                                style="border-radius: 50px" type="submit"
+                                                                                class="btn btn-danger">Confirmar</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </td>
+                                                        </tr>
+                                                        <!--Modal-->
                                                 @endforeach
                                             @endif
                                         </tbody>
@@ -214,6 +267,7 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
         <script>
             new TableExport(document.getElementsByTagName("table"));
+
         </script>
     @endsection
     @section('js')
