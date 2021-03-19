@@ -198,9 +198,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </td>
-                                                </tr>
-                                                <!--Modal-->
+                                            </div>
+                                            <!--Modal-->
                                         @endforeach
                                     @endif
                                 </tbody>

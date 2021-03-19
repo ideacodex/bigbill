@@ -208,6 +208,23 @@
         font-family: 'Rubik-BlackItalic';
     }
 
+    /* Dashboard */
+    .bg-fondo{
+        background-color: #e2e2e2;
+    }
+
+    .bg-carddash {
+        border-radius: 20px;
+        box-shadow: 8px 8px 10px 0 #b7bec0
+    }
+    .bg-cardtotales {
+        background: linear-gradient(60deg, rgb(85, 204, 212) 0%, rgb(3, 31, 153) 100%);
+    }
+    .bg-carddashheader {
+        background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
+    }
+    /* Dashboard */
+
     .Rubik-BoldItalic {
         font-family: 'Rubik-BoldItalic';
     }

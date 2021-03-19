@@ -48,6 +48,7 @@
 
     /** Shopping Route */
     Route::resource('compras', 'ShoppingsController')->middleware('auth');
+    Route::get('Estmensual', 'HomeController@inicio')->middleware('auth');
     Route::post('textoXml', 'ShoppingsController@xml')->middleware('auth');
     /** Shopping Route */
 
