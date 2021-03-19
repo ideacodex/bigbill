@@ -27,4 +27,9 @@ class Product extends Model
     {
         return $this->hasMany("App\pivote_mark", 'product_id');
     }
+
+    public function detailbill()
+    {
+        return $this->hasMany("App\DetailBill",'product_id');
+    }
 }
