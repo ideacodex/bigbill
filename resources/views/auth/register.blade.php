@@ -1,26 +1,9 @@
 @extends('layouts.NewSession')
 
-
-
-<!--Validación de errores-->
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-<!--Validación de errores-->
-
-
 {{-- register --}}
 
 @section('content')
     <div class="row">
-
-
         {{-- formulario --}}
         <div class="col-12 col-md-6 col-sm-12 col-xs-12 col-lg-6">
             <div class="cuerpo2" style="text-align: center;">
@@ -30,6 +13,17 @@
                             ¡Bienvenido!
                         </span>
                     </a>
+                    <!--Validación de errores-->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <!--Validación de errores-->
                 </div>
                 <div class="input-group m-0 d-flex justify-content-center">
                     <form method="POST" action="{{ route('register') }}">
@@ -57,8 +51,9 @@
                         </div>
                         {{-- <!--Phone --> --}}
                         <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input id="phone" type="text" class="cajatexto2 @error('phone') is-invalid @enderror"
-                                name="phone" value="{{ old('phone') }}" required autocomplete="phone" minlength="7"
+                            <input id="phone" maxlength="8" type="number" size="8"
+                                class="cajatexto2 @error('phone') is-invalid @enderror" name="phone"
+                                value="{{ old('phone') }}" required autocomplete="phone" minlength="7"
                                 pattern="[0-9]{7,13}" placeholder=" No. Celular">
                             @error('phone')
                                 <span class="invalid-feedback" role="alert">
@@ -68,9 +63,10 @@
                         </div>
                         {{-- <!--Nit --> --}}
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input id="nit" type="text" class="cajatexto2 @error('nit') is-invalid @enderror" name="nit"
-                                minlength="5" value="{{ old('nit') }}" pattern="[0-9]{6,15}" required
-                                placeholder=" NIT" autocomplete="nit">
+                            <input id="nit" maxlength="10" type="number" size="10"
+                                class="cajatexto2 @error('nit') is-invalid @enderror" name="nit" minlength="5"
+                                value="{{ old('nit') }}" pattern="[0-9]{6,15}" required placeholder=" NIT"
+                                autocomplete="nit">
                             @error('nit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

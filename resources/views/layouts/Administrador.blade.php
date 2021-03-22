@@ -61,6 +61,18 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
     }
 
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     /* Rubik_Bold */
 
     @font-face {
@@ -249,7 +261,7 @@
     }
 
     /* Dashboard */
-    .bg-fondo{
+    .bg-fondo {
         background-color: #e2e2e2;
     }
 
@@ -257,15 +269,18 @@
         border-radius: 20px;
         box-shadow: 8px 8px 10px 0 #b7bec0
     }
+
     .bg-cardtotales {
         background: linear-gradient(60deg, rgb(85, 204, 212) 0%, rgb(3, 31, 153) 100%);
     }
+
     .bg-carddashheader {
         background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
     }
+
     /* Dashboard */
 
-    /* Formularios */   
+    /* Formularios */
 
     .bg-card {
         border-radius: 35px;
@@ -518,7 +533,7 @@
                     </li> --}}
 
                     <!--Companías -->
-                     <li class="menu-item">
+                    <li class="menu-item">
                         <a href="{{ route('empresas.index') }}">
                             <i class="text-light menu-icon fas fa-calculator"></i>Empresas
                         </a>
@@ -702,10 +717,12 @@
                         <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-users"></i>
                             Usuarios </a>
 
-                        <a class="nav-link" href="{{ url('home/') }}"><i class="fas fa-chart-bar"></i> Estadística anual
+                        <a class="nav-link" href="{{ url('home/') }}"><i class="fas fa-chart-bar"></i> Estadística
+                            anual
                         </a>
-                        
-                        <a class="nav-link" href="{{ url('Estmensual') }}"><i class="fas fa-chart-bar"></i> Estadística mensual
+
+                        <a class="nav-link" href="{{ url('Estmensual') }}"><i class="fas fa-chart-bar"></i>
+                            Estadística mensual
                         </a>
 
                         <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>

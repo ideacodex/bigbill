@@ -58,6 +58,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nit' => ['required','unique:users','min:5','integer'],
+            'phone' => ['required','integer', 'max:8'],
+            'address' => ['required'],
         ]);
     }
 
@@ -69,14 +72,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        request()->validate([
-            'name' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'nit' => 'required|unique:users,nit|min:5',
-            'phone' => 'required',
-            'address' => 'required',
-        ]);
         DB::beginTransaction();
         try {
             if (!Role::find(1)) {
