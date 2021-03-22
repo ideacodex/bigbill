@@ -490,7 +490,12 @@
                     @if (Auth::user()->company_id)
                         @if (Auth::user()->work_permits == 1)
                             <!--Tipos de Cuentas -->
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('TipodeCuenta.index') }}">
+                                    <i class="text-light menu-icon fas fa-calculator"></i>Cuentas contables
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i class="menu-icon fas fa-calculator text-light"></i>Cuentas
                                     contables</a>
@@ -502,9 +507,14 @@
                                             href="{{ route('cuentas.index') }}"> Cuentas</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <!--Productos -->
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('productos.index') }}">
+                                    <i class="text-light menu-icon fas fa-cubes"></i>Productos
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class="menu-icon fas fa-cubes text-light"></i>Productos</a>
@@ -519,7 +529,7 @@
                                         <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

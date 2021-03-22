@@ -117,10 +117,9 @@
                                                             title="Editar">
                                                             <span><i class="fas fa-edit"></i></span>
                                                         </a>
-                                                        @if (Auth::user()->id != $item->id)
+                                                        {{-- @if (Auth::user()->id != $item->id)
                                                             <a class="btn btn-sm btn-danger rounded-circle" title="Eliminar"
-                                                                onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                onclick="event.preventDefault();                                                                                                                                                                                                                                                                                                                                                     document.getElementById('formDel{{ $item->id }}').submit();">
                                                                 <span class="text-light"><i
                                                                         class="fas fa-trash-alt"></i></span>
                                                             </a>
@@ -130,7 +129,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>
-                                                        @endif
+                                                        @endif --}}
                                                     </div>
                                                 </td>
                                             </tr>

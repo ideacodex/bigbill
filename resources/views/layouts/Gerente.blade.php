@@ -521,7 +521,12 @@
                                 </a>
                             </li>
                             <!--Productos -->
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('productos.index') }}">
+                                    <i class="text-light menu-icon fas fa-cubes"></i>Productos
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class=" text-light menu-icon fas fa-cubes"></i>Productos</a>
@@ -539,7 +544,7 @@
                                         <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

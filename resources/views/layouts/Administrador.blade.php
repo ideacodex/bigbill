@@ -441,9 +441,6 @@
 </style>
 
 <body style="background-color: white">
-    
-
-
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel" style="background: black">
         <nav class="navbar navbar-expand-sm navbar-default" style="background: black">
@@ -502,7 +499,12 @@
 
                     <h3 class="menu-title text-light">ACCIONES</h3><!-- /.menu-title -->
                     <!--Contabilidad -->
-                    <li class="menu-item-has-children dropdown">
+                    <li class="menu-item">
+                        <a href="{{ route('TipodeCuenta.index') }}">
+                            <i class="text-light menu-icon fas fa-calculator"></i>Cuentas contables
+                        </a>
+                    </li>
+                    {{-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="text-light menu-icon fas fa-calculator"></i>Cuentas
                             contables</a>
@@ -513,11 +515,17 @@
                                     Cuentas</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
+
                     <!--Companías -->
-                    <li class="menu-item-has-children dropdown">
+                     <li class="menu-item">
+                        <a href="{{ route('empresas.index') }}">
+                            <i class="text-light menu-icon fas fa-calculator"></i>Empresas
+                        </a>
+                    </li>
+                    {{-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="text-light menu-icon fas fa-building"></i>Companías</a>
+                            aria-expanded="false"> <i class="text-light menu-icon fas fa-building"></i>Compañías</a>
                         <ul class="sub-menu children dropdown-menu" style="background: black">
                             <li><i class="text-primary fas fa-check"></i><a href="{{ route('empresas.index') }}">
                                     Empresas</a>
@@ -525,7 +533,7 @@
                             <li><i class="text-primary fas fa-check"></i><a
                                     href="{{ route('sucursales.index') }}">Sucursales</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <!-- Clientes -->
                     <li class="menu-item">
                         <a href="{{ url('clientes') }}">
@@ -533,7 +541,12 @@
                         </a>
                     </li>
                     <!--Productos -->
-                    <li class="menu-item-has-children dropdown">
+                    <li class="menu-item">
+                        <a href="{{ route('productos.index') }}">
+                            <i class="text-light menu-icon fas fa-cubes"></i>Productos
+                        </a>
+                    </li>
+                    {{-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="text-light menu-icon fas fa-cubes"></i>Productos</a>
                         <ul class="sub-menu children dropdown-menu" style="background: black">
@@ -547,7 +560,7 @@
                                 <a href="{{ route('productos.index') }}">Productos</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">

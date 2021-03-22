@@ -36,7 +36,7 @@ class MarkController extends Controller
                 return view("mark.index", ['mark' => $mark, 'anuncios' => $anuncios->random(1)]);
             } else {
                 return view("mark.index", ['mark' => $mark, 'anuncios' => null]);
-            }
+            } 
         }
     }
     /**

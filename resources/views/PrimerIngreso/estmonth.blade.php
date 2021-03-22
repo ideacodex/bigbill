@@ -125,7 +125,7 @@
                                                 </div>    
                                     {{-- Montos de ventas --}}
                             </div>
-                            <div class="col-md-12 card-body" style="height: 500px">
+                            <div class="col-md-12 card-body" style="height: 600px">
                                                         {{-- Clientes frecuentes por mes--}}
                                                         <script type="text/javascript">
                                                             google.charts.load('current', {packages:['corechart', 'bar']});
@@ -152,7 +152,7 @@
                                                         <div class="d-none d-lg-block col-12 col-sm-10 col-md-12 mt-2"  style="width: 75%; height: 400px">
                                                             <div class="card bg-carddash border-0 col-12 col-sm-10 col-md-12" style="width: 100%;">
                                                                 <div class="card-header col-md-12 bg-cardtotales rounded-top text-center">
-                                                                    <strong class="text-light">CLIENTE FRECUENTES DEL MES</strong>
+                                                                    <strong class="text-light">CLIENTES FRECUENTES DEL MES</strong>
                                                                 </div>
                                                                 <div class="card-body bg-light col-12 col-sm-10 col-md-12" id="clientesf" style="border-radius: 20px; width: 100%; height: 400px">
                                                                 </div>
