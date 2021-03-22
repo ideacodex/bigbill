@@ -3,607 +3,230 @@
     {{-- Google chart --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
     {{-- Google chart --}}
     @if (Auth::user()->suscriptions->active && Auth::user()->company_id)
 
-
-        {{-- Estadísticas anuales --}}
-
-            <div class="card-header" style="background-color: black; border-radius: 15px; color: white; box-shadow: 8px 8px 10px 0 #0883ad">
-                <strong class="card-title">Estadísticas anuales</strong>
-            </div>
-
-            {{-- Clientes frecuentes --}}
-            <script type="text/javascript">
-                google.charts.load('current', {packages:['corechart', 'bar']});
-                google.charts.setOnLoadCallback(drawMultSeries);
-
-                function drawMultSeries(){
-                    var data = google.visualization.arrayToDataTable([
-                        ['Nombre', 'Compras realizadas'],
-                        
-                        @foreach ($customer as $customers)
-                            ['{{ $customers->name }}', {{ $customers->bills->count()}}],
-                        @endforeach
-                    ]);
-
-                    var options = {
-                        title: 'Clientes frecuentes'
-                    };
-
-                    var chart = new google.visualization.BarChart(document.getElementById('piechart'));
-                    chart.draw(data, options);
-                }
-            </script>
-
-            <div>
-                <div id="piechart" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px">
-                </div>
-            </div>
-
-            {{-- Montos de facturas --}}
-            <script type="text/javascript">
-                google.charts.load('current', {'packages':['corechart']});
-                google.charts.setOnLoadCallback(drawChart);
-                function drawChart(){
-
-                    var data = google.visualization.arrayToDataTable([
-                        ['Nombre', 'Monto'],
-                        
-                        @foreach ($customer as $customers)
-                            ['{{ $customers->name }} {{ $customers->lastname }}', {{ $customers->bills->sum('total')}}],
-                        @endforeach
-                    ]);
-
-                    var options = {
-                        title: 'Monto de ventas'
-                    };
-
-                    var chart = new google.visualization.PieChart(document.getElementById('facturas'));
-                    chart.draw(data, options);
-                }
-            </script>
-
-            <div id="facturas" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px">
-            </div>
-
-            {{-- Productos más vendidos --}}
-            <script>
-                google.charts.load('current', {packages: ['corechart', 'bar']});
-                    google.charts.setOnLoadCallback(drawMultSeries);
-
-                    function drawMultSeries() {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Nombre', 'Stock'],
-                            @foreach ($products as $product)
-                            ['{{ $product->name }}', {{ $product->stock}}],
-                        @endforeach
-                        ]);
-
-                        var options = {
-                            title: 'Productos disponibles',
-                            chartArea: {width: '50%'},
-                            hAxis: {
-                            title: 'Total',
-                            minValue: 0
-                            },
-                            vAxis: {
-                            title: 'City'
-                            }
-                        };
-
-                        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-                        chart.draw(data, options);
-                        }
-            </script>
-
-            <div id="chart_div" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px"></div>
-
-            <br>
-            {{-- Ventas y gastos totales --}}
-            <div class="col-xl-3 col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon dib"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/quetzal.png') }}"
-                                alt="Ventas"></div>
-                            <div class="stat-content dib">
-                                <div class="stat-text">Ventas totales</div>
-                                <div class="stat-digit">{{ 'Q. ' . number_format($ibill, 2, '.', ',') }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon dib"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/carts.png') }}"
-                                alt="Compras"></div>
-                            <div class="stat-content dib">
-                                <div class="stat-text">Gastos totales</div>
-                                <div class="stat-digit">{{ 'Q. ' . number_format($ishopping, 2, '.', ',') }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            {{-- Ventas y gastos totales --}}
-
-            {{-- Conteo de registros totales --}}
-            <div class="col-sm-6 col-lg-3 mt-3">
-                <div class="card text-white bg-flat-color-2 estadisticas">
-                    <div class="card-body pb-0 estadisticas">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                                id="dropdownMenuButton2" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="{{ url('facturas') }}">Ver ventas</a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light"><b>Ventas totales</b></p>
-                        <h4 class="mb-0">
-                            <span class="count"><b>{{ $bills }}</b></span>
-                        </h4>
-                        <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/ventas.png') }}"
-                                alt="Ventas">
-                        <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                            <canvas id="widgetChart2"></canvas>
-                        </div>
-    
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-    
-            <div class="col-sm-6 col-lg-3 mt-3">
-                <div class="card text-white bg-warning estadisticas">
-                    <div class="card-body pb-0 estadisticas">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                                id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="{{ url('compras')}}">Ver compras</a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light"><b>Compras totales</b></p>
-                        <h4 class="mb-0">
-                            <span class="count"><b>{{ $shoppings }}</b></span>
-                        </h4>
-                        <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/compra.png') }}"
-                                alt="Compras">
-    
-                        <div class="chart-wrapper px-3" style="height:70px;" height="70">
-                            <canvas id="widgetChart4"></canvas>
-                        </div>
-    
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-    
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-4 estadisticas">
-                    <div class="card-body pb-0 estadisticas">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                                id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="{{ url('UsuariosEmpresa')}}">Usuarios registrados</a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light"><b>Usuarios del sistema</b></p>
-                        <h4 class="mb-0">
-                            <span class="count"><b>{{ $user }}</b></span>
-                        </h4>
-                        <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/team.png') }}"
-                                alt="Usuarios">
-    
-                        <div class="chart-wrapper px-3" style="height:70px;" height="70">
-                            <canvas id="widgetChart4"></canvas>
-                        </div>
-    
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-            {{-- Conteo de registros totales --}}
-            
-        {{-- Estadísticas anuales --}}
-        
-        {{-- Estadísticas mensuales --}}
-
-            {{-- Clientes frecuentes por mes--}}
-            <script type="text/javascript">
-                google.charts.load('current', {packages:['corechart', 'bar']});
-                google.charts.setOnLoadCallback(drawMultSeries);
-
-                function drawMultSeries(){
-                    var data = google.visualization.arrayToDataTable([
-                        ['Nombre', 'Compras realizadas'],
-                        
-                        @foreach ($customerf as $customerfs)
-                            ['{{ $customerfs->name }}', {{ $customerfs->bills->count()}}],
-                        @endforeach
-                    ]);
-
-                    var options = {
-                        title: 'Clientes frecuentes del mes'
-                    };
-
-                    var chart = new google.visualization.BarChart(document.getElementById('clientesf'));
-                    chart.draw(data, options);
-                }
-            </script>
-
-            <div id="clientesf" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px">
-            </div>
-
-            {{-- Montos de facturas por mes--}}
-            <script type="text/javascript">
-                google.charts.load('current', {'packages':['corechart']});
-                google.charts.setOnLoadCallback(drawChart);
-                function drawChart(){
-
-                    var data = google.visualization.arrayToDataTable([
-                        ['Factura', 'Monto'],
-                        
-                        @foreach ($invoicem as $invoicesm)
-                            ['{{ $invoicesm->id }}', {{ $invoicesm->total}}],
-                        @endforeach
-                    ]);
-
-                    var options = {
-                        title: 'Monto de ventas por mes'
-                    };
-
-                    var chart = new google.visualization.PieChart(document.getElementById('facturasm'));
-                    chart.draw(data, options);
-                }
-            </script>
-
-            <div id="facturasm" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px">
-            </div>
-            {{-- Montos de facturas por mes--}}
-
-            {{-- Productos más vendidos por mes --}}
-            <script>
-                google.charts.load('current', {packages: ['corechart', 'bar']});
-                    google.charts.setOnLoadCallback(drawMultSeries);
-
-                    function drawMultSeries() {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Nombre', 'Egresos'],
-                            @foreach ($productos as $productm)
-                            ['{{ $productm->name }}', {{ $productm->amount_expenses }}],
-                        @endforeach
-                        ]);
-
-                        var options = {
-                            title: 'Productos más vendidos',
-                            chartArea: {width: '50%'},
-                            hAxis: {
-                            title: 'Total',
-                            minValue: 0
-                            },
-                            vAxis: {
-                            title: 'City'
-                            }
-                        };
-
-                        var chart = new google.visualization.BarChart(document.getElementById('productm'));
-                        chart.draw(data, options);
-                        }
-            </script>
-
-            <div id="productm" class="col-sm-6 col-lg-3 mt-3" style="height: 500px; height: 500px; box-shadow: 8px 8px 10px 0 #0883ad; border-radius: 35px"></div>
-            {{-- Productos más vendidos por mes --}}
-
-            <div class="col-sm-6 col-lg-3 mt-3">
-                <div class="card text-white bg-flat-color-2 estadisticas">
-                    <div class="card-body pb-0 estadisticas">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                                id="dropdownMenuButton2" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="{{ url('facturas') }}">Ver ventas</a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light"><b>Ventas del mes</b></p>
-                        <h4 class="mb-0">
-                            <span class="count"><b>{{ $bill }}</b></span>
-                        </h4>
-                        <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/ventas.png') }}"
-                                alt="Ventas">
-                        <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                            <canvas id="widgetChart2"></canvas>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3 mt-3">
-                <div class="card text-white bg-warning estadisticas">
-                    <div class="card-body pb-0 estadisticas">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                                id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="{{ url('compras')}}">Ver compras</a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light"><b>Compras del mes</b></p>
-                        <h4 class="mb-0">
-                            <span class="count"><b>{{ $shopping }}</b></span>
-                        </h4>
-                        <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/compra.png') }}"
-                                alt="Compras">
-
-                        <div class="chart-wrapper px-3" style="height:70px;" height="70">
-                            <canvas id="widgetChart4"></canvas>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-4 estadisticas">
-                    <div class="card-body pb-0 estadisticas">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
-                                id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="{{ url('UsuariosEmpresa')}}">Usuarios registrados</a>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-light"><b>Usuarios registrados en el mes</b></p>
-                        <h4 class="mb-0">
-                            <span class="count"><b>{{ $users }}</b></span>
-                        </h4>
-                        <img style="width: 25%; float: right" class="user-avatar" src="{{ asset('images/team.png') }}"
-                                alt="Usuarios">
-
-                        <div class="chart-wrapper px-3" style="height:70px;" height="70">
-                            <canvas id="widgetChart4"></canvas>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-        {{-- Estadísticas mensuales --}}
-
-        {{-- <div class="col-lg-3 col-md-6">
-            <div class="social-box facebook">
-                <i class="fa fa-facebook"></i>
-                <ul>
-                    <li>
-                        <span class="count">40</span> k
-                        <span>friends</span>
-                    </li>
-                    <li>
-                        <span class="count">450</span>
-                        <span>feeds</span>
-                    </li>
-                </ul>
-            </div>
-            <!--/social-box-->
-        </div> --}}
-        <!--/.col-->
-
-
-        {{-- <div class="col-lg-3 col-md-6">
-            <div class="social-box twitter">
-                <i class="fa fa-twitter"></i>
-                <ul>
-                    <li>
-                        <span class="count">30</span> k
-                        <span>friends</span>
-                    </li>
-                    <li>
-                        <span class="count">450</span>
-                        <span>tweets</span>
-                    </li>
-                </ul>
-            </div>
-            <!--/social-box-->
-        </div> --}}
-        <!--/.col-->
-
-
-        {{-- <div class="col-lg-3 col-md-6">
-            <div class="social-box linkedin">
-                <i class="fa fa-linkedin"></i>
-                <ul>
-                    <li>
-                        <span class="count">40</span> +
-                        <span>contacts</span>
-                    </li>
-                    <li>
-                        <span class="count">250</span>
-                        <span>feeds</span>
-                    </li>
-                </ul>
-            </div>
-            <!--/social-box-->
-        </div> --}}
-        <!--/.col-->
-
-        {{-- <div class="col-lg-3 col-md-6">
-            <div class="social-box google-plus estadisticas">
-                <i class="fa fa-google-plus"></i>
-                <ul>
-                    <li>
-                        <span class="count">94</span> k
-                        <span>followers</span>
-                    </li>
-                    <li>
-                        <span class="count">92</span>
-                        <span>circles</span>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
-        <!--/.col-->
-
-        {{-- <div class="col-xl-6">
-            <div class="card">
-                <div class="card-body">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+            {{-- Montos anuales --}}
+            <div class="content mt-3" id="anual">
+                <div class="animated fadeIn">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <h4 class="card-title mb-0">Traffic</h4>
-                            <div class="small text-muted">October 2017</div>
-                        </div>
-                        <!--/.col-->
-                        <div class="col-sm-8 hidden-sm-down">
-                            <button type="button" class="btn btn-primary float-right bg-flat-color-1"><i
-                                    class="fa fa-cloud-download"></i></button>
-                            <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-                                <div class="btn-group mr-3" data-toggle="buttons" aria-label="First group">
-                                    <label class="btn btn-outline-secondary">
-                                        <input type="radio" name="options" id="option1"> Day
-                                    </label>
-                                    <label class="btn btn-outline-secondary active">
-                                        <input type="radio" name="options" id="option2" checked=""> Month
-                                    </label>
-                                    <label class="btn btn-outline-secondary">
-                                        <input type="radio" name="options" id="option3"> Year
-                                    </label>
+                        <div class="col-md-12">
+                            <div class="card border-0">
+                                <div class="card-header bg-carddashheader border-0">
+                                    <strong class="card-title text-light"> Estadísticas Anuales</strong>
+                                </div>
+                                <div class="col-md-12 card-body">
+                                    {{-- Estadísticas anuales --}}
+                                        {{-- Conteo de registros totales --}}
+                                        <div class="col-xl-3 col-lg-6" style="height: 150px; height: 150px;">
+                                            <div class="card bg-carddash border-0">
+                                                <div class="card-header bg-cardtotales rounded-top">
+                                                    <strong class="text-light">VENTAS TOTALES</strong>
+                                                </div>
+                                                <div class="card-body bg-fondo" style="border-radius: 20px">
+                                                    <div class="stat-widget-one">
+                                                        <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
+                                                            id="dropdownMenuButton2" data-toggle="dropdown">
+                                                            <i class="fa fa-cog text-primary"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                            <div class="dropdown-menu-content">
+                                                                <a class="dropdown-item" href="{{ url('facturas') }}">Ver ventas</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="stat-content dib text-center">
+                                                            <div class="stat-digit text-center">{{ $bills }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-lg-6" style="height: 150px; height: 150px;">
+                                            <div class="card bg-carddash border-0">
+                                                <div class="card-header bg-cardtotales rounded-top">
+                                                    <strong class="text-light">COMPRAS TOTALES</strong>
+                                                </div>
+                                                <div class="card-body bg-fondo" style="border-radius: 20px">
+                                                    <div class="stat-widget-one">
+                                                        <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
+                                                            id="dropdownMenuButton2" data-toggle="dropdown">
+                                                            <i class="fa fa-cog text-primary"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                            <div class="dropdown-menu-content">
+                                                                <a class="dropdown-item" href="{{ url('compras') }}">Ver compras</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="stat-content dib text-center">
+                                                        <div class="stat-digit text-center">{{ $shoppings }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-lg-6" style="height: 150px; height: 150px;">
+                                            <div class="card bg-carddash border-0">
+                                                <div class="card-header bg-cardtotales rounded-top">
+                                                    <strong class="text-light">USUARIOS DEL SISTEMA</strong>
+                                                </div>
+                                                <div class="card-body bg-fondo" style="border-radius: 20px">
+                                                    <div class="stat-widget-one">
+                                                        <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button"
+                                                            id="dropdownMenuButton2" data-toggle="dropdown">
+                                                            <i class="fa fa-cog text-primary"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                            <div class="dropdown-menu-content">
+                                                                <a class="dropdown-item" href="{{ url('UsuariosEmpresa') }}">Usuarios registrados</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="stat-content dib text-center">
+                                                            <div class="stat-digit text-center">{{ $user }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Conteo de registros totales --}}
+                                        {{-- Montos de ventas --}}
+                                                    <script type="text/javascript">
+                                                        google.charts.load('current', {'packages':['corechart']});
+                                                        google.charts.setOnLoadCallback(drawChart);
+                                                        function drawChart(){
+
+                                                            var data = google.visualization.arrayToDataTable([
+                                                                ['Nombre', 'Monto'],
+                                                                
+                                                                @foreach ($customer as $customers)
+                                                                    ['{{ $customers->name }} {{ $customers->lastname }}', {{ $customers->bills->sum('total')}}],
+                                                                @endforeach
+                                                            ]);
+
+                                                            var options = {
+                                                                title: 'Monto de ventas'
+                                                            };
+
+                                                            var chart = new google.visualization.PieChart(document.getElementById('facturas'));
+                                                            chart.draw(data, options);
+                                                        }
+                                                    </script>
+
+                                                    <div class="col-12 col-md-6 col-xl-3 col-lg-6 mt-2" style="height: 250px; height: 250px;">
+                                                        <div class="card bg-carddash border-0" style="height: 250px; height: 250px;">
+                                                            <div class="card-header bg-cardtotales rounded-top">
+                                                                <strong class="text-light">MONTO DE VENTA</strong>
+                                                            </div>
+                                                            <div class="card-body bg-light" id="facturas" style="border-radius: 20px; height: 250px; height: 250px;">
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                </div>
+                                <div class="col-md-12 card-body" style="height: 500px">
+                                                    {{-- Clientes frecuentes --}}
+                                                    <script type="text/javascript">
+                                                        google.charts.load('current', {packages:['corechart', 'bar']});
+                                                        google.charts.setOnLoadCallback(drawMultSeries);
+
+                                                        function drawMultSeries(){
+                                                            var data = google.visualization.arrayToDataTable([
+                                                                ['Nombre', 'Compras realizadas'],
+                                                                
+                                                                @foreach ($customer as $customers)
+                                                                    ['{{ $customers->name }}', {{ $customers->bills->count()}}],
+                                                                @endforeach
+                                                            ]);
+
+                                                            var options = {
+                                                                title: 'Clientes frecuentes'
+                                                                
+                                                            };
+
+                                                            var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+                                                            chart.draw(data, options);
+                                                        }
+                                                    </script>
+
+                                                    <div class="d-none d-lg-block col-12 col-sm-10 col-md-12 mt-2"  style="width: 75%; height: 400px">
+                                                        <div class="card bg-carddash border-0 col-12 col-sm-10 col-md-12" style="width: 100%;">
+                                                            <div class="card-header col-md-12 bg-cardtotales rounded-top text-center">
+                                                                <strong class="text-light">CLIENTE FRECUENTES</strong>
+                                                            </div>
+                                                            <div class="card-body bg-light col-12 col-sm-10 col-md-12" id="piechart" style="border-radius: 20px; width: 100%; height: 400px">
+                                                            </div>
+                                                        </div>
+                                                    </div>     
+
+                                                    {{-- Ventas y gastos totales --}}
+
+                                                    {{-- Productos disponibles --}}
+                                                    <script type="text/javascript">
+                                                        google.charts.load('current', {'packages':['corechart']});
+                                                        google.charts.setOnLoadCallback(drawChart);
+                                                        function drawChart(){
+
+                                                            var data = google.visualization.arrayToDataTable([
+                                                                ['Nombre', 'Stock'],
+                                                                
+                                                                @foreach ($products as $product)
+                                                                    ['{{ $product->name }}', {{ $product->stock}}],
+                                                                @endforeach
+                                                            ]);
+
+                                                            var options = {
+                                                                title: 'Productos disponibles'
+                                                            };
+
+                                                            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                                                            chart.draw(data, options);
+                                                        }
+                                                    </script>
+
+                                                    <div class="col-xl-3 col-lg-6"  style="height: 300px; height: 300px;">
+                                                        <div class="card bg-carddash border-0" style="height: 300px; height: 300px;">
+                                                            <div class="card-header bg-cardtotales rounded-top">
+                                                                <strong class="text-light">PRODUCTOS DISPONIBLES</strong>
+                                                            </div>
+                                                            <div class="card-body bg-light" id="chart_div" style="border-radius: 20px; height: 300px; height: 300px;">
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                    {{-- Productos disponibles --}}
+
+                                                    <div class="col-xl-3 col-lg-6 mt-4 transparent"  style="height: 400px; height: 400px;">
+                                                        <div class="card border-0">
+                                                            <div class="stat-widget-one bg-carddash bg-fondo">
+                                                                <div class="stat-icon dib bg-fondo"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/cart.png') }}"
+                                                                    alt="Compras"></div>
+                                                                <div class="stat-content dib">
+                                                                    <div class="stat-text text-dark">Gastos totales</div>
+                                                                    <div class="stat-digit">{{ 'Q. ' . number_format($ishopping, 2, '.', ',') }}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="stat-widget-one bg-carddash bg-fondo mt-2">
+                                                                <div class="stat-icon dib bg-fondo"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/quetzal.png') }}"
+                                                                    alt="Ventas"></div>
+                                                                <div class="stat-content dib">
+                                                                    <div class="stat-text text-dark">Ventas totales</div>
+                                                                    <div class="stat-digit">{{ 'Q. ' . number_format($ibill, 2, '.', ',') }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>   
+                                                    
+                                                {{-- Ventas y gastos totales --}}
+                                        {{-- Montos de ventas --}}        
+                                {{-- Estadísticas anuales --}}
                                 </div>
                             </div>
                         </div>
-                        <!--/.col-->
-
-
-                    </div>
-                    <!--/.row-->
-                    <div class="chart-wrapper mt-4">
-                        <canvas id="trafficChart" style="height:200px;" height="200"></canvas>
-                    </div>
-
-                </div>
-                <div class="card-footer">
-                    <ul>
-                        <li>
-                            <div class="text-muted">Visits</div>
-                            <strong>29.703 Users (40%)</strong>
-                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 40%;"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </li>
-                        <li class="hidden-sm-down">
-                            <div class="text-muted">Unique</div>
-                            <strong>24.093 Users (20%)</strong>
-                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 20%;" aria-valuenow="20"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="text-muted">Pageviews</div>
-                            <strong>78.706 Views (60%)</strong>
-                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;"
-                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </li>
-                        <li class="hidden-sm-down">
-                            <div class="text-muted">New Users</div>
-                            <strong>22.123 Users (80%)</strong>
-                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 80%;"
-                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </li>
-                        <li class="hidden-sm-down">
-                            <div class="text-muted">Bounce Rate</div>
-                            <strong>40.15%</strong>
-                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div> --}}
-
-        <div class="col-xl-3 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="stat-widget-one">
-                        <div class="stat-icon dib"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/quetzal.png') }}"
-                            alt="Ventas"></div>
-                        <div class="stat-content dib">
-                            <div class="stat-text">Ventas mensuales</div>
-                            <div class="stat-digit">{{ 'Q. ' . number_format($ibillm->sum('total'), 2, '.', ',') }}</div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-xl-3 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="stat-widget-one">
-                        <div class="stat-icon dib"><img style="width: 50%;" class="user-avatar" src="{{ asset('images/carts.png') }}"
-                            alt="Compras"></div>
-                        <div class="stat-content dib">
-                            <div class="stat-text">Gastos mensuales</div>
-                            <div class="stat-digit">{{ 'Q. ' . number_format($ishoppingm->sum('total'), 2, '.', ',') }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-
-        {{-- <div class="col-xl-3 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="stat-widget-one">
-                        <div class="stat-icon dib"><i class="ti-layout-grid2 text-warning border-warning"></i></div>
-                        <div class="stat-content dib">
-                            <div class="stat-text">Active Projects</div>
-                            <div class="stat-digit">770</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
-        
+            {{-- Montos anuales --}}            
     @else
 
         <div style="margin: 1rem;  padding: 1rem;">
@@ -905,5 +528,4 @@
             tags: true
         });
     </script>
-
 @endsection
