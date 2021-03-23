@@ -49,42 +49,6 @@
                                 </span>
                             @enderror
                         </div>
-                        {{-- <!--Phone --> --}}
-                        <div class="sm-ml-4 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input id="phone" maxlength="8" type="number" size="8"
-                                class="cajatexto2 @error('phone') is-invalid @enderror" name="phone"
-                                value="{{ old('phone') }}" required autocomplete="phone" minlength="7"
-                                pattern="[0-9]{7,13}" placeholder=" No. Celular">
-                            @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        {{-- <!--Nit --> --}}
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input id="nit" maxlength="10" type="number" size="10"
-                                class="cajatexto2 @error('nit') is-invalid @enderror" name="nit" minlength="5"
-                                value="{{ old('nit') }}" pattern="[0-9]{6,15}" required placeholder=" NIT"
-                                autocomplete="nit">
-                            @error('nit')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <!--Address -->
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input id="address" type="text" class="cajatexto2 @error('address') is-invalid @enderror"
-                                name="address" value="{{ old('address') }}" required autocomplete="address"
-                                placeholder=" Dirección">
-
-                            @error('address')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
                         <!--Email -->
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input id="email" type="email" class="cajatexto2 @error('email') is-invalid @enderror"

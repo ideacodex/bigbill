@@ -799,7 +799,7 @@
             </svg>
         </div>
         {{-- ---------------------------}}
-        @if (Auth::user()->suscriptions->active == 1)
+        @if (Auth::user()->suscriptions->active == 0)
                     <div class="alert alert-danger">
                         Su suscripción ha expirado
                     </div>
