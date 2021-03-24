@@ -14,6 +14,7 @@ use App\Reaction;
 use App\Question;
 use App\Category;
 use App\Award;
+use App\BranchOffice;
 use App\Customer;
 use App\InvoiceBill;
 use App\User;
@@ -132,7 +133,7 @@ class HomeController extends Controller
             if ($anuncios->first()) {
                 return view('PrimerIngreso.PrimerIngreso', ['prodag' => $prodag, 'invoicem' => $invoicem, 'productos' => $productos, 'customerf' => $customerf, 'user' => $user, 'shoppings' => $shoppings, 'bills' => $bills, 'ibillm' => $ibillm, 'ishoppingm' => $ishoppingm, 'ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
             } else {
-                return view('PrimerIngreso.PrimerIngreso', ['prodag' => $prodag, 'invoicem' => $invoicem, 'productos' => $productos, 'customerf' => $customerf, 'user' => $user, 'shoppings' => $shoppings, 'bills' => $bills,'ibillm' => $ibillm, 'ishoppingm' => $ishoppingm, 'ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+                return view('PrimerIngreso.PrimerIngreso', ['prodag' => $prodag, 'invoicem' => $invoicem, 'productos' => $productos, 'customerf' => $customerf, 'user' => $user, 'shoppings' => $shoppings, 'bills' => $bills, 'ibillm' => $ibillm, 'ishoppingm' => $ishoppingm, 'ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
             }
         }
     }
@@ -148,20 +149,21 @@ class HomeController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $role_id = Auth::user()->role_id;
         $user = User::findOrFail($id);
+        $branch_office = BranchOffice::all();
         $anuncios = Adds::all();
         if ($role_id == 2) {
             $companies = Company::where('user', $id)->get();
             if ($anuncios->first()) {
-                return view('userInfo.edit', ['companies' => $companies, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+                return view('userInfo.edit', ['branch_office' => $branch_office, 'companies' => $companies, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
             } else {
-                return view('userInfo.edit', ['companies' => $companies, 'user' => $user, 'anuncios' => null]); //generala vista
+                return view('userInfo.edit', ['branch_office' => $branch_office, 'companies' => $companies, 'user' => $user, 'anuncios' => null]); //generala vista
             }
         } else {
             $company = Company::all();
             if ($anuncios->first()) {
-                return view('userInfo.edit', ['company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+                return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
             } else {
-                return view('userInfo.edit', ['company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
+                return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
             }
         }
     }
@@ -201,7 +203,7 @@ class HomeController extends Controller
             $user->address = $request->address;
             $user->email = $request->email;
             $request->company_id;
-
+            $user->branch_id = $request->branch_id;
 
             if ($request->company_id == null) {
                 $user->company_id = null;
@@ -347,7 +349,7 @@ class HomeController extends Controller
             if ($anuncios->first()) {
                 return view('PrimerIngreso.estmonth', ['prodag' => $prodag, 'invoicem' => $invoicem, 'productos' => $productos, 'customerf' => $customerf, 'user' => $user, 'shoppings' => $shoppings, 'bills' => $bills, 'ibillm' => $ibillm, 'ishoppingm' => $ishoppingm, 'ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => $anuncios->random(1)]); //generala vista
             } else {
-                return view('PrimerIngreso.estmonth', ['prodag' => $prodag, 'invoicem' => $invoicem, 'productos' => $productos, 'customerf' => $customerf, 'user' => $user, 'shoppings' => $shoppings, 'bills' => $bills,'ibillm' => $ibillm, 'ishoppingm' => $ishoppingm, 'ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
+                return view('PrimerIngreso.estmonth', ['prodag' => $prodag, 'invoicem' => $invoicem, 'productos' => $productos, 'customerf' => $customerf, 'user' => $user, 'shoppings' => $shoppings, 'bills' => $bills, 'ibillm' => $ibillm, 'ishoppingm' => $ishoppingm, 'ishopping' => $ishopping, 'company' => $company, 'companies' => $companies, 'ibill' => $ibill, 'customer' => $customer, 'users' => $users, 'products' => $products, 'invoice' => $invoice, 'bill' => $bill, 'shopping' => $shopping, 'anuncios' => null]); //generala vista
             }
         }
     }

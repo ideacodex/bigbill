@@ -260,6 +260,45 @@
                                         @endif
                                     @endif
 
+                                    @if (Auth::user()->role_id == 4)
+                                        <span>Empresas centrales</span>
+                                    @else
+                                        {{-- Sucursal --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-4">
+                                            <div class="input-group-prepend">
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="company" class="text-primary far fa-building"></i>
+                                                </span>
+                                                <select name="branch_id" id="branch_id"
+                                                    class="select2 form-control border-0 bg-input @error('branch_id') is-invalid @enderror">
+                                                    @if ($user->branch_id)
+                                                        <option value="{{ $user->company_id }}" selected>
+                                                            <p>
+                                                                Sucursal: {{ $user->branch_offices->name }}
+                                                            </p>
+                                                        </option>
+                                                        <option value="">Quitar Sucursal</option>
+                                                    @else
+                                                        <option value="" selected disabled>
+                                                            <p>Sin Sucursal</p>
+                                                        </option>
+                                                    @endif
+                                                    @foreach ($branch_office as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->company->name }} -
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('branch_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     {{-- <!--Button--> --}}
                                     <div class="container mt-4">
                                         <div class="col-12">

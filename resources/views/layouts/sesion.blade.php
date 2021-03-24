@@ -228,6 +228,25 @@
 
 </style>
 <style>
+    .wavesdecabeza {
+        width: 100%;
+        height: 150px;
+        /*Fix for safari gap*/
+        min-height: 50px;
+        max-height: 230px;
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        /* IE 9 */
+        -webkit-transform: rotate(180deg);
+        /* Opera, Chrome, and Safari */
+    }
+
+    .bg-frm {
+        background: linear-gradient(0deg, rgb(241, 245, 247)0%, rgb(72, 141, 243) 100%);
+    }
+
+</style>
+<style>
     .navbar {
         box-shadow: 2px 2px 5px #000;
         opacity: 0.9;
@@ -341,11 +360,37 @@
         background: #30336b;
     }
 
+    .btn-float {
+        position: fixed !important;
+        margin-right: 10px;
+        right: -10px !important;
+        bottom: 40px !important;
+        z-index: 100 !important;
+        display: block;
+    }
+
+    .btn-fl {
+        position: fixed !important;
+        float: left;
+        bottom: 40px !important;
+        z-index: 100 !important;
+        display: block;
+    }
 </style>
 
 <body>
     @yield('content')
-
+    <div class="btn-fl">
+        <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}">
+            <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
+        </a>
+    </div>
+    <div class="btn-float">
+        <a target="_blank" href="{{ url('http://ideacodex.co') }}">
+            <img href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" class="btn-float"
+                src="{{ asset('images/ideacode.png') }}" width="6%" style="min-width: 90px">
+        </a>
+    </div>
 </body>
 
 </html>
