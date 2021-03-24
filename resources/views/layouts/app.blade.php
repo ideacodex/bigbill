@@ -39,9 +39,9 @@
 
 </head>
 <style>
-    /* Formularios */
+      /* Formularios */
 
-    .bg-card {
+      .bg-card {
         box-shadow: 8px 8px 10px 0 #0883ad
     }
 
@@ -73,7 +73,6 @@
     }
 
     /* Formularios */
-
 </style>
 
 <body class="bg-dark">

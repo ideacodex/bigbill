@@ -4,8 +4,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card bg-card">
-                    <div class="card-header bg-cardheader text-light">{{ __('RESTAURAR CONTRASEÑA') }}</div>
+                <div class="card bg-card" style="border-top-right-radius: 50px; border-top-left-radius: 50px;">
+                    <div class="card-header bg-cardheader text-light"
+                        style="border-top-right-radius: 25px; border-top-left-radius: 25px;">
+                        {{ __('RESTAURAR CONTRASEÑA') }}</div>
 
                     <div class="card-body bg-frm">
                         @if (session('status'))
@@ -20,11 +22,11 @@
 
                             <div class="form-group row">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-right">{{ __(' Escribe tu Correo Electronico') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Ingresar correo electrónico') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" style="border-left: #325ff5 7px solid;" type="email"
-                                        class="form-control bg-input border-0 @error('email') is-invalid @enderror"
+                                        class="form-control bg-input border-right-0 border-top-0 border-bottom-0 @error('email') is-invalid @enderror"
                                         name="email" value="{{ old('email') }}" required autocomplete="email"
                                         placeholder="correo@extensión.com" autofocus>
 
@@ -39,8 +41,9 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" style="font-size: 12px">
-                                        {{ __('Restaurar contraseña') }}
+                                    <button type="submit" class="btn btn-primary"
+                                        style="font-size: 12px; border-radius: 50px">
+                                        {{ __('RESTAURAR CONTRASEÑA') }}
                                     </button>
                                 </div>
                             </div>
