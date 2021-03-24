@@ -38,6 +38,43 @@
     <!--Js-->
 
 </head>
+<style>
+    /* Formularios */
+
+    .bg-card {
+        box-shadow: 8px 8px 10px 0 #0883ad
+    }
+
+    .bg-cardheader {
+        background-color: black;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+    }
+
+    .bg-table {
+        background-color: rgba(224, 220, 220, 0.993);
+    }
+
+    .bg-span {
+        background: transparent;
+        border-left: #325ff5 7px solid;
+    }
+
+    .bg-input {
+        background: transparent
+    }
+
+    .bg-form {
+        background: linear-gradient(0deg, rgb(10, 134, 184)0%, rgb(205, 231, 235) 100%);
+    }
+
+    .bg-frm {
+        background: linear-gradient(0deg, rgb(121, 209, 250)0%, rgb(205, 231, 235) 100%);
+    }
+
+    /* Formularios */
+
+</style>
 
 <body class="bg-dark">
 
