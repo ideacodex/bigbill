@@ -14,8 +14,8 @@
                             }
 
                         </style>
-                        <img style="width: 15%; float: left" class="user-avatar"
-                            src="https://bigbill.co/images/ideacode.png" alt="ideacode">
+                        <a href=""><img style="width: 15%; float: left" class="user-avatar"
+                            src="https://bigbill.co/images/ideacode.png" alt="ideacode"></a>
                         <a href="https://www.facebook.com/ideacodex"><img style="width: 5%; float: right"
                                 class="user-avatar" src="{{ asset('images/facebook.png') }}" alt="facebook"></a>
                         <a href="https://www.instagram.com/ideacodexgt/?hl=es"><img style="width: 5%; float: right"
