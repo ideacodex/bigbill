@@ -87,7 +87,9 @@
                 class="card-text">
                 <img src="img/simbolo_logo.png" class="mt-3" width="175px">
                 <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                    Plataforma en linea que te permite registrar y organizar las ventas y compras de tu empresa , actualmente es una plataforma GRATIS el precio por usuario será un aproximado de Q55 probablemente en Junio 2021
+                    Plataforma en linea que te permite registrar y organizar las ventas y compras de tu empresa ,
+                    actualmente es una plataforma GRATIS el precio por usuario será un aproximado de Q55 probablemente en
+                    Junio 2021
                 </p>
 
                 <hr>
@@ -126,6 +128,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#beneficios">BENEFICIOS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#precios">PRECIOS</a>
                         </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('Ver_Publicaciones') }}">PUBLICACIONES</a>
@@ -244,7 +249,6 @@
         </div>
     </div>
 
-
     {{-- controla tu empresa --}}
     <div class="bg-light mt-5" id="soluciones">
         <div class="mt-5">
@@ -326,6 +330,70 @@
             </div>
         </div>
     </div>
+
+    {{-- Precios --}}
+    <div class="bg-frm mt-5" id="precios">
+
+        <style>
+            .img-contenedor img {
+                -webkit-transition: all .9s ease;
+                /* Safari y Chrome */
+                -moz-transition: all .9s ease;
+                /* Firefox */
+                -o-transition: all .9s ease;
+                /* IE 9 */
+                -ms-transition: all .9s ease;
+                /* Opera */
+                width: 100%;
+            }
+
+            .img-contenedor:hover img {
+                -webkit-transform: scale(1.25);
+                -moz-transform: scale(1.25);
+                -ms-transform: scale(1.25);
+                -o-transform: scale(1.25);
+                transform: scale(1.25);
+            }
+
+        </style>
+
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="rgb(72, 141, 243)" />
+                </g>
+            </svg>
+        </div>
+        <div class="mt-5">
+            <div
+                class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
+                <div class="card-deck mt-4">
+                    {{-- BÁSICO --}}
+                    <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                        style="background-color: transparent;">
+                        <a href="register"><img src="{{ asset('images/basico.svg') }}" alt=""></a>
+                    </div>
+
+                    {{-- ESTÁNDAR --}}
+                    <div class="card rounded border-0 img-contenedor" style="background-color: transparent;">
+                        <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}"><img
+                                src="{{ asset('images/estandar.svg') }}" alt=""></a>
+                    </div>
+                </div>
+                <br><br><br><br>
+            </div>
+        </div>
+    </div>
+
     {{-- formulario --}}
     <iframe width="100%" height="680px"
         src="https://forms.office.com/Pages/ResponsePage.aspx?id=AU2umS8CRkKGrC3hIbMvK81dCKmVmN9PovbYEIWk9phUMDE5VFdVOUJaVTUzQVVLTDRPUEtCSzgyRi4u&embed=true"

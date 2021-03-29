@@ -125,7 +125,7 @@
                                                         </div>
                                                     </div>    
                                 </div>
-                                <div class="col-md-12 card-body" style="height: 500px">
+                                <div class="col-md-12 card-body" style="height: 600px">
                                                     {{-- Clientes frecuentes --}}
                                                     <script type="text/javascript">
                                                         google.charts.load('current', {packages:['corechart', 'bar']});
@@ -150,12 +150,12 @@
                                                         }
                                                     </script>
 
-                                                    <div class="d-none d-lg-block col-12 col-sm-10 col-md-12 mt-2"  style="width: 75%; height: 400px">
+                                                    <div class="d-none d-lg-block col-12 col-sm-10 col-md-12 mt-2"  style="width: 75%; height: 400px;">
                                                         <div class="card bg-carddash border-0 col-12 col-sm-10 col-md-12" style="width: 100%;">
                                                             <div class="card-header col-md-12 bg-cardtotales rounded-top text-center">
-                                                                <strong class="text-light">CLIENTE FRECUENTES</strong>
+                                                                <strong class="text-light">CLIENTES FRECUENTES</strong>
                                                             </div>
-                                                            <div class="card-body bg-light col-12 col-sm-10 col-md-12" id="piechart" style="border-radius: 20px; width: 100%; height: 400px">
+                                                            <div class="card-body bg-light col-12 col-sm-10 col-md-12" id="piechart" style="border-radius: 20px; width: 100%; height: 400px;">
                                                             </div>
                                                         </div>
                                                     </div>     

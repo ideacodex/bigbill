@@ -44,10 +44,10 @@ class ShoppingsController extends Controller
     {
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
-            $product = Product::all();
+            $product = Product::where('kind_product', '!=', 1)->get();
             return view("shopping.create", ['product' => $product]);
         } else {
-            $product = Product::where('company_id', Auth()->user()->company_id)->get();
+            $product = Product::where('kind_product', '!=', 1)->where('company_id', Auth()->user()->company_id)->get();
             return view("shopping.create", ['product' => $product]);
         }
     }

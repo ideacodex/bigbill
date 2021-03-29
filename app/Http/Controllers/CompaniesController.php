@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\BranchOffice;
+use App\Adds;
 use App\Status;
 use App\User;
 use Illuminate\Http\Request;
@@ -27,7 +29,21 @@ class CompaniesController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador']);
         $companies = Company::all();
-        return view("companies.index", ["companies" => $companies]);
+        $rol = Auth::user()->role_id;
+        if ($rol == 1) {
+            $branch_office = BranchOffice::with('company')->get();
+            return view('companies.index', ["companies" => $companies, 'branch_office' => $branch_office]); //retorna vista con los datos correspondientes
+        } else {
+            $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
+            $branch_office = BranchOffice::where('company_id', $company)->get(); //Obtener los valores relacionados a su compañia
+            $anuncios = Adds::all();
+            if ($anuncios->first()) {
+                return view("companies.index", ["companies" => $companies, 'branch_office' => $branch_office, 'anuncios' => $anuncios->random(1)]);
+            }
+            else {
+                return view('companies.index', ["companies" => $companies, 'branch_office' => $branch_office, 'anuncios' => null]); //generala vista
+            }
+        }
     }
     /**
      * Show the form for creating a new resource.

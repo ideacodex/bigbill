@@ -403,8 +403,20 @@
         float: right;
     }
 
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     /* Dashboard */
-    .bg-fondo{
+    .bg-fondo {
         background-color: #e2e2e2;
     }
 
@@ -412,12 +424,15 @@
         border-radius: 20px;
         box-shadow: 8px 8px 10px 0 #b7bec0
     }
+
     .bg-cardtotales {
         background: linear-gradient(60deg, rgb(85, 204, 212) 0%, rgb(3, 31, 153) 100%);
     }
+
     .bg-carddashheader {
         background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
     }
+
     /* Dashboard */
 
     .btn-float {
@@ -521,7 +536,12 @@
                                 </a>
                             </li>
                             <!--Productos -->
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('productos.index') }}">
+                                    <i class="text-light menu-icon fas fa-cubes"></i>Productos
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class=" text-light menu-icon fas fa-cubes"></i>Productos</a>
@@ -539,7 +559,7 @@
                                         <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -587,7 +607,7 @@
                                     <li><i class="text-primary fas fa-check"></i><a
                                             href="{{ route('Product.pdf') }}">Productos</a>
                                     </li>
-                                  
+
                                     <li><i class="text-primary fas fa-check"></i><a
                                             href="{{ route('User.pdf') }}">Usuarios</a>
                                     </li>
@@ -701,9 +721,11 @@
 
                         <a class="nav-link" href="{{ url('Personal') }}"><i class="fa fa-users"></i>
                             Usuarios </a>
-                        <a class="nav-link" href="{{ url('home/') }}"><i class="fas fa-chart-bar"></i> Estadística anual
+                        <a class="nav-link" href="{{ url('home/') }}"><i class="fas fa-chart-bar"></i> Estadística
+                            anual
                         </a>
-                        <a class="nav-link" href="{{ url('Estmensual') }}"><i class="fas fa-chart-bar"></i> Estadística mensual
+                        <a class="nav-link" href="{{ url('Estmensual') }}"><i class="fas fa-chart-bar"></i>
+                            Estadística mensual
                         </a>
 
                         <a class="nav-link" href="{{ url('/Ajustes') }}"><i class="fa fa-cog"></i>

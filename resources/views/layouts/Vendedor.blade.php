@@ -312,6 +312,18 @@
         -webkit-box-shadow: 0px 0px 5px 5px #00e6ff;
     }
 
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     /* Animation */
     .parallax>use {
         animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
@@ -346,6 +358,26 @@
             transform: translate3d(85px, 0, 0);
         }
     }
+
+    /* Dashboard */
+    .bg-fondo {
+        background-color: #e2e2e2;
+    }
+
+    .bg-carddash {
+        border-radius: 20px;
+        box-shadow: 8px 8px 10px 0 #b7bec0
+    }
+
+    .bg-cardtotales {
+        background: linear-gradient(60deg, rgb(85, 204, 212) 0%, rgb(3, 31, 153) 100%);
+    }
+
+    .bg-carddashheader {
+        background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
+    }
+
+    /* Dashboard */
 
     /*Shrinking for mobile*/
     @media (max-width: 768px) {
@@ -431,6 +463,9 @@
 </style>
 
 <body style="background-color: white">
+
+
+
     {{-- Anuncios --}}
     <input type="checkbox" id="cerrar">
     <label for="cerrar" id="btn-cerrar"> <b>X</b></label>
@@ -537,6 +572,7 @@
                     aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
+
                 {{-- Logo de la Empresa --}}
                 @if (Auth::user()->company_id)
                     @if (Auth::user()->company->file != null)
@@ -586,7 +622,12 @@
 
                             </li>
                             {{-- <!--Productos --> --}}
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('productos.index') }}">
+                                    <i class="text-light menu-icon fas fa-cubes"></i>Productos
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i class="menu-icon fas fa-cubes"></i>Productos</a>
                                 <ul class="sub-menu children dropdown-menu" style="background-color: black">
@@ -600,7 +641,7 @@
                                         <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <!--Facturar -->
                             <h3 class="menu-title">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
@@ -757,7 +798,12 @@
                 </g>
             </svg>
         </div>
-        {{-- ------------------------- --}}
+        {{-- ---------------------------}}
+        @if (Auth::user()->suscriptions->active == 0)
+                    <div class="alert alert-danger">
+                        Su suscripción ha expirado
+                    </div>
+                @endif
 
         @yield('content')
         <div class="btn-fl">

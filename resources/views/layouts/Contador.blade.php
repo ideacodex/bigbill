@@ -188,6 +188,18 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
     }
 
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     /* fin de  estilo texto */
 
     /* clases css para implementar fuentes */
@@ -209,7 +221,7 @@
     }
 
     /* Dashboard */
-    .bg-fondo{
+    .bg-fondo {
         background-color: #e2e2e2;
     }
 
@@ -217,12 +229,15 @@
         border-radius: 20px;
         box-shadow: 8px 8px 10px 0 #b7bec0
     }
+
     .bg-cardtotales {
         background: linear-gradient(60deg, rgb(85, 204, 212) 0%, rgb(3, 31, 153) 100%);
     }
+
     .bg-carddashheader {
         background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
     }
+
     /* Dashboard */
 
     .Rubik-BoldItalic {
@@ -490,7 +505,12 @@
                     @if (Auth::user()->company_id)
                         @if (Auth::user()->work_permits == 1)
                             <!--Tipos de Cuentas -->
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('TipodeCuenta.index') }}">
+                                    <i class="text-light menu-icon fas fa-calculator"></i>Cuentas contables
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i class="menu-icon fas fa-calculator text-light"></i>Cuentas
                                     contables</a>
@@ -502,9 +522,14 @@
                                             href="{{ route('cuentas.index') }}"> Cuentas</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <!--Productos -->
-                            <li class="menu-item-has-children dropdown">
+                            <li class="menu-item">
+                                <a href="{{ route('productos.index') }}">
+                                    <i class="text-light menu-icon fas fa-cubes"></i>Productos
+                                </a>
+                            </li>
+                            {{-- <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"> <i
                                         class="menu-icon fas fa-cubes text-light"></i>Productos</a>
@@ -519,7 +544,7 @@
                                         <a href="{{ route('productos.index') }}">Productos</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <h3 class="menu-title text-light">Ventas</h3><!-- /.menu-title -->
                             <li class="menu-item-has-children dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -743,7 +768,7 @@
         {{-- ------------------------- --}}
         @yield('content')
         <div class="btn-fl">
-            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}" >
+            <a target="_blank" href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}">
                 <img class="btn-fl" src="{{ asset('images/wp.png') }}" width="3%" style="min-width: 50px">
             </a>
         </div>

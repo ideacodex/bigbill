@@ -36,16 +36,21 @@ class ProductController extends Controller
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $rol = Auth::user()->role_id;
         if ($rol == 1) {
+            $mark = mark::with('company')->get();
             $product = Product::with('companies')->get();
-            return view("product.index", ['products' => $product]); //generala vista
+            $company = Company::all();
+            $family = Family::with('company')->get();
+            return view("product.index", ['company' => $company, 'products' => $product, 'mark' => $mark, 'family' => $family]); //generala vista
         } else {
             $company = Auth::user()->company_id; //guardo la variable de compañia del ususario autentificado
             $product = Product::where('company_id', $company)->with('companies')->get(); //Obtener los valores 
+            $mark = mark::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
             $anuncios = Adds::all();
+            $family = Family::where('company_id', $company)->with('company')->get(); //Obtener los valores de tu request:
             if ($anuncios->first()) {
-                return view("product.index", ['products' => $product, 'anuncios' => $anuncios->random(1)]);
+                return view("product.index", ['family' => $family, 'mark' => $mark,'products' => $product, 'anuncios' => $anuncios->random(1)]);
             } else {
-                return view("product.index", ['products' => $product, 'anuncios' => null]);
+                return view("product.index", ['family' => $family, 'mark' => $mark,'products' => $product, 'anuncios' => null]);
             }
         }
     }

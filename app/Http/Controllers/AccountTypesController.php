@@ -27,7 +27,9 @@ class AccountTypesController extends Controller
     {
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador']); //autentificacion y permisos
         $account_types = AccountType::get(); //Obtener los valores
-        return view("account_types.index", ['account_types' => $account_types]); //generala vista
+        $account_type = AccountType::all();
+        $account = Account::with('account_types')->get(); //Obtener los valores de tu request:
+        return view("account_types.index", ['account_types' => $account_types, 'account_type' => $account_type, 'account' => $account,]); //generala vista
 
     }
     /**

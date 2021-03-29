@@ -24,87 +24,211 @@
     @endif
     <!--Mensaje flash-->
 
-    <div class="card-body d-flex justify-content-between align-items-center">
-        <a href="{{ route('empresas.create') }}" style="border-radius: 95px;"
-            class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
-            + AGREGAR COMPANÍA
-        </a>
-        <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
-            href="{{ route('Company.pdf') }}">REPORTE PDF
-        </a>
-    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <button class="nav-link active bg-cardheader" onclick="toggleActive(event)" type="button" data-toggle="collapse"
+                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Empresas
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link collapsed bg-cardheader text-light" onclick="toggleActive(event)" type="button" data-toggle="collapse"
+                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Sucursales
+            </button>
+        </li>
+    </ul>
 
-    <div class="content mt-3">
-        <div class="animated fadeIn">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header" style="background-color: black; color: white; border-radius: 15px">
-                            <strong class="card-title">Companías Registradas</strong>
-                        </div>
-                        <div class="card-body">
-                            <div class="row table-responsive">
-                                <div class="col-12">
-                                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                        <thead style="border-radius: 15px; background-color: black; color:white">
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Nombre</th>
-                                                <th>Nit</th>
-                                                <th>Teléfono</th>
-                                                <th>Dirección</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style="background-color: rgba(224, 220, 220, 0.993);">
-                                            @foreach ($companies as $item)
-                                                <tr>
-                                                    <th style="border-left: #325ff5 7px solid;"
-                                                        title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
-                                                    <td title="{{ $item->name }}">{{ $item->name }}</td>
-                                                    <td title="{{ $item->nit }}">{{ $item->nit }}</td>
-                                                    <td title="{{ $item->phone }}">{{ $item->phone }}</td>
-                                                    <td title="{{ $item->address }}">{{ $item->address }}</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a class="btn btn-sm rounded-circle text-light"
-                                                                href="{{ url('empresas/' . $item->id) }}"
-                                                                style="background-color: #f55d00;"
-                                                                title="Ver Detalles De {{ $item->name }}">
-                                                                <span><i class="fas fa-eye text-light"></i></span>
-                                                            </a>
-                                                            <a class="btn btn-sm btn-primary rounded-circle"
-                                                                href="{{ url('empresas/' . $item->id . '/edit') }}"
-                                                                title="Editar {{ $item->name }}">
-                                                                <span><i class="fas fa-edit"></i></span>
-                                                            </a>
-                                                            <a class="btn btn-sm btn-danger rounded-circle"
-                                                                title="Eliminar {{ $item->name }}"
-                                                                onclick="event.preventDefault();
-                                                                                                                                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
-                                                                <span class="text-light"><i
-                                                                        class="fas fa-trash-alt"></i></span>
-                                                            </a>
-                                                            <form id="formDel{{ $item->id }}"
-                                                                action="{{ url('empresas/' . $item->id) }}" method="POST"
-                                                                style="display: none;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+    <div class="accordion" id="accordionExample">
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <a href="{{ route('empresas.create') }}" style="border-radius: 95px;"
+                    class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
+                    + AGREGAR COMPAÑÍA
+                </a>
+                <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+                    href="{{ route('Company.pdf') }}">REPORTE PDF
+                </a>
+            </div>
+            <div class="content mt-3">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" style="background-color: black; color: white; border-radius: 15px">
+                                    <strong class="card-title">Companías Registradas</strong>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row table-responsive">
+                                        <div class="col-12">
+                                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                                <thead style="border-radius: 15px; background-color: black; color:white">
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Nombre</th>
+                                                        <th>Nit</th>
+                                                        <th>Teléfono</th>
+                                                        <th>Dirección</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background-color: rgba(224, 220, 220, 0.993);">
+                                                    @foreach ($companies as $item)
+                                                        <tr>
+                                                            <th style="border-left: #325ff5 7px solid;"
+                                                                title="{{ $loop->index + 1 }}">{{ $loop->index + 1 }}</th>
+                                                            <td title="{{ $item->name }}">{{ $item->name }}</td>
+                                                            <td title="{{ $item->nit }}">{{ $item->nit }}</td>
+                                                            <td title="{{ $item->phone }}">{{ $item->phone }}</td>
+                                                            <td title="{{ $item->address }}">{{ $item->address }}</td>
+                                                            <td>
+                                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                                    <a class="btn btn-sm rounded-circle text-light"
+                                                                        href="{{ url('empresas/' . $item->id) }}"
+                                                                        style="background-color: #f55d00;"
+                                                                        title="Ver Detalles De {{ $item->name }}">
+                                                                        <span><i class="fas fa-eye text-light"></i></span>
+                                                                    </a>
+                                                                    <a class="btn btn-sm btn-primary rounded-circle"
+                                                                        href="{{ url('empresas/' . $item->id . '/edit') }}"
+                                                                        title="Editar {{ $item->name }}">
+                                                                        <span><i class="fas fa-edit"></i></span>
+                                                                    </a>
+                                                                    <a class="btn btn-sm btn-danger rounded-circle"
+                                                                        title="Eliminar {{ $item->name }}"
+                                                                        onclick="event.preventDefault();
+                                                                                                                                                                                                                                document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                        <span class="text-light"><i
+                                                                                class="fas fa-trash-alt"></i></span>
+                                                                    </a>
+                                                                    <form id="formDel{{ $item->id }}"
+                                                                        action="{{ url('empresas/' . $item->id) }}" method="POST"
+                                                                        style="display: none;">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                    </form>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><!-- .animated -->
+            </div><!-- .content -->
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <a href="{{ route('sucursales.create') }}" style="border-radius: 95px;"
+                    class="btn btn-success btn-sm mt-3 ml-3">&nbsp;
+                    + AGREGAR SUCURSAL
+                </a>
+                <a class="btn btn-danger btn-sm mt-2" style="border-radius: 95px;" type="submit"
+                    href="{{ route('Sucursales.pdf') }}">REPORTE PDF <i class="fas fa-file-alt"></i>
+                </a>
             </div>
-        </div><!-- .animated -->
-    </div><!-- .content -->
+            <div class="content mt-5">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header" style="background-color: black; border-radius: 15px; color: white">
+                                    <strong class="card-title">Sucursales Registradas</strong>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row table-responsive">
+                                        <div class="col-12">
+                                            @if (Auth::user()->role_id == 1 || Auth::user()->company_id)
+        
+                                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                                    <thead style="border-radius: 15px; background-color: black; color:white">
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Nombre</th>
+                                                            <th>Teléfono</th>
+                                                            <th>PBX</th>
+                                                            <th>Dirección</th>
+                                                            <th>Empresa</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody style="background-color: rgba(224, 220, 220, 0.993); ">
+                                                        @foreach ($branch_office as $item)
+                                                            <tr>
+                                                                @if (Auth::user()->role_id == 1)
+                                                                    <th style="border-left: #325ff5 7px solid;">{{ $item->id }}
+                                                                    </th>
+                                                                @else
+                                                                    <th style="border-left: #325ff5 7px solid;">
+                                                                        {{ $loop->index + 1 }}</th>
+                                                                @endif
+        
+        
+                                                                <td>{{ $item->name }}</td>
+                                                                <td>{{ $item->phone }}</td>
+                                                                <td>{{ $item->pbx }}</td>
+                                                                <td>{{ $item->address }}</td>
+                                                                <td>{{ $item->company->name }}</td>
+                                                                <td>
+                                                                    <div class="btn-group" role="group" aria-label="Basic example">
+        
+                                                                        <a class="btn btn-sm rounded-circle text-light"
+                                                                            href="{{ url('sucursales/' . $item->id) }}"
+                                                                            style="background-color: #f55d00;" title="Ver Detalles">
+                                                                            <span><i class="fas fa-eye"></i></span>
+                                                                        </a>
+        
+        
+                                                                        <a class="btn btn-sm btn-primary rounded-circle"
+                                                                            href="{{ url('sucursales/' . $item->id . '/edit') }}"
+                                                                            title="Editar">
+                                                                            <span><i class="fas fa-edit"></i></span>
+                                                                        </a>
+                                                                        <a class="btn btn-sm btn-danger rounded-circle"
+                                                                            title="Eliminar"
+                                                                            onclick="event.preventDefault();
+                                                                                                        document.getElementById('formDel{{ $item->id }}').submit();">
+                                                                            <span class="text-light"><i
+                                                                                    class="fas fa-trash-alt"></i></span>
+                                                                        </a>
+                                                                        <form id="formDel{{ $item->id }}"
+                                                                            action="{{ url('sucursales/' . $item->id) }}"
+                                                                            method="POST" style="display: none;">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <div class="alert alert-success" role="alert">
+                                                    <h4 class="alert-heading">upss!</h4>
+                                                    <p>Bienvenido al sistema de Facturacion <b> TU CONTA</b> </p>
+                                                    <hr>
+                                                    <p class="mb-0">Al parecer aún no cuentas con una companía, comunícate con tu
+                                                        superior
+                                                        para poderte asignar una companía y empezar a trabajar.</p>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div><!-- .animated -->
+            </div><!-- .content -->
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"
         integrity="sha512-UNbeFrHORGTzMn3HTt00fvdojBYHLPxJbLChmtoyDwB6P9hX5mah3kMKm0HHNx/EvSPJt14b+SlD8xhuZ4w9Lg=="
         crossorigin="anonymous"></script>
