@@ -39,6 +39,57 @@
                                     enctype="multipart/form-data" onsubmit="return checkSubmit();">
                                     @csrf @method('PATCH')
 
+                                    @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+                                        {{-- <!--Role Id--> --}}
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="Nombre" class="text-primary fas fa-people-carry"></i>
+                                                </span>
+                                            </div>
+                                            <select name="role_id" id="role_id"
+                                                class="form-control border-0 bg-input @error('role_id') is-invalid @enderror"
+                                                required>
+                                                <option value="{{ $user->role_id }}">Actualizar Rol</option>
+                                                <option value="Gerente">1. Gerente</option>
+                                                <option value="Contador">2. Contador</option>
+                                                <option value="Vendedor">3. Vendedor</option>
+                                            </select>
+                                            @error('role_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <!--PERMISOS-->
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="Permisos" class="text-primary fas fa-globe"></i>
+                                                </span>
+                                            </div>
+                                            <select name="work_permits" id="work_permits"
+                                                class="form-control border-0 bg-input @error('work_permits') is-invalid @enderror">
+                                                <option value="{{ $user->work_permits }}">Permisos</option>
+                                                <option value="1">Habiliar permisos</option>
+                                                <option value="0"> Bloquear permisos</option>
+                                            </select>
+                                            @error('work_permits')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    @else
+                                        <input type="text" value="{{ $user->role_id }}" name="role_id" hidden>
+                                        <input type="text" value="{{ $user->work_permits }}" name="work_permits" hidden>
+
+                                    @endif
                                     {{-- <!--Nombre--> --}}
                                     <div class="col-12 col-md-6 input-group input-group-lg mb-3">
                                         <div class="input-group-prepend">
@@ -256,14 +307,37 @@
                                             @else
                                                 <input type="hidden" value="{{ Auth::user()->companies->nit }}"
                                                     name="company_id">
+                                                {{-- <!-- compania para tosdos los usuarios que ya tengan empresa  --> --}}
+                                                <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span
+                                                            class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                            id="inputGroup-sizing-sm">
+                                                            <i title="company" class="text-primary far fa-building"></i>
+                                                        </span>
+                                                    </div>
+                                                    <span class="border-0 bg-input text-dark form-control ">
+                                                        {{ Auth::user()->companies->name }}
+                                                    </span>
+                                                </div>
                                             @endif
                                         @endif
                                     @endif
-
-                                    @if (Auth::user()->role_id == 4)
-                                        <span>Empresas centrales</span>
+                                    {{-- Sucursal --}}
+                                    @if ((Auth::user()->role_id == 4 || Auth::user()->role_id == 3) && Auth::user()->branch_id == null)
+                                        <div class="col-12 col-md-6 input-group input-group-lg mb-3">
+                                            <div class="input-group-prepend">
+                                                <span
+                                                    class="bg-span border-top-0 border-bottom-0 border-right-0 input-group-text transparent"
+                                                    id="inputGroup-sizing-sm">
+                                                    <i title="company" class="text-primary far fa-building"></i>
+                                                </span>
+                                            </div>
+                                            <span class="border-0 bg-input text-dark form-control ">
+                                                Sucursal Central
+                                            </span>
+                                        </div>
                                     @else
-                                        {{-- Sucursal --}}
                                         <div class="col-12 col-md-6 input-group input-group-lg mb-4">
                                             <div class="input-group-prepend">
                                                 <span
@@ -286,8 +360,33 @@
                                                         </option>
                                                     @endif
                                                     @foreach ($branch_office as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->company->name }} -
-                                                            {{ $item->name }}</option>
+                                                        @if (Auth::user()->role_id == 1)
+                                                            <option value="{{ $item->id }}">
+                                                                {{ $item->company->name }} -
+                                                                {{ $item->name }}</option>
+                                                        @else
+                                                            @if (Auth::user()->role_id == 2)
+                                                                @if ($item != null)
+                                                                    @if ($item->company->nit == Auth::user()->companies->nit)
+                                                                        @if ($user->branch_id)
+                                                                            @if ($item->id != $user->branch_id)
+                                                                                <option value="{{ $item->id }}">
+                                                                                    {{ $item->company->name }} -
+                                                                                    {{ $item->name }}</option>
+                                                                            @endif
+                                                                        @else
+                                                                            <option value="{{ $item->id }}">
+                                                                                {{ $item->company->name }} -
+                                                                                {{ $item->name }}</option>
+                                                                        @endif
+                                                                    @endif
+                                                                @else
+                                                                    <option> Sin sucursales</option>
+
+                                                                @endif
+
+                                                            @endif
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 @error('branch_id')
