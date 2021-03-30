@@ -571,8 +571,7 @@
                             <div class="card-deck mt-4">
                                 <div id="img-contenedor" class="card rounded border-0 img-contenedor"
                                     style="background-color: transparent;">
-                                    <h1 class="text-primary"><b>¿CÓMO AGREGAR CLIENTES, SUCURSALES, MARCAS, CATEGORÍAS Y
-                                            PRODUCTOS</b></h1>
+                                    <h1 class="text-primary"><b>REGISTRA CLIENTES Y PRODUCTOS.</b></h1>
                                     <h4>
                                         <b>Lleva el control de tus productos divididos por categorías y marcas.</b>
                                     </h4>
@@ -635,8 +634,7 @@
                             <div class="card-deck mt-4">
                                 <div id="img-contenedor" class="card rounded border-0 img-contenedor"
                                     style="background-color: transparent;">
-                                    <h1 class="text-primary"><b>¿CÓMO REGISTRAR REGISTRAR COMPRAS, VER ESTADÍSTICAS Y
-                                            CAMBIAR DATOS DE MI EMPRESA?</b></h1>
+                                    <h1 class="text-primary"><b>CREAR COMPRAS Y VER GRÁFICAS.</b></h1>
                                     <h4>
                                         <b>Visualiza las estadísticas de tu empresa según las ventas y gastos que hayas
                                             realizado.</b>
