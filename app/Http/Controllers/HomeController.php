@@ -146,24 +146,42 @@ class HomeController extends Controller
      */
     public function edit($id, Request $request)
     {
+        // dd($request);
         $request->user()->authorizeRoles(['Administrador', 'Gerente', 'Contador', 'Vendedor']); //autentificacion y permisos
         $role_id = Auth::user()->role_id;
         $user = User::findOrFail($id);
-        $branch_office = BranchOffice::all();
+        $companiaUsuario = Auth::user()->company_id;
         $anuncios = Adds::all();
-        if ($role_id == 2) {
-            $companies = Company::where('user', $id)->get();
+
+        if ($role_id == 2 && $companiaUsuario != null) {
+
+            $companies = Company::where('id', $companiaUsuario)->first();
+
+            $branch_office = BranchOffice::all();
+
             if ($anuncios->first()) {
                 return view('userInfo.edit', ['branch_office' => $branch_office, 'companies' => $companies, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
             } else {
                 return view('userInfo.edit', ['branch_office' => $branch_office, 'companies' => $companies, 'user' => $user, 'anuncios' => null]); //generala vista
             }
         } else {
-            $company = Company::all();
-            if ($anuncios->first()) {
-                return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+            if ($role_id == 1) {
+                $company = Company::all();
+                $branch_office = BranchOffice::all();
+                if ($anuncios->first()) {
+                    return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+                } else {
+                    return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
+                }
             } else {
-                return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
+
+                $company = Company::all();
+                $branch_office = BranchOffice::all();
+                if ($anuncios->first()) {
+                    return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => $anuncios->random(1)]); //generala vista
+                } else {
+                    return view('userInfo.edit', ['branch_office' => $branch_office, 'company' => $company, 'user' => $user, 'anuncios' => null]); //generala vista
+                }
             }
         }
     }
@@ -181,6 +199,7 @@ class HomeController extends Controller
         $messege = 'Registro Modificado';
         // dd($request);
         request()->validate([
+            'role_id' => 'required',
             'name' => 'required',
             'lastname' => 'required',
             'phone' => 'required|numeric|digits_between:6,11',
@@ -195,7 +214,37 @@ class HomeController extends Controller
         try {
             //mandamos a llamar al modelo
             $user = User::findOrFail($id);
+            // dd($id);
             //Actualizamos los datos con todo lo que venga del request
+
+            if ($request->role_id == "Gerente") {
+                # code...
+                $rol_usuario = 2;
+            } else {
+                # code...
+                if ($request->role_id == "Contador") {
+                    # code...
+                    $rol_usuario = 3;
+                } else {
+                    # code...
+
+                    if ($request->role_id == "Vendedor") {
+                        # code...
+                        $rol_usuario = 4;
+                    } else {
+                        //dd($user->role_id);
+                        $rol_usuario = $user->role_id;
+                    }
+                }
+            }
+            //  dd($rol_usuario);
+            $role = Role::find($rol_usuario); //edito el rol por medio el role_id
+            $user->syncRoles($role); //actualizo el rol en la tabla de permisos
+            $user->role_id = $rol_usuario; //actualizo el rol en la tabla de usuarios
+
+
+
+
             $user->name = $request->name;
             $user->lastname = $request->lastname;
             $user->phone = $request->phone;
@@ -224,12 +273,15 @@ class HomeController extends Controller
                 }
             }
             //permisos de accion
-            $permisos = Auth::user()->work_permits;
-            if ($permisos == 1) {
-                $user->work_permits = $permisos;
+            // $permisos = Auth::user()->work_permits;
+
+            
+            if ($request->work_permits == 1) {
+                $user->work_permits = 1;
             } else {
                 $user->work_permits = 0;
             }
+
             //Guarda Informacion
             $user->save();
             //si viene alguna imagen nueva va a guardar la imagen actualizando el archivo
