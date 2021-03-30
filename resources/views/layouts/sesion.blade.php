@@ -228,6 +228,8 @@
 
 </style>
 <style>
+
+    /* Precios */
     .wavesdecabeza {
         width: 100%;
         height: 150px;
@@ -240,10 +242,40 @@
         -webkit-transform: rotate(180deg);
         /* Opera, Chrome, and Safari */
     }
+    /* Precios */
 
+    /* Guía */
+    
     .bg-frm {
         background: linear-gradient(0deg, rgb(241, 245, 247)0%, rgb(72, 141, 243) 100%);
     }
+    .bg-guia {
+        background-color: white;
+    }
+
+    .video{
+        height: 100%;
+    }
+
+    .bg-fondo {
+        background-color: #e2e2e2;
+    }
+
+    .bg-carddash {
+        border-radius: 20px;
+        box-shadow: 8px 8px 10px 0 #b7bec0
+    }
+
+    .bg-cardtotales {
+        background: linear-gradient(60deg, rgb(85, 204, 212) 0%, rgb(3, 31, 153) 100%);
+    }
+
+    .bg-carddashheader {
+        background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
+    }
+
+    /* Guía */
+
 
 </style>
 <style>

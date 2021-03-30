@@ -132,6 +132,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#precios">PRECIOS</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#guia">GUÍA DE USO</a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('Ver_Publicaciones') }}">PUBLICACIONES</a>
                         </li> --}}
@@ -366,7 +369,7 @@
                 </defs>
                 <g class="parallax">
 
-                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7" />
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7)" />
                     <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
                     <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
                     <use xlink:href="#gentle-wave" x="55" y="9" fill="rgb(72, 141, 243)" />
@@ -389,10 +392,273 @@
                                 src="{{ asset('images/estandar.svg') }}" alt=""></a>
                     </div>
                 </div>
-                <br><br><br><br>
             </div>
         </div>
     </div>
+    {{-- Precios --}}
+
+    {{-- Guía de uso --}}
+    <div class="bg-guia mt-5" id="guia">
+
+        <style>
+            .img-contenedor img {
+                -webkit-transition: all .9s ease;
+                /* Safari y Chrome */
+                -moz-transition: all .9s ease;
+                /* Firefox */
+                -o-transition: all .9s ease;
+                /* IE 9 */
+                -ms-transition: all .9s ease;
+                /* Opera */
+                width: 100%;
+            }
+
+            .img-contenedor:hover img {
+                -webkit-transform: scale(1.25);
+                -moz-transform: scale(1.25);
+                -ms-transform: scale(1.25);
+                -o-transform: scale(1.25);
+                transform: scale(1.25);
+            }
+
+        </style>
+        <div id="FondoParteDeOndas" class="FondoParteDeOndas">
+            <svg class="wavesdecabeza" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+
+                    <use xlink:href="#gentle-wave" x="25" y="0" fill="rgba(86,174,249,0.7)" />
+                    <use xlink:href="#gentle-wave" x="35" y="2" fill="rgba(50,120,250,0.5)" />
+                    <use xlink:href="#gentle-wave" x="45" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="55" y="9" fill="rgb(72, 141, 243)" />
+                </g>
+            </svg>
+        </div>
+
+        <div class="mt-5">
+            <div
+                class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
+                <div class="card-deck mt-4">
+                    <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                        style="background-color: transparent;">
+                        <h1 class="text-primary"><b>GUÍA RÁPIDA <br> DE USO</b></h1>
+                        <h3>
+                            <b>Con esta guía aprenderás desde el registro hasta cómo cargar tus productos y hacer una
+                                factura.</b>
+                        </h3>
+                    </div>
+                    <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                        style="background-color: transparent;">
+                        <div class="card-header bg-primary rounded-top">
+                            <strong class="text-light">¡Aprende con nosotros! </strong>
+                        </div>
+                        <iframe allowfullscreen class="video" src="https://www.youtube.com/embed/ZMu32-FBH9g"></iframe>
+                    </div>
+                </div>
+                <br><br>
+                <div id="accordion">
+                    {{-- Registro --}}
+                    <div class="card">
+                        <div class="card-header bg-primary" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link text-light text-left" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <b>Paso #1: ¿Cómo me registro?</b>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-deck mt-4">
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <div class="card-header bg-primary rounded-top">
+                                        <strong class="text-light">¡Aprende con nosotros! </strong>
+                                    </div>
+                                    <iframe allowfullscreen class="video"
+                                        src="https://www.youtube.com/embed/NR7vZmhXujA"></iframe>
+                                </div>
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <h1 class="text-primary"><b>¿CÓMO ME REGISTRO?</b></h1>
+                                    <h4>
+                                        <b>Crea tu usuario desde los siguientes botones.</b>
+                                    </h4>
+                                    <h4>
+                                        <a href="register"><b>Regístrate aquí.</b></a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Ingreso de empresa o negocio --}}
+                    <div class="card">
+                        <div class="card-header bg-primary" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light text-left" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <b>Paso #2 ¿Cómo ingreso mi empresa o negocio?</b>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-deck mt-4">
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <h1 class="text-primary"><b>¿CÓMO INGRESO MI EMPRESA O NEGOCIO?</b></h1>
+                                    <h4>
+                                        <b>Crea tu empresa con los siguientes pasos.</b>
+                                    </h4>
+                                </div>
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <div class="card-header bg-primary rounded-top">
+                                        <strong class="text-light">¡Aprende con nosotros! </strong>
+                                    </div>
+                                    <iframe allowfullscreen class="video"
+                                        src="https://www.youtube.com/embed/6Ty86kO4IbM"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Crear perfil --}}
+                    <div class="card">
+                        <div class="card-header bg-primary" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light text-left" data-toggle="collapse"
+                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <b>Paso #3: ¿Cómo crear mi perfil?</b>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-deck mt-4">
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <div class="card-header bg-primary rounded-top">
+                                        <strong class="text-light">¡Aprende con nosotros! </strong>
+                                    </div>
+                                    <iframe allowfullscreen class="video"
+                                        src="https://www.youtube.com/embed/MSKaOqXcqd8"></iframe>
+                                </div>
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <h1 class="text-primary"><b>¿CÓMO CREAR MI PERFIL</b></h1>
+                                    <h4>
+                                        <b>Actualiza tu información siguiendo estos pasos.</b>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Agregar productos, sucursales y marcas --}}
+                    <div class="card">
+                        <div class="card-header bg-primary" id="headingFour">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light text-left" data-toggle="collapse"
+                                    data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <b>Paso #4: ¿Cómo agregar clientes, sucursales, marcas, categorías y productos?</b>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="card-deck mt-4">
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <h1 class="text-primary"><b>¿CÓMO AGREGAR CLIENTES, SUCURSALES, MARCAS, CATEGORÍAS Y
+                                            PRODUCTOS</b></h1>
+                                    <h4>
+                                        <b>Lleva el control de tus productos divididos por categorías y marcas.</b>
+                                    </h4>
+                                </div>
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <div class="card-header bg-primary rounded-top">
+                                        <strong class="text-light">¡Aprende con nosotros! </strong>
+                                    </div>
+                                    <iframe allowfullscreen class="video"
+                                        src="https://www.youtube.com/embed/UvRAIvVgrW0"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Registrar una venta --}}
+                    <div class="card">
+                        <div class="card-header bg-primary" id="headingFive">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light text-left" data-toggle="collapse"
+                                    data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    <b>Paso #5: ¿Cómo registrar una venta?</b>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                            <div class="card-deck mt-4">
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <div class="card-header bg-primary rounded-top">
+                                        <strong class="text-light">¡Aprende con nosotros! </strong>
+                                    </div>
+                                    <iframe allowfullscreen class="video"
+                                        src="https://www.youtube.com/embed/cXxZiuPI94c"></iframe>
+                                </div>
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <h1 class="text-primary"><b>¿CÓMO REGISTRAR UNA VENTA</b></h1>
+                                    <h4>
+                                        <b>Lleva el control de tus ventas y descuentos en inventarios de tus productos.</b>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Compras, estadísticas y datos de una empresa --}}
+                    <div class="card">
+                        <div class="card-header bg-primary" id="headingSix">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed text-light text-left" data-toggle="collapse"
+                                    data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    <b>Paso #6: ¿Cómo registrar compras, ver estadísticas y cambiar datos de mi
+                                        empresa?</b>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                            <div class="card-deck mt-4">
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <h1 class="text-primary"><b>¿CÓMO REGISTRAR REGISTRAR COMPRAS, VER ESTADÍSTICAS Y
+                                            CAMBIAR DATOS DE MI EMPRESA?</b></h1>
+                                    <h4>
+                                        <b>Visualiza las estadísticas de tu empresa según las ventas y gastos que hayas
+                                            realizado.</b>
+                                    </h4>
+                                </div>
+                                <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                                    style="background-color: transparent;">
+                                    <div class="card-header bg-primary rounded-top">
+                                        <strong class="text-light">¡Aprende con nosotros! </strong>
+                                    </div>
+                                    <iframe allowfullscreen class="video"
+                                        src="https://www.youtube.com/embed/NzO_w3qEPGA"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </div>
+    {{-- Guía de uso --}}
 
     {{-- formulario --}}
     <iframe width="100%" height="680px"
