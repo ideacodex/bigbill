@@ -17,66 +17,6 @@
     <input type="checkbox" id="cerrar">
     <label for="cerrar" id="btn-cerrar"> <b>X</b></label>
     <div class="modals">
-        {{-- @if ($records) --}}
-        {{-- <div class="contenido">
-            @foreach ($records as $item)
-                @if ($item != null)
-                    <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
-                        <strong> {{ $item->title }}</strong>
-                    </h2>
-                    <br>
-                    <br>
-                    <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                        class="card-text">
-                        @if ($item->file != null)
-                            <img src="{{ asset('/storage/adds/' . $item->file) }}" class="mt-3" height="180px"
-                                width="175px">
-                        @else
-                            <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                        @endif
-
-                        <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                            {{ $item->description }}
-                        </p>
-                        @if ($item->link != null)
-                            <hr>
-                            <a href=" {{ $item->link }}">
-                                <button class="bttn-unite bttn-md bttn-primary">
-                                    ¡Conoce más!
-                                </button>
-                            </a>
-                            <br>
-                        @endif
-                        <br>
-                    </div>
-
-                @else
-                    <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
-                        <strong> Bienvenido a Big Bill</strong>
-                    </h2>
-                    <br>
-                    <br>
-                    <div style="background-color: #050033; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
-                        class="card-text">
-                        <img src="img/simbolo_logo.png" class="mt-3" width="175px">
-                        <p class="pt-1 ml-4 mr-3 Rubik-Medium">
-                            Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas,
-                            podrás llevar el control de tu stock de productos.
-                        </p>
-
-                        <hr>
-                        <a href="{{ url('/register') }}">
-                            <button class="bttn-unite bttn-md bttn-primary">
-                                ¡Unete y prueba la diferencia!
-                            </button>
-                        </a>
-                        <br>
-                        <br>
-                    </div>
-                @endif
-            @endforeach
-        </div> --}}
-        {{-- @else --}}
         <div class="contenido">
             <h2 class=" Rubik-Medium " style="color: rgba(5, 9, 46, 1)">
                 <strong> Bienvenido a Big Bill</strong>
@@ -347,7 +287,7 @@
                 /* IE 9 */
                 -ms-transition: all .9s ease;
                 /* Opera */
-                width: 100%;
+                width: 80%;
             }
 
             .img-contenedor:hover img {
@@ -381,15 +321,15 @@
                 class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
                 <div class="card-deck mt-4">
                     {{-- BÁSICO --}}
-                    <div id="img-contenedor" class="card rounded border-0 img-contenedor"
+                    <div id="img-contenedor" class="card rounded border-0 {{-- img-contenedor --}}"
                         style="background-color: transparent;">
-                        <a href="register"><img src="{{ asset('images/basico.svg') }}" alt=""></a>
+                        <a href="register"><img src="{{ asset('images/precio1.png') }}" alt=""></a>
                     </div>
 
                     {{-- ESTÁNDAR --}}
-                    <div class="card rounded border-0 img-contenedor" style="background-color: transparent;">
+                    <div class="card rounded border-0 {{-- img-contenedor --}}" style="background-color: transparent;">
                         <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}"><img
-                                src="{{ asset('images/estandar.svg') }}" alt=""></a>
+                                src="{{ asset('images/precio2.png') }}" alt=""></a>
                     </div>
                 </div>
             </div>
