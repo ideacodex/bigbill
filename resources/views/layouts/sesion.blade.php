@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
-
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
@@ -174,6 +173,225 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
     }
 
+    @font-face {
+        font-family: 'Poppins-Black';
+        src: url("{{ asset('/fonts/fonts/Poppins-Black.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-BlackItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-BlackItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-Bold';
+        src: url("{{ asset('/fonts/fonts/Poppins-Bold.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-BoldItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-BoldItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-ExtraBold';
+        src: url("{{ asset('/fonts/fonts/Poppins-ExtraBold.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-ExtraBoldItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-ExtraBoldItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-ExtraLight';
+        src: url("{{ asset('/fonts/fonts/Poppins-ExtraLight.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-ExtraLightItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-ExtraLightItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-Italic';
+        src: url("{{ asset('/fonts/fonts/Poppins-Italic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-Light';
+        src: url("{{ asset('/fonts/fonts/Poppins-Light.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-LightItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-LightItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-Medium';
+        src: url("{{ asset('/fonts/fonts/Poppins-Medium.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-MediumItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-MediumItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-Regular';
+        src: url("{{ asset('/fonts/fonts/Poppins-Regular.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-SemiBold';
+        src: url("{{ asset('/fonts/fonts/Poppins-SemiBold.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-SemiBoldItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-SemiBoldItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-Thin';
+        src: url("{{ asset('/fonts/fonts/Poppins-Thin.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    @font-face {
+        font-family: 'Poppins-ThinItalic';
+        src: url("{{ asset('/fonts/fonts/Poppins-ThinItalic.ttf') }}");
+        font-style: normal;
+        font-weight: 400;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    }
+
+    /* fin de  estilo texto */
+
+    /* clases css para implementar fuentes */
+    .Poppins-Black {
+        font-family: 'Poppins-Black';
+    }
+
+    .Poppins-BlackItalic {
+        font-family: 'Poppins-BlackItalic';
+    }
+
+    .Poppins-Bold {
+        font-family: 'Poppins-Bold';
+    }
+
+    .Poppins-BoldItalic {
+        font-family: 'Poppins-BoldItalic';
+    }
+
+    .Poppins-ExtraBold {
+        font-family: 'Poppins-ExtraBold';
+    }
+
+    .Poppins-ExtraBoldItalic {
+        font-family: 'Poppins-ExtraBoldItalic';
+    }
+
+    .Poppins-ExtraLight {
+        font-family: 'Poppins-ExtraLight';
+    }
+
+    .Poppins-ExtraLightItalic {
+        font-family: 'Poppins-ExtraLightItalic';
+    }
+
+    .Poppins-Italic {
+        font-family: 'Poppins-Italic';
+    }
+
+    .Poppins-Light {
+        font-family: 'Poppins-Light';
+    }
+
+    .Poppins-LightItalic {
+        font-family: 'Poppins-LightItalic';
+    }
+
+    .Poppins-Medium {
+        font-family: 'Poppins-Medium';
+    }
+
+    .Poppins-MediumItalic {
+        font-family: 'Poppins-MediumItalic';
+    }
+
+    .Poppins-Regular {
+        font-family: 'Poppins-Regular';
+    }
+
+    .Poppins-SemiBold {
+        font-family: 'Poppins-SemiBold';
+    }
+
+    .Poppins-SemiBoldItalic {
+        font-family: 'Poppins-SemiBoldItalic';
+    }
+
+    .Poppins-Thin {
+        font-family: 'Poppins-Thin';
+    }
+
+    .Poppins-ThinItalic {
+        font-family: 'Poppins-ThinItalic';
+    }
+
     /* fin de  estilo texto */
 
     /* clases css para implementar fuentes */
@@ -228,7 +446,6 @@
 
 </style>
 <style>
-
     /* Precios */
     .wavesdecabeza {
         width: 100%;
@@ -242,18 +459,20 @@
         -webkit-transform: rotate(180deg);
         /* Opera, Chrome, and Safari */
     }
+
     /* Precios */
 
     /* Guía */
-    
+
     .bg-frm {
         background: linear-gradient(0deg, rgb(241, 245, 247)0%, rgb(72, 141, 243) 100%);
     }
+
     .bg-guia {
         background-color: white;
     }
 
-    .video{
+    .video {
         height: 100%;
     }
 
@@ -273,9 +492,6 @@
     .bg-carddashheader {
         background: linear-gradient(70deg, rgb(13, 27, 150) 0%, rgb(0, 182, 206) 100%);
     }
-
-    /* Guía */
-
 
 </style>
 <style>
@@ -408,6 +624,7 @@
         z-index: 100 !important;
         display: block;
     }
+
 </style>
 
 <body>

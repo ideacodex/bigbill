@@ -60,7 +60,7 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse Rubik-Medium" id="navbarNav">
+                <div class="collapse navbar-collapse Poppins-Bold" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
@@ -110,7 +110,7 @@
                     FACTURACIÓN DIGITAL
                 </h1>
 
-                <label class="Rubik-Medium platProdu">
+                <label class="Poppins-Bold platProdu">
                     Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas, podrás
                     llevar el control de tu stock de productos.
                 </label>
@@ -121,7 +121,7 @@
                         <span class="text-primary ">TRABAJEMOS</span>
                     </a>
                 @else
-                    <a href="{{ route('register') }}" class="btn btn-light Rubik-Medium btnEmpieza"
+                    <a href="{{ route('register') }}" class="btn btn-light Poppins-Bold btnEmpieza"
                         style="border-radius: 15px;">
                         <span class="text-primary ">EMPIEZA HOY MISMO</span>
                     </a>
@@ -154,7 +154,7 @@
                             alt="Sistema de Facturación Integral" title="Sistema de Facturación Integral">
                     </div>
                 </h1>
-                <label class="Rubik-Medium">
+                <label class="Poppins-Bold">
                     Al hablar de un sistema de facturación diseñado INTEGRAL para las pequeñas y medianas empresas nos
                     referimos específicamente a un software capaz de satisfacer el volumen de facturación de estos negocios,
                     y que al mismo tiempo les ofrece funcionalidades que ayuden a una mejor gestión, sin importar el nivel
@@ -212,17 +212,17 @@
                 <div class="card-deck mt-4">
                     {{-- SEGURIDADEN LA NUBE --}}
                     <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/ICONO_SEGURIDAD_EN_LA_NUBE.svg" class="m-3" height="60px">
+                        <div class="bg-primary media pt-3 pb-5 mb-2">
+                            <img src="img/ICONO_SEGURIDAD_EN_LA_NUBE.svg" class="ml-5" height="60px">
                             <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium ">
-                                    SEGURIDADEN LA NUBE
+                                <h5 class="mt-0 mr-2 ml-2 text-light Poppins-Bold">
+                                    SEGURIDAD EN LA NUBE
                                 </h5>
                             </div>
                         </div>
                         <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
                             class="card-text">
-                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
+                            <p class="pt-5 ml-4 mr-4 Poppins-Bold">
                                 Solo tú tienes acceso a tus documentos por medio de tu contraseña. Toda tu información se
                                 encripta de forma segura BIG BILL te proporciona la más alta privacidad y seguridad.
                             </p>
@@ -232,17 +232,17 @@
                     {{-- MANEJO DE MÚLTIPLES EMPRESAS --}}
 
                     <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/ICONO_MANEJO_MULTIPLE_EMPRESAS.svg" class="m-3" height="60px">
+                        <div class="bg-primary media pt-3 pb-5 mb-2">
+                            <img src="img/ICONO_MANEJO_MULTIPLE_EMPRESAS.svg" class="ml-5" height="60px">
                             <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium">
+                                <h5 class="mt-0 mr-2 ml-2 text-light Poppins-Bold">
                                     MANEJO DE MÚLTIPLES EMPRESAS
                                 </h5>
                             </div>
                         </div>
                         <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
                             class="card-text">
-                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
+                            <p class="pt-5 ml-4 mr-4 Poppins-Bold">
                                 Puedes tener trabajando más de una empresa desde la misma cuenta sin ningún problema.
                             </p>
                         </div>
@@ -251,17 +251,17 @@
 
                     {{-- EXPERIENCIA INTEGRAL --}}
                     <div class="card rounded" style="background-color: #ffffff;">
-                        <div class="bg-primary media pt-3 pb-5">
-                            <img src="img/ICONO_EXPERIENCIA_INTEGRAL.svg" class="m-3" height="60px">
+                        <div class="bg-primary media pt-3 pb-5 mb-2">
+                            <img src="img/ICONO_EXPERIENCIA_INTEGRAL.svg" class="ml-3" height="60px">
                             <div class="media-body">
-                                <h5 class="mt-0 mr-2 ml-2 text-light Rubik-Medium">
+                                <h5 class="mt-0 mr-2 ml-2 text-light Poppins-Bold">
                                     EXPERIENCIA INTEGRAL
                                 </h5>
                             </div>
                         </div>
                         <div style="background-color: #ffffff; border-radius: 100% 100% 0 0/ 20% 20% 0 0; margin-top: -3em;"
                             class="card-text">
-                            <p class="pt-5 ml-4 mr-4 Rubik-Medium">
+                            <p class="pt-5 ml-4 mr-4 Poppins-Bold">
                                 Que la experiencia de navegación de los usuarios sea amena, clara y ordenada, para que todos
                                 puedan poner en marcha casi al instanteusus procesos administrativos.
                             </p>
@@ -318,7 +318,7 @@
         </div>
         <div class="mt-5">
             <div
-                class="col-12 col-sm-12 col-md-8 col-lg-8  offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
+                class="col-12 col-sm-12 col-md-8 col-lg-8 offset-md-2 offset-lg-2 text-center justify-content-center mt-5">
                 <div class="card-deck mt-4">
                     {{-- BÁSICO --}}
                     <div id="img-contenedor" class="card rounded border-0 {{-- img-contenedor --}}"
@@ -327,7 +327,7 @@
                     </div>
 
                     {{-- ESTÁNDAR --}}
-                    <div class="card rounded border-0 {{-- img-contenedor --}}" style="background-color: transparent;">
+                    <div id="img-contenedor" class="card rounded border-0 {{-- img-contenedor --}}" style="background-color: transparent;">
                         <a href="{{ url('https://api.whatsapp.com/send?phone=50233120413') }}"><img
                                 src="{{ asset('images/precio2.png') }}" alt=""></a>
                     </div>

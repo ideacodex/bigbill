@@ -193,7 +193,7 @@
                                         <option selected disabled>Cliente</option>
                                         <option value="0">C/F</option>
                                         @foreach ($customer as $item)
-                                            <option value="{{ $item->id }}">Cliente: {{ $item->name }}
+                                            <option value="{{ $item->id }}">Cliente: {{ $item->name }} 
                                                 {{ $item->lastname }} Nit: {{ $item->nit }}
                                             </option>
                                         @endforeach

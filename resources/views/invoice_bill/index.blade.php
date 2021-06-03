@@ -157,7 +157,7 @@
                                                                 </a>
                                                             @endif
                                                         @endif
-                                                    </div>
+                                                    </div>  
                                                 </td>
                                             </tr>
                                             <!--Modal-->
@@ -187,6 +187,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <div class="modal-footer">
+                                                                    <input type="text">
                                                                     <button type="button" style="border-radius: 50px"
                                                                         class="btn btn-secondary"
                                                                         data-dismiss="modal">Cancelar</button>
