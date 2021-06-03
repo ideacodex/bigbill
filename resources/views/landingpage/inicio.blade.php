@@ -85,7 +85,7 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="btn btn-primary nav-link" style="border-radius: 15px;"
+                                <a class="ml-3 btn btn-primary nav-link" style="border-radius: 15px;"
                                     href="{{ route('login') }}">INICIO DE SESION</a>
                             </li>
                         @endauth
@@ -110,7 +110,7 @@
                     FACTURACIÓN DIGITAL
                 </h1>
 
-                <label class="Poppins-Bold platProdu">
+                <label class="Poppins-Light platProdu">
                     Plataforma en línea que te permitirá emitir comprobantes de pagos, además de crear facturas, podrás
                     llevar el control de tu stock de productos.
                 </label>
